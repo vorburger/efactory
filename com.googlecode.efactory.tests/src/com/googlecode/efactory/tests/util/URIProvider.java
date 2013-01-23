@@ -24,7 +24,7 @@ public final class URIProvider {
 		URI uri;
 		if (Platform.isRunning()) {
 			String pluginId = TestConstants.PLUGIN_ID;
-			uri = createURI(relativePath, pluginId);
+			uri = createURI(pluginId, relativePath);
 		} else {
 			uri = URI.createFileURI(new File(relativePath).getAbsolutePath());
 		}
@@ -33,8 +33,7 @@ public final class URIProvider {
 
 	public static URI createURI(String pluginId, String relativePath) {
 		URI uri;
-		uri = URI.createPlatformPluginURI(pluginId + "/"
-				+ relativePath, true);
+		uri = URI.createPlatformPluginURI(pluginId + "/" + relativePath, true);
 		return uri;
 	}
 
