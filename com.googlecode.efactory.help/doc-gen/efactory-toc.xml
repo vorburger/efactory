@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<toc topic="doc-gen/efactory.html" label="EFactory User Guide">
+	<topic href="doc-gen/efactory.html" label="Getting Started">
+		<topic href="doc-gen/efactory.html#Example_Project" label="Example Project"></topic>
+		<topic href="doc-gen/efactory.html#Language_Features" label="Language Features">
+			<topic href="doc-gen/efactory.html#Creating_new_Instances" label="Creating new Instances"></topic>
+			<topic href="doc-gen/efactory.html#Containments" label="Containments"></topic>
+			<topic href="doc-gen/efactory.html#References" label="References"></topic>
+			<topic href="doc-gen/efactory.html#Attribute" label="Attribute"></topic>
+		</topic>
+		<topic href="doc-gen/efactory.html#Importing_other_Resources" label="Importing other Resources"></topic>
+		<topic href="doc-gen/efactory.html#Linking" label="Linking"></topic>
+		<topic href="doc-gen/efactory.html#Using_Efactory" label="Using Efactory">
+			<topic href="doc-gen/efactory.html#Java_Example" label="Java Example"></topic>
+			<topic href="doc-gen/efactory.html#MWE_Example" label="MWE Example"></topic>
+		</topic>
+		<topic href="doc-gen/efactory.html#Creating_Ecore_models_with_EFactory" label="Creating Ecore models with EFactory"></topic>
+		<topic href="doc-gen/efactory.html#Current_Limitations" label="Current Limitations"></topic>
+	</topic>
+</toc>

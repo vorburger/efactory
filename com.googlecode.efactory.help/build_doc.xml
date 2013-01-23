@@ -1,0 +1,109 @@
+<!--
+	Some of the code below is
+	(c) Chris Aniszczyk <caniszczyk@gmail.com>
+    (c) Lawrence Mandel <lmandel@ca.ibm.com>
+    (c) Peter Friese <peter@peterfriese.de>
+-->
+<project name="EFactory-Documentation" default="build-doc" basedir=".">
+
+	<!--
+		Global vars
+	-->
+	<property name="document.name" value="documentation"/>
+	
+	<property name="gen.dir" value="."/>
+	<property name="document.stylesheet" value="${gen.dir}/styles/article.xsl"/>
+	<property name="document.pdf.stylesheet" value="${gen.dir}/styles/fopdf.xsl"/>
+	<property name="src.dir" value="help"/>
+	<property name="target.dir" value="doc-gen"/>
+	
+	<!--  
+		WikiText Toolchain 
+	-->
+	<property name="wikitext.standalone" value="${gen.dir}/lib"/><!-- path to wikitext standalone package -->
+
+	<path id="wikitext.classpath">
+		<fileset dir="${wikitext.standalone}">
+			<include name="*.jar"/>
+		</fileset>
+	</path>
+
+	<taskdef classpathref="wikitext.classpath" resource="org/eclipse/mylyn/wikitext/core/util/anttask/tasks.properties" /> 
+	<taskdef classpathref="wikitext.classpath" resource="net/java/dev/mediawikij/wikitext/pdf/core/util/anttask/tasks.properties" />
+	
+	<target name="assemble">
+		<loadfile srcfile="${src.dir}/index.txt" property="inputfiles">
+		  <filterchain>
+			<tokenfilter>
+			    <replacestring from="\n" to=","/>
+			</tokenfilter>
+		  </filterchain>
+		</loadfile>
+		<concat destfile="${target.dir}/efactory.mediawiki" append="false" fixlastline="yes">
+			<filelist dir="${src.dir}" files="${inputfiles}"/>
+		</concat>
+	</target>
+	
+	<target name="wikitext2pdf" depends="assemble" description="Generate PDF from mediawiki">
+		<wikitext-to-pdf markupLanguage="MediaWiki" >
+			<fileset dir="${src.dir}">
+	 			<include name="efactory.mediawiki"/>
+			</fileset>
+		</wikitext-to-pdf>
+	</target>
+	
+	<target name="wikitext2docbook" depends="assemble" description="Generate DocBook from mediawiki">
+		<wikitext-to-docbook markupLanguage="MediaWiki">
+			<fileset dir="${src.dir}">
+	 			<include name="efactory.mediawiki"/>
+			</fileset>
+		</wikitext-to-docbook>
+	 </target>
+	
+	
+	<target name="build-doc" depends="assemble">
+		<echo>Building Output...</echo>
+		<antcall target="generate-help"/>
+	<!--	<antcall target="clean"/> -->
+	</target>
+	
+	
+	<target name="generate-help" description="Generate Eclipse help from mediawiki source">
+			<wikitext-to-eclipse-help markupLanguage="MediaWiki" 
+				multipleOutputFiles="true"
+				title="EFactory User Guide"
+				navigationImages="true"
+				formatoutput="true"
+				linkrel="../"
+				helpprefix="doc-gen"
+				>
+				<fileset dir="${basedir}/${target.dir}">
+	    				<include name="efactory.mediawiki"/>
+				</fileset>
+				
+				<stylesheet url="css/book.css"/>
+				<stylesheet url="css/emf-book.css"/>
+			</wikitext-to-eclipse-help>
+		</target>
+
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: clean                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="clean">
+    	 <delete file="${basedir}/${target.dir}/efactory.mediawiki"/>
+    </target>
+
+	<!-- ================================= 
+          target: convert-to-mediawiki              
+         ================================= -->
+    <target name="convert-to-mediawiki" >
+    	<taskdef name="groovy"
+    	         classname="org.codehaus.groovy.ant.Groovy"
+    	         classpathref="wikitext.classpath"
+    	/>
+
+    </target>
+
+	
+	
+</project>

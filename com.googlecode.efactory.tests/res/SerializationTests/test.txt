@@ -1,0 +1,47 @@
+use "http://testmodel/1.0"
+
+TestModel testModelName
+{
+  referenceTestContainer += ReferenceTestContainer test1
+  {
+    oneAttribute = false
+    referenceToOne = target1
+    referenceToMany += target1
+    referenceToMany += target2
+    referenceToMany += target3
+    containments += ReferenceTarget target1
+    {
+    }
+
+    containments += ReferenceTarget target2
+    {
+    }
+
+    containments += ReferenceTarget target3
+    {
+    }
+
+  }
+
+  referenceTestContainer += ReferenceTestContainer test2
+  {
+    oneAttribute = false
+    referenceToOne = target23
+    referenceToMany += target21
+    referenceToMany += target22
+    referenceToMany += target23
+    containments += ReferenceTarget target21
+    {
+    }
+
+    containments += ReferenceTarget target22
+    {
+    }
+
+    containments += ReferenceTargetSubclass target23
+    {
+    }
+
+  }
+
+}

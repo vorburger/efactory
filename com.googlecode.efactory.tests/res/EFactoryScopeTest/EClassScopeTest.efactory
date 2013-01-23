@@ -1,0 +1,12 @@
+use "http://testmodel/1.0" 
+ 
+TestModel  {
+	set  name = "testModelName"
+	singleOptional = SingleOptional{
+	}
+	singleRequired = SingleRequired {
+		set name = "test"
+	}
+	link linkToSingleRequired = test
+} 
+

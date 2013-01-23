@@ -1,0 +1,6 @@
+use "http://www.eclipse.org/emf/2002/Ecore" 
+ 
+EClass {
+	set  abstract = true
+} 
+

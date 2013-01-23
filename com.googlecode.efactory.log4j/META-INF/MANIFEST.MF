@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: EFactory Log4j
+Bundle-SymbolicName: com.googlecode.efactory.log4j
+Bundle-Version: 1.0.0.qualifier
+Fragment-Host: org.apache.log4j;bundle-version="1.2.15.v200910021404"
+Bundle-RequiredExecutionEnvironment: J2SE-1.5

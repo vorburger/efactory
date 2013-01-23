@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><templates><template id="eattribute" autoinsert="true" context="com.googlecode.efactory.EFactory.Feature" deleted="false" description="Define a EAttribute" enabled="true" name="EAttribute">eStructuralFeatures	+= EAttribute ${Name} {
+			upperBound = ${1}
+			eType = ${Type}
+		}
+
+		${cursor}</template><template id="eclass" autoinsert="true" context="com.googlecode.efactory.EFactory.Feature" deleted="false" description="Define a EClass" enabled="true" name="EClass">eClassifiers +=	EClass ${Name} {
+			${cursor}
+		}</template><template id="namedeclass" autoinsert="true" context="com.googlecode.efactory.EFactory.Feature" deleted="false" description="Create an EClass with a name attribute" enabled="true" name="EClass  with name">eClassifiers += EClass ${Name} {&#13;
+		&#13;
+		eStructuralFeatures += EAttribute name {&#13;
+			upperBound = 1&#13;
+			eType = EString&#13;
+		}&#13;
+		&#13;
+		${cursor}&#13;
+	}</template><template id="econtainment" autoinsert="false" context="com.googlecode.efactory.EFactory.Feature" deleted="false" description="Define a containment EReference " enabled="true" name="EContainment">eStructuralFeatures += EReference ${Name} {
+			containment = true
+			upperBound = ${1}
+			eType = ${Type}
+		}
+
+		${cursor}</template><template id="ereference" autoinsert="true" context="com.googlecode.efactory.EFactory.Feature" deleted="false" description="Define a EReference" enabled="true" name="EReference">eStructuralFeatures	+= EReference ${Name} {
+			containment = false
+			upperBound = ${1}
+			eType = ${Type}
+		}
+
+		${cursor}</template></templates>

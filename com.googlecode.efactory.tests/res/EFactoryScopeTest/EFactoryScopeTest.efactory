@@ -1,0 +1,10 @@
+use "http://testmodel/1.0" 
+ 
+TestModel test  {
+	singleOptional = SingleOptional{
+	}
+	singleRequired = SingleRequired test {
+	}
+	âlinkToSingleRequired = test
+} 
+

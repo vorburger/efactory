@@ -1,0 +1,15 @@
+use "http://com.googlecode.efactory.examples.entity/model"
+
+import "DataTypes.efactory"
+
+new Model{         
+	elements += new Entity Person {         
+		properties += new Property name {         
+			type = String
+		}  
+		
+		properties += new Property age {         
+			type = Integer  
+		}
+	}
+}              

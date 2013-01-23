@@ -1,0 +1,44 @@
+use "http://testmodel/1.0" 
+ 
+TestModel testModelName {
+	
+	attributeTest += AttributeTestContainer test {
+		
+		oneBool = true
+		manyBool += true
+		manyBool += true
+		
+		oneInt = 1
+		manyInt += 1
+		manyInt += 2  
+		manyInt += 3
+		 
+		oneDouble = 1.1
+		manyDouble += 1.1
+		manyDouble += 2.2
+		manyDouble += 3.3  
+		  
+		oneEnum = :Sample2
+		manyEnums += :Sample
+		manyEnums += :Sample2
+	
+		oneBigDecimal = 1.2
+		manyBigDecimal += 1.1  
+		
+		oneShort = 4
+		manyShorts += 1
+		manyShorts += 2
+		
+		oneBigInteger = 1
+		manyBigInteger += 1
+		manyBigInteger += 2
+		  
+		oneDate = 09.11.1979
+		manyDates += 09.11.1979
+		manyDates += 08.10.0868
+		
+	}
+	    
+}   
+   
+              

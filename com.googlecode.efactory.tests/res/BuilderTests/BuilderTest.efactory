@@ -1,0 +1,29 @@
+use "http://testmodel/1.0" 
+
+TestModel test {
+	name = "test"
+	
+	attributeSample = AttributeSample{
+		//bigDecimal = 3
+		double = 1.2
+	}
+	
+	children += Child child1{
+
+	}
+	children += Child child2{
+
+	}
+	singleRequired =  SingleRequired SingleRequired {
+		parentReference  =  test      
+		nestedElements += NestedElements nested {}
+	}
+	
+	
+	
+
+	
+}
+	  
+
+  

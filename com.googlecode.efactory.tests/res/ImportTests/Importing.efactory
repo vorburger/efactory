@@ -1,0 +1,10 @@
+use "http://testmodel/1.0" 
+
+import "Imported.testmodel"
+ 
+TestModel ImportTest {
+
+	singleRequired = SingleRequired test {
+		parentReference = ImportedTestModel 
+	}
+}         

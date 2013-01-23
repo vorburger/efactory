@@ -1,0 +1,18 @@
+
+use "http://testmodel/1.0" 
+
+ TestModel test {
+	 	singleRequired = SingleRequired  {
+	 		parentReference  =  test     
+	 	}   
+	 	
+	 	
+	 	  
+	 	 
+}
+
+
+	  
+
+  
+       

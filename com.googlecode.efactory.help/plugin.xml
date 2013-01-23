@@ -1,0 +1,3 @@
+<plugin >
+<extension point="org.eclipse.help.toc">
+<toc primary="true" file="doc-gen/efactory-toc.xml"></toc></extension><extension point="org.eclipse.help.index"><index file="doc-gen/efactory-toc.xml"></index></extension></plugin>

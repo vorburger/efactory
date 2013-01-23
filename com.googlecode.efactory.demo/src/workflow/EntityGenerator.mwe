@@ -1,0 +1,22 @@
+ <workflow>
+ 	<property name="modelFile" value="classpath:/model/Programmer.efactory"/>
+ 	<property name="targetDir" value="src-gen"/>
+ 
+ 	<bean class="org.eclipse.emf.mwe.utils.StandaloneSetup" platformUri=".."/>
+ 	
+ 	<component class="org.eclipse.emf.mwe.utils.DirectoryCleaner" directory="${targetDir}"/>
+	 <bean class="org.eclipse.emf.mwe.utils.StandaloneSetup">
+    		<registerGeneratedEPackage value="com.googlecode.efactory.examples.entity.EntityPackage"/>
+   </bean>
+ 	<!-- Setup the EFactory parser -->
+ 	<component class="org.eclipse.xtext.MweReader" uri="${modelFile}">
+ 		<register class="com.googlecode.efactory.EFactoryStandaloneSetup"/>
+ 	</component>
+ 	
+ 	<component class="org.eclipse.xpand2.Generator">
+ 		<metaModel class="org.eclipse.xtend.typesystem.emf.EmfRegistryMetaModel"/>
+ 		<fileEncoding value="Cp1252"/>
+ 		<expand value="templates::Template::main FOR model"/>
+ 		<genPath value="${targetDir}"/>
+ 	</component>
+ </workflow>

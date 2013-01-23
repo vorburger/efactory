@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="feature_export" name="build">
+	<target name="feature_export">
+		<pde.exportFeatures destination="/Users/sebastian/projects/efactory/builds" exportSource="true" exportType="zip" features="com.googlecode.efactory.sdk" filename="efactory-0.7.0RC1-SDK.zip" qualifier="1200910150053NGT" useJARFormat="true"/>
+	</target>
+</project>

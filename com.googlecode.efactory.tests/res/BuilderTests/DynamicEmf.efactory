@@ -1,0 +1,13 @@
+use "Entity.efactory"
+
+Model{         
+	elements += Entity Person {         
+		properties += Property name {         
+			type = String
+		}  
+		
+		properties += Property age {         
+			type = Integer  
+		}
+	}
+}              
