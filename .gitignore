@@ -3,3 +3,4 @@ bin
 src-gen
 *._trace
 .svn
+xtend-gen
