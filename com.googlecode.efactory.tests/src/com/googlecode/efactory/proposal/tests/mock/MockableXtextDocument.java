@@ -10,8 +10,8 @@
  ******************************************************************************/
 package com.googlecode.efactory.proposal.tests.mock;
 
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.text.BadLocationException;
+import org.eclipse.jface.text.BadPartitioningException;
 import org.eclipse.jface.text.BadPositionCategoryException;
 import org.eclipse.jface.text.IDocumentListener;
 import org.eclipse.jface.text.IDocumentPartitioner;
@@ -20,12 +20,11 @@ import org.eclipse.jface.text.IPositionUpdater;
 import org.eclipse.jface.text.IRegion;
 import org.eclipse.jface.text.ITypedRegion;
 import org.eclipse.jface.text.Position;
-import org.eclipse.xtext.concurrent.IUnitOfWork;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
 import org.eclipse.xtext.ui.editor.model.IXtextDocumentContentObserver;
 import org.eclipse.xtext.ui.editor.model.IXtextModelListener;
-import org.eclipse.xtext.util.concurrent.IEObjectHandle;
+import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 
 public class MockableXtextDocument implements IXtextDocument {
 
@@ -39,88 +38,68 @@ public class MockableXtextDocument implements IXtextDocument {
 
 	public void addModelListener(IXtextModelListener listener) {
 		throw new UnsupportedOperationException();
-
 	}
 
 	public void addXtextDocumentContentObserver(
 			IXtextDocumentContentObserver listener) {
 		throw new UnsupportedOperationException();
-
-	}
-
-	public <T extends EObject> IEObjectHandle<T> createHandle(T obj) {
-		throw new UnsupportedOperationException();
-
 	}
 
 	public <T> T getAdapter(Class<T> adapterType) {
 		throw new UnsupportedOperationException();
-
 	}
 
 	public void removeModelListener(IXtextModelListener listener) {
 		throw new UnsupportedOperationException();
-
 	}
 
 	public void removeXtextDocumentContentObserver(
 			IXtextDocumentContentObserver listener) {
 		throw new UnsupportedOperationException();
-
 	}
 
 	public void addDocumentListener(IDocumentListener listener) {
 		throw new UnsupportedOperationException();
-
 	}
 
 	public void addDocumentPartitioningListener(
 			IDocumentPartitioningListener listener) {
 		throw new UnsupportedOperationException();
-
 	}
 
 	public void addPosition(Position position) throws BadLocationException {
 		throw new UnsupportedOperationException();
-
 	}
 
 	public void addPosition(String category, Position position)
 			throws BadLocationException, BadPositionCategoryException {
 		throw new UnsupportedOperationException();
-
 	}
 
 	public void addPositionCategory(String category) {
 		throw new UnsupportedOperationException();
-
 	}
 
 	public void addPositionUpdater(IPositionUpdater updater) {
 		throw new UnsupportedOperationException();
-
 	}
 
 	public void addPrenotifiedDocumentListener(IDocumentListener documentAdapter) {
 		throw new UnsupportedOperationException();
-
 	}
 
 	public int computeIndexInCategory(String category, int offset)
 			throws BadLocationException, BadPositionCategoryException {
 		throw new UnsupportedOperationException();
-
 	}
 
 	public int computeNumberOfLines(String text) {
 		throw new UnsupportedOperationException();
-
 	}
 
 	public ITypedRegion[] computePartitioning(int offset, int length)
 			throws BadLocationException {
 		throw new UnsupportedOperationException();
-
 	}
 
 	public boolean containsPosition(String category, int offset, int length) {
@@ -133,7 +112,6 @@ public class MockableXtextDocument implements IXtextDocument {
 
 	public String get() {
 		throw new UnsupportedOperationException();
-
 	}
 
 	public String get(int offset, int length) throws BadLocationException {
@@ -142,27 +120,22 @@ public class MockableXtextDocument implements IXtextDocument {
 
 	public char getChar(int offset) throws BadLocationException {
 		throw new UnsupportedOperationException();
-
 	}
 
 	public String getContentType(int offset) throws BadLocationException {
 		throw new UnsupportedOperationException();
-
 	}
 
 	public IDocumentPartitioner getDocumentPartitioner() {
 		throw new UnsupportedOperationException();
-
 	}
 
 	public String[] getLegalContentTypes() {
 		throw new UnsupportedOperationException();
-
 	}
 
 	public String[] getLegalLineDelimiters() {
 		throw new UnsupportedOperationException();
-
 	}
 
 	public int getLength() {
@@ -171,7 +144,6 @@ public class MockableXtextDocument implements IXtextDocument {
 
 	public String getLineDelimiter(int line) throws BadLocationException {
 		throw new UnsupportedOperationException();
-
 	}
 
 	public IRegion getLineInformation(int line) throws BadLocationException {
@@ -182,27 +154,22 @@ public class MockableXtextDocument implements IXtextDocument {
 	public IRegion getLineInformationOfOffset(int offset)
 			throws BadLocationException {
 		throw new UnsupportedOperationException();
-
 	}
 
 	public int getLineLength(int line) throws BadLocationException {
 		throw new UnsupportedOperationException();
-
 	}
 
 	public int getLineOfOffset(int offset) throws BadLocationException {
 		throw new UnsupportedOperationException();
-
 	}
 
 	public int getLineOffset(int line) throws BadLocationException {
 		throw new UnsupportedOperationException();
-
 	}
 
 	public int getNumberOfLines() {
 		throw new UnsupportedOperationException();
-
 	}
 
 	public int getNumberOfLines(int offset, int length)
@@ -213,90 +180,74 @@ public class MockableXtextDocument implements IXtextDocument {
 
 	public ITypedRegion getPartition(int offset) throws BadLocationException {
 		throw new UnsupportedOperationException();
-
 	}
 
 	public String[] getPositionCategories() {
 		throw new UnsupportedOperationException();
-
 	}
 
 	public IPositionUpdater[] getPositionUpdaters() {
 		throw new UnsupportedOperationException();
-
 	}
 
 	public Position[] getPositions(String category)
 			throws BadPositionCategoryException {
 		throw new UnsupportedOperationException();
-
 	}
 
 	public void insertPositionUpdater(IPositionUpdater updater, int index) {
 		throw new UnsupportedOperationException();
-
 	}
 
 	public void removeDocumentListener(IDocumentListener listener) {
 		throw new UnsupportedOperationException();
-
 	}
 
 	public void removeDocumentPartitioningListener(
 			IDocumentPartitioningListener listener) {
 		throw new UnsupportedOperationException();
-
 	}
 
 	public void removePosition(Position position) {
 		throw new UnsupportedOperationException();
-
 	}
 
 	public void removePosition(String category, Position position)
 			throws BadPositionCategoryException {
 		throw new UnsupportedOperationException();
-
 	}
 
 	public void removePositionCategory(String category)
 			throws BadPositionCategoryException {
 		throw new UnsupportedOperationException();
-
 	}
 
 	public void removePositionUpdater(IPositionUpdater updater) {
 		throw new UnsupportedOperationException();
-
 	}
 
 	public void removePrenotifiedDocumentListener(
 			IDocumentListener documentAdapter) {
 		throw new UnsupportedOperationException();
-
 	}
 
 	public void replace(int offset, int length, String text)
 			throws BadLocationException {
 		throw new UnsupportedOperationException();
-
 	}
 
 	public int search(int startOffset, String findString,
 			boolean forwardSearch, boolean caseSensitive, boolean wholeWord)
 			throws BadLocationException {
 		throw new UnsupportedOperationException();
-
 	}
 
 	public void set(String text) {
 		throw new UnsupportedOperationException();
-
 	}
 
 	public void setDocumentPartitioner(IDocumentPartitioner partitioner) {
 		throw new UnsupportedOperationException();
-
 	}
 
 	public <T> T modify(IUnitOfWork<T, XtextResource> work) {
@@ -315,13 +266,40 @@ public class MockableXtextDocument implements IXtextDocument {
 		}
 	}
 
-	public <T> T readOnly(
-			org.eclipse.xtext.util.concurrent.IUnitOfWork<T, XtextResource> work) {
+	public String[] getPartitionings() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String[] getLegalContentTypes(String partitioning)
+			throws BadPartitioningException {
 		throw new UnsupportedOperationException();
 	}
 
-	public <T> T modify(
-			org.eclipse.xtext.util.concurrent.IUnitOfWork<T, XtextResource> work) {
+	public String getContentType(String partitioning, int offset,
+			boolean preferOpenPartitions) throws BadLocationException,
+			BadPartitioningException {
+		throw new UnsupportedOperationException();
+	}
+
+	public ITypedRegion getPartition(String partitioning, int offset,
+			boolean preferOpenPartitions) throws BadLocationException,
+			BadPartitioningException {
+		throw new UnsupportedOperationException();
+	}
+
+	public ITypedRegion[] computePartitioning(String partitioning, int offset,
+			int length, boolean includeZeroLengthPartitions)
+			throws BadLocationException, BadPartitioningException {
+		throw new UnsupportedOperationException();
+	}
+
+	public void setDocumentPartitioner(String partitioning,
+			IDocumentPartitioner partitioner) {
+		throw new UnsupportedOperationException();
+	}
+
+	public IDocumentPartitioner getDocumentPartitioner(String partitioning) {
 		throw new UnsupportedOperationException();
 	}
 
