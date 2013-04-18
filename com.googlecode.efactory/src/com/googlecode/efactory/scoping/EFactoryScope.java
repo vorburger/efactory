@@ -20,17 +20,16 @@ import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.impl.SimpleScope;
 
-import com.googlecode.efactory.building.NameAccessor;
 import com.googlecode.efactory.eFactory.Factory;
 
 public class EFactoryScope extends SimpleScope implements IScope {
 
-	private NameAccessor nameAccessor = new NameAccessor();
-	private Factory context;
+	// private NameAccessor nameAccessor = new NameAccessor();
+	// private Factory context;
 
 	public EFactoryScope(Factory factory, Iterable<IEObjectDescription> elements) {
 		super(elements);
-		this.context = factory;
+		// this.context = factory;
 	}
 
 	// @Override
