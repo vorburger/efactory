@@ -1318,7 +1318,6 @@ public class EntityEditor extends MultiPageEditorPart implements
 	 * 
 	 * @generated
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public Object getAdapter(Class key) {
 		if (key.equals(IContentOutlinePage.class)) {
