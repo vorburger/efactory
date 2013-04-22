@@ -163,6 +163,8 @@ public class EFactoryResource extends XtextResource {
 	}
 
 	public void setXtextResource(XtextResource xtextResource) {
+		if (xtextResource == null)
+			throw new IllegalArgumentException("xtextResource == null");
 		this.internalResource = xtextResource;
 	}
 

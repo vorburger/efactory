@@ -21,14 +21,13 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.xtext.resource.XtextResource;
 
 import com.googlecode.efactory.EFactoryStandaloneSetup;
 import com.googlecode.efactory.eFactory.Factory;
-import com.googlecode.efactory.resource.EFactoryResource;
 
 public class ResourceProvider {
 	public ResourceSet rs;
@@ -106,12 +105,8 @@ public class ResourceProvider {
 
 	public EObject loadModel(String path) throws IOException {
 		URI uri = getUri(path);
-		EFactoryResource resource = new EFactoryStandaloneSetup()
-				.createInjector().getInstance(EFactoryResource.class);
-		resource.setURI(uri);
-		rs.getResources().add(resource);
-		resource.load(Collections.emptyMap());
-
+		Resource resource = rs.getResource(uri, true);
+		
 		logResourceDiagnostics(resource);
 
 		return resource.getContents().iterator().next();
