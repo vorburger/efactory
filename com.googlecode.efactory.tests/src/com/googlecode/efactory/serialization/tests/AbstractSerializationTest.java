@@ -19,8 +19,8 @@ import org.eclipse.emf.compare.match.metamodel.MatchModel;
 import org.eclipse.emf.compare.match.service.MatchService;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.xtext.parsetree.reconstr.Serializer;
 import org.eclipse.xtext.resource.XtextResourceSet;
+import org.eclipse.xtext.serializer.ISerializer;
 
 import com.google.inject.Inject;
 import com.googlecode.efactory.eFactory.Factory;
@@ -44,7 +44,7 @@ public abstract class AbstractSerializationTest extends AbstractEFactoryTest {
 	static final String ROOT_FOLDER = "res/SerializationTests/";
 
 	@Inject
-	private Serializer serializer;
+	private ISerializer serializer;
 
 	protected Factory loadFactory(URI uri) throws IOException {
 		Factory eFactory = resourceProvider.loadFactory(uri);
