@@ -10,33 +10,42 @@
  ******************************************************************************/
 package com.googlecode.efactory.proposal.tests;
 
+import org.junit.Test;
+
+@SuppressWarnings("restriction")
 public class MultiplicityProposalProviderTest extends
-		AbstractContentAssistProcessorTest {
+		AbstractEFactoryContentAssistProcessorTest {
 
 	private static final String body = "use \"http://testmodel/1.0\" "
 			+ "TestModel testModelName {\n"
 			+ "referenceTestContainer +=ReferenceTestContainer test1 {\n";
 
+	@Test
 	public void testMultiplicityAttribute_One() throws Exception {
 		newBuilder().append(body + "oneAttribute ").assertText("=");
 	}
 
+	@Test
 	public void testMultiplicityAttribute_Many() throws Exception {
 		newBuilder().append(body + "manyAttributes ").assertText("+=");
 	}
 
+	@Test
 	public void testMultiplicityContainment_One() throws Exception {
 		newBuilder().append(body + "containment ").assertText("=");
 	}
 
+	@Test
 	public void testMultiplicityContainment_Many() throws Exception {
 		newBuilder().append(body + "containments ").assertText("+=");
 	}
 
+	@Test
 	public void testMultiplicityReference_One() throws Exception {
 		newBuilder().append(body + "referenceToOne ").assertText("=");
 	}
 
+	@Test
 	public void testMultiplicityReference_Many() throws Exception {
 		newBuilder().append(body + "referenceToMany ").assertText("+=");
 	}

@@ -10,13 +10,17 @@
  ******************************************************************************/
 package com.googlecode.efactory.proposal.tests;
 
+import org.junit.Test;
+
+@SuppressWarnings("restriction")
 public class NewObjectValueProposalProviderTest extends
-		AbstractContentAssistProcessorTest {
+		AbstractEFactoryContentAssistProcessorTest {
 
 	private static final String body = "use \"http://testmodel/1.0\" "
 			+ "TestModel testModelName {\n"
 			+ "referenceTestContainer +=ReferenceTestContainer test1 {\n";
 
+	@Test
 	public void testMultiplicityContainment_One() throws Exception {
 		newBuilder().append(body + "containments += ").assertText(
 				"ReferenceTarget", "ReferenceTargetSubclass");
