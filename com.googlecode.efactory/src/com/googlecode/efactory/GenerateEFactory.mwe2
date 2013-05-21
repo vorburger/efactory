@@ -52,7 +52,7 @@ Workflow {
             	generateStub = false
             }
             
-            // the serialization component (1.0)
+            // the old serialization component (1.0) which does not work for the AbstractSerializationTest
             // fragment = parseTreeConstructor.ParseTreeConstructorFragment {}
 
             // a custom ResourceFactory for use with EMF
@@ -68,6 +68,7 @@ Workflow {
             }
 
             // java-based API for validation
+            // TODO use new ValidatorFragment instead of JavaValidatorFragment?
             fragment = validation.JavaValidatorFragment {
             //    composedCheck = "org.eclipse.xtext.validation.ImportUriValidator"
             //    composedCheck = "org.eclipse.xtext.validation.NamesAreUniqueValidator"
@@ -102,6 +103,7 @@ Workflow {
             fragment = quickfix.QuickfixProviderFragment {}
 
             // content assist API
+            	// TODO use new ContentAssistFragment instead of JavaBasedContentAssistFragment?
             fragment = contentAssist.JavaBasedContentAssistFragment {}
 
             // generates a more lightweight Antlr parser and lexer tailored for content assist
