@@ -12,19 +12,16 @@ package com.googlecode.efactory.tests.util;
 
 import junit.framework.TestCase;
 
-import com.google.inject.Guice;
 import com.google.inject.Injector;
-import com.googlecode.efactory.EFactoryRuntimeModule;
+import com.googlecode.efactory.EFactoryInjectorProvider;
 import com.googlecode.efactory.EFactoryStandaloneSetup;
+import com.googlecode.efactory.EFactoryUiInjectorProvider;
 import com.googlecode.efactory.eFactory.Feature;
 import com.googlecode.efactory.eFactory.NewObject;
-import com.googlecode.efactory.tests.Activator;
-import com.googlecode.efactory.ui.EFactoryUiModule;
 
 public abstract class AbstractEFactoryTest extends TestCase {
 
-	protected ResourceProvider resourceProvider = new ResourceProvider(
-			TestConstants.PLUGIN_ID);
+	protected ResourceProvider resourceProvider = new ResourceProvider(TestConstants.PLUGIN_ID);
 
 	public AbstractEFactoryTest() {
 		super();
@@ -38,11 +35,10 @@ public abstract class AbstractEFactoryTest extends TestCase {
 	protected void setUp() throws Exception {
 		EFactoryStandaloneSetup.doSetup();
 		TestSetup.INSTANCE.doSetup();
-
 	}
 
 	protected Injector getInjector() {
-		return Guice.createInjector(new EFactoryRuntimeModule());
+		return new EFactoryInjectorProvider().getInjector();
 	}
 
 	protected NewObject getNewObject(Feature feature) {
@@ -50,7 +46,7 @@ public abstract class AbstractEFactoryTest extends TestCase {
 	}
 
 	public Injector getUiInjector() {
-		return Guice.createInjector(new EFactoryUiModule(Activator.getInstance()));
+		return new EFactoryUiInjectorProvider().getInjector();
 	}
 
 }
