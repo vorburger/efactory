@@ -109,6 +109,9 @@ public class ResourceProvider {
 		
 		logResourceDiagnostics(resource);
 
+		if (resource.getContents().isEmpty())
+			throw new IOException("Could no load / no content (see log!) in resource: " + path);
+		
 		return resource.getContents().iterator().next();
 	}
 

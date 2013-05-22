@@ -10,6 +10,8 @@
  ******************************************************************************/
 package com.googlecode.efactory.builder.tests;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -68,6 +70,22 @@ public class AttributeTest extends AbstractModelBuilderTest {
 		assertEquals(expected, actual);
 	}
 
+	public void testAttribute_OneBigDecimal() throws Exception {
+		AttributeTestContainer fixture = find(AttributeTestContainer.class,
+				TEST_NAME);
+		BigDecimal actual = fixture.getOneBigDecimal();
+		BigDecimal expected = new BigDecimal("123798234.223940293480923842");
+		assertEquals(expected, actual);
+	}
+	
+	public void testAttribute_OneBigInteger() throws Exception {
+		AttributeTestContainer fixture = find(AttributeTestContainer.class,
+				TEST_NAME);
+		BigInteger actual = fixture.getOneBigInteger();
+		BigInteger expected = new BigInteger("1230820834928349283498234");
+		assertEquals(expected, actual);
+	}
+	
 	public void testAttribute_ManyBool() throws Exception {
 		AttributeTestContainer fixture = find(AttributeTestContainer.class,
 				TEST_NAME);
