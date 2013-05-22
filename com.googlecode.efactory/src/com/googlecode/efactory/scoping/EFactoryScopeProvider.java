@@ -55,7 +55,8 @@ public class EFactoryScopeProvider extends AbstractDeclarativeScopeProvider {
 	}
 	
 	public IScope scope_NewObject_eClass(Factory factory, EReference eReference) {
-		return ePackageScopeProvider.createEClassScope(factory.eResource());
+		final IScope parent = delegateGetScope(factory, eReference);
+		return ePackageScopeProvider.createEClassScope(factory.eResource(), parent);
 	}
 
 	public IScope scope_EnumAttribute_value(EnumAttribute attribute,
@@ -116,9 +117,9 @@ public class EFactoryScopeProvider extends AbstractDeclarativeScopeProvider {
 		return new SimpleScope(elements);
 	}
 
-	public IScope scope_CustomNameMapping_eClass(EObject context,
-			EReference reference) {
-		return ePackageScopeProvider.createEClassScope(context.eResource());
+	public IScope scope_CustomNameMapping_eClass(EObject context, EReference eReference) {
+		final IScope parent = delegateGetScope(context, eReference);
+		return ePackageScopeProvider.createEClassScope(context.eResource(), parent);
 	}
 
 	public IScope scope_Containment_value(Feature feature, EReference eReference) {

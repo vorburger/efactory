@@ -17,6 +17,13 @@ PackageImport:
 Import :
 	'import' importURI=STRING;
 
+// Xcore.xtext 
+//ImportDirective:
+//	'import' (importedNamespace=QualifiedNameWithWildcard | importedObject=[EObject|QualifiedName])
+//;
+//QualifiedNameWithWildcard:
+//  QualifiedName '.*'
+//;
 
 Annotation:
 	NameMapping
@@ -31,7 +38,7 @@ GlobalNameMapping:
 ;
 
 CustomNameMapping:
-	"@Name" "{" eClass=[ecore::EClass] "=" nameFeature=[ecore::EAttribute] "}"
+	"@Name" "{" eClass=[ecore::EClass|QualifiedName] "=" nameFeature=[ecore::EAttribute] "}"
 ;
 	
 Feature:
@@ -39,7 +46,7 @@ Feature:
 ;
 	
 NewObject:
-	eClass=[ecore::EClass] (name=ID)? "{"
+	eClass=[ecore::EClass|QualifiedName] (name=ID)? "{"
 		(features+=Feature)*
 	"}";
 	

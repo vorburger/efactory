@@ -105,12 +105,12 @@ public class EPackageScopeProvider {
 		return result;
 	}
 
-	public IScope createEClassScope(Resource resource) {
+	public IScope createEClassScope(Resource resource, IScope parent) {
 		Iterable<EPackage> ePackages = resolvePackages(resource);
 		Iterable<EClass> eClasses = getAllEClasses(ePackages);
 		Iterable<IEObjectDescription> scopedElements = Scopes
 				.scopedElementsFor(eClasses);
-		return new SimpleScope(scopedElements);
+		return new SimpleScope(parent, scopedElements);
 	}
 
 	public IScope createEPackageScope(Resource eResource) {
