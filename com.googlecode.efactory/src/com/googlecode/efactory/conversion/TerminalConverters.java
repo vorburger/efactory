@@ -10,8 +10,6 @@
  ******************************************************************************/
 package com.googlecode.efactory.conversion;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -29,9 +27,10 @@ import com.google.inject.name.Named;
 
 public class TerminalConverters extends DefaultTerminalConverters {
 
-	private static final String EXCEPTION_WHEN_PARSING_DOUBLE_VALUE = "Exception when parsing double value";
-	private static final String EXCEPTION_WHEN_PARSING_INT_VALUE = "Exception when parsing int value";
-	private static final String EXCEPTION_WHEN_PARSING_LONG_VALUE = "Exception when parsing long value";
+//	private static final String EXCEPTION_WHEN_PARSING_DOUBLE_VALUE = "Exception when parsing double value";
+//	private static final String EXCEPTION_WHEN_PARSING_INT_VALUE = "Exception when parsing int value";
+//	private static final String EXCEPTION_WHEN_PARSING_LONG_VALUE = "Exception when parsing long value";
+	
 	protected static final Object EXCEPTION_WHEN_PARSING_DATE_VALUE = "Exception when parsing date value";
 	public static final String DATE_FORMAT_KEY = "date_format";
 
@@ -40,6 +39,10 @@ public class TerminalConverters extends DefaultTerminalConverters {
 	private SimpleDateFormat dateFormat = null;
 
 	Logger logger = Logger.getLogger(this.getClass());
+
+/*
+ *  Because the AbstractDeclarativeValueConverterService uses the {@link EFactory EMF factories}, 
+ *  we don't seem to need an IValueConverter for ecore::ELong & ecore::EEDouble, so commented out: 
 
 	@ValueConverter(rule = "LONG")
 	public IValueConverter<Long> LONG() {
@@ -82,6 +85,11 @@ public class TerminalConverters extends DefaultTerminalConverters {
 			}
 		};
 	}
+*/
+	
+/*
+ *  EFactory.xtext grammar doesn't actually define S_INT/BIG_INT/SHORT/BIG_DECIMAL, only LONG/DOUBLE, so commented out!
+
 	@ValueConverter(rule = "S_INT")
 	public IValueConverter<Integer> S_INT() {
 		return new AbstractValueConverter<Integer>() {
@@ -168,7 +176,7 @@ public class TerminalConverters extends DefaultTerminalConverters {
 			}
 		};
 	}
-
+*/
 	@ValueConverter(rule = "DATE")
 	public IValueConverter<Date> DATE() {
 		return new AbstractValueConverter<Date>() {

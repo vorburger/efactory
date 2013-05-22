@@ -151,9 +151,27 @@ public class EFactoryProposalProvider extends AbstractEFactoryProposalProvider {
 		if (model instanceof Feature) {
 			Feature feature = (Feature) model;
 			if (EcoreUtil3.isIntegerAttribute(feature.getEFeature())) {
-				super.complete_INT(model, ruleCall, context, acceptor);
+				createLongProposal(context, acceptor, ruleCall, feature.toString(), 1L);
 			}
 		}
+	}
+
+	// copy/paste from TerminalsProposalProvider.createIntProposal()
+	private void createLongProposal(ContentAssistContext context,
+			ICompletionProposalAcceptor acceptor, RuleCall ruleCall, String feature, long i) {
+		String proposalText = getValueConverter().toString(i, ruleCall.getRule().getName());
+		String displayText = proposalText + " - " + ruleCall.getRule().getName();
+		if (feature != null)
+			displayText = proposalText + " - " + feature;
+		ICompletionProposal proposal = createCompletionProposal(proposalText, displayText, null, context);
+		if (proposal instanceof ConfigurableCompletionProposal) {
+			ConfigurableCompletionProposal configurable = (ConfigurableCompletionProposal) proposal;
+			configurable.setSelectionStart(configurable.getReplacementOffset());
+			configurable.setSelectionLength(proposalText.length());
+			configurable.setAutoInsertable(false);
+			configurable.setSimpleLinkedMode(context.getViewer(), '\t', ' ');
+		}
+		acceptor.accept(proposal);
 	}
 
 	@Override
