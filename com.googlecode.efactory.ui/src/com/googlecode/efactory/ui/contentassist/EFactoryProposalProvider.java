@@ -151,7 +151,7 @@ public class EFactoryProposalProvider extends AbstractEFactoryProposalProvider {
 		if (model instanceof Feature) {
 			Feature feature = (Feature) model;
 			if (EcoreUtil3.isIntegerAttribute(feature.getEFeature())) {
-				createLongProposal(context, acceptor, ruleCall, feature.toString(), 1L);
+				createLongProposal(context, acceptor, ruleCall, ruleCall.getRule().getName(), 1L);
 			}
 		}
 	}
