@@ -6,6 +6,10 @@ import org.junit.Test;
 public class FeatureProposalProviderTest extends
 		AbstractEFactoryContentAssistProcessorTest {
 
+	// TODO These tests all fail, because eFactory somewhere (?) defines
+	// example templates for Ecore (see Window > Preferences > EFactory > Templates).
+	// As these templates are not applicable for testmodel, they shouldn't be shown.. :-(
+	
 	private static final String body = "use \"http://testmodel/1.0\" "
 			+ "TestModel testModelName {\n"
 			+ "referenceTestContainer +=ReferenceTestContainer test1 {\n";
