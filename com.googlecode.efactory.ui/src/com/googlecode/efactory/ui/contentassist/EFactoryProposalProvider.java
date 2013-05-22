@@ -17,7 +17,6 @@ import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EEnumLiteral;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.jface.text.contentassist.ICompletionProposal;
 import org.eclipse.xtext.Assignment;
@@ -68,20 +67,6 @@ public class EFactoryProposalProvider extends AbstractEFactoryProposalProvider {
 				acceptor.accept(createCompletionProposal(model, SAMPLE_DATE,
 						context));
 			}
-		}
-	}
-
-	@Override
-	public void completePackageImport_EPackageURI(EObject model,
-			Assignment assignment, ContentAssistContext context,
-			ICompletionProposalAcceptor acceptor) {
-		for (EPackage ePackage : packageResolver.getAllRegisteredEPackages()) {
-			String proposalString = getValueConverter().toString(
-					ePackage.getNsURI(), "STRING");
-			ICompletionProposal proposal = createCompletionProposal(
-					proposalString, context);
-			acceptor.accept(proposal);
-
 		}
 	}
 

@@ -66,7 +66,7 @@ public class EFactoryFormatter extends AbstractDeclarativeFormatter {
 						.getEFeatureEStructuralFeatureCrossReference_0_0());
 		c.setLinewrap(2).after(
 				f.getPackageImportAccess()
-						.getEPackageURISTRINGTerminalRuleCall_1_0());
+						.getEPackageEPackageQualifiedNameParserRuleCall_1_0_1());
 
 	}
 

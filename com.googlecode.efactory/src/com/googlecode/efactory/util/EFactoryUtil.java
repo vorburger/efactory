@@ -50,7 +50,7 @@ public final class EFactoryUtil {
 		for (PackageImport packageImport : ePackageUris) {
 			try {
 				EPackage ePackage = packageResolver.resolve(root.eResource(),
-						packageImport.getEPackageURI());
+						packageImport.getEPackage().getNsURI());
 				result.add(ePackage);
 			} catch (EPackageNotFoundException e) {
 				// user will be informed during validation
@@ -60,6 +60,7 @@ public final class EFactoryUtil {
 	}
 
 	private List<PackageImport> getEPackageUris(EObject root) {
+		// unclear why this is written using generic EMF API instead of usual statically typed?!
 		EStructuralFeature packagesFeature = root.eClass()
 				.getEStructuralFeature("epackages");
 		if (packagesFeature == null || !packagesFeature.isMany()) {

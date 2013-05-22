@@ -31,6 +31,7 @@ import com.googlecode.efactory.eFactory.EnumAttribute;
 import com.googlecode.efactory.eFactory.Factory;
 import com.googlecode.efactory.eFactory.Feature;
 import com.googlecode.efactory.eFactory.NewObject;
+import com.googlecode.efactory.eFactory.PackageImport;
 import com.googlecode.efactory.eFactory.Reference;
 import com.googlecode.efactory.util.EcoreUtil3;
 
@@ -49,6 +50,10 @@ public class EFactoryScopeProvider extends AbstractDeclarativeScopeProvider {
 	@Inject
 	private EPackageScopeProvider ePackageScopeProvider;
 
+	public IScope scope_PackageImport_ePackage(PackageImport packageImport, EReference eReference) {
+		return ePackageScopeProvider.createEPackageScope(packageImport.eResource());
+	}
+	
 	public IScope scope_NewObject_eClass(Factory factory, EReference eReference) {
 		return ePackageScopeProvider.createEClassScope(factory.eResource());
 	}
@@ -71,7 +76,6 @@ public class EFactoryScopeProvider extends AbstractDeclarativeScopeProvider {
 	}
 
 	public IScope scope_Feature_eFeature(Feature feature, EReference reference) {
-
 		NewObject newObject = (NewObject) feature.eContainer();
 		EClass eClass = newObject.getEClass();
 		Iterable<? extends EObject> assignableFeature = EcoreUtil3

@@ -43,6 +43,7 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.inject.Inject;
 import com.googlecode.efactory.util.EFactoryUtil;
+import com.googlecode.efactory.util.EPackageResolver;
 import com.googlecode.efactory.util.EcoreUtil3;
 
 public class EPackageScopeProvider {
@@ -50,6 +51,9 @@ public class EPackageScopeProvider {
 	@Inject
 	private EFactoryUtil eFactoryUtil;
 
+	@Inject
+	private EPackageResolver packageResolver;
+	
 	public IScope createEClassScope(Resource resource, EClass type) {
 		Iterable<EPackage> ePackages = resolvePackages(resource);
 		Iterable<EClass> eClasses = getAllEClasses(ePackages);
@@ -106,6 +110,12 @@ public class EPackageScopeProvider {
 		Iterable<EClass> eClasses = getAllEClasses(ePackages);
 		Iterable<IEObjectDescription> scopedElements = Scopes
 				.scopedElementsFor(eClasses);
+		return new SimpleScope(scopedElements);
+	}
+
+	public IScope createEPackageScope(Resource eResource) {
+		Iterable<EPackage> ePackages = packageResolver.getAllRegisteredEPackages();
+		Iterable<IEObjectDescription> scopedElements = Scopes.scopedElementsFor(ePackages);
 		return new SimpleScope(scopedElements);
 	}
 

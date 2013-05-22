@@ -43,7 +43,7 @@ public class FactoryBuilder {
 	private PackageImport createPackageImport(EObject eObject) {
 		PackageImport packageImport = EFactoryFactory.eINSTANCE
 				.createPackageImport();
-		packageImport.setEPackageURI(eObject.eClass().getEPackage().getNsURI());
+		packageImport.setEPackage(eObject.eClass().getEPackage());
 		return packageImport;
 	}
 }

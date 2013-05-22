@@ -71,6 +71,7 @@ public class EReferenceScopeProvider {
 
 		return elementList;
 	}
+	
 	private List<IEObjectDescription> getImports(Factory factory,
 			Resource context, EClass type) {
 		List<IEObjectDescription> elementList = new LinkedList<IEObjectDescription>();
@@ -86,8 +87,7 @@ public class EReferenceScopeProvider {
 		}
 
 		for (PackageImport imp : factory.getEpackages()) {
-
-			String uri = imp.getEPackageURI();
+			String uri = imp.getEPackage().getNsURI();
 			if (uri != null && uniqueImportURIs.add(uri)) {
 				orderedImportURIs.add(uri);
 			}
@@ -125,6 +125,7 @@ public class EReferenceScopeProvider {
 	private Resource getResource(Resource context, String uri) {
 		return EcoreUtil2.getResource(context, uri);
 	}
+	
 	private List<IEObjectDescription> getNewObjects(EClass type,
 			Resource resource) {
 		List<IEObjectDescription> elementList = new ArrayList<IEObjectDescription>();
