@@ -22,6 +22,7 @@ import org.eclipse.xtext.resource.IResourceFactory;
 
 import com.google.inject.Binder;
 import com.google.inject.name.Names;
+import com.googlecode.efactory.conversion.DATEValueConverter;
 import com.googlecode.efactory.conversion.TerminalConverters;
 import com.googlecode.efactory.resource.EFactoryStandaloneResourceFactory;
 import com.googlecode.efactory.serialization.EFactoryTransientValueService;
@@ -37,7 +38,7 @@ public class EFactoryRuntimeModule
 	public void configure(Binder binder) {
 		super.configure(binder);
 		binder.bind(SimpleDateFormat.class)
-				.annotatedWith(Names.named(TerminalConverters.DATE_FORMAT_KEY))
+				.annotatedWith(Names.named(DATEValueConverter.DATE_FORMAT_KEY))
 				.toInstance(new SimpleDateFormat("MM.dd.yyyy"));
 		binder.bind(IReferableElementsUnloader.class).to(GenericUnloader.class);
 	}

@@ -33,7 +33,7 @@ public class AttributeTest extends AbstractModelBuilderTest {
 				TEST_NAME);
 		boolean actual = fixture.isOneBool();
 		boolean expected = true;
-		assertEquals(actual, expected);
+		assertEquals(expected, actual);
 	}
 
 	public void testAttribute_OneInt() throws Exception {
@@ -41,7 +41,7 @@ public class AttributeTest extends AbstractModelBuilderTest {
 				TEST_NAME);
 		int actual = fixture.getOneInt();
 		int expected = 1;
-		assertEquals(actual, expected);
+		assertEquals(expected, actual);
 	}
 
 	public void testAttribute_OneDouble() throws Exception {
@@ -49,7 +49,7 @@ public class AttributeTest extends AbstractModelBuilderTest {
 				TEST_NAME);
 		double actual = fixture.getOneDouble();
 		double expected = 1.1;
-		assertEquals(actual, expected);
+		assertEquals(expected, actual);
 	}
 
 	public void testAttribute_OneEnum() throws Exception {
@@ -65,7 +65,7 @@ public class AttributeTest extends AbstractModelBuilderTest {
 				TEST_NAME);
 		Date actual = fixture.getOneDate();
 		Date expected = dateFormat.parse("09.11.1979");
-		assertEquals(actual, expected);
+		assertEquals(expected, actual);
 	}
 
 	public void testAttribute_ManyBool() throws Exception {
