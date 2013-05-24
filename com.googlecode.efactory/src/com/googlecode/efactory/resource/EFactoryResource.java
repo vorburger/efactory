@@ -53,6 +53,8 @@ public class EFactoryResource extends XtextResource {
 	
 	private static final String INTERNAL = "internal_";
 
+	// The "internal" Resource is the com.googlecode.efactory.eFactory.Factory (DSL)
+	// while "this" EMF Resource is the EObject expressed by this EFactory DSL
 	private XtextResource internalResource;
 	private XtextResourceSet internalResourceSet;
 	private ModelBuilder builder;
@@ -66,11 +68,9 @@ public class EFactoryResource extends XtextResource {
 	}
 
 	@Override
-	public void doSave(OutputStream outputStream, Map<?, ?> options)
-			throws IOException {
+	public void doSave(OutputStream outputStream, Map<?, ?> options) throws IOException {
 		if (getContents().isEmpty()) {
-			throw new IllegalArgumentException(
-					"Emptry resource cannot be saved. Resource must contain at least one element");
+			throw new IllegalArgumentException("Empty resource cannot be saved. Resource must contain at least one element");
 		}
 		setEncodingFromOptions(options);
 		FactoryBuilder builder = new FactoryBuilder();
@@ -80,10 +80,8 @@ public class EFactoryResource extends XtextResource {
 	}
 
 	@Override
-	protected void doLoad(InputStream inputStream, Map<?, ?> options)
-			throws IOException {
-		com.googlecode.efactory.eFactory.Factory factory = loadEFactory(
-				inputStream, options);
+	protected void doLoad(InputStream inputStream, Map<?, ?> options) throws IOException {
+		com.googlecode.efactory.eFactory.Factory factory = loadEFactory(inputStream, options);
 		getErrors().addAll(internalResource.getErrors());
 		getWarnings().addAll(internalResource.getWarnings());
 		if (hasParseErrors(internalResource)) {
@@ -92,9 +90,7 @@ public class EFactoryResource extends XtextResource {
 		doTransformation(factory);
 	}
 
-	private void doTransformation(
-			com.googlecode.efactory.eFactory.Factory factory) {
-
+	private void doTransformation(com.googlecode.efactory.eFactory.Factory factory) {
 		internalUnload();
 		if (factory != null) {
 			loadImportedResources(factory);
@@ -119,8 +115,7 @@ public class EFactoryResource extends XtextResource {
 		getContents().clear();
 	}
 
-	private void loadImportedResources(
-			com.googlecode.efactory.eFactory.Factory factory) {
+	private void loadImportedResources(com.googlecode.efactory.eFactory.Factory factory) {
 		for (Resource importedResource : internalResourceSet.getResources()) {
 			if (importedResource != internalResource) {
 				getResourceSet().getResource(importedResource.getURI(), true);
@@ -153,10 +148,8 @@ public class EFactoryResource extends XtextResource {
 		internalResourceSet.setURIConverter(getResourceSet().getURIConverter());
 		if (getResourceSet() instanceof XtextResourceSet) {
 			XtextResourceSet xtextResourceSet = (XtextResourceSet) getResourceSet();
-			internalResourceSet.setClasspathURIContext(xtextResourceSet
-					.getClasspathURIContext());
-			internalResourceSet.setClasspathUriResolver(internalResourceSet
-					.getClasspathUriResolver());
+			internalResourceSet.setClasspathURIContext(xtextResourceSet.getClasspathURIContext());
+			internalResourceSet.setClasspathUriResolver(internalResourceSet.getClasspathUriResolver());
 		}
 	}
 
@@ -191,8 +184,7 @@ public class EFactoryResource extends XtextResource {
 		if (internalResource.getContents().isEmpty()) {
 			return null;
 		}
-		return (com.googlecode.efactory.eFactory.Factory) internalResource
-				.getContents().get(0);
+		return (com.googlecode.efactory.eFactory.Factory) internalResource.getContents().get(0);
 	}
 
 	public EObject getEFactoryElement(EObject eObject) {
