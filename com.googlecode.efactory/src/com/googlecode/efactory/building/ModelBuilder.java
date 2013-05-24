@@ -64,8 +64,10 @@ public class ModelBuilder {
 		EPackage ePackage = eClass.getEPackage();
 		if (ePackage == null) {
 			throw new IllegalStateException(
-					"No EPackage registered for EClass defined in NewObject "
-							+ from.getName());
+					"No EPackage registered for EClass '" + eClass.getName()
+							+ "' defined in New Object"
+							+ " with name '" + from.getName()
+							+ "' at URI " + from.eResource().getURI() + "#" + from.eResource().getURIFragment(from));
 
 		}
 		EFactory eFactoryInstance = ePackage.getEFactoryInstance();
