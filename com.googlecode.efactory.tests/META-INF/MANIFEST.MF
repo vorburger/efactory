@@ -38,10 +38,9 @@ Require-Bundle: org.junit,
  org.eclipse.ui.workbench;resolution:=optional
 Bundle-ActivationPolicy: lazy
 Bundle-Activator: com.googlecode.efactory.tests.Activator
-Import-Package: org.apache.log4j;version="1.2.15",
+Import-Package: org.hamcrest.core,
  org.junit.runner;version="4.5.0",
  org.junit.runner.manipulation;version="4.5.0",
  org.junit.runner.notification;version="4.5.0",
  org.junit.runners;version="4.5.0",
- org.junit.runners.model;version="4.5.0",
- org.hamcrest.core
+ org.junit.runners.model;version="4.5.0"

@@ -15,7 +15,6 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.NoSuchElementException;
 
-import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
@@ -32,8 +31,6 @@ import com.googlecode.efactory.eFactory.Factory;
 public class ResourceProvider {
 	public ResourceSet rs;
 	private String pluginId;
-
-	Logger logger = Logger.getLogger(ResourceProvider.class);
 
 	public ResourceProvider(ResourceSet rs, String pluginId) {
 		this.rs = rs;
@@ -117,10 +114,10 @@ public class ResourceProvider {
 
 	private void logResourceDiagnostics(Resource resource) {
 		for (Diagnostic diag : resource.getErrors()) {
-			logger.error(diag.getMessage());
+			System.err.println("ERR: " + diag.getMessage());
 		}
 		for (Diagnostic diag : resource.getWarnings()) {
-			logger.warn(diag.getMessage());
+			System.out.println("WARN: " + diag.getMessage());
 		}
 	}
 

@@ -31,6 +31,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
@@ -47,7 +48,9 @@ import com.googlecode.efactory.eFactory.EFactoryPackage;
 import com.googlecode.efactory.serialization.FactoryBuilder;
 
 public class EFactoryResource extends XtextResource {
-
+	
+	private static final Logger logger = Logger.getLogger(EFactoryResource.class);
+	
 	private static final String INTERNAL = "internal_";
 
 	private XtextResource internalResource;
@@ -102,7 +105,7 @@ public class EFactoryResource extends XtextResource {
 					getContents().add(newModel);
 				}
 			} catch (Exception e) {
-				e.printStackTrace();
+				logger.error("doTransformation() build " + getURI(), e);
 				getErrors().add(new ExceptionDiagnostic(e));
 			}
 		}
