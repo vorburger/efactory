@@ -51,7 +51,8 @@ public class EFactoryScopeProvider extends AbstractDeclarativeScopeProvider {
 	private EPackageScopeProvider ePackageScopeProvider;
 
 	public IScope scope_PackageImport_ePackage(PackageImport packageImport, EReference eReference) {
-		return ePackageScopeProvider.createEPackageScope(packageImport.eResource());
+		final IScope parent = delegateGetScope(packageImport, eReference);
+		return ePackageScopeProvider.createEPackageScope(packageImport.eResource(), parent);
 	}
 	
 	public IScope scope_NewObject_eClass(Factory factory, EReference eReference) {
@@ -72,8 +73,8 @@ public class EFactoryScopeProvider extends AbstractDeclarativeScopeProvider {
 	}
 
 	public IScope scope_NewObject_eClass(Feature feature, EReference eReference) {
-		return ePackageScopeProvider.createEClassScope(feature.eResource(),
-				(EClass) feature.getEFeature().getEType());
+		final IScope parent = delegateGetScope(feature, eReference);
+		return ePackageScopeProvider.createEClassScope(feature.eResource(), (EClass) feature.getEFeature().getEType(), parent);
 	}
 
 	public IScope scope_Feature_eFeature(Feature feature, EReference reference) {

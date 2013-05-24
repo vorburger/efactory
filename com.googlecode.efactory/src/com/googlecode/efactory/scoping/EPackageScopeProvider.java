@@ -54,14 +54,14 @@ public class EPackageScopeProvider {
 	@Inject
 	private EPackageResolver packageResolver;
 	
-	public IScope createEClassScope(Resource resource, EClass type) {
+	public IScope createEClassScope(Resource resource, EClass type, IScope parent) {
 		Iterable<EPackage> ePackages = resolvePackages(resource);
 		Iterable<EClass> eClasses = getAllEClasses(ePackages);
 		Iterable<EClass> filteredEClasses = filterAssignableEClasses(eClasses,
 				type);
 		Iterable<IEObjectDescription> scopedElements = Scopes
 				.scopedElementsFor(filteredEClasses);
-		return new SimpleScope(scopedElements);
+		return new SimpleScope(parent, scopedElements);
 	}
 
 	private Iterable<EClass> filterAssignableEClasses(
@@ -113,10 +113,10 @@ public class EPackageScopeProvider {
 		return new SimpleScope(parent, scopedElements);
 	}
 
-	public IScope createEPackageScope(Resource eResource) {
+	public IScope createEPackageScope(Resource eResource, IScope parent) {
 		Iterable<EPackage> ePackages = packageResolver.getAllRegisteredEPackages();
 		Iterable<IEObjectDescription> scopedElements = Scopes.scopedElementsFor(ePackages);
-		return new SimpleScope(scopedElements);
+		return new SimpleScope(parent, scopedElements);
 	}
 
 }
