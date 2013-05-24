@@ -29,10 +29,8 @@ import org.eclipse.xtext.ui.editor.contentassist.ConfigurableCompletionProposal;
 import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext;
 import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor;
 
-import com.google.inject.Inject;
 import com.googlecode.efactory.eFactory.Feature;
 import com.googlecode.efactory.eFactory.NewObject;
-import com.googlecode.efactory.util.EPackageResolver;
 import com.googlecode.efactory.util.EcoreUtil3;
 
 /**
@@ -44,9 +42,6 @@ public class EFactoryProposalProvider extends AbstractEFactoryProposalProvider {
 	private static final String L_BRACE = "{";
 
 	private static final String SAMPLE_DATE = "12.31.2008";
-
-	@Inject
-	private EPackageResolver packageResolver;
 
 	@Override
 	public void completeKeyword(Keyword keyword,

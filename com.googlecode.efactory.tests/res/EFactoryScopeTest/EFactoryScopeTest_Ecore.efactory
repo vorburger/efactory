@@ -1,4 +1,4 @@
-use "http://www.eclipse.org/emf/2002/Ecore" 
+use ecore.*
  
 EClass {
 	set  abstract = true

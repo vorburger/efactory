@@ -1,5 +1,5 @@
 
-use "http://testmodel/1.0" 
+use testmodel.* 
 
  TestModel test (
 	 	

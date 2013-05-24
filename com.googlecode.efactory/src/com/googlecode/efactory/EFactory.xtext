@@ -12,18 +12,13 @@ Factory :
 
 	
 PackageImport:
-'use' ePackage = [ecore::EPackage|QualifiedName];
-
+'use' ePackage = [ecore::EPackage|QualifiedName] '.*';
+	// TODO support an "as" syntax, like the *.Xtext grammar itself does (see above!)
+ 
 Import :
-	'import' importURI=STRING;
-
-// Xcore.xtext 
-//ImportDirective:
-//	'import' (importedNamespace=QualifiedNameWithWildcard | importedObject=[EObject|QualifiedName])
-//;
-//QualifiedNameWithWildcard:
-//  QualifiedName '.*'
-//;
+	'import' (importURI=STRING // must be named 'importURI'
+	)
+;
 
 Annotation:
 	NameMapping

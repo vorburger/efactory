@@ -10,7 +10,7 @@ public class FeatureProposalProviderTest extends
 	// example templates for Ecore (see Window > Preferences > EFactory > Templates).
 	// As these templates are not applicable for testmodel, they shouldn't be shown.. :-(
 	
-	private static final String body = "use \"http://testmodel/1.0\" "
+	private static final String body = "use testmodel.* "
 			+ "TestModel testModelName {\n"
 			+ "referenceTestContainer +=ReferenceTestContainer test1 {\n";
 

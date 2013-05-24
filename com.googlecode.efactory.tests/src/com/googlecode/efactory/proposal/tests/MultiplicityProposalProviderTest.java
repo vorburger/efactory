@@ -16,7 +16,7 @@ import org.junit.Test;
 public class MultiplicityProposalProviderTest extends
 		AbstractEFactoryContentAssistProcessorTest {
 
-	private static final String body = "use \"http://testmodel/1.0\" "
+	private static final String body = "use testmodel.* "
 			+ "TestModel testModelName {\n"
 			+ "referenceTestContainer +=ReferenceTestContainer test1 {\n";
 

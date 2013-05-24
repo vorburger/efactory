@@ -1,4 +1,4 @@
-use "http://testmodel/1.0" 
+use testmodel.* 
  
 @Name { CustomName = id }
  
