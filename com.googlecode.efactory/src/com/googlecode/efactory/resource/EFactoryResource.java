@@ -29,11 +29,13 @@ package com.googlecode.efactory.resource;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -49,12 +51,24 @@ import com.googlecode.efactory.serialization.FactoryBuilder;
 
 public class EFactoryResource extends XtextResource {
 	
+	// TODO could this use DerivedStateAwareResource concepts instead of my stuff below?
+	
+	
 	private static final Logger logger = Logger.getLogger(EFactoryResource.class);
 	
 	private static final String INTERNAL = "internal_";
 
 	// The "internal" Resource is the com.googlecode.efactory.eFactory.Factory (DSL)
 	// while "this" EMF Resource is the EObject expressed by this EFactory DSL
+	//
+	// To avoid an issue where the ClusteringBuilderState ends up loading this
+	// but not all references in "this" EObject can be resolved, yet (which used 
+	// to cause IllegalStateException from ModelBuilder.getOrCreateTarget()),
+	// we initially "this" EMF Resource from the "internal" Resource only
+	// lazily, when someone actually asks for the content.
+	//
+	// The laziness probably doesn't hurt for performance and memory consumption, either.
+	//
 	private XtextResource internalResource;
 	private XtextResourceSet internalResourceSet;
 	private ModelBuilder builder;
@@ -69,50 +83,58 @@ public class EFactoryResource extends XtextResource {
 
 	@Override
 	public void doSave(OutputStream outputStream, Map<?, ?> options) throws IOException {
-		if (getContents().isEmpty()) {
+		EList<EObject> thisContents = getContentsSuper();
+		if (thisContents.isEmpty()) {
 			throw new IllegalArgumentException("Empty resource cannot be saved. Resource must contain at least one element");
 		}
 		setEncodingFromOptions(options);
 		FactoryBuilder builder = new FactoryBuilder();
 		internalResource.getContents().clear();
-		internalResource.getContents().add(builder.build(getContents().get(0)));
+		internalResource.getContents().add(builder.build(thisContents.get(0)));
 		internalResource.doSave(outputStream, options);
 	}
 
 	@Override
 	protected void doLoad(InputStream inputStream, Map<?, ?> options) throws IOException {
-		com.googlecode.efactory.eFactory.Factory factory = loadEFactory(inputStream, options);
+		loadEFactory(inputStream, options);
 		getErrors().addAll(internalResource.getErrors());
 		getWarnings().addAll(internalResource.getWarnings());
-		if (hasParseErrors(internalResource)) {
-			return;
-		}
-		doTransformation(factory);
 	}
 
-	private void doTransformation(com.googlecode.efactory.eFactory.Factory factory) {
-		internalUnload();
+	private void ensureThisResourceContentsIsAvailable() {
+		if (builder != null) // TODO REVIEW! probably too simplistic..
+			return;
+		if (hasParseErrors(internalResource)) {
+			logger.warn("Should have ensuredThisResourceContentsIsAvailable(), but EFactory DSL has parse errors, so resource at URI: " + getURI());
+			return;
+		}
+		if (logger.isInfoEnabled()) {
+			logger.info("Now (lazily, was initially deferred up to this point) ensuringThatThisResourceContentsIsAvailable at URI: " + getURI());
+		}
+		com.googlecode.efactory.eFactory.Factory factory = getFactory();
+		unloadThisResource();
 		if (factory != null) {
 			loadImportedResources(factory);
 			builder = new ModelBuilder();
 			try {
 				EObject newModel = builder.build(factory);
 				if (newModel != null) {
-					getContents().add(newModel);
+					getContentsSuper().add(newModel);
 				}
 			} catch (Exception e) {
-				logger.error("doTransformation() build " + getURI(), e);
+				logger.error("doTransformation() build() failed for resource at URI: " + getURI(), e);
 				getErrors().add(new ExceptionDiagnostic(e));
 			}
 		}
 	}
 
-	private void internalUnload() {
-		if (getContents().isEmpty()) {
+	private void unloadThisResource() {
+		EList<EObject> thisContents = getContentsSuper();
+		if (thisContents.isEmpty()) {
 			return;
 		}
-		getUnloader().unloadRoot(getContents().get(0));
-		getContents().clear();
+		getUnloader().unloadRoot(thisContents.get(0));
+		thisContents.clear();
 	}
 
 	private void loadImportedResources(com.googlecode.efactory.eFactory.Factory factory) {
@@ -127,17 +149,11 @@ public class EFactoryResource extends XtextResource {
 		return !resource.getErrors().isEmpty();
 	}
 
-	private com.googlecode.efactory.eFactory.Factory loadEFactory(
-			InputStream inputStream, Map<?, ?> options) throws IOException {
+	private void loadEFactory(InputStream inputStream, Map<?, ?> options) throws IOException {
 		initResourceSet();
 		internalResource.setURI(getURI());
 		internalResourceSet.getResources().add(internalResource);
 		internalResource.load(inputStream, options);
-		if (internalResource.getContents().isEmpty()) {
-			return null;
-		} else {
-			return getFactory();
-		}
 	}
 
 	private void initResourceSet() {
@@ -202,13 +218,11 @@ public class EFactoryResource extends XtextResource {
 	@Override
 	public void update(int offset, int replacedTextLength, String newText) {
 		internalResource.update(offset, replacedTextLength, newText);
-		doTransformation(getFactory());
 	}
 
 	@Override
 	public void reparse(String newContent) throws IOException {
 		internalResource.reparse(newContent);
-		doTransformation(getFactory());
 	}
 
 	@Override
@@ -216,6 +230,7 @@ public class EFactoryResource extends XtextResource {
 		if (uriFragment.startsWith(INTERNAL)) {
 			return internalResource.getEObject(uriFragment);
 		} else {
+			ensureThisResourceContentsIsAvailable();
 			return super.getEObject(uriFragment);
 		}
 	}
@@ -225,6 +240,64 @@ public class EFactoryResource extends XtextResource {
 		if (object.eClass().getEPackage() == EFactoryPackage.eINSTANCE) {
 			return INTERNAL + internalResource.getURIFragment(object);
 		}
+		ensureThisResourceContentsIsAvailable();
 		return super.getURIFragment(object);
 	}
+
+	/**
+	 * This method must be used inside this class instead of getContents(),
+	 * otherwise we're going around in circles (StackOverflowError) obviously.
+	 */
+	private EList<EObject> getContentsSuper() {
+		return super.getContents();
+	}
+	
+	@Override
+	public EList<EObject> getContents() {
+		ensureThisResourceContentsIsAvailable();
+		return super.getContents();
+	}
+
+	@Override
+	public TreeIterator<EObject> getAllContents() {
+		ensureThisResourceContentsIsAvailable();
+		return super.getAllContents();
+	}
+
+	@Override
+	protected TreeIterator<EObject> getAllProperContents(EObject eObject) {
+		ensureThisResourceContentsIsAvailable();
+		return super.getAllProperContents(eObject);
+	}
+
+	@Override
+	protected TreeIterator<EObject> getAllProperContents(List<EObject> contents) {
+		ensureThisResourceContentsIsAvailable();
+		return super.getAllProperContents(contents);
+	}
+
+	@Override
+	protected String getURIFragmentRootSegment(EObject eObject) {
+		ensureThisResourceContentsIsAvailable();
+		return super.getURIFragmentRootSegment(eObject);
+	}
+
+	@Override
+	protected EObject getEObjectForURIFragmentRootSegment(String uriFragmentRootSegment) {
+		ensureThisResourceContentsIsAvailable();
+		return super.getEObjectForURIFragmentRootSegment(uriFragmentRootSegment);
+	}
+
+	@Override
+	protected EObject getEObject(List<String> uriFragmentPath) {
+		ensureThisResourceContentsIsAvailable();
+		return super.getEObject(uriFragmentPath);
+	}
+
+	@Override
+	protected EObject getEObjectByID(String id) {
+		ensureThisResourceContentsIsAvailable();
+		return super.getEObjectByID(id);
+	}
+
 }
