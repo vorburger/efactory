@@ -74,7 +74,7 @@ public class AttributeTest extends AbstractModelBuilderTest {
 		AttributeTestContainer fixture = find(AttributeTestContainer.class,
 				TEST_NAME);
 		BigDecimal actual = fixture.getOneBigDecimal();
-		BigDecimal expected = new BigDecimal("1"); // TODO "123798234.223940293480923842");
+		BigDecimal expected = new BigDecimal("1.0"); // TODO "123798234.223940293480923842");
 		assertEquals(expected, actual);
 	}
 	
