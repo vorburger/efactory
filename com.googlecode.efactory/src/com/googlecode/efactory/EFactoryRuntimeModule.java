@@ -18,6 +18,7 @@ import java.text.SimpleDateFormat;
 import org.eclipse.xtext.parser.antlr.IReferableElementsUnloader;
 import org.eclipse.xtext.parser.antlr.IReferableElementsUnloader.GenericUnloader;
 import org.eclipse.xtext.parsetree.reconstr.ITransientValueService;
+import org.eclipse.xtext.resource.IDerivedStateComputer;
 import org.eclipse.xtext.resource.IResourceFactory;
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider;
 
@@ -25,6 +26,7 @@ import com.google.inject.Binder;
 import com.google.inject.name.Names;
 import com.googlecode.efactory.conversion.DATEValueConverter;
 import com.googlecode.efactory.conversion.TerminalConverters;
+import com.googlecode.efactory.resource.EFactoryDerivedStateComputer;
 import com.googlecode.efactory.resource.EFactoryStandaloneResourceFactory;
 import com.googlecode.efactory.scoping.EFactoryImportedNamespaceAwareScopeProvider;
 import com.googlecode.efactory.serialization.EFactoryTransientValueService;
@@ -65,4 +67,8 @@ public class EFactoryRuntimeModule
 				EFactoryImportedNamespaceAwareScopeProvider.class);
 	}
 
+	// NO @Override
+	public Class<? extends IDerivedStateComputer> bindIDerivedStateComputer() {
+		return EFactoryDerivedStateComputer.class;
+	}
 }

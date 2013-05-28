@@ -22,7 +22,6 @@ public class EFactoryResourceFactory extends XtextResourceFactory {
 	public Resource createResource(URI uri) {
 		EFactoryResource resource = efactoryResourceProvider.get();
 		resource.setURI(uri);
-		resource.setXtextResource((XtextResource) super.createResource(uri));
 		return resource;
 	}
 }
