@@ -114,10 +114,10 @@ public class ResourceProvider {
 
 	private void logResourceDiagnostics(Resource resource) {
 		for (Diagnostic diag : resource.getErrors()) {
-			System.err.println("ERR: " + diag.getMessage());
+			System.err.println("ERR in test resource: " + resource.getURI() + " :: " + diag.getMessage());
 		}
 		for (Diagnostic diag : resource.getWarnings()) {
-			System.out.println("WARN: " + diag.getMessage());
+			System.out.println("WARN in test resource: " + resource.getURI() + " :: " + diag.getMessage());
 		}
 	}
 
