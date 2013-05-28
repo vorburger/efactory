@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><templates><template id="eattribute" autoinsert="true" context="com.googlecode.efactory.EFactory.Feature" deleted="false" description="Define a EAttribute" enabled="true" name="EAttribute">eStructuralFeatures	+= EAttribute ${Name} {
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><templates><!-- <template id="eattribute" autoinsert="true" context="com.googlecode.efactory.EFactory.Feature" deleted="false" description="Define a EAttribute" enabled="true" name="EAttribute">eStructuralFeatures	+= EAttribute ${Name} {
 			upperBound = ${1}
 			eType = ${Type}
 		}
@@ -25,4 +25,4 @@
 			eType = ${Type}
 		}
 
-		${cursor}</template></templates>
+		${cursor}</template> --></templates>
