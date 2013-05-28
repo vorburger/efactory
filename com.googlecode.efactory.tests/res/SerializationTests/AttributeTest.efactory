@@ -15,10 +15,12 @@ TestModel testModelName {
     manyDouble += 1.1
     manyDouble += 2.2
     manyDouble += 3.3
-    oneBigDecimal = 123798234.223940293480923842
+//    oneBigDecimal = 123798234.223940293480923842
+    oneBigDecimal = 1
     manyBigDecimal += 1.1
     oneBigInteger = 1
-    manyBigInteger += 1230820834928349283498234
+//    manyBigInteger += 1230820834928349283498234
+	manyBigInteger += 1
     manyBigInteger += 2
     oneEnum = :Sample2
     manyEnums += :Sample

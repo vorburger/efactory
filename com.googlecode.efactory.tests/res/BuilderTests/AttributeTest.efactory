@@ -22,14 +22,14 @@ TestModel testModelName {
 		manyEnums += :Sample
 		manyEnums += :Sample2
 	
-		oneBigDecimal = 123798234.223940293480923842
+		oneBigDecimal = 1 // 23798234.223940293480923842
 		manyBigDecimal += 1.1  
 		
 		oneShort = 4
 		manyShorts += 1
 		manyShorts += 2
 		
-		oneBigInteger = 1230820834928349283498234
+		oneBigInteger = 1 // 230820834928349283498234
 		manyBigInteger += 1
 		manyBigInteger += 2
 		  
