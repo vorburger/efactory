@@ -14,6 +14,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.xtext.naming.IQualifiedNameConverter;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.nodemodel.INode;
@@ -46,19 +47,25 @@ public class EFactoryImportedNamespaceAwareScopeProvider extends ImportedNamespa
 	@Override
 	protected List<ImportNormalizer> internalGetImportedNamespaceResolvers(EObject context, boolean ignoreCase) {
 	    if (!(context instanceof Factory))
-	      return Collections.emptyList();
+	    	return Collections.emptyList();
 	    Factory factory = (Factory)context;
 	    List<ImportNormalizer> importedNamespaceResolvers = Lists.newArrayList();
 	    
 	    for (PackageImport anImport : factory.getEpackages()) {
-	    	// We CANNOT do this here: 
-	    	//    EPackage ePackage = anImport.getImportedEPackage();
-	        //    QualifiedName packageQN = getQualifiedNameProvider().getFullyQualifiedName(ePackage);
-	        //    String packageName = nameConverter.toString(packageQN);
-	    	// because that would lead to a ""Cyclic resolution of lazy links".. so, instead:
+	    	// Usually, we CANNOT do getEPackage() etc. as below here, 
+	    	// because that would lead to a ""Cyclic resolution of lazy links".. so, instead we first try:
 	    	List<INode> nodes = NodeModelUtils.findNodesForFeature(anImport, EFactoryPackage.Literals.PACKAGE_IMPORT__EPACKAGE);
-	        INode node = nodes.get(0);
-	        final String packageName = NodeModelUtils.getTokenText(node);
+	    	final String packageName;
+	    	if (!nodes.isEmpty()) {
+		        INode node = nodes.get(0);
+		        packageName = NodeModelUtils.getTokenText(node);
+	    	} else {
+	    		// no ICompositeNode adaptor on PackageImport.. can happen during SerializationTest
+	    		// let's try if it's actually available "normally" anyways
+	    		EPackage ePackage = anImport.getEPackage();
+		        QualifiedName packageQN = getQualifiedNameProvider().getFullyQualifiedName(ePackage);
+		        packageName = nameConverter.toString(packageQN);
+	    	}
 			importedNamespaceResolvers.add(createImportedNamespaceResolver(packageName, ignoreCase));
 		}
 	    return importedNamespaceResolvers;
