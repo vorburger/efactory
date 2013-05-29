@@ -113,12 +113,9 @@ public class ModelBuilder {
 	public void buildFeatures(EObject eObject, List<Feature> features) {
 		for (Feature feature : features) {
 			FeatureBuilder featureBuilder = featureSwitch.doSwitch(feature);
-			if (featureBuilder == null) {
-				throw new UnsupportedOperationException("Unsupported feature '"
-						+ feature.getEFeature().eClass().getName() + "'");
+			if (featureBuilder != null) {
+				featureBuilder.modelBuilder(this).container(eObject).feature(feature).build();
 			}
-			featureBuilder.modelBuilder(this).container(eObject)
-					.feature(feature).build();
 		}
 	}
 

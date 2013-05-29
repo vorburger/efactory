@@ -1,0 +1,5 @@
+use testmodel.*
+
+TestModel {
+	singleRequired // missing "= ..." => invalid, of course - but should still not lead to exception! 
+}

@@ -35,9 +35,7 @@ public class FeatureSwitch extends EFactorySwitch<FeatureBuilder> {
 	@Override
 	public FeatureBuilder caseFeature(Feature object) {
 		if (object.getValue() == null) {
-			throw new IllegalStateException("Feature '"
-					+ object.getEFeature().getName()
-					+ "' has no value. This may result from a parsing error.");
+			return null;
 		}
 		return doSwitch(object.getValue());
 	}
