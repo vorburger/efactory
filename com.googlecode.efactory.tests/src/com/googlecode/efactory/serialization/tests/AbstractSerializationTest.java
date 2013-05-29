@@ -11,6 +11,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.compare.diff.metamodel.DiffElement;
 import org.eclipse.emf.compare.diff.metamodel.DiffModel;
@@ -83,6 +84,20 @@ public abstract class AbstractSerializationTest extends AbstractEFactoryTest {
 
 	public void compare(Factory expected, Factory actual)
 			throws InterruptedException, IOException {
+		
+		// Following is needed to remove the TestModel(Impl) object which we
+		// added in the EFactoryDerivedStateComputer. It's a bit of a hack, but
+		// how to do this better with EMF Compare? Why is it even looking at
+		// another element in content the resource - if you're asking it to
+		// match from the Factory only?!
+		final EList<EObject> contents = expected.eResource().getContents();
+		if (contents.size() == 2) {
+			contents.remove(1);
+		} 
+		if (contents.size() != 1) {
+			throw new IllegalStateException("why is there MORE contents in the resource? EMF Compare diff test will not work..");
+		}
+		
 		// Matching model elements
 		MatchModel match = MatchService.doMatch(expected, actual,
 				Collections.<String, Object> emptyMap());
@@ -93,6 +108,7 @@ public abstract class AbstractSerializationTest extends AbstractEFactoryTest {
 		if (differences.get(0).getSubDiffElements().size() > 0) {
 			StringBuilder descriptionOfDifferences = new StringBuilder();
 			for (DiffElement d : differences) {
+				System.out.println(d.toString());
 				descriptionOfDifferences.append(getDifferences(d));
 			}
 			assertEquals(descriptionOfDifferences.toString(),
