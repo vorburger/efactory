@@ -58,6 +58,9 @@ public class ModelBuilder {
 			return target;
 		}
 		EClass eClass = from.getEClass();
+		if (eClass == null) {
+			return null;
+		}
 		if (eClass.getEPackage() == null) {
 			EcoreUtil.resolve(from.eClass(), from);
 		}
