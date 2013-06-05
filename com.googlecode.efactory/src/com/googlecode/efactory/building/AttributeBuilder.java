@@ -43,7 +43,9 @@ public class AttributeBuilder extends FeatureBuilder {
 
 	@Override
 	public void build() {
-
+		if (!(getFeature().getEFeature() instanceof EAttribute))
+			return;
+		
 		EAttribute targetFeature = (EAttribute) getFeature().getEFeature();
 		Class<?> clazz = targetFeature.getEAttributeType().getInstanceClass();
 		Object newValue = valueResolver.apply(attribute);

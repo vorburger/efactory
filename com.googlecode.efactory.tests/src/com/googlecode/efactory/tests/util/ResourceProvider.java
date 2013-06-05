@@ -109,6 +109,7 @@ public class ResourceProvider {
 		if (resource.getContents().isEmpty())
 			throw new IOException("Could no load / no content (see log!) in resource: " + path);
 		
+		// get(1) because 0 is the EFactory NewObject, 1 is the EObject from it
 		return resource.getContents().get(1);
 	}
 

@@ -50,7 +50,7 @@ Value:
 ;
 
 Reference:
-	value = [ecore::EObject]
+	value = [ecore::EObject] // NOT [NewObject]
 ;
 	
 Containment:
