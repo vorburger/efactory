@@ -14,6 +14,7 @@ import com.googlecode.efactory.eFactory.Attribute;
 import com.googlecode.efactory.eFactory.Containment;
 import com.googlecode.efactory.eFactory.Feature;
 import com.googlecode.efactory.eFactory.Reference;
+import com.googlecode.efactory.eFactory.Value;
 import com.googlecode.efactory.eFactory.util.EFactorySwitch;
 
 public class FeatureSwitch extends EFactorySwitch<FeatureBuilder> {
@@ -34,9 +35,10 @@ public class FeatureSwitch extends EFactorySwitch<FeatureBuilder> {
 
 	@Override
 	public FeatureBuilder caseFeature(Feature object) {
-		if (object.getValue() == null) {
+		final Value value = object.getValue();
+		if (value == null) {
 			return null;
 		}
-		return doSwitch(object.getValue());
+		return doSwitch(value);
 	}
 }
