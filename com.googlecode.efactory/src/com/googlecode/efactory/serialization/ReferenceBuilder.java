@@ -21,23 +21,27 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 
 import com.googlecode.efactory.eFactory.EFactoryFactory;
+import com.googlecode.efactory.eFactory.NewObject;
 import com.googlecode.efactory.eFactory.Reference;
 import com.googlecode.efactory.eFactory.Value;
 
-public class ReferenceBuilder extends FeatureBuilder {
+// intentionally a package local class, the entry point to this package is FactoryBuilder, only
+class ReferenceBuilder extends FeatureBuilder {
 
 	private EReference eReference;
 	private EObject referencedElement;
 
-	private ReferenceBuilder(EReference reference) {
+	private ReferenceBuilder(EReference reference, FactoryBuilder factoryBuilder) {
+		super(factoryBuilder);
 		this.eReference = reference;
 	}
 
 	@Override
 	protected Value createValue() {
-		Reference value = EFactoryFactory.eINSTANCE.createReference();
-		value.setValue(referencedElement);
-		return value;
+		Reference reference = EFactoryFactory.eINSTANCE.createReference();
+		NewObject newObject = factoryBuilder.getOrBuildNewObject(referencedElement);
+		reference.setValue(newObject);
+		return reference;
 	}
 
 	@Override
@@ -45,9 +49,8 @@ public class ReferenceBuilder extends FeatureBuilder {
 		return eReference;
 	}
 
-	public static ReferenceBuilder reference(EReference reference) {
-		return new ReferenceBuilder(reference);
-
+	public static ReferenceBuilder reference(EReference reference, FactoryBuilder factoryBuilder) {
+		return new ReferenceBuilder(reference, factoryBuilder);
 	}
 
 	public FeatureBuilder element(EObject referencedElement) {

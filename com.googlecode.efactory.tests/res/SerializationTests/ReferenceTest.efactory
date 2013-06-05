@@ -2,19 +2,21 @@ use testmodel.*
  
 TestModel testModelName {
 	
+	singleRequired = SingleRequired { parentAttribute = false }
+	
 	referenceTestContainer +=ReferenceTestContainer test1 {
 		oneAttribute = false
-		containments += ReferenceTarget target1 {}
-		containments += ReferenceTarget target2 {}
-		containments += ReferenceTarget target3 {}
-	
 		referenceToOne = target1
-		referenceToMany += target1
-		referenceToMany += target2		
-		referenceToMany += target3		
+		containments += ReferenceTarget target1 {}
+//		containments += ReferenceTarget target2 {}
+//		containments += ReferenceTarget target3 {}
+	
+//		referenceToMany += target1
+//		referenceToMany += target2		
+//		referenceToMany += target3		
 	
 	}
-	
+/*	
 	referenceTestContainer += ReferenceTestContainer test2 {
 		oneAttribute = false
 		containments += ReferenceTarget target21 {}
@@ -27,7 +29,7 @@ TestModel testModelName {
 		referenceToMany += target23		
 	
 	}
-	
+*/	
 } 
 
  

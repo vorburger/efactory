@@ -16,6 +16,9 @@
  */
 package com.googlecode.efactory.serialization;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.eclipse.emf.ecore.EObject;
 
 import com.googlecode.efactory.eFactory.EFactoryFactory;
@@ -25,24 +28,38 @@ import com.googlecode.efactory.eFactory.PackageImport;
 
 public class FactoryBuilder {
 
-	public Factory build(EObject eObject) {
-		Factory factory = createFactory(eObject);
-		return factory;
-	}
-
-	private Factory createFactory(EObject eObject) {
-		Factory factory = EFactoryFactory.eINSTANCE.createFactory();
+	private Map<EObject, NewObject> mapping = new HashMap<EObject, NewObject>();
+	private Factory factory;
+	
+	public Factory buildFactory(EObject eObject) {
+		factory = EFactoryFactory.eINSTANCE.createFactory();
 		PackageImport packageImport = createPackageImport(eObject);
 		factory.getEpackages().add(packageImport);
-		NewObjectBuilder builder = NewObjectBuilder.context(factory);
-		NewObject root = builder.build(eObject);
+		
+		NewObject root = createNewObject(eObject);
 		factory.setRoot(root);
+		
 		return factory;
 	}
-
+	
+	// intentionally package-local, for the moment
+	NewObject getOrBuildNewObject(EObject eObject) {
+		NewObject newObject = mapping.get(eObject);
+		if (newObject == null) {
+			newObject = createNewObject(eObject);
+			mapping.put(eObject, newObject);
+		}
+		return newObject;
+	}
+	
+	private NewObject createNewObject(EObject eObject) {
+		NewObjectBuilder builder = NewObjectBuilder.context(factory, this);
+		NewObject newObject = builder.build(eObject);
+		return newObject;
+	}
+	
 	private PackageImport createPackageImport(EObject eObject) {
-		PackageImport packageImport = EFactoryFactory.eINSTANCE
-				.createPackageImport();
+		PackageImport packageImport = EFactoryFactory.eINSTANCE.createPackageImport();
 		packageImport.setEPackage(eObject.eClass().getEPackage());
 		return packageImport;
 	}

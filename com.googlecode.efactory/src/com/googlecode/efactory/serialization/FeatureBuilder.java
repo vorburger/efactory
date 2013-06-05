@@ -22,9 +22,16 @@ import com.googlecode.efactory.eFactory.EFactoryFactory;
 import com.googlecode.efactory.eFactory.Feature;
 import com.googlecode.efactory.eFactory.Value;
 
-public abstract class FeatureBuilder {
+// intentionally a package local class, the entry point to this package is FactoryBuilder, only
+abstract class FeatureBuilder {
 
 	protected Object value;
+	protected final FactoryBuilder factoryBuilder;
+
+	protected FeatureBuilder(FactoryBuilder factoryBuilder) {
+		super();
+		this.factoryBuilder = factoryBuilder;
+	}
 
 	protected Feature createFeature(EStructuralFeature eFeature) {
 		Feature feature = EFactoryFactory.eINSTANCE.createFeature();

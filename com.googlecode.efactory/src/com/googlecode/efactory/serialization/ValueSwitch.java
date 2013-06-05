@@ -36,7 +36,8 @@ import com.googlecode.efactory.eFactory.StringAttribute;
 import com.googlecode.efactory.eFactory.Value;
 import com.googlecode.efactory.util.EcoreUtil3;
 
-public class ValueSwitch extends AbstractValueSwitch<Value> {
+// intentionally a package local class, the entry point to this package is FactoryBuilder, only
+class ValueSwitch extends AbstractValueSwitch<Value> {
 
 	private EAttribute eAttribute;
 
@@ -89,10 +90,12 @@ public class ValueSwitch extends AbstractValueSwitch<Value> {
 		attribute.setValue(literal);;
 		return attribute;
 	}
+	
 	@Override
 	protected Value caseInteger(int value) {
 		return createIntValue(value);
 	}
+	
 	private Value createIntValue(int value) {
 		IntegerAttribute attribute = EFactoryFactory.eINSTANCE
 				.createIntegerAttribute();

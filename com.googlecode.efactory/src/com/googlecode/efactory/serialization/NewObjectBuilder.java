@@ -29,19 +29,21 @@ import com.googlecode.efactory.eFactory.Factory;
 import com.googlecode.efactory.eFactory.Feature;
 import com.googlecode.efactory.eFactory.NewObject;
 
-public class NewObjectBuilder {
+// intentionally a package local class, the entry point to this package is FactoryBuilder, only
+class NewObjectBuilder {
 
-	private Factory context;
+	private final Factory context;
 	private NameAccessor nameAccessor = new NameAccessor();
 	private EAttribute nameEAttribute;
-
-	private NewObjectBuilder(Factory context) {
+	private final FactoryBuilder factoryBuilder;
+	
+	private NewObjectBuilder(Factory context, FactoryBuilder factoryBuilder) {
 		this.context = context;
-
+		this.factoryBuilder = factoryBuilder;
 	}
 
-	public static NewObjectBuilder context(Factory context) {
-		return new NewObjectBuilder(context);
+	public static NewObjectBuilder context(Factory context, FactoryBuilder factoryBuilder) {
+		return new NewObjectBuilder(context, factoryBuilder);
 	}
 
 	public NewObject build(EObject input) {
@@ -76,9 +78,10 @@ public class NewObjectBuilder {
 
 	private Feature createContainment(EReference containment,
 			Object containmentValue) {
-		return ContainmentBuilder.containment(containment).factory(context)
+		return ContainmentBuilder.containment(containment, factoryBuilder).factory(context)
 				.value(containmentValue).build();
 	}
+	
 	private void addReferences(NewObject newObject, EObject input) {
 		EList<Feature> features = newObject.getFeatures();
 		for (EReference eReference : input.eClass().getEAllReferences()) {
@@ -101,7 +104,7 @@ public class NewObjectBuilder {
 
 	private void createReference(EList<Feature> features,
 			EReference eReference, Object referencedElement) {
-		features.add(ReferenceBuilder.reference(eReference)
+		features.add(ReferenceBuilder.reference(eReference, factoryBuilder)
 				.element((EObject) referencedElement).build());
 	}
 
@@ -129,7 +132,7 @@ public class NewObjectBuilder {
 
 	private void createAttribute(EList<Feature> features, EAttribute attribute,
 			Object value) {
-		features.add(AttributeBuilder.attribute(attribute)
+		features.add(AttributeBuilder.attribute(attribute, factoryBuilder)
 				.value(value).build());
 	}
 

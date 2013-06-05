@@ -21,22 +21,24 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 
 import com.googlecode.efactory.eFactory.Value;
 
-public class AttributeBuilder extends FeatureBuilder {
+// intentionally a package local class, the entry point to this package is FactoryBuilder, only
+class AttributeBuilder extends FeatureBuilder {
 
 	private ValueSwitch valueSwitch;
 
 	EAttribute attribute;
-	private AttributeBuilder(EAttribute attribute) {
+	private AttributeBuilder(EAttribute attribute, FactoryBuilder factoryBuilder) {
+		super(factoryBuilder);
 		this.attribute = attribute;
 		valueSwitch = new ValueSwitch(attribute);
 	}
-	public static FeatureBuilder attribute(EAttribute attribute) {
-		return new AttributeBuilder(attribute);
+	
+	public static FeatureBuilder attribute(EAttribute attribute, FactoryBuilder factoryBuilder) {
+		return new AttributeBuilder(attribute, factoryBuilder);
 	}
 
 	@Override
 	protected Value createValue() {
-
 		return valueSwitch.doSwitch(attribute.getEAttributeType()
 				.getInstanceClass(), value);
 	}

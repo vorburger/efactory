@@ -26,12 +26,16 @@ import com.googlecode.efactory.eFactory.Factory;
 import com.googlecode.efactory.eFactory.NewObject;
 import com.googlecode.efactory.eFactory.Value;
 
-public class ContainmentBuilder extends FeatureBuilder {
+// intentionally a package local class, the entry point to this package is FactoryBuilder, only
+class ContainmentBuilder extends FeatureBuilder {
 
 	private EReference containment;
+	
+	@SuppressWarnings("unused")
 	private Factory context;
 
-	private ContainmentBuilder(EReference containment) {
+	private ContainmentBuilder(EReference containment, FactoryBuilder factoryBuilder) {
+		super(factoryBuilder);
 		this.containment = containment;
 	}
 
@@ -46,8 +50,7 @@ public class ContainmentBuilder extends FeatureBuilder {
 	private NewObject createNewObject() {
 		if (value instanceof EObject) {
 			EObject eObjectValue = (EObject) value;
-			NewObjectBuilder builder = NewObjectBuilder.context(context);
-			return builder.build(eObjectValue);
+			return factoryBuilder.getOrBuildNewObject(eObjectValue);
 		} else {
 			throw new IllegalStateException("Value of containment feature '"
 					+ containment.getName() + "' was no an EObject, but was '"
@@ -64,8 +67,8 @@ public class ContainmentBuilder extends FeatureBuilder {
 		return containment;
 	}
 
-	public static ContainmentBuilder containment(EReference containment) {
-		return new ContainmentBuilder(containment);
+	public static ContainmentBuilder containment(EReference containment, FactoryBuilder factoryBuilder) {
+		return new ContainmentBuilder(containment, factoryBuilder);
 	}
 
 }

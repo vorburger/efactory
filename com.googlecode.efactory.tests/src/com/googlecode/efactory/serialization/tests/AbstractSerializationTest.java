@@ -138,7 +138,7 @@ public abstract class AbstractSerializationTest extends AbstractEFactoryTest {
 		Factory expected = ((EFactoryResource) testModel.eResource())
 				.getFactory();
 		FactoryBuilder builder = new FactoryBuilder();
-		Factory actual = builder.build(testModel);
+		Factory actual = builder.buildFactory(testModel);
 
 		assertModelsEquals(expected, actual);
 	}
