@@ -26,7 +26,10 @@
  */
 package com.googlecode.efactory.building;
 
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.xtext.linking.lazy.LazyURIEncoder;
 
 import com.googlecode.efactory.eFactory.NewObject;
 import com.googlecode.efactory.eFactory.Reference;
@@ -49,12 +52,18 @@ public class ReferenceBuilder extends FeatureBuilder {
 
 	private EObject getReferencedObject() {
 		EObject referencedObject = reference.getValue();
+		if (referencedObject.eIsProxy()) {
+			// @see Partial2Test.testPartiallyTypedResourceNoExceptions & Partial2Test.efactory
+			URI uri = ((InternalEObject)referencedObject).eProxyURI(); 
+			String fragment = uri.fragment();
+			if (new LazyURIEncoder().isCrossLinkFragment(null, fragment))
+				return null;
+		}
 		if (referencedObject instanceof NewObject) {
 			NewObject referenceToNewObject = (NewObject) referencedObject;
 			return getModelBuilder().getCreatedObject(referenceToNewObject);
-		} else {
-			return referencedObject;
 		}
+		return referencedObject;
 	}
 
 }
