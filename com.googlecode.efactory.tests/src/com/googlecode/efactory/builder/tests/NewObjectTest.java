@@ -103,14 +103,14 @@ public class NewObjectTest extends AbstractModelBuilderTest {
 
 	public void testBuild_getNewObject_Caching() throws Exception {
 		NewObject newObject = factory.getRoot();
-		EObject result = modelBuilder.getCreatedObject(newObject);
-		EObject result2 = modelBuilder.getCreatedObject(newObject);
+		EObject result = modelBuilder.build(newObject);
+		EObject result2 = modelBuilder.build(newObject);
 		assertEquals(result, result2);
 	}
 
 	public void testBuild_getNewObject_Null() throws Exception {
 		try {
-			modelBuilder.getCreatedObject(null);
+			modelBuilder.build((NewObject) null);
 		} catch (IllegalArgumentException e) {
 			// expected
 			return;

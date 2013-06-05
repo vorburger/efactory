@@ -19,6 +19,7 @@
  * 
  * Contributors: 
  *   Sebastian Benz - Initial API and implementation
+ *   Michael Vorburger - simplified publicly visible methods & optimized
  *
  * </copyright>
  *
@@ -46,17 +47,29 @@ public class ModelBuilder {
 
 	private static Logger logger = Logger.getLogger(ModelBuilder.class);
 	private NameAccessor nameSetter = new NameAccessor();
-
+	private FeatureSwitch featureSwitch;
 	private BiMap<NewObject, EObject> mapping = HashBiMap.create();
 
-	private EObject getOrCreateTarget(NewObject from) {
-		if (from == null) {
+	public ModelBuilder() {
+		this.featureSwitch = new FeatureSwitch();
+	}
+
+	public EObject build(NewObject newObject) {
+		Check.notNull("Argument must not be null", newObject);
+		if (newObject == null) {
 			return null;
 		}
-		EObject target = mapping.get(from);
+		EObject target = mapping.get(newObject);
 		if (target != null) {
 			return target;
 		}
+		EObject eObject = createTarget(newObject);
+		setName(eObject, newObject);
+		buildFeatures(eObject, newObject.getFeatures());
+		return eObject;
+	}
+
+	private EObject createTarget(NewObject from) {
 		EClass eClass = from.getEClass();
 		if (eClass == null) {
 			return null;
@@ -78,25 +91,13 @@ public class ModelBuilder {
 			throw new IllegalStateException("No EFactory registered for "
 					+ ePackage.getNsURI());
 		}
-		target = eFactoryInstance.create(eClass);
+		EObject target = eFactoryInstance.create(eClass);
 		mapping.put(from, target);
 		return target;
-	}
-	private FeatureSwitch featureSwitch;
-
-	public ModelBuilder() {
-		this.featureSwitch = new FeatureSwitch();
 	}
 
 	public EObject build(Factory factory) {
 		return build(factory.getRoot());
-	}
-
-	public EObject build(NewObject newObject) {
-		EObject eObject = getOrCreateTarget(newObject);
-		setName(eObject, newObject);
-		buildFeatures(eObject, newObject.getFeatures());
-		return eObject;
 	}
 
 	private void setName(EObject target, NewObject source) {
@@ -110,7 +111,7 @@ public class ModelBuilder {
 		}
 	}
 
-	public void buildFeatures(EObject eObject, List<Feature> features) {
+	private void buildFeatures(EObject eObject, List<Feature> features) {
 		for (Feature feature : features) {
 			FeatureBuilder featureBuilder = featureSwitch.doSwitch(feature);
 			if (featureBuilder != null) {
@@ -119,14 +120,15 @@ public class ModelBuilder {
 		}
 	}
 
-	public EObject getCreatedObject(NewObject newObject) {
-		Check.notNull("Argument must not be null", newObject);
-		return getOrCreateTarget(newObject);
-	}
-
 	public NewObject getSource(EObject value) {
 		Check.notNull("Argument must not be null", value);
+		if (mapping.isEmpty())
+			throw new IllegalStateException("ModelBuilder seems uninitialized, you need to use build() before getSource()");
 		return mapping.inverse().get(value);
+	}
+
+	public void clear() {
+		mapping.clear();
 	}
 
 }

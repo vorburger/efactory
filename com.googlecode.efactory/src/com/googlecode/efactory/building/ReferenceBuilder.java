@@ -61,7 +61,7 @@ public class ReferenceBuilder extends FeatureBuilder {
 		}
 		if (referencedObject instanceof NewObject) {
 			NewObject referenceToNewObject = (NewObject) referencedObject;
-			return getModelBuilder().getCreatedObject(referenceToNewObject);
+			return getModelBuilder().build(referenceToNewObject);
 		}
 		return referencedObject;
 	}

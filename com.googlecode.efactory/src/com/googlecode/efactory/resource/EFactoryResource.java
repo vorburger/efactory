@@ -15,21 +15,26 @@ import org.eclipse.xtext.resource.DerivedStateAwareResource;
 
 import com.google.inject.Inject;
 import com.googlecode.efactory.building.ModelBuilder;
+import com.googlecode.efactory.eFactory.NewObject;
 
 public class EFactoryResource extends DerivedStateAwareResource {
-
-	// TODO ModelBuilder is stateful, and probably needs to be cleared at some points.. write failing tests!
-	
-	// private static final Logger logger = Logger.getLogger(EFactoryResource.class);
 
 	@Inject
 	private ModelBuilder builder;
 	
-	public EObject getEFactoryElement(EObject eObject) {
+	public NewObject getEFactoryElement(EObject eObject) {
 		if (builder == null) {
 			return null;
 		}
 		return builder.getSource(eObject);
+	}
+
+	public EObject getEFactoryEObject(NewObject nObject) {
+		if (builder == null) {
+			return null;
+		}
+		builder.build(getFactory()); // need to do this to ensure it's fully initialized
+		return builder.build(nObject);
 	}
 	
 	// package-private, as only used by EFactoryDerivedStateComputer

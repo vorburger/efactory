@@ -31,16 +31,9 @@ public class EFactoryDerivedStateComputer implements IDerivedStateComputer {
 
 	private static final Logger logger = Logger.getLogger(EFactoryDerivedStateComputer.class);
 
-//	@Inject
-//	private Provider<ModelBuilder> builderProvider;
-
 	public void installDerivedState(DerivedStateAwareResource resource, boolean preLinkingPhase) {
 		// skeleton code here is inspired by XcoreModelAssociator's implementation (more than JvmModelAssociator).. 
 
-//		if (resource.getContents().isEmpty())
-//			return;
-//		EObject eObject = resource.getContents().get(0);
-		
 	    if (resource.getParseResult() != null && resource.getParseResult().getRootASTElement() instanceof Factory)
 	    {
 	    	Factory model = (Factory)resource.getParseResult().getRootASTElement();
@@ -63,8 +56,9 @@ public class EFactoryDerivedStateComputer implements IDerivedStateComputer {
 	}
 
 	public void discardDerivedState(DerivedStateAwareResource resource) {
-		// TODO IMPLEMENT ME CORRECTLY!!!!!!!!!!!!!! see XcoreModelAssociator#discardDerivedState
-
+    	EFactoryResource efResource = (EFactoryResource) resource;
+		ModelBuilder builder = efResource.getBuilder();
+		builder.clear();
 	}
 
 }
