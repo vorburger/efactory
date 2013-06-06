@@ -51,8 +51,8 @@ class NewObjectBuilder {
 		newObject.setEClass(input.eClass());
 		newObject.setName(getName(input));
 		addAttributes(newObject, input);
-		addReferences(newObject, input);
 		addContainments(newObject, input);
+		addReferences(newObject, input);
 		return newObject;
 	}
 
