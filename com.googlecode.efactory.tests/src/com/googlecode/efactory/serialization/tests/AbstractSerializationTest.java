@@ -132,8 +132,7 @@ public abstract class AbstractSerializationTest extends AbstractEFactoryTest {
 		return builder.toString();
 	}
 
-	protected void performSerializationTest(String name) throws IOException,
-			InterruptedException {
+	protected void performSerializationTest(String name) throws Exception {
 		EObject testModel = loadTestModel(name);
 		Factory expected = ((EFactoryResource) testModel.eResource())
 				.getFactory();

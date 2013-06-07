@@ -26,11 +26,7 @@
  */
 package com.googlecode.efactory.building;
 
-public class NoNameFeatureMappingException extends RuntimeException {
-
-	/**
-	 * 
-	 */
+public class NoNameFeatureMappingException extends Exception {
 	private static final long serialVersionUID = -5236732762765608094L;
 
 	public NoNameFeatureMappingException(String message) {

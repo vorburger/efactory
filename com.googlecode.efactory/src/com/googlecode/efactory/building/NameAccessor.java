@@ -52,13 +52,13 @@ public class NameAccessor {
 		};
 	};
 
-	public void setName(EObject context, EObject eObject, String name) {
+	public void setName(EObject context, EObject eObject, String name) throws NoNameFeatureMappingException {
 		Check.hasEPackage(context, EFactoryPackage.eINSTANCE);
 		EAttribute nameAttribute = getNameAttribute(context, eObject);
 		setName(eObject, name, nameAttribute);
 	}
 
-	public String getName(EObject context, EObject eObject) {
+	public String getName(EObject context, EObject eObject) throws NoNameFeatureMappingException {
 		Check.hasEPackage(context, EFactoryPackage.eINSTANCE);
 		EAttribute nameAttribute = getNameAttribute(context, eObject);
 		Object name = eObject.eGet(nameAttribute);
@@ -71,8 +71,7 @@ public class NameAccessor {
 		eObject.eSet(nameAttribute, name);
 	}
 
-	public EAttribute getNameAttribute(EObject context, EObject eObject) {
-
+	public EAttribute getNameAttribute(EObject context, EObject eObject) throws NoNameFeatureMappingException {
 		Iterator<CustomNameMapping> customMappings = getCustomNameMappings(context);
 		while (customMappings.hasNext()) {
 			CustomNameMapping mapping = customMappings.next();
@@ -117,7 +116,6 @@ public class NameAccessor {
 
 	private Iterator<CustomNameMapping> getCustomNameMappings(EObject context) {
 		return Find.allInResourceSet(context, CustomNameMapping.class);
-
 	}
 
 }

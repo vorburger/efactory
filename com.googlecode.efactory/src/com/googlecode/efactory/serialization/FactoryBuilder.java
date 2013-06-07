@@ -21,6 +21,7 @@ import java.util.Map;
 
 import org.eclipse.emf.ecore.EObject;
 
+import com.googlecode.efactory.building.NoNameFeatureMappingException;
 import com.googlecode.efactory.eFactory.EFactoryFactory;
 import com.googlecode.efactory.eFactory.Factory;
 import com.googlecode.efactory.eFactory.NewObject;
@@ -31,7 +32,7 @@ public class FactoryBuilder {
 	private Map<EObject, NewObject> mapping = new HashMap<EObject, NewObject>();
 	private Factory factory;
 	
-	public Factory buildFactory(EObject eObject) {
+	public Factory buildFactory(EObject eObject) throws NoNameFeatureMappingException {
 		factory = EFactoryFactory.eINSTANCE.createFactory();
 		PackageImport packageImport = createPackageImport(eObject);
 		factory.getEpackages().add(packageImport);
@@ -43,7 +44,7 @@ public class FactoryBuilder {
 	}
 	
 	// intentionally package-local, for the moment
-	NewObject getOrBuildNewObject(EObject eObject) {
+	NewObject getOrBuildNewObject(EObject eObject) throws NoNameFeatureMappingException {
 		NewObject newObject = mapping.get(eObject);
 		if (newObject == null) {
 			newObject = createNewObject(eObject);
@@ -52,7 +53,7 @@ public class FactoryBuilder {
 		return newObject;
 	}
 	
-	private NewObject createNewObject(EObject eObject) {
+	private NewObject createNewObject(EObject eObject) throws NoNameFeatureMappingException {
 		NewObjectBuilder builder = NewObjectBuilder.context(factory, this);
 		NewObject newObject = builder.build(eObject);
 		return newObject;

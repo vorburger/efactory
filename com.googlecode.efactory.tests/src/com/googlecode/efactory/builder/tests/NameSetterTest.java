@@ -29,7 +29,7 @@ public class NameSetterTest extends AbstractNameAttributeTest {
 		nameAccessor = new NameAccessor();
 	}
 
-	public void testSetName_Default() {
+	public void testSetName_Default() throws Exception {
 		NameAttributeContainer fixture = getNameTestContainer();
 		DefaultName nameSetTarget = fixture.getDefaultNameTest();
 		nameAccessor.setName(factory, nameSetTarget, EXPECTED_NAME);
@@ -38,7 +38,7 @@ public class NameSetterTest extends AbstractNameAttributeTest {
 				.getName(factory, nameSetTarget));
 	}
 
-	public void testSetName_Custom() {
+	public void testSetName_Custom() throws Exception {
 		NameAttributeContainer fixture = getNameTestContainer();
 		CustomName nameSetTarget = fixture.getCustomNameTest();
 		nameAccessor.setName(factory, nameSetTarget, EXPECTED_NAME);
