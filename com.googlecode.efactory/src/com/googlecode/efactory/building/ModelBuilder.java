@@ -56,9 +56,6 @@ public class ModelBuilder {
 
 	public EObject build(NewObject newObject) {
 		Check.notNull("Argument must not be null", newObject);
-		if (newObject == null) {
-			return null;
-		}
 		EObject target = mapping.get(newObject);
 		if (target != null) {
 			return target;
@@ -123,7 +120,7 @@ public class ModelBuilder {
 	public NewObject getSource(EObject value) {
 		Check.notNull("Argument must not be null", value);
 		if (mapping.isEmpty())
-			throw new IllegalStateException("ModelBuilder seems uninitialized, you need to use build() before getSource()");
+			throw new IllegalStateException("ModelBuilder is uninitialized, build() needs to called with non-empty Factory/NewObject before getSource()");
 		return mapping.inverse().get(value);
 	}
 
