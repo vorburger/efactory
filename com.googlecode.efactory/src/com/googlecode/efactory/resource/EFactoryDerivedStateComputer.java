@@ -30,7 +30,7 @@ import com.googlecode.efactory.eFactory.Factory;
  * Adds the actual EObject. Uses the FactoryBuilder.
  * Xtext Index Builder calls this at appropriate times.
  * 
- * Credit where credit is due - the idea of using (something like) this was
+ * Credit where credit is due: the idea of using (something like) this was
  * originally raised by Sebastian Benz in private email exchange - I only dug
  * into it and coded it out.
  * 
@@ -41,7 +41,7 @@ public class EFactoryDerivedStateComputer implements IDerivedStateComputer {
 	@Inject
 	private IReferableElementsUnloader unloader;
 	
-	// implementation is inspired by XcoreModelAssociator (more than JvmModelAssociator) 
+	// implementation inspired by XcoreModelAssociator (more than JvmModelAssociator) 
 	public void installDerivedState(DerivedStateAwareResource resource, boolean preLinkingPhase) {
 
 	    final IParseResult parseResult = resource.getParseResult();
@@ -69,7 +69,7 @@ public class EFactoryDerivedStateComputer implements IDerivedStateComputer {
 	    }
 	}
 
-	// implementation is again inspired by XcoreModelAssociator and JvmModelAssociator 
+	// implementation again inspired by XcoreModelAssociator and JvmModelAssociator 
 	public void discardDerivedState(DerivedStateAwareResource resource) {
 		EFactoryResource efResource = (EFactoryResource) resource;
 		ModelBuilder builder = efResource.getBuilder();

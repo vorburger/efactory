@@ -7,6 +7,7 @@
  * 
  * Contributors:
  *     Sebastian Benz - initial API and implementation
+ *     Michael Vorburger - significant changes re. EFactoryDerivedStateComputer 
  ******************************************************************************/
 package com.googlecode.efactory.resource;
 
