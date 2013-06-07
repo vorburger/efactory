@@ -11,29 +11,38 @@
 
 package com.googlecode.efactory.resource;
 
-import org.apache.log4j.Logger;
+import java.util.List;
+
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.xtext.diagnostics.ExceptionDiagnostic;
 import org.eclipse.xtext.parser.IParseResult;
+import org.eclipse.xtext.parser.antlr.IReferableElementsUnloader;
 import org.eclipse.xtext.resource.DerivedStateAwareResource;
 import org.eclipse.xtext.resource.IDerivedStateComputer;
 
+import com.google.common.collect.Lists;
+import com.google.inject.Inject;
 import com.googlecode.efactory.building.ModelBuilder;
+import com.googlecode.efactory.building.ModelBuilderException;
 import com.googlecode.efactory.eFactory.Factory;
 
 /**
- * Adds the actual EObject.
- * Uses the FactoryBuilder.
+ * Adds the actual EObject. Uses the FactoryBuilder.
  * Xtext Index Builder calls this at appropriate times.
- *  
+ * 
+ * Credit where credit is due - the idea of using (something like) this was
+ * originally raised by Sebastian Benz in private email exchange - I only dug
+ * into it and coded it out.
+ * 
  * @author Michael Vorburger
  */
 public class EFactoryDerivedStateComputer implements IDerivedStateComputer {
 
-	private static final Logger logger = Logger.getLogger(EFactoryDerivedStateComputer.class);
-
+	@Inject
+	private IReferableElementsUnloader unloader;
+	
+	// implementation is inspired by XcoreModelAssociator (more than JvmModelAssociator) 
 	public void installDerivedState(DerivedStateAwareResource resource, boolean preLinkingPhase) {
-		// skeleton code here is inspired by XcoreModelAssociator's implementation (more than JvmModelAssociator).. 
 
 	    final IParseResult parseResult = resource.getParseResult();
 		if (parseResult != null && parseResult.getRootASTElement() instanceof Factory)
@@ -46,21 +55,38 @@ public class EFactoryDerivedStateComputer implements IDerivedStateComputer {
 				if (eModel != null) {
 					resource.getContents().add(eModel);
 					if (!preLinkingPhase) {
-						// TODO builder.link();
+						// TODO builder.link(); ?
 					}
 				}
-			} catch (Exception e) {
-				logger.error("ModelBuilder.build() failed for " + resource.getURI(), e);
-				resource.getErrors().add(new ExceptionDiagnostic(e));
+			} catch (ModelBuilderException e) {
+				// No need to log, or to do something like this:
+				// resource.getErrors().add(new ExceptionDiagnostic(e));
+				// that would only lead to duplicate errors - the resource
+				// will (most likely, should) already have error markers if
+				// not, it's better to write new specific validation rules.
 			}
 			resource.getCache().clear(resource);
 	    }
 	}
 
+	// implementation is again inspired by XcoreModelAssociator and JvmModelAssociator 
 	public void discardDerivedState(DerivedStateAwareResource resource) {
-    	EFactoryResource efResource = (EFactoryResource) resource;
+		EFactoryResource efResource = (EFactoryResource) resource;
 		ModelBuilder builder = efResource.getBuilder();
 		builder.clear();
+		
+	    EList<EObject> contents = resource.getContents();
+	    if (contents.size() > 1) // first content (size 1) is original Xtext (non-derived) model
+	    {
+	    	List<EObject> derived = Lists.newArrayList();
+	    	// note start index 1 instead of 0 - we need to skip first content, see above
+	    	for (int i = 1; i< contents.size(); i++) {
+				EObject eObject = contents.get(i);
+	    		unloader.unloadRoot(eObject);
+	    		derived.add(eObject);
+			}
+	    	contents.removeAll(derived);
+	    }
 	}
-
+	
 }
