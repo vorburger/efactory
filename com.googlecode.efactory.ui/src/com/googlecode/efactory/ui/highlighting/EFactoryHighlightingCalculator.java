@@ -15,6 +15,7 @@ import java.util.List;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
+import org.eclipse.xtext.parser.IParseResult;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.DefaultHighlightingConfiguration;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightedPositionAcceptor;
@@ -35,8 +36,11 @@ public class EFactoryHighlightingCalculator implements
 		if (resource == null)
 			return;
 
-		Iterable<INode> allNodes = resource.getParseResult().getRootNode()
-				.getAsTreeIterable();
+		final IParseResult parseResult = resource.getParseResult();
+		if (parseResult == null)
+			return;
+		
+		Iterable<INode> allNodes = parseResult.getRootNode().getAsTreeIterable();
 		for (final INode abstractNode : allNodes) {
 			if (abstractNode.getSemanticElement() != null) {
 				new EFactorySwitch<Object>() {

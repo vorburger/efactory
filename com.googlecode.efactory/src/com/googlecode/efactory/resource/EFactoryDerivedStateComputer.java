@@ -14,6 +14,7 @@ package com.googlecode.efactory.resource;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.diagnostics.ExceptionDiagnostic;
+import org.eclipse.xtext.parser.IParseResult;
 import org.eclipse.xtext.resource.DerivedStateAwareResource;
 import org.eclipse.xtext.resource.IDerivedStateComputer;
 
@@ -34,9 +35,10 @@ public class EFactoryDerivedStateComputer implements IDerivedStateComputer {
 	public void installDerivedState(DerivedStateAwareResource resource, boolean preLinkingPhase) {
 		// skeleton code here is inspired by XcoreModelAssociator's implementation (more than JvmModelAssociator).. 
 
-	    if (resource.getParseResult() != null && resource.getParseResult().getRootASTElement() instanceof Factory)
+	    final IParseResult parseResult = resource.getParseResult();
+		if (parseResult != null && parseResult.getRootASTElement() instanceof Factory)
 	    {
-	    	Factory model = (Factory)resource.getParseResult().getRootASTElement();
+	    	Factory model = (Factory)parseResult.getRootASTElement();
 	    	EFactoryResource efResource = (EFactoryResource) resource;
 			ModelBuilder builder = efResource.getBuilder();
 			try {

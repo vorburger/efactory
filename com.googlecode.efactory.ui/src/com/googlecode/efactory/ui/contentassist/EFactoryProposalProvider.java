@@ -186,7 +186,10 @@ public class EFactoryProposalProvider extends AbstractEFactoryProposalProvider {
 		if (newObject == null) {
 			newObject = EcoreUtil2.getContainerOfType(model, NewObject.class);
 		}
-
+		if (newObject == null) {
+			return;
+		}
+		
 		for (EStructuralFeature eFeature : newObject.getEClass()
 				.getEAllStructuralFeatures()) {
 			if (isValid(newObject, eFeature)) {
