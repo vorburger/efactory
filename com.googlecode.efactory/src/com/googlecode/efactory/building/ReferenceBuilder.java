@@ -44,13 +44,13 @@ public class ReferenceBuilder extends FeatureBuilder {
 	}
 
 	@Override
-	public void build() {
+	public void build() throws ModelBuilderException {
 		EObject newValue = getReferencedObject();
 		EcoreUtil3.setOrAddValue(getContainer(), getFeature().getEFeature(),
 				newValue);
 	}
 
-	private EObject getReferencedObject() {
+	private EObject getReferencedObject() throws ModelBuilderException {
 		EObject referencedObject = reference.getValue();
 		if (referencedObject.eIsProxy()) {
 			// @see Partial2Test.testPartiallyTypedResourceNoExceptions & Partial2Test.efactory

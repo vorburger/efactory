@@ -16,6 +16,7 @@ import org.eclipse.xtext.resource.DerivedStateAwareResource;
 
 import com.google.inject.Inject;
 import com.googlecode.efactory.building.ModelBuilder;
+import com.googlecode.efactory.building.ModelBuilderException;
 import com.googlecode.efactory.eFactory.NewObject;
 
 public class EFactoryResource extends DerivedStateAwareResource {
@@ -23,7 +24,7 @@ public class EFactoryResource extends DerivedStateAwareResource {
 	@Inject
 	private ModelBuilder builder;
 	
-	public NewObject getEFactoryElement(EObject eObject) {
+	@Nullable public NewObject getEFactoryElement(EObject eObject) {
 		if (builder == null) {
 			return null;
 		}
@@ -37,17 +38,25 @@ public class EFactoryResource extends DerivedStateAwareResource {
 		if (factory == null || factory.getRoot() == null || factory.getRoot().getEClass() == null)
 			return false;
 		// need to do this to ensure ModelBuilder is fully initialized
-		builder.build(factory);
-		return true;
+		try {
+			builder.build(factory);
+			return true;
+		} catch (ModelBuilderException e) {
+			return false;
+		}
 	}
 
-	public EObject getEFactoryEObject(NewObject nObject) {
+	@Nullable public EObject getEFactoryEObject(NewObject nObject) {
 		if (builder == null) {
 			return null;
 		}
 		if (!isModelBuilderAvailable())
 			return null;
-		return builder.build(nObject);
+		try {
+			return builder.build(nObject);
+		} catch (ModelBuilderException e) {
+			return null;
+		}
 	}
 	
 	// package-private, as only used by EFactoryDerivedStateComputer

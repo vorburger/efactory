@@ -43,6 +43,7 @@ import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.inject.Singleton;
 import com.googlecode.efactory.building.ModelBuilder;
+import com.googlecode.efactory.building.ModelBuilderException;
 
 @Singleton
 public class EPackageResolver {
@@ -94,9 +95,12 @@ public class EPackageResolver {
 		} else if (!contents.isEmpty()
 				&& contents.get(0) instanceof com.googlecode.efactory.eFactory.Factory) {
 			ModelBuilder builder = new ModelBuilder();
-			EObject root = builder
-					.build((com.googlecode.efactory.eFactory.Factory) contents
-							.get(0));
+			EObject root;
+			try {
+				root = builder.build((com.googlecode.efactory.eFactory.Factory) contents.get(0));
+			} catch (ModelBuilderException e) {
+				throw new IllegalStateException("Resource " + resource.getURI() + " is contain invalid Factory, cannot get Package from it", e);
+			}
 			if (root instanceof EPackage) {
 				EPackage ePackage = (EPackage) root;
 				resource.getContents().clear();
@@ -104,8 +108,7 @@ public class EPackageResolver {
 				return ePackage;
 			}
 		}
-		throw new NoSuchElementException("Resource " + resource.getURI()
-				+ " is empty");
+		throw new NoSuchElementException("Resource " + resource.getURI() + " is empty");
 	}
 
 	public Iterable<EPackage> getAllRegisteredEPackages() {

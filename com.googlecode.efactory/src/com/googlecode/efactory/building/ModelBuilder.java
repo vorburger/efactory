@@ -54,7 +54,7 @@ public class ModelBuilder {
 		this.featureSwitch = new FeatureSwitch();
 	}
 
-	public EObject build(NewObject newObject) {
+	public EObject build(NewObject newObject) throws ModelBuilderException {
 		Check.notNull("Argument must not be null", newObject);
 		EObject target = mapping.get(newObject);
 		if (target != null) {
@@ -66,7 +66,7 @@ public class ModelBuilder {
 		return eObject;
 	}
 
-	private EObject createTarget(NewObject from) {
+	private EObject createTarget(NewObject from) throws ModelBuilderException {
 		EClass eClass = from.getEClass();
 		if (eClass == null) {
 			return null;
@@ -76,7 +76,7 @@ public class ModelBuilder {
 		}
 		EPackage ePackage = eClass.getEPackage();
 		if (ePackage == null) {
-			throw new IllegalStateException(
+			throw new ModelBuilderException(
 					"No EPackage registered for EClass '" + eClass.getName()
 							+ "' defined in New Object"
 							+ " with name '" + from.getName()
@@ -85,7 +85,7 @@ public class ModelBuilder {
 		}
 		EFactory eFactoryInstance = ePackage.getEFactoryInstance();
 		if (eFactoryInstance == null) {
-			throw new IllegalStateException("No EFactory registered for "
+			throw new ModelBuilderException("No EFactory registered for "
 					+ ePackage.getNsURI());
 		}
 		EObject target = eFactoryInstance.create(eClass);
@@ -93,22 +93,23 @@ public class ModelBuilder {
 		return target;
 	}
 
-	public EObject build(Factory factory) {
+	public EObject build(Factory factory) throws ModelBuilderException {
 		return build(factory.getRoot());
 	}
 
-	private void setName(EObject target, NewObject source) {
+	private void setName(EObject target, NewObject source) throws ModelBuilderException {
 		String name = source.getName();
 		if (name != null) {
 			try {
 				nameSetter.setName(source, target, name);
 			} catch (NoNameFeatureMappingException e) {
-				logger.error(e.getMessage());
+				logger.error(e.getMessage(), e);
+				throw new ModelBuilderException("nameSetter.setName() failed", e);
 			}
 		}
 	}
 
-	private void buildFeatures(EObject eObject, List<Feature> features) {
+	private void buildFeatures(EObject eObject, List<Feature> features) throws ModelBuilderException {
 		for (Feature feature : features) {
 			FeatureBuilder featureBuilder = featureSwitch.doSwitch(feature);
 			if (featureBuilder != null) {
@@ -117,6 +118,13 @@ public class ModelBuilder {
 		}
 	}
 
+	/**
+	 * Gets the "source" NewObject for the built EObject.
+	 * 
+	 * @param value the EObject
+	 * @return new object
+	 * @throws IllegalStateException if build ModelBuilder is uninitialized, build() needs to called with non-empty Factory/NewObject before this. 
+	 */
 	public NewObject getSource(EObject value) {
 		Check.notNull("Argument must not be null", value);
 		if (mapping.isEmpty())

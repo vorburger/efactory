@@ -29,6 +29,7 @@ import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.CheckType;
 
 import com.googlecode.efactory.building.ModelBuilder;
+import com.googlecode.efactory.building.ModelBuilderException;
 import com.googlecode.efactory.eFactory.Attribute;
 import com.googlecode.efactory.eFactory.BooleanAttribute;
 import com.googlecode.efactory.eFactory.Containment;
@@ -124,7 +125,12 @@ public class EFactoryJavaValidator extends AbstractEFactoryJavaValidator {
 	public void checkFactory(Factory factory) {
 		ModelBuilder builder = new ModelBuilder();
 		EcoreUtil.resolveAll(factory.eResource());
-		EObject result = builder.build(factory);
+		EObject result;
+		try {
+			result = builder.build(factory);
+		} catch (ModelBuilderException e) {
+			return;
+		}
 		EcoreUtil.resolveAll(result);
 		Diagnostic diagnostic = Diagnostician.INSTANCE.validate(result);
 		for (Diagnostic childDiagnostic : diagnostic.getChildren()) {

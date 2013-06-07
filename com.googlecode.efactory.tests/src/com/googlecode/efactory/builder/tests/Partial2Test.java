@@ -14,6 +14,7 @@ import org.eclipse.emf.ecore.EObject;
 
 import testmodel.TestModel;
 
+import com.googlecode.efactory.building.ModelBuilderException;
 import com.googlecode.efactory.eFactory.NewObject;
 
 public class Partial2Test extends AbstractModelBuilderTest {
@@ -23,7 +24,7 @@ public class Partial2Test extends AbstractModelBuilderTest {
 		return "Partial2Test.efactory";
 	}
 	
-	public void testPartiallyTypedResourceNoExceptions() {
+	public void testPartiallyTypedResourceNoExceptions() throws Exception {
 		assertNotNull(testModel);
 		
 		NewObject newObject = factory.getRoot();

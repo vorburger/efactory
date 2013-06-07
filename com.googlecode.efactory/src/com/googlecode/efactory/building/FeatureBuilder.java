@@ -58,7 +58,7 @@ public abstract class FeatureBuilder {
 		return this;
 	}
 
-	public abstract void build();
+	public abstract void build() throws ModelBuilderException;
 
 	public FeatureBuilder modelBuilder(ModelBuilder modelBuilder) {
 		this.modelBuilder = modelBuilder;

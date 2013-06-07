@@ -40,7 +40,7 @@ public class ContainmentBuilder extends FeatureBuilder {
 	}
 
 	@Override
-	public void build() {
+	public void build() throws ModelBuilderException {
 		EObject newValue = getModelBuilder().build(containment.getValue());
 		EcoreUtil3.setOrAddValue(getContainer(), getFeature().getEFeature(),
 				newValue);

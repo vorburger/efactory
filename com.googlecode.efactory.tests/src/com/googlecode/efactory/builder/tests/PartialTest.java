@@ -23,7 +23,7 @@ public class PartialTest extends AbstractModelBuilderTest {
 		return "PartialTest.efactory";
 	}
 	
-	public void testPartiallyTypedResourceNoExceptions() {
+	public void testPartiallyTypedResourceNoExceptions() throws Exception {
 		assertNotNull(testModel);
 		
 		NewObject newObject = factory.getRoot();
