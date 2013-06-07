@@ -52,11 +52,9 @@ public class EFactoryDerivedStateComputer implements IDerivedStateComputer {
 			ModelBuilder builder = efResource.getBuilder();
 			try {
 				EObject eModel = builder.build(model);
-				if (eModel != null) {
-					resource.getContents().add(eModel);
-					if (!preLinkingPhase) {
-						// TODO builder.link(); ?
-					}
+				resource.getContents().add(eModel);
+				if (!preLinkingPhase) {
+					// TODO builder.link(); ?
 				}
 			} catch (ModelBuilderException e) {
 				// No need to log, or to do something like this:

@@ -12,12 +12,12 @@
 package com.googlecode.efactory.resource;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.xtext.resource.DerivedStateAwareResource;
 
 import com.google.inject.Inject;
 import com.googlecode.efactory.building.ModelBuilder;
-import com.googlecode.efactory.building.ModelBuilderException;
 import com.googlecode.efactory.eFactory.NewObject;
 
 public class EFactoryResource extends DerivedStateAwareResource {
@@ -38,26 +38,28 @@ public class EFactoryResource extends DerivedStateAwareResource {
 		final com.googlecode.efactory.eFactory.Factory factory = getFactory();
 		if (factory == null || factory.getRoot() == null || factory.getRoot().getEClass() == null)
 			return false;
+		else
+			return true;
+/*
 		// need to do this to ensure ModelBuilder is fully initialized
 		try {
-			builder.build(factory);
+			// TODO THIS IS BAD / STUPID - THE RETURNED EObject is lost / never added to Resource content!! :(
+			// If we must have something like this because getEFactoryElement() could be called before
+			// we are ready, then instead we should rather just force by calling getContents()..
+			// which in turn will call the EFactoryDerivedStateComputer correctly.
+			// NOT builder.build(factory);
 			return true;
 		} catch (ModelBuilderException e) {
 			return false;
 		}
+*/		
 	}
 
-	@Nullable public EObject getEFactoryEObject(NewObject nObject) {
+	@NonNull public EObject getEFactoryEObject(NewObject nObject) {
 		if (builder == null) {
-			return null;
+			throw new IllegalStateException("EFactoryResource is missing @Injected ModelBuilder?!");
 		}
-		if (!isModelBuilderAvailable())
-			return null;
-		try {
-			return builder.build(nObject);
-		} catch (ModelBuilderException e) {
-			return null;
-		}
+		return builder.getBuilt(nObject);
 	}
 	
 	// package-private, as only used by EFactoryDerivedStateComputer

@@ -33,6 +33,7 @@ import org.eclipse.xtext.linking.lazy.LazyURIEncoder;
 
 import com.googlecode.efactory.eFactory.NewObject;
 import com.googlecode.efactory.eFactory.Reference;
+import com.googlecode.efactory.resource.EFactoryResource;
 import com.googlecode.efactory.util.EcoreUtil3;
 
 public class ReferenceBuilder extends FeatureBuilder {
@@ -60,8 +61,15 @@ public class ReferenceBuilder extends FeatureBuilder {
 				return null;
 		}
 		if (referencedObject instanceof NewObject) {
-			NewObject referenceToNewObject = (NewObject) referencedObject;
-			return getModelBuilder().build(referenceToNewObject);
+			NewObject referencedNewObject = (NewObject) referencedObject;
+			if (referencedNewObject.eResource().equals(reference.eResource())) {
+				return getModelBuilder().getBuilt(referencedNewObject);
+			} else {
+				// the referencedNewObject is in another resource.. so:
+				EFactoryResource referencedResource = (EFactoryResource) referencedNewObject.eResource();
+				// This implementation works, but could be optimized with some sort of Proxy which resolves the NewObject to an EObject lazily later only.. 
+				return referencedResource.getEFactoryEObject(referencedNewObject);
+			}
 		}
 		return referencedObject;
 	}

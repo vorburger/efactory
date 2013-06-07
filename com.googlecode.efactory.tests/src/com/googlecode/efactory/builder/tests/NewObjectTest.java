@@ -23,6 +23,7 @@ import testmodel.TestModel;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.googlecode.efactory.eFactory.Attribute;
+import com.googlecode.efactory.eFactory.Factory;
 import com.googlecode.efactory.eFactory.Feature;
 import com.googlecode.efactory.eFactory.NewObject;
 import com.googlecode.efactory.util.ValueResolver;
@@ -32,10 +33,11 @@ public class NewObjectTest extends AbstractModelBuilderTest {
 	private static final String TEST_MODEL_NAME = "test";
 
 	public void testBuild_NewObject() throws Exception {
-		NewObject newObject = factory.getRoot();
-		EObject result = modelBuilder.build(newObject);
+		EObject result = modelBuilder.build(factory);
 		TestModel testModel = checkType(TestModel.class, result);
 		checkName(testModel, TEST_MODEL_NAME);
+		
+		NewObject newObject = factory.getRoot();
 		checkFeatures(newObject, testModel);
 		checkListFeatures(newObject, testModel);
 		checkAttributeValues(newObject, testModel);
@@ -78,7 +80,6 @@ public class NewObjectTest extends AbstractModelBuilderTest {
 			Integer valueCount = entry.getValue();
 			assertEquals(valueCount.intValue(), featureList.size());
 		}
-
 	}
 
 	private void checkFeatures(NewObject newObject, EObject eObject) {
@@ -87,7 +88,6 @@ public class NewObjectTest extends AbstractModelBuilderTest {
 				assertNotNull(eObject.eGet(feature.getEFeature()));
 			}
 		}
-
 	}
 
 	private void increaseValueCount(
@@ -102,15 +102,14 @@ public class NewObjectTest extends AbstractModelBuilderTest {
 	}
 
 	public void testBuild_getNewObject_Caching() throws Exception {
-		NewObject newObject = factory.getRoot();
-		EObject result = modelBuilder.build(newObject);
-		EObject result2 = modelBuilder.build(newObject);
+		EObject result = modelBuilder.build(factory);
+		EObject result2 = modelBuilder.build(factory);
 		assertEquals(result, result2);
 	}
 
 	public void testBuild_getNewObject_Null() throws Exception {
 		try {
-			modelBuilder.build((NewObject) null);
+			modelBuilder.build((Factory) null);
 		} catch (IllegalArgumentException e) {
 			// expected
 			return;

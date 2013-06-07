@@ -14,8 +14,6 @@ import org.eclipse.emf.ecore.EObject;
 
 import testmodel.TestModel;
 
-import com.googlecode.efactory.eFactory.NewObject;
-
 public class PartialTest extends AbstractModelBuilderTest {
 
 	@Override
@@ -26,8 +24,7 @@ public class PartialTest extends AbstractModelBuilderTest {
 	public void testPartiallyTypedResourceNoExceptions() throws Exception {
 		assertNotNull(testModel);
 		
-		NewObject newObject = factory.getRoot();
-		EObject result = modelBuilder.build(newObject);
+		EObject result = modelBuilder.build(factory);
 		TestModel testModel = checkType(TestModel.class, result);
 		
 		assertNull(testModel.getSingleRequired());

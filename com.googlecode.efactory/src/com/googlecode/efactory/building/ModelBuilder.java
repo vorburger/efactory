@@ -35,6 +35,7 @@ import org.eclipse.emf.ecore.EFactory;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.jdt.annotation.NonNull;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
@@ -54,7 +55,9 @@ public class ModelBuilder {
 		this.featureSwitch = new FeatureSwitch();
 	}
 
-	public EObject build(NewObject newObject) throws ModelBuilderException {
+	// intentionally package local - outside clients shouldn't need to build individual NewObject, they only build(Factory)
+	// NOTE: It is the caller's (!) responsibility to add the returned EObject into another EObject (or a Resource) eContainer. 
+	@NonNull EObject build(NewObject newObject) throws ModelBuilderException {
 		Check.notNull("Argument must not be null", newObject);
 		EObject target = mapping.get(newObject);
 		if (target != null) {
@@ -66,34 +69,44 @@ public class ModelBuilder {
 		return eObject;
 	}
 
-	private EObject createTarget(NewObject from) throws ModelBuilderException {
+	@SuppressWarnings("null") // req. because EFactory.create is not null annotated
+	@NonNull private EObject createTarget(NewObject from) throws ModelBuilderException {
 		EClass eClass = from.getEClass();
 		if (eClass == null) {
-			return null;
+			throw new ModelBuilderException("No EClass for New Object " + getNewObjectDescriptionForErrorMessage(from));
 		}
 		if (eClass.getEPackage() == null) {
 			EcoreUtil.resolve(from.eClass(), from);
 		}
 		EPackage ePackage = eClass.getEPackage();
 		if (ePackage == null) {
-			throw new ModelBuilderException(
-					"No EPackage registered for EClass '" + eClass.getName()
-							+ "' defined in New Object"
-							+ " with name '" + from.getName()
-							+ "' at URI " + from.eResource().getURI() + "#" + from.eResource().getURIFragment(from));
-
+			throw new ModelBuilderException("No EPackage registered for EClass '" + eClass.getName() + "' defined in New Object" + getNewObjectDescriptionForErrorMessage(from));
 		}
 		EFactory eFactoryInstance = ePackage.getEFactoryInstance();
 		if (eFactoryInstance == null) {
-			throw new ModelBuilderException("No EFactory registered for "
-					+ ePackage.getNsURI());
+			throw new ModelBuilderException("No EFactory registered for " + ePackage.getNsURI());
 		}
 		EObject target = eFactoryInstance.create(eClass);
 		mapping.put(from, target);
 		return target;
 	}
 
-	public EObject build(Factory factory) throws ModelBuilderException {
+	private String getNewObjectDescriptionForErrorMessage(NewObject from) {
+		return "name '" + from.getName()
+		+ "' at URI " + from.eResource().getURI()
+		+ "#" + from.eResource().getURIFragment(from);
+	}
+
+	/**
+	 * Builds an EObject from a Factory.
+	 * It is the caller's (!) responsibility to add the returned EObject into another EObject (or, more typically, a Resource) eContainer. 
+	 * 
+	 * @param factory the Factory
+	 * @return the EObject built from the Factory
+	 * @throws ModelBuilderException if the content of the Factory prevented creation of a matching EObject
+	 */
+	public @NonNull EObject build(Factory factory) throws ModelBuilderException {
+		Check.notNull("Argument must not be null", factory);
 		return build(factory.getRoot());
 	}
 
@@ -117,6 +130,16 @@ public class ModelBuilder {
 		}
 	}
 
+	public @NonNull EObject getBuilt(NewObject newObject) {
+		Check.notNull("Argument must not be null", newObject);
+		checkNotEmpty();
+		EObject target = mapping.get(newObject);
+		if (target == null) {
+			throw new IllegalArgumentException("NewObject passed as argument is not in this ModelBuilder, may be it's from a different Resource?");
+		}
+		return target;
+	}
+	
 	/**
 	 * Gets the "source" NewObject for the built EObject.
 	 * 
@@ -126,9 +149,13 @@ public class ModelBuilder {
 	 */
 	public NewObject getSource(EObject value) {
 		Check.notNull("Argument must not be null", value);
+		checkNotEmpty();
+		return mapping.inverse().get(value);
+	}
+
+	private void checkNotEmpty() {
 		if (mapping.isEmpty())
 			throw new IllegalStateException("ModelBuilder is uninitialized, build() needs to called with non-empty Factory/NewObject before getSource()");
-		return mapping.inverse().get(value);
 	}
 
 	public void clear() {

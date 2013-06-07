@@ -18,7 +18,6 @@ import testmodel.TestModel;
 
 import com.googlecode.efactory.building.ModelBuilder;
 import com.googlecode.efactory.eFactory.Factory;
-import com.googlecode.efactory.eFactory.NewObject;
 import com.googlecode.efactory.tests.util.ResourceProvider;
 import com.googlecode.efactory.tests.util.TestConstants;
 import com.googlecode.efactory.tests.util.TestSetup;
@@ -30,7 +29,6 @@ public abstract class AbstractModelBuilderTest extends TestCase {
 	private ResourceProvider resourceProvider;
 	protected Factory factory;
 	protected EObject testModel;
-	private NewObject root;
 
 	public AbstractModelBuilderTest() {
 		super();
@@ -47,8 +45,7 @@ public abstract class AbstractModelBuilderTest extends TestCase {
 		this.factory = resourceProvider.loadFactory("res/BuilderTests/"
 				+ getTestModelName());
 		this.modelBuilder = new ModelBuilder();
-		root = factory.getRoot();
-		testModel = modelBuilder.build(root);
+		testModel = modelBuilder.build(factory);
 	}
 
 	protected abstract String getTestModelName();
