@@ -10,6 +10,7 @@
  ******************************************************************************/
 package com.googlecode.efactory.imports.tests;
 
+import junit.framework.Assert;
 import junit.framework.TestCase;
 import testmodel.TestModel;
 
@@ -17,6 +18,9 @@ import com.googlecode.efactory.tests.util.ResourceProvider;
 import com.googlecode.efactory.tests.util.TestConstants;
 import com.googlecode.efactory.tests.util.TestSetup;
 
+/**
+ * Tests import of a XMI from an EFactory.
+ */
 public class ImportsTest extends TestCase {
 
 	private ResourceProvider resourceProvider;
@@ -37,6 +41,7 @@ public class ImportsTest extends TestCase {
 				.getParentReference();
 		assertNotNull(parentReference);
 		assertFalse(parentReference.eIsProxy());
+		Assert.assertNotNull(parentReference.eResource());
 	}
 
 }

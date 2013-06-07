@@ -1,0 +1,10 @@
+use testmodel.* 
+
+import "Imported2.efactory"
+ 
+TestModel ImportTest {
+
+	singleRequired = SingleRequired test {
+		parentReference = ImportedTestModel 
+	}
+}         
