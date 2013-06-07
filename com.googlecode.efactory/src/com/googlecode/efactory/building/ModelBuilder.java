@@ -97,14 +97,13 @@ public class ModelBuilder {
 		return build(factory.getRoot());
 	}
 
-	private void setName(EObject target, NewObject source) throws ModelBuilderException {
+	private void setName(EObject target, NewObject source) {
 		String name = source.getName();
 		if (name != null) {
 			try {
 				nameSetter.setName(source, target, name);
 			} catch (NoNameFeatureMappingException e) {
-				logger.error(e.getMessage(), e);
-				throw new ModelBuilderException("nameSetter.setName() failed", e);
+				logger.warn(e.getMessage(), e);
 			}
 		}
 	}
