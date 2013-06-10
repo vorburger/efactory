@@ -15,14 +15,14 @@ TestModel testModelName {
 	}
 	
 	referenceTestContainer += ReferenceTestContainer test2 {
-		containments += ReferenceTarget target21 {}
-		containments += ReferenceTarget target22 {}
-		containments += ReferenceTargetSubclass target23 {}
-	
 		referenceToOne = target23
 		referenceToMany += target21
 		referenceToMany += target22		
 		referenceToMany += target23		
+
+		containments += ReferenceTarget target21 {}
+		containments += ReferenceTarget target22 {}
+		containments += ReferenceTargetSubclass target23 {}	
 	
 	}
 	
