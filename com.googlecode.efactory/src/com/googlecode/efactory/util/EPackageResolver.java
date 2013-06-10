@@ -42,8 +42,6 @@ import com.google.common.base.Function;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.inject.Singleton;
-import com.googlecode.efactory.building.ModelBuilder;
-import com.googlecode.efactory.building.ModelBuilderException;
 
 @Singleton
 public class EPackageResolver {
@@ -84,26 +82,12 @@ public class EPackageResolver {
 	}
 
 	private @Nullable EPackage getEPackage(Resource resource) {
+		// This will (has to, see DynamicEmfTest) find
+		// an EPackage created dynamically in an EFactory as well
 		EList<EObject> contents = resource.getContents();
-
-		if (!contents.isEmpty() && contents.get(0) instanceof EPackage) {
-			return (EPackage) contents.get(0);
-		} else if (!contents.isEmpty()
-				&& contents.get(0) instanceof com.googlecode.efactory.eFactory.Factory) {
-			// TODO why is this recreating a ModelBuilder, instead of getting it from the Resource?!
-			ModelBuilder builder = new ModelBuilder();
-			EObject root;
-			try {
-				root = builder.build((com.googlecode.efactory.eFactory.Factory) contents.get(0));
-			} catch (ModelBuilderException e) {
-				throw new IllegalStateException("Resource " + resource.getURI() + " is contain invalid Factory, cannot get Package from it", e);
-			}
-			if (root instanceof EPackage) {
-				EPackage ePackage = (EPackage) root;
-				resource.getContents().clear();
-				resource.getContents().add(ePackage);
-				return ePackage;
-			}
+		for (EObject eObject : contents) {
+			if (eObject instanceof EPackage)
+				return (EPackage) eObject;
 		}
 		return null;
 	}

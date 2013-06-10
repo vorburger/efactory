@@ -7,34 +7,15 @@
  * 
  * Contributors:
  *     Sebastian Benz - initial API and implementation
+ *     Michael Vorburger - changes based on new architecture
  ******************************************************************************/
-/**
- * <copyright>
- *
- * Copyright (c) 2002-2006 Sebastian Benz and others.
- * All rights reserved.   This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- * 
- * Contributors: 
- *   Sebastian Benz - Initial API and implementation
- *
- * </copyright>
- *
- * 
- */
 package com.googlecode.efactory.util;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.EStructuralFeature;
 
 import com.google.inject.Inject;
 import com.googlecode.efactory.eFactory.Factory;
@@ -46,22 +27,19 @@ public final class EFactoryUtil {
 	@Inject
 	private EPackageResolver packageResolver;
 
-	public Iterable<EPackage> getEPackages(EObject root) {
-		List<PackageImport> ePackageUris = getEPackageUris(root);
+	/**
+	 * Gets EPackages from the 'use' clause, as well as from the 'import' clause,
+	 * in case any imported files dynamically define new EClass (see
+	 * DynamicEmfTest).
+	 */
+	public Iterable<EPackage> getEPackages(Factory factory) {
+		List<PackageImport> ePackageUris = factory.getEpackages();
 		List<EPackage> result = new ArrayList<EPackage>(ePackageUris.size());
 		for (PackageImport packageImport : ePackageUris) {
-			try {
-				// TODO This is completely stupid.. we already have an EPackage in packageImport.getEPackage() - just use that!
-				EPackage ePackage = packageResolver.resolve(root.eResource(),
-						packageImport.getEPackage().getNsURI());
-				result.add(ePackage);
-			} catch (EPackageNotFoundException e) {
-				// user will be informed during validation
-			}
+			EPackage ePackage = packageImport.getEPackage();
+			result.add(ePackage);
 		}
 
-		// TODO clean-up, like I originally had it
-		Factory factory = (Factory) root;
 		EList<Import> imports = factory.getImports();
 		for (Import zimport : imports) {
 			String ePackageURI = zimport.getImportURI();
@@ -75,29 +53,5 @@ public final class EFactoryUtil {
 		}
 		
 		return result;
-	}
-
-	private List<PackageImport> getEPackageUris(EObject root) {
-		// unclear why this is written using generic EMF API instead of usual statically typed?!
-		EStructuralFeature packagesFeature = root.eClass()
-				.getEStructuralFeature("epackages");
-		if (packagesFeature == null || !packagesFeature.isMany()) {
-			return Collections.emptyList();
-		}
-		EList<?> elements = (EList<?>) root.eGet(packagesFeature);
-		List<PackageImport> result = new ArrayList<PackageImport>(elements
-				.size());
-		for (Object object : elements) {
-			if (object instanceof PackageImport) {
-				PackageImport pImport = (PackageImport) object;
-				result.add(pImport);
-			}
-		}
-		return result;
-
-	}
-
-	public static boolean isEFactoryResource(URI uri) {
-		return uri.fileExtension().equals("efactory");
 	}
 }
