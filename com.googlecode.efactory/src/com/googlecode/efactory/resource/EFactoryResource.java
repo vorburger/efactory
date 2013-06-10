@@ -29,30 +29,9 @@ public class EFactoryResource extends DerivedStateAwareResource {
 		if (builder == null) {
 			return null;
 		}
-		if (!isModelBuilderAvailable())
+		if (!builder.isBuilt())
 			return null;
 		return builder.getSource(eObject);
-	}
-
-	private boolean isModelBuilderAvailable() {
-		final com.googlecode.efactory.eFactory.Factory factory = getFactory();
-		if (factory == null || factory.getRoot() == null || factory.getRoot().getEClass() == null)
-			return false;
-		else
-			return true;
-/*
-		// need to do this to ensure ModelBuilder is fully initialized
-		try {
-			// TODO THIS IS BAD / STUPID - THE RETURNED EObject is lost / never added to Resource content!! :(
-			// If we must have something like this because getEFactoryElement() could be called before
-			// we are ready, then instead we should rather just force by calling getContents()..
-			// which in turn will call the EFactoryDerivedStateComputer correctly.
-			// NOT builder.build(factory);
-			return true;
-		} catch (ModelBuilderException e) {
-			return false;
-		}
-*/		
 	}
 
 	@NonNull public EObject getEFactoryEObject(NewObject nObject) {

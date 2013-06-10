@@ -135,7 +135,7 @@ public class ModelBuilder {
 		checkNotEmpty();
 		EObject target = mapping.get(newObject);
 		if (target == null) {
-			throw new IllegalArgumentException("NewObject passed as argument is not in this ModelBuilder, may be it's from a different Resource?");
+			throw new IllegalArgumentException("NewObject passed as argument is not in this ModelBuilder, may be it's from a different Resource? " + newObject.toString());
 		}
 		return target;
 	}
@@ -162,4 +162,7 @@ public class ModelBuilder {
 		mapping.clear();
 	}
 
+	public boolean isBuilt() {
+		return !mapping.isEmpty();
+	}
 }

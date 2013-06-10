@@ -57,6 +57,7 @@ public class EFactoryDerivedStateComputer implements IDerivedStateComputer {
 					// TODO builder.link(); ?
 				}
 			} catch (ModelBuilderException e) {
+				builder.clear();
 				// No need to log, or to do something like this:
 				// resource.getErrors().add(new ExceptionDiagnostic(e));
 				// that would only lead to duplicate errors - the resource
