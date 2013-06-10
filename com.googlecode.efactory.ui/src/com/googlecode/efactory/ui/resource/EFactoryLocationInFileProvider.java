@@ -1,20 +1,17 @@
 package com.googlecode.efactory.ui.resource;
 
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.resource.DefaultLocationInFileProvider;
-import org.eclipse.xtext.util.ITextRegion;
-import org.eclipse.xtext.util.TextRegion;
 
-import com.googlecode.efactory.resource.EFactoryResource;
+public class EFactoryLocationInFileProvider extends DefaultLocationInFileProvider {
 
-public class EFactoryLocationInFileProvider extends
-		DefaultLocationInFileProvider {
-
+	// This doesn't seem to work - clicking on Reference to jump within file, or to other file,
+	// does NOT work with this as is.  Commenting out - to revisit when working on Outline.
+	
+/*	
 	@Override
 	protected ITextRegion getTextRegion(EObject obj, boolean isSignificant) {
 		if (obj.eResource() instanceof EFactoryResource) {
-			EFactoryResource efactoryResource = (EFactoryResource) obj
-					.eResource();
+			EFactoryResource efactoryResource = (EFactoryResource) obj.eResource();
 			EObject eFactoryElement = efactoryResource.getEFactoryElement(obj);
 			if (eFactoryElement == null) {
 				return new TextRegion(0, 0);
@@ -23,5 +20,5 @@ public class EFactoryLocationInFileProvider extends
 		}
 		return super.getTextRegion(obj, isSignificant);
 	}
-
+*/
 }
