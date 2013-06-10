@@ -35,7 +35,6 @@ public class DynamicEmfTest {
 		URI uri = new ResourceProvider(resourceSet, TestConstants.PLUGIN_ID).getUri("res/BuilderTests/DynamicEmf.efactory");
 		InputStream in = uriConverter.createInputStream(uri);
 		Factory factory = parser.parse(in, uri, null, resourceSet);
-		Assert.assertEquals("Example", factory.getRoot().getName());
 		Assert.assertEquals("Model", factory.getRoot().getEClass().getName());
 		
 		ModelBuilder modelBuilder = new ModelBuilder();

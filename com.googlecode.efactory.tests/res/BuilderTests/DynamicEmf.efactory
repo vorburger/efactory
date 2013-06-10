@@ -1,6 +1,6 @@
 import "Entity.efactory"
 
-entity.Model Example {         
+entity.Model {         
 	elements += entity.SimpleType String { }
 	elements += entity.SimpleType MyInteger { }
 	
