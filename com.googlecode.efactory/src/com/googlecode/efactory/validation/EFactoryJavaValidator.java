@@ -23,13 +23,10 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.util.Diagnostician;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.CheckType;
 
-import com.googlecode.efactory.building.ModelBuilder;
-import com.googlecode.efactory.building.ModelBuilderException;
 import com.googlecode.efactory.eFactory.Attribute;
 import com.googlecode.efactory.eFactory.BooleanAttribute;
 import com.googlecode.efactory.eFactory.Containment;
@@ -43,6 +40,7 @@ import com.googlecode.efactory.eFactory.NewObject;
 import com.googlecode.efactory.eFactory.Reference;
 import com.googlecode.efactory.eFactory.StringAttribute;
 import com.googlecode.efactory.eFactory.util.EFactorySwitch;
+import com.googlecode.efactory.resource.EFactoryResource;
 import com.googlecode.efactory.util.ContainerResolver;
 import com.googlecode.efactory.util.EcoreUtil3;
 
@@ -123,31 +121,25 @@ public class EFactoryJavaValidator extends AbstractEFactoryJavaValidator {
 
 	@Check(CheckType.NORMAL)
 	public void checkFactory(Factory factory) {
-		ModelBuilder builder = new ModelBuilder();
-		EcoreUtil.resolveAll(factory.eResource());
-		EObject result;
-		try {
-			result = builder.build(factory);
-		} catch (ModelBuilderException e) {
-			return;
-		}
-		EcoreUtil.resolveAll(result);
-		Diagnostic diagnostic = Diagnostician.INSTANCE.validate(result);
+		final EFactoryResource eFResource = (EFactoryResource) factory.eResource();
+		final EObject eObject = eFResource.getEFactoryEObject(factory.getRoot());
+		
+		Diagnostic diagnostic = Diagnostician.INSTANCE.validate(eObject);
 		for (Diagnostic childDiagnostic : diagnostic.getChildren()) {
 			if (childDiagnostic.getSeverity() == Diagnostic.ERROR) {
 				error(childDiagnostic.getMessage(),
-						getSource(builder, diagnostic), null, null);
+						getSource(eFResource, diagnostic), null, null);
 			} else if (childDiagnostic.getSeverity() == Diagnostic.WARNING) {
 				warning(childDiagnostic.getMessage(),
-						getSource(builder, diagnostic), null, null);
+						getSource(eFResource, diagnostic), null, null);
 			}
 		}
 	}
 
-	private EObject getSource(ModelBuilder builder, Diagnostic diagnostic) {
+	private EObject getSource(EFactoryResource resource, Diagnostic diagnostic) {
 		for (Object data : diagnostic.getData()) {
 			if (data instanceof EObject) {
-				return builder.getSource((EObject) data);
+				return resource.getEFactoryElement((EObject) data);
 			}
 		}
 		return null;
