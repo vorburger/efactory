@@ -39,7 +39,8 @@ public class DynamicEmfTest {
 		
 		ModelBuilder modelBuilder = new ModelBuilder();
 		EObject testModel = modelBuilder.build(factory);
-		Find.child(DynamicEObjectImpl.class, "Person", testModel);
+		DynamicEObjectImpl person = Find.child(DynamicEObjectImpl.class, "Person", testModel);
+		Assert.assertEquals("Entity", person.eClass().getName());
 	}
 
 }
