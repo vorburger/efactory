@@ -20,12 +20,20 @@ import com.googlecode.efactory.eFactory.util.EFactorySwitch;
 public class FeatureSwitch extends EFactorySwitch<FeatureBuilder> {
 	@Override
 	public FeatureBuilder caseContainment(Containment object) {
-		return new ContainmentBuilder(object);
+		if (object.getValue() != null)
+			return new ContainmentBuilder(object);
+		else
+			// This can happen during typing in editor - user might not have typed {} yet
+			return null;
 	}
 
 	@Override
 	public FeatureBuilder caseReference(Reference object) {
-		return new ReferenceBuilder(object);
+		if (object.getValue() != null)
+			return new ReferenceBuilder(object);
+		else
+			// dito, see above
+			return null;
 	}
 
 	@Override

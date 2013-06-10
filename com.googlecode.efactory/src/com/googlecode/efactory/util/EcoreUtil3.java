@@ -129,8 +129,10 @@ public final class EcoreUtil3 {
 	public static void setOrAddValue(EObject eObject,
 			EStructuralFeature eFeature, Object newValue) {
 		if (eFeature.isMany()) {
-			EList<Object> eList = (EList<Object>) eObject.eGet(eFeature);
-			eList.add(newValue);
+			if (newValue != null) {
+				EList<Object> eList = (EList<Object>) eObject.eGet(eFeature);
+				eList.add(newValue);
+			}
 		} else {
 			if (newValue instanceof EObject) {
 				EObject newEValue = (EObject) newValue;
