@@ -35,13 +35,6 @@ import com.googlecode.efactory.eFactory.PackageImport;
 import com.googlecode.efactory.eFactory.Reference;
 import com.googlecode.efactory.util.EcoreUtil3;
 
-/**
- * This class contains custom scoping description.
- * 
- * see : http://wiki.eclipse.org/Xtext/Documentation#Scoping on how and when to
- * use it
- * 
- */
 public class EFactoryScopeProvider extends AbstractDeclarativeScopeProvider {
 
 	@Inject
@@ -72,6 +65,7 @@ public class EFactoryScopeProvider extends AbstractDeclarativeScopeProvider {
 		return IScope.NULLSCOPE;
 	}
 
+	// Feature == Containment here, always, is it?
 	public IScope scope_NewObject_eClass(Feature feature, EReference eReference) {
 		final IScope parent = delegateGetScope(feature, eReference);
 		return ePackageScopeProvider.createEClassScope(feature.eResource(), (EClass) feature.getEFeature().getEType(), parent);
@@ -85,7 +79,7 @@ public class EFactoryScopeProvider extends AbstractDeclarativeScopeProvider {
 		return new SimpleScope(Scopes.scopedElementsFor(assignableFeature));
 	}
 
-	public IScope scope_Feature_reference(NewObject newObject) {
+	public IScope scope_Feature_reference(NewObject newObject, EReference reference) {
 		if (newObject.getEClass() == null) {
 			return IScope.NULLSCOPE;
 		}

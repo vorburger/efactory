@@ -37,6 +37,8 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EStructuralFeature;
 
 import com.google.inject.Inject;
+import com.googlecode.efactory.eFactory.Factory;
+import com.googlecode.efactory.eFactory.Import;
 import com.googlecode.efactory.eFactory.PackageImport;
 
 public final class EFactoryUtil {
@@ -49,6 +51,7 @@ public final class EFactoryUtil {
 		List<EPackage> result = new ArrayList<EPackage>(ePackageUris.size());
 		for (PackageImport packageImport : ePackageUris) {
 			try {
+				// TODO This is completely stupid.. we already have an EPackage in packageImport.getEPackage() - just use that!
 				EPackage ePackage = packageResolver.resolve(root.eResource(),
 						packageImport.getEPackage().getNsURI());
 				result.add(ePackage);
@@ -56,6 +59,21 @@ public final class EFactoryUtil {
 				// user will be informed during validation
 			}
 		}
+
+		// TODO clean-up, like I originally had it
+		Factory factory = (Factory) root;
+		EList<Import> imports = factory.getImports();
+		for (Import zimport : imports) {
+			String ePackageURI = zimport.getImportURI();
+			try {
+				EPackage ePackage = packageResolver.resolve(factory.eResource(), ePackageURI);
+				if (ePackage != null)
+					result.add(ePackage);
+			} catch (EPackageNotFoundException e) {
+				// user will be informed during validation
+			}
+		}
+		
 		return result;
 	}
 

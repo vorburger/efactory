@@ -1,13 +1,16 @@
-use "Entity.efactory"
+import "Entity.efactory"
 
-Model{         
-	elements += Entity Person {         
-		properties += Property name {         
+entity.Model Example {         
+	elements += entity.SimpleType String { }
+	elements += entity.SimpleType MyInteger { }
+	
+	elements += entity.Entity Person {         
+		properties += entity.Property name {
 			type = String
 		}  
 		
-		properties += Property age {         
-			type = Integer  
+		properties += entity.Property age {         
+			type = MyInteger  
 		}
 	}
-}              
+}

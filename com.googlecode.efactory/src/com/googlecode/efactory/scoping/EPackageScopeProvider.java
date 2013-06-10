@@ -42,6 +42,7 @@ import org.eclipse.xtext.scoping.impl.SimpleScope;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.inject.Inject;
+import com.googlecode.efactory.eFactory.Factory;
 import com.googlecode.efactory.util.EFactoryUtil;
 import com.googlecode.efactory.util.EPackageResolver;
 import com.googlecode.efactory.util.EcoreUtil3;
@@ -79,7 +80,7 @@ public class EPackageScopeProvider {
 	}
 
 	private Iterable<EPackage> resolvePackages(Resource resource) {
-		EObject root = resource.getContents().iterator().next();
+		Factory root = (Factory) resource.getContents().get(0);
 		if (root == null) {
 			return Collections.emptyList();
 		}

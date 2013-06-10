@@ -78,9 +78,12 @@ public class ModelBuilder {
 		if (eClass.getEPackage() == null) {
 			EcoreUtil.resolve(from.eClass(), from);
 		}
+		if (eClass.eIsProxy()) {
+			throw new ModelBuilderException("The EClass for NewObject " + getNewObjectDescriptionForErrorMessage(from) + " is still an unresolved EMF Proxy, something isn't working in your cross-Resource reference resolution");
+		}
 		EPackage ePackage = eClass.getEPackage();
 		if (ePackage == null) {
-			throw new ModelBuilderException("No EPackage registered for EClass '" + eClass.getName() + "' defined in New Object" + getNewObjectDescriptionForErrorMessage(from));
+			throw new ModelBuilderException("No EPackage registered for EClass '" + eClass.getName() + "' defined in NewObject " + getNewObjectDescriptionForErrorMessage(from));
 		}
 		EFactory eFactoryInstance = ePackage.getEFactoryInstance();
 		if (eFactoryInstance == null) {

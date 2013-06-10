@@ -3,6 +3,15 @@ use ecore.*
  EPackage entity {
  	nsURI = "http://com/googlecode/efactory/examples/entity"
  	nsPrefix = "entity"
+ 	
+ 	eClassifiers += EClass Type {
+ 		abstract = true
+ 		
+ 	    eStructuralFeatures += EAttribute name {         
+ 			eType = EString
+ 		}
+ 	}    
+ 	
  	eClassifiers += EClass Model {
  	
  		eStructuralFeatures += EReference elements {
@@ -12,32 +21,9 @@ use ecore.*
  	     }
  	}  
   
- 	eClassifiers += EClass Type {
- 		abstract = true
- 		
- 	    eStructuralFeatures += EAttribute name {         
- 			eType = EString
- 		}
- 	}    
- 	
  	eClassifiers += EClass SimpleType {
  	    eSuperTypes += Type
  	}  
- 	
- 	eClassifiers += EClass Entity {
- 		eSuperTypes += Type
- 		
- 		eStructuralFeatures += EReference extends {           
- 			eType = Entity
- 			upperBound = -1
- 		} 
- 		
- 		eStructuralFeatures += EReference properties {         
- 			eType = Property
- 			containment = true     
- 	     	upperBound = -1
- 		} 
- 	}   
  	
  	eClassifiers += EClass Property {
  	
@@ -53,4 +39,20 @@ use ecore.*
  			eType = EBoolean
  		}
  	}    
- }   
+ 	 
+ 	eClassifiers += EClass Entity {
+ 		eSuperTypes += Type
+ 		
+ 		eStructuralFeatures += EReference extends {           
+ 			eType = Entity
+ 			upperBound = -1
+ 		} 
+ 		
+ 		eStructuralFeatures += EReference properties {         
+ 			eType = Property
+ 			containment = true     
+ 	     	upperBound = -1
+ 		} 
+ 	}   
+ }
+ 

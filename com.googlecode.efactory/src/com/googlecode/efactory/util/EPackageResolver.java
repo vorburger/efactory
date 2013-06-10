@@ -27,12 +27,12 @@
 package com.googlecode.efactory.util;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.util.Pair;
 import org.eclipse.xtext.util.SimpleCache;
@@ -59,11 +59,16 @@ public class EPackageResolver {
 						ePackage = loadPackageAsResource(tuple.getFirst(),
 								packageUri);
 					}
-					checkPackage(packageUri, ePackage);
 					return ePackage;
 				}
 			});
 
+	/**
+	 * Get the packageUri from the resource.
+	 * @param resource an EMF Resource
+	 * @param packageUri an EMF Package URI
+	 * @return EPackage, or null if the resource does not contain an EPackage
+	 */
 	public EPackage resolve(Resource resource, String packageUri) {
 		Pair<Resource, String> pair = Tuples.create(resource, packageUri);
 		return cache.get(pair);
@@ -71,7 +76,6 @@ public class EPackageResolver {
 
 	private EPackage loadPackageAsResource(Resource context, String packageUri) {
 		return getEPackage(EcoreUtil2.getResource(context, packageUri));
-
 	}
 
 	private EPackage getPackageFromRegistry(String packageUri) {
@@ -79,21 +83,14 @@ public class EPackageResolver {
 		return ePackage;
 	}
 
-	private void checkPackage(String packageUri, EPackage ePackage)
-			throws EPackageNotFoundException {
-		if (ePackage == null) {
-			throw new EPackageNotFoundException("Could not resolve package "
-					+ packageUri);
-		}
-	}
-
-	private EPackage getEPackage(Resource resource) {
+	private @Nullable EPackage getEPackage(Resource resource) {
 		EList<EObject> contents = resource.getContents();
 
 		if (!contents.isEmpty() && contents.get(0) instanceof EPackage) {
 			return (EPackage) contents.get(0);
 		} else if (!contents.isEmpty()
 				&& contents.get(0) instanceof com.googlecode.efactory.eFactory.Factory) {
+			// TODO why is this recreating a ModelBuilder, instead of getting it from the Resource?!
 			ModelBuilder builder = new ModelBuilder();
 			EObject root;
 			try {
@@ -108,7 +105,7 @@ public class EPackageResolver {
 				return ePackage;
 			}
 		}
-		throw new NoSuchElementException("Resource " + resource.getURI() + " is empty");
+		return null;
 	}
 
 	public Iterable<EPackage> getAllRegisteredEPackages() {

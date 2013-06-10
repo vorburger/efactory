@@ -13,6 +13,7 @@ package com.googlecode.efactory.resource;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.parser.IParseResult;
@@ -37,6 +38,7 @@ import com.googlecode.efactory.eFactory.Factory;
  * @author Michael Vorburger
  */
 public class EFactoryDerivedStateComputer implements IDerivedStateComputer {
+	private static Logger logger = Logger.getLogger(EFactoryDerivedStateComputer.class);
 
 	@Inject
 	private IReferableElementsUnloader unloader;
@@ -58,7 +60,8 @@ public class EFactoryDerivedStateComputer implements IDerivedStateComputer {
 				}
 			} catch (ModelBuilderException e) {
 				builder.clear();
-				// No need to log, or to do something like this:
+				logger.error(resource.getURI() + " could not be transformed by ModelBuilder (this may be normal if incomplete while editing; this Log is a DEBUG, not a WARN/ERROR)", e);
+				// No need for something like this:
 				// resource.getErrors().add(new ExceptionDiagnostic(e));
 				// that would only lead to duplicate errors - the resource
 				// will (most likely, should) already have error markers if

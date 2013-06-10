@@ -106,11 +106,13 @@ public class ResourceProvider {
 		
 		logResourceDiagnostics(resource);
 
-		if (resource.getContents().isEmpty())
+		final EList<EObject> contents = resource.getContents();
+		if (contents.isEmpty())
 			throw new IOException("Could no load / no content (see log!) in resource: " + path);
-		
-		// get(1) because 0 is the EFactory NewObject, 1 is the EObject from it
-		return resource.getContents().get(1);
+		if (contents.size() == 1)
+			throw new IOException("Could load, but found no EObject in content, other than EFactory (so the EFactoryDerivedStateComputer failed; see log!) in resource: " + path);		
+		// get(1) because 0 is the root EFactory NewObject, 1 is the EObject from it
+		return contents.get(1);
 	}
 
 	private void logResourceDiagnostics(Resource resource) {
