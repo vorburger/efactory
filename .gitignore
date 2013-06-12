@@ -4,3 +4,4 @@ src-gen
 *._trace
 .svn
 xtend-gen
+rebel.xml
