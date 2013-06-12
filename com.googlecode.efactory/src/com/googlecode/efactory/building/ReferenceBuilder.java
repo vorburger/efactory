@@ -46,11 +46,14 @@ public class ReferenceBuilder extends FeatureBuilder {
 
 	@Override
 	public void build() throws ModelBuilderException {
-		EObject newValue = getReferencedObject();
-		EcoreUtil3.setOrAddValue(getContainer(), getFeature().getEFeature(),
-				newValue);
+		getModelBuilder().addDeferredLinkingFeatureBuilder(this);
 	}
 
+	public void link() throws ModelBuilderException {
+		EObject newValue = getReferencedObject();
+		EcoreUtil3.setOrAddValue(getContainer(), getFeature().getEFeature(), newValue);
+	}
+	
 	private EObject getReferencedObject() throws ModelBuilderException {
 		EObject referencedObject = reference.getValue();
 		if (referencedObject.eIsProxy()) {
@@ -73,5 +76,4 @@ public class ReferenceBuilder extends FeatureBuilder {
 		}
 		return referencedObject;
 	}
-
 }

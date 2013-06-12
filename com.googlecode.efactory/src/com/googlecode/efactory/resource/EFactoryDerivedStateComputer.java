@@ -45,7 +45,6 @@ public class EFactoryDerivedStateComputer implements IDerivedStateComputer {
 	
 	// implementation inspired by XcoreModelAssociator (more than JvmModelAssociator) 
 	public void installDerivedState(DerivedStateAwareResource resource, boolean preLinkingPhase) {
-
 	    final IParseResult parseResult = resource.getParseResult();
 		if (parseResult != null && parseResult.getRootASTElement() instanceof Factory)
 	    {
@@ -53,10 +52,10 @@ public class EFactoryDerivedStateComputer implements IDerivedStateComputer {
 	    	EFactoryResource efResource = (EFactoryResource) resource;
 			ModelBuilder builder = efResource.getBuilder();
 			try {
-				EObject eModel = builder.build(model);
+				EObject eModel = builder.buildWithoutLinking(model);
 				resource.getContents().add(eModel);
 				if (!preLinkingPhase) {
-					// TODO builder.link(); ?
+					builder.link();
 				}
 			} catch (ModelBuilderException e) {
 				builder.clear();

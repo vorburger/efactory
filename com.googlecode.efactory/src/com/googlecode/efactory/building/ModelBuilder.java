@@ -27,6 +27,8 @@
  */
 package com.googlecode.efactory.building;
 
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -50,6 +52,7 @@ public class ModelBuilder {
 	private NameAccessor nameSetter = new NameAccessor();
 	private FeatureSwitch featureSwitch;
 	private BiMap<NewObject, EObject> mapping = HashBiMap.create();
+	private List<ReferenceBuilder> deferredLinkingFeatureBuilder = new LinkedList<ReferenceBuilder>();
 
 	public ModelBuilder() {
 		this.featureSwitch = new FeatureSwitch();
@@ -102,17 +105,23 @@ public class ModelBuilder {
 
 	/**
 	 * Builds an EObject from a Factory.
-	 * It is the caller's (!) responsibility to add the returned EObject into another EObject (or, more typically, a Resource) eContainer. 
+	 * It is the caller's responsibility to add the returned EObject into a Resource as eContainer, failing to do so may result in dangling inter-Resource references. 
 	 * 
 	 * @param factory the Factory
 	 * @return the EObject built from the Factory
 	 * @throws ModelBuilderException if the content of the Factory prevented creation of a matching EObject
 	 */
 	public @NonNull EObject build(Factory factory) throws ModelBuilderException {
+		EObject unlinkedRoot = buildWithoutLinking(factory);
+		link();
+		return unlinkedRoot;
+	}
+
+	public @NonNull EObject buildWithoutLinking(Factory factory) throws ModelBuilderException {
 		Check.notNull("Argument must not be null", factory);
 		return build(factory.getRoot());
 	}
-
+	
 	private void setName(EObject target, NewObject source) {
 		String name = source.getName();
 		if (name != null) {
@@ -163,9 +172,23 @@ public class ModelBuilder {
 
 	public void clear() {
 		mapping.clear();
+		deferredLinkingFeatureBuilder.clear();
 	}
 
 	public boolean isBuilt() {
 		return !mapping.isEmpty();
+	}
+
+	public void addDeferredLinkingFeatureBuilder(ReferenceBuilder builder) {
+		deferredLinkingFeatureBuilder.add(builder);
+	}
+
+	public void link() throws ModelBuilderException {
+		Iterator<ReferenceBuilder> it = deferredLinkingFeatureBuilder.iterator();
+		while (it.hasNext()) {
+			ReferenceBuilder fb = it.next();
+			fb.link();
+			it.remove();
+		}
 	}
 }
