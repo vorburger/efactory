@@ -29,6 +29,8 @@ Export-Package: com.googlecode.efactory.ui,
  com.googlecode.efactory.ui.contentassist,
  com.googlecode.efactory.ui.contentassist.antlr,
  com.googlecode.efactory.ui.internal,
+ com.googlecode.efactory.ui.labeling,
+ com.googlecode.efactory.ui.outline,
  com.googlecode.efactory.ui.quickfix
 Bundle-Activator: com.googlecode.efactory.ui.internal.EFactoryActivator
 Import-Package: org.apache.log4j
