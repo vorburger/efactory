@@ -20,6 +20,7 @@ import org.eclipse.xtext.parser.antlr.IReferableElementsUnloader;
 import org.eclipse.xtext.parser.antlr.IReferableElementsUnloader.GenericUnloader;
 import org.eclipse.xtext.parsetree.reconstr.ITransientValueService;
 import org.eclipse.xtext.resource.IDerivedStateComputer;
+import org.eclipse.xtext.resource.ILocationInFileProvider;
 import org.eclipse.xtext.resource.IResourceFactory;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider;
@@ -31,6 +32,7 @@ import com.google.inject.name.Names;
 import com.googlecode.efactory.conversion.DATEValueConverter;
 import com.googlecode.efactory.conversion.TerminalConverters;
 import com.googlecode.efactory.resource.EFactoryDerivedStateComputer;
+import com.googlecode.efactory.resource.EFactoryLocationInFileProvider;
 import com.googlecode.efactory.resource.EFactoryStandaloneResourceFactory;
 import com.googlecode.efactory.scoping.EFactoryImportedNamespaceAwareScopeProvider;
 import com.googlecode.efactory.scoping.WarningErrorHandlerWithoutNoSuchMethodException;
@@ -51,6 +53,7 @@ public class EFactoryRuntimeModule
 				.toInstance(new SimpleDateFormat("MM.dd.yyyy"));
 		binder.bind(IReferableElementsUnloader.class).to(GenericUnloader.class);
 	}
+	
 	@Override
 	public Class<? extends org.eclipse.xtext.conversion.IValueConverterService> bindIValueConverterService() {
 		return TerminalConverters.class;
@@ -86,4 +89,9 @@ public class EFactoryRuntimeModule
 	        .annotatedWith(Names.named(AbstractDeclarativeScopeProvider.NAMED_ERROR_HANDLER))
 	        .toInstance(handler);	        
 	 }
+	 
+	@Override
+	public Class<? extends ILocationInFileProvider> bindILocationInFileProvider() {
+		return EFactoryLocationInFileProvider.class;
+	}
 }

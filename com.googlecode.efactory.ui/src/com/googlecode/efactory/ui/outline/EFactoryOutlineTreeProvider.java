@@ -44,6 +44,7 @@ public class EFactoryOutlineTreeProvider extends DefaultOutlineTreeProvider {
 		createNewObjectNode(parentNode, nObject);
 	}
 	
+	/** Note, this has it's "inverse" in com.googlecode.efactory.resource.EFactoryLocationInFileProvider.findNodeFor(EObject) */
 	protected void createNewObjectNode(IOutlineNode parentNode, NewObject nObject) {
 		Resource resource = nObject.eResource();
 		EFactoryResource efResource = (EFactoryResource) resource;

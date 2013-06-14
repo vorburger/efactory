@@ -51,18 +51,27 @@ public class EFactoryOutlineTreeProviderTest extends AbstractXtextTests {
 	
 	@Test
 	public void testEcoreOutline() throws Exception {
-		IOutlineNode root = getOutlineRootNode("/Outline/Entity.efactory");
-		assertNode(root, "entity", 5);
-		assertNode(root.getChildren().get(0), "Type", 1);
+		String text = readFileIntoString("/BuilderTests/Entity.efactory");
+		IOutlineNode root = getOutlineRootNode(text);
+		assertNodeText(root, "entity", 5);
+		assertNodeTextRegion(root, text, "entity", 6, 123456789);
+		assertNodeText(root.getChildren().get(0), "Type", 1);
 	}
 
-	protected void assertNode(IOutlineNode node, String text, int numChildren) {
+	protected void assertNodeText(IOutlineNode node, String expectedNodeText, int numChildren) {
 		assertEquals(numChildren, node.getChildren().size());
-		assertEquals(text, node.getText().toString());
+		assertEquals(expectedNodeText, node.getText().toString());
 	}
 	
-	private IOutlineNode getOutlineRootNode(String resourceName) throws IOException, Exception {
-		String text = readFileIntoString(resourceName);
+	protected void assertNodeTextRegion(IOutlineNode node, String fullModelText, String keyword, int fullLenght, int significantLength) {
+		int index = fullModelText.indexOf(keyword);
+		assertEquals(index, node.getFullTextRegion().getOffset());
+		assertEquals(fullLenght, node.getFullTextRegion().getLength());
+		assertEquals(index, node.getSignificantTextRegion().getOffset());
+		assertEquals(significantLength, node.getSignificantTextRegion().getLength());		
+	}
+	
+	private IOutlineNode getOutlineRootNode(String text) throws IOException, Exception {
 		XtextResource resource = getResourceAndExpect(getAsStream(text), 0);
 		document.setInput(resource);
 		IOutlineNode root = treeProvider.createRoot(document);

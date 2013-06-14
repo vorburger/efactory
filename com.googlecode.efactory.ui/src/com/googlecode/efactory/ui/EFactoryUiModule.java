@@ -14,7 +14,6 @@
 package com.googlecode.efactory.ui;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
-import org.eclipse.xtext.resource.ILocationInFileProvider;
 import org.eclipse.xtext.resource.IResourceFactory;
 import org.eclipse.xtext.ui.editor.contentassist.IContentAssistantFactory;
 import org.eclipse.xtext.ui.editor.contentassist.XtextContentAssistProcessor;
@@ -26,7 +25,6 @@ import com.google.inject.name.Names;
 import com.googlecode.efactory.ui.contentassist.EFactoryContentAssistantFactory;
 import com.googlecode.efactory.ui.editor.EFactoryFoldingRegionProvider;
 import com.googlecode.efactory.ui.highlighting.EFactoryHighlightingCalculator;
-import com.googlecode.efactory.ui.resource.EFactoryLocationInFileProvider;
 import com.googlecode.efactory.ui.resource.EFactoryResourceFactory;
 
 /**
@@ -49,8 +47,6 @@ public class EFactoryUiModule extends
 		binder.bind(IResourceFactory.class).to(EFactoryResourceFactory.class);
 		binder.bind(ISemanticHighlightingCalculator.class).to(
 				EFactoryHighlightingCalculator.class);
-		binder.bind(ILocationInFileProvider.class).to(
-				EFactoryLocationInFileProvider.class);
 		binder.bind(IFoldingRegionProvider.class).to(
 				EFactoryFoldingRegionProvider.class);
 	}
