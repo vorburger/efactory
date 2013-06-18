@@ -1,8 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: com.googlecode.efactory.ui
-Bundle-Vendor: Sebastian Benz
-Bundle-Version: 0.8.0.qualifier
+Bundle-Vendor: Sebastian Benz & Michael Vorburger
+Bundle-Version: 0.9.0.qualifier
 Bundle-SymbolicName: com.googlecode.efactory.ui; singleton:=true
 Eclipse-RegisterBuddy: org.eclipse.xtext.log4j
 Bundle-ActivationPolicy: lazy

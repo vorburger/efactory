@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: com.googlecode.efactory
-Bundle-Version: 0.8.0.qualifier
+Bundle-Version: 0.9.0.qualifier
 Bundle-SymbolicName: com.googlecode.efactory; singleton:=true
 Eclipse-RegisterBuddy: org.eclipse.xtext.log4j
 Bundle-ActivationPolicy: lazy
@@ -37,3 +37,4 @@ Export-Package: com.googlecode.efactory,
 Import-Package: org.apache.log4j,
  org.eclipse.xtext.xbase.lib,
  org.eclipse.xtend2.lib
+Bundle-Vendor: Sebastian Benz & Michael Vorburger
