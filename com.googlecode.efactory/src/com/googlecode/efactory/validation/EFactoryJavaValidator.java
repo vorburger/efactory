@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
@@ -98,7 +99,7 @@ public class EFactoryJavaValidator extends AbstractEFactoryJavaValidator {
 
 			boolean success = false;
 			for (EDataType validDataType : validDatatypes) {
-				if (expected == validDataType) {
+				if (equals(expected, validDataType)) {
 					success = true;
 					break;
 				}
@@ -107,6 +108,29 @@ public class EFactoryJavaValidator extends AbstractEFactoryJavaValidator {
 					+ feature.getEFeature().getEType().getName(), featureId,
 					success);
 			return success;
+		}
+
+		/* This is required due to strange Data Type validation
+		 * mismatch problem (occurs only with Xcore models),
+		 * where in the EDataType is not a EcorePackage.Literals.EINT
+		 * but has a default of '0' and appears to be from another
+		 * ecore EPackage which doesn't have the same object identity.
+		 * This is non-regression tested by XcoreTest.
+		 */
+		private boolean equals(EClassifier expected, EDataType validDataType) {
+			return equals(expected.getEPackage(), validDataType.getEPackage()) 
+					&& expected.getName().equals(validDataType.getName());
+		}
+		private boolean equals(EPackage package1, EPackage package2) {
+			if (package1 == null)
+				return package2 == null; 
+			else if (package2 == null)
+				return package1 == null; 
+			else
+				return equals(package1.getESuperPackage(), package2.getESuperPackage())
+					&& package1.getName().equals(package2.getName())
+					&& package1.getNsPrefix().equals(package2.getNsPrefix())
+					&& package1.getNsURI().equals(package2.getNsURI());
 		}
 	}
 
