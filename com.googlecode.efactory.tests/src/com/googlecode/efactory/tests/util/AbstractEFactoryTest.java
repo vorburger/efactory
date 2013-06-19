@@ -19,6 +19,10 @@ import com.googlecode.efactory.EFactoryUiInjectorProvider;
 import com.googlecode.efactory.eFactory.Feature;
 import com.googlecode.efactory.eFactory.NewObject;
 
+/**
+ * Old parent class for all tests.
+ * NOTE: All new tests should use EFactoryTestUtil instead.
+ */
 public abstract class AbstractEFactoryTest extends TestCase {
 
 	protected ResourceProvider resourceProvider = new ResourceProvider(TestConstants.PLUGIN_ID);
