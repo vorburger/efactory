@@ -28,6 +28,7 @@ import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.CheckType;
 
+import com.googlecode.efactory.building.ModelBuilderException;
 import com.googlecode.efactory.eFactory.Attribute;
 import com.googlecode.efactory.eFactory.BooleanAttribute;
 import com.googlecode.efactory.eFactory.Containment;
@@ -146,7 +147,12 @@ public class EFactoryJavaValidator extends AbstractEFactoryJavaValidator {
 	@Check(CheckType.NORMAL)
 	public void checkFactory(Factory factory) {
 		final EFactoryResource eFResource = (EFactoryResource) factory.eResource();
-		final EObject eObject = eFResource.getEFactoryEObject(factory.getRoot());
+		EObject eObject; 
+		try {
+			eObject = eFResource.getEFactoryEObject(factory.getRoot());
+		} catch (ModelBuilderException e) {
+			return;
+		}
 		
 		Diagnostic diagnostic = Diagnostician.INSTANCE.validate(eObject);
 		for (Diagnostic childDiagnostic : diagnostic.getChildren()) {

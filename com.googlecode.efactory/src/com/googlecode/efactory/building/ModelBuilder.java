@@ -38,6 +38,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jdt.annotation.NonNull;
+import org.eclipse.jdt.annotation.Nullable;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
@@ -142,7 +143,7 @@ public class ModelBuilder {
 		}
 	}
 
-	public @NonNull EObject getBuilt(NewObject newObject) {
+	public @NonNull EObject getBuilt(NewObject newObject) throws ModelBuilderException {
 		Check.notNull("Argument must not be null", newObject);
 		checkNotEmpty();
 		EObject target = mapping.get(newObject);
@@ -156,18 +157,18 @@ public class ModelBuilder {
 	 * Gets the "source" NewObject for the built EObject.
 	 * 
 	 * @param value the EObject
-	 * @return new object
-	 * @throws IllegalStateException if build ModelBuilder is uninitialized, build() needs to called with non-empty Factory/NewObject before this. 
+	 * @return new object, or null if the value EObject wasn't built by this ModelBuilder 
+	 * @throws ModelBuilderException if build ModelBuilder is uninitialized, build() needs to called with non-empty Factory/NewObject before this. 
 	 */
-	public NewObject getSource(EObject value) {
+	public @Nullable NewObject getSource(EObject value) throws ModelBuilderException {
 		Check.notNull("Argument must not be null", value);
 		checkNotEmpty();
 		return mapping.inverse().get(value);
 	}
 
-	private void checkNotEmpty() {
+	private void checkNotEmpty() throws ModelBuilderException {
 		if (mapping.isEmpty())
-			throw new IllegalStateException("ModelBuilder is uninitialized, build() needs to called with non-empty Factory/NewObject before getSource()");
+			throw new ModelBuilderException("ModelBuilder is uninitialized, build() needs to called with non-empty Factory/NewObject before getSource()");
 	}
 
 	public void clear() {

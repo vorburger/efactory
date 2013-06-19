@@ -18,6 +18,7 @@ import org.eclipse.xtext.resource.DerivedStateAwareResource;
 
 import com.google.inject.Inject;
 import com.googlecode.efactory.building.ModelBuilder;
+import com.googlecode.efactory.building.ModelBuilderException;
 import com.googlecode.efactory.eFactory.NewObject;
 
 public class EFactoryResource extends DerivedStateAwareResource {
@@ -31,10 +32,14 @@ public class EFactoryResource extends DerivedStateAwareResource {
 		}
 		if (!builder.isBuilt())
 			return null;
-		return builder.getSource(eObject);
+		try {
+			return builder.getSource(eObject);
+		} catch (ModelBuilderException e) {
+			return null;
+		}
 	}
 
-	@NonNull public EObject getEFactoryEObject(NewObject nObject) {
+	@NonNull public EObject getEFactoryEObject(NewObject nObject) throws ModelBuilderException {
 		if (builder == null) {
 			throw new IllegalStateException("EFactoryResource is missing @Injected ModelBuilder?!");
 		}
