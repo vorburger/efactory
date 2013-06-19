@@ -47,7 +47,8 @@ import com.googlecode.efactory.util.ContainerResolver;
 import com.googlecode.efactory.util.EcoreUtil3;
 
 public class EFactoryJavaValidator extends AbstractEFactoryJavaValidator {
-
+	// There are a lot of possible NullPointerException in here in the scenario where some reference types are still proxies.. but the NPEs get swallowed silently by the validation infrastructure 
+	
 	public final class AttributeValidator extends EFactorySwitch<Boolean> {
 		private Feature feature;
 
@@ -119,8 +120,13 @@ public class EFactoryJavaValidator extends AbstractEFactoryJavaValidator {
 		 * This is non-regression tested by XcoreTest.
 		 */
 		private boolean equals(EClassifier expected, EDataType validDataType) {
-			return equals(expected.getEPackage(), validDataType.getEPackage()) 
-					&& expected.getName().equals(validDataType.getName());
+			if (expected == null)
+				return validDataType == null;
+			else if (validDataType == null)
+				return expected == null;
+			else
+				return equals(expected.getEPackage(), validDataType.getEPackage())
+						&& expected.getName().equals(validDataType.getName());
 		}
 		private boolean equals(EPackage package1, EPackage package2) {
 			if (package1 == null)
@@ -258,6 +264,8 @@ public class EFactoryJavaValidator extends AbstractEFactoryJavaValidator {
 			EReference containmentValue, EClass candidate) {
 		boolean isAssignable = true;
 		EClassifier eType = feature.getEFeature().getEType();
+		if (eType == null)
+			return;
 		if (eType instanceof EClass) {
 			isAssignable = false;
 			EClass eClass = (EClass) eType;

@@ -52,7 +52,7 @@ public class EFactoryDerivedStateComputer implements IDerivedStateComputer {
 			if (!(rootASTElement instanceof Factory))
 				return;
 	    	Factory model = (Factory)rootASTElement;
-	    	if (model.getRoot().getEClass().eIsProxy()) {
+	    	if (model != null && model.getRoot() != null && model.getRoot().getEClass() != null && model.getRoot().getEClass().eIsProxy()) {
 	    		// If linking to the used eClass is not available yet,
 	    		// then just give up (as it will come back and retry)
 	    		return;
