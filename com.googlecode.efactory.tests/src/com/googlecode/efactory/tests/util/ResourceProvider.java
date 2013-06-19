@@ -15,7 +15,11 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.NoSuchElementException;
 
+import javax.inject.Inject;
+
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.emf.common.util.BasicDiagnostic;
+import org.eclipse.emf.common.util.DiagnosticException;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -23,6 +27,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.util.Diagnostician;
 import org.eclipse.xtext.resource.XtextResource;
 
 import com.googlecode.efactory.EFactoryStandaloneSetup;
@@ -32,7 +37,14 @@ public class ResourceProvider {
 	public ResourceSet rs;
 	private String pluginId;
 
+	@Inject
+	public ResourceProvider(ResourceSet rs) {
+		this(rs, TestConstants.PLUGIN_ID);
+	}
+	
 	public ResourceProvider(ResourceSet rs, String pluginId) {
+		if (rs == null)
+			throw new IllegalArgumentException();
 		this.rs = rs;
 		this.pluginId = pluginId;
 	}
@@ -100,13 +112,21 @@ public class ResourceProvider {
 		return URI.createPlatformPluginURI(pluginId + "/" + relativepath, true);
 	}
 
-	public EObject loadModel(String path) throws IOException {
+	public EObject loadModel(String path) throws IOException, DiagnosticException {
 		URI uri = getUri(path);
 		Resource resource = rs.getResource(uri, true);
-		
-		logResourceDiagnostics(resource);
-
 		final EList<EObject> contents = resource.getContents();
+		
+		// This is IMPORTANT - without this, some tests won't catch what they're supposed to catch!
+		BasicDiagnostic chain = new BasicDiagnostic();
+		for (EObject content : contents) {
+			Diagnostician.INSTANCE.validate(content, chain);
+		}
+		logResourceDiagnostics(resource);
+		if (!BasicDiagnostic.toIStatus(chain).isOK()) {
+			throw new DiagnosticExceptionWithURIAndToString(chain, uri);
+		}		
+
 		if (contents.isEmpty())
 			throw new IOException("Could no load / no content (see log!) in resource: " + path);
 		if (contents.size() == 1)

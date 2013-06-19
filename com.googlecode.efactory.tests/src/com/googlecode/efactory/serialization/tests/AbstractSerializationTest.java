@@ -11,6 +11,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import org.eclipse.emf.common.util.DiagnosticException;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.compare.diff.metamodel.DiffElement;
@@ -151,7 +152,7 @@ public abstract class AbstractSerializationTest extends AbstractEFactoryTest {
 		compare(expected, actual);
 	}
 
-	private EObject loadTestModel(String name) throws IOException {
+	private EObject loadTestModel(String name) throws IOException, DiagnosticException {
 		String path = ROOT_FOLDER + name;
 		EObject model = resourceProvider.loadModel(path);
 		removeAdapters(model);

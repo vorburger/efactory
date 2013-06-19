@@ -1,5 +1,5 @@
 use testmodel.* 
  
 TestModel testModelName {
-	
+	singleRequired = SingleRequired { parentAttribute = false }	
 }
