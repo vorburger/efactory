@@ -28,8 +28,6 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.Diagnostician;
 
-import com.googlecode.efactory.eFactory.Factory;
-
 public class ResourceProvider {
 	public ResourceSet rs;
 	private String pluginId;
@@ -48,11 +46,6 @@ public class ResourceProvider {
 
 	public ResourceProvider(String pluginId) {
 		this(new ResourceSetImpl(), pluginId);
-	}
-
-	public Factory loadFactory(String relativepath) throws IOException, DiagnosticException {
-		EList<EObject> contents = load(relativepath, true);
-		return get(contents, 0, Factory.class);
 	}
 
 	private <T> T get(EList<EObject> contents, int i, Class<T> clazz) {
