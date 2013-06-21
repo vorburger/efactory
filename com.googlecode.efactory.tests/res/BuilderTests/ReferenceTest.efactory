@@ -25,7 +25,10 @@ TestModel testModelName {
 		containments += ReferenceTargetSubclass target23 {}	
 	
 	}
-	
+
+	singleRequired = SingleRequired {
+		parentReference =  testModelName     
+	} 
 } 
 
  
