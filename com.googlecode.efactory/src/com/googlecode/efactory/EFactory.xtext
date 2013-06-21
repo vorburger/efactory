@@ -13,8 +13,9 @@ Factory :
 	
 PackageImport:
 'use' ePackage = [ecore::EPackage|QualifiedName] '.*';
-	// TODO support an "as" syntax, like the *.Xtext grammar itself does (see above!)
- 
+	// TODO like the *.Xtext grammar itself does, support namespace and package name based (try the 'import' above!) + maybe support an "as" syntax
+
+// @deprecated.. once the index-based approach works & well tested, this may get removed completely..
 Import :
 	'import' (importURI=STRING // must be named 'importURI'
 	)
@@ -24,6 +25,8 @@ Annotation:
 	NameMapping
 ;
 
+// TODO further consider if name mapping is best put in-line into objects.. it would have to repeat in every file..
+// logically this rather belongs into an external mapping, like HUTN's Configuration (HutnConfig), or even better directly into an Xcore as annotations 
 NameMapping:
 	GlobalNameMapping | CustomNameMapping
 ;
