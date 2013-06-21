@@ -1,0 +1,28 @@
+use testmodel.* 
+
+// TODO should not need this! 
+import "ReferenceCrossResourceTestA.efactory"
+ 
+TestModel testModelNameB {
+	
+	referenceTestContainer +=ReferenceTestContainer test1 {
+		referenceToOne = target1
+		referenceToMany += target1
+		referenceToMany += target2		
+		referenceToMany += target3		
+	
+	}
+	
+	referenceTestContainer += ReferenceTestContainer test2 {
+		referenceToOne = target23
+		referenceToMany += target21
+		referenceToMany += target22		
+		referenceToMany += target23		
+	}
+
+	singleRequired = SingleRequired {
+		parentReference = testModelNameA     
+	} 
+} 
+
+ 

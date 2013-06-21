@@ -1,0 +1,20 @@
+use testmodel.* 
+ 
+TestModel testModelNameA {
+	
+	referenceTestContainer +=ReferenceTestContainer test1 {
+		containments += ReferenceTarget target1 {}
+		containments += ReferenceTarget target2 {}
+		containments += ReferenceTarget target3 {}
+	}
+	
+	referenceTestContainer += ReferenceTestContainer test2 {
+		containments += ReferenceTarget target21 {}
+		containments += ReferenceTarget target22 {}
+		containments += ReferenceTargetSubclass target23 {}	
+	}
+
+	singleRequired = SingleRequired { }
+} 
+
+ 
