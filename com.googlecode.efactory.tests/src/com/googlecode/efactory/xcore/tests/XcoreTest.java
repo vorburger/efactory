@@ -17,14 +17,11 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.xcore.XcoreStandaloneSetup;
 import org.eclipse.xtext.junit4.InjectWith;
 import org.eclipse.xtext.junit4.XtextRunner;
-import org.eclipse.xtext.resource.XtextResourceSet;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import com.googlecode.efactory.EFactoryInjectorProvider;
 import com.googlecode.efactory.tests.util.ResourceProvider;
-import com.googlecode.efactory.tests.util.TestConstants;
 
 /**
  * Tests specifically related to Xcore integration.
@@ -33,18 +30,12 @@ import com.googlecode.efactory.tests.util.TestConstants;
 @InjectWith(EFactoryInjectorProvider.class)
 public class XcoreTest {
 
-	@Inject XtextResourceSet rs;
-	ResourceProvider resourceProvider;
+	@Inject ResourceProvider resourceProvider;
 
-	@Before
-	public void before() {
-		XcoreStandaloneSetup.doSetup();
-		resourceProvider = new ResourceProvider(rs, TestConstants.PLUGIN_ID);
-	}
-	
 	@Test
 	@SuppressWarnings("unused")
 	public void testXcore() throws Exception {
+		XcoreStandaloneSetup.doSetup();
 		GenModel genModel = (GenModel) resourceProvider.loadModel("model/TestModel2.xcore");
 		// feature = how to get the 'age' out of this??
 		EObject eObject = resourceProvider.loadModel("res/xcore/XcoreTest.efactory");
