@@ -13,7 +13,6 @@ package com.googlecode.efactory.tests.util;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Collections;
 
 import javax.inject.Inject;
 
@@ -132,13 +131,6 @@ public class ResourceProvider {
 		for (Diagnostic diag : resource.getWarnings()) {
 			System.out.println("WARN in test resource: " + resource.getURI() + " :: " + diag.getMessage());
 		}
-	}
-
-	public void save(EObject model, URI uri) throws IOException {
-		ResourceSet rs = new ResourceSetImpl();
-		Resource r = rs.createResource(uri);
-		r.getContents().add(model);
-		r.save(Collections.EMPTY_MAP);
 	}
 
 }
