@@ -7,6 +7,7 @@ import org.eclipse.emf.ecore.impl.DynamicEObjectImpl;
 import org.eclipse.xtext.junit4.InjectWith;
 import org.eclipse.xtext.junit4.XtextRunner;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -27,6 +28,7 @@ public class DynamicEmfTest {
 	 * and as this (*.ecore) integration isn't really a main use case now
 	 * anymore, with Xcore.
 	 */
+	@Ignore
 	@Test public void testBuilding() throws Exception {
 		EObject testModel = provider.loadModel("res/BuilderTests/DynamicEmf.efactory");
 /*		
