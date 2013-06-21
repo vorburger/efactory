@@ -33,8 +33,10 @@ public class DynamicEmfTest {
 	
 	/**
 	 * Disabled for now, because it kept breaking and took too much time to
-	 * maintain; latest EReferenceScopeProvider change, and as this (*.ecore)
-	 * integration isn't really a main use case now anymore, with Xcore.
+	 * maintain; latest EReferenceScopeProvider change broke this again (causing
+	 * a NullPointerException at org.eclipse.emf.ecore.impl.EStructuralFeatureImpl.getSettingDelegate()),
+	 * and as this (*.ecore) integration isn't really a main use case now
+	 * anymore, with Xcore.
 	 */
 	@Ignore
 	@Test public void testBuilding() throws Exception {
