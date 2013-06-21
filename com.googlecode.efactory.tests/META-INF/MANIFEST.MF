@@ -10,7 +10,6 @@ Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Export-Package: com.googlecode.efactory.builder.tests,
  com.googlecode.efactory.imports.tests,
  com.googlecode.efactory.proposal.tests,
- com.googlecode.efactory.proposal.tests.mock,
  com.googlecode.efactory.tests,
  com.googlecode.efactory.tests.util,
  com.googlecode.efactory.util.tests,
