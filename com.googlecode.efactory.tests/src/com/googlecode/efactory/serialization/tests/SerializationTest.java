@@ -1,10 +1,5 @@
 package com.googlecode.efactory.serialization.tests;
 
-
-
-
-
-
 public class SerializationTest extends AbstractSerializationTest {
 
 	public void testFactoryCreation() throws Exception {
@@ -18,7 +13,5 @@ public class SerializationTest extends AbstractSerializationTest {
 	public void testReferenceTest() throws Exception {
 		performSerializationTest("ReferenceTest.efactory");
 	}
-	
-	
 
 }

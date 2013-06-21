@@ -48,18 +48,6 @@ public abstract class AbstractSerializationTest extends AbstractEFactoryTest {
 	@Inject
 	private ISerializer serializer;
 
-	protected Factory loadFactory(URI uri) throws IOException {
-		Factory eFactory = resourceProvider.loadFactory(uri);
-		boolean hasNoErrors = eFactory.eResource().getErrors().isEmpty();
-		boolean hasNoWarnings = eFactory.eResource().getWarnings().isEmpty();
-		boolean isFailed = !(hasNoWarnings && hasNoErrors);
-		if (isFailed) {
-			printActual();
-			fail("Serialization produced errors");
-		}
-		return eFactory;
-	}
-
 	protected void printActual() throws IOException {
 		System.out.println(readFile(temp));
 	}
@@ -135,16 +123,14 @@ public abstract class AbstractSerializationTest extends AbstractEFactoryTest {
 
 	protected void performSerializationTest(String name) throws Exception {
 		EObject testModel = loadTestModel(name);
-		Factory expected = ((EFactoryResource) testModel.eResource())
-				.getFactory();
+		Factory expected = ((EFactoryResource) testModel.eResource()).getFactory();
 		FactoryBuilder builder = new FactoryBuilder();
 		Factory actual = builder.buildFactory(testModel);
 
 		assertModelsEquals(expected, actual);
 	}
 
-	private void assertModelsEquals(Factory expected, Factory actual)
-			throws InterruptedException, IOException {
+	private void assertModelsEquals(Factory expected, Factory actual) throws InterruptedException, IOException {
 		XtextResourceSet rs = new XtextResourceSet();
 		Resource r = rs.createResource(createTempUri());
 		r.getContents().add(actual);

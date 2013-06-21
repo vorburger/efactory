@@ -1,5 +1,6 @@
 use testmodel.*
 
 TestModel {
+	name = "Hi"
 	singleRequired // missing "= ..." => invalid, of course - but should still not lead to exception! 
 }

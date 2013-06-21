@@ -6,6 +6,7 @@ TestModel test {
 	attributeSample = AttributeSample{
 		//bigDecimal = 3
 		double = 1.2
+		listIntRequired += 1
 	}
 	
 	children += Child child1{
@@ -18,10 +19,6 @@ TestModel test {
 		parentReference  =  test      
 		nestedElements += NestedElements nested {}
 	}
-	
-	
-	
-
 	
 }
 	  

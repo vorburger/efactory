@@ -10,24 +10,42 @@
  ******************************************************************************/
 package com.googlecode.efactory.builder.tests;
 
-import org.eclipse.emf.ecore.EObject;
+import javax.inject.Inject;
+
+import junit.framework.Assert;
+
+import org.eclipse.xtext.junit4.InjectWith;
+import org.eclipse.xtext.junit4.XtextRunner;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import testmodel.TestModel;
 
-public class PartialTest extends AbstractModelBuilderTest {
+import com.googlecode.efactory.EFactoryInjectorProvider;
+import com.googlecode.efactory.tests.util.ResourceProvider;
+import com.googlecode.efactory.tests.util.TestSetup;
 
-	@Override
-	protected String getTestModelName() {
-		return "PartialTest.efactory";
-	}
+@RunWith(XtextRunner.class)
+@InjectWith(EFactoryInjectorProvider.class)
+public class PartialTest {
+
+	@Inject ResourceProvider rp;
 	
+	@Test
 	public void testPartiallyTypedResourceNoExceptions() throws Exception {
-		assertNotNull(testModel);
-		
-		EObject result = modelBuilder.build(factory);
-		TestModel testModel = checkType(TestModel.class, result);
-		
-		assertNull(testModel.getSingleRequired());
+		TestSetup.INSTANCE.doSetup();
+		TestModel testModel = rp.loadModel("res/BuilderTests/PartialTest.efactory", TestModel.class, false);
+		Assert.assertEquals("Hi", testModel.getName());
+		Assert.assertNull(testModel.getSingleRequired());
 	}
 	
+	@Test
+	@Ignore // TODO just like test above, if not validating, this must still pass.. 
+	public void testAnotherPartiallyTypedResourceNoExceptions() throws Exception {
+		TestSetup.INSTANCE.doSetup();
+		TestModel testModel = rp.loadModel("res/BuilderTests/Partial2Test.efactory", TestModel.class, false);
+		Assert.assertEquals("Hi", testModel.getName());
+		Assert.assertNull(testModel.getSingleRequired());
+	}
 }
