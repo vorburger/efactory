@@ -12,6 +12,8 @@ package com.googlecode.efactory.builder.tests;
 
 import testmodel.ReferenceTarget;
 import testmodel.ReferenceTestContainer;
+import testmodel.SingleRequired;
+import testmodel.TestModel;
 
 public class ReferenceTest extends AbstractModelBuilderTest {
 
@@ -47,6 +49,12 @@ public class ReferenceTest extends AbstractModelBuilderTest {
 		String[] expectedTargetNames = new String[] { "target21", "target22",
 				"target23" };
 		performToManyTest(expectedTargetNames, TEST2_NAME);
+	}
+	
+	public void testParentReference() throws Exception {
+		TestModel root = (TestModel) testModel;
+		SingleRequired req = root.getSingleRequired();
+		assertEquals(root, req.getParentReference());
 	}
 
 	private void performToManyTest(String[] expectedTargetNames, String testName) {

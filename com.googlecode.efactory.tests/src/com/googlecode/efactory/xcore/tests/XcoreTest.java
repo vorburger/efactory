@@ -8,41 +8,37 @@
  * Contributors: 
  *   Michael Vorburger - Initial API and implementation
  ******************************************************************************/
-
-package com.googlecode.efactory.imports.tests;
+package com.googlecode.efactory.xcore.tests;
 
 import javax.inject.Inject;
 
-import junit.framework.Assert;
-
+import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.xcore.XcoreStandaloneSetup;
 import org.eclipse.xtext.junit4.InjectWith;
 import org.eclipse.xtext.junit4.XtextRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import testmodel.TestModel;
-
 import com.googlecode.efactory.EFactoryInjectorProvider;
-import com.googlecode.efactory.tests.util.EFactoryTestUtil;
 import com.googlecode.efactory.tests.util.ResourceProvider;
 
 /**
- * Tests import of EFactory from another EFactory.
+ * Tests specifically related to Xcore integration.
  */
 @RunWith(XtextRunner.class)
 @InjectWith(EFactoryInjectorProvider.class)
-public class ImportsEFactory2Test {
-	
+public class XcoreTest {
+
 	@Inject ResourceProvider resourceProvider;
-	@Inject EFactoryTestUtil setup;
-	
+
 	@Test
-	public void testImports() throws Exception {
-		resourceProvider.loadModel("res/ImportTests/Imported2.efactory");
-		TestModel testModel = (TestModel) resourceProvider.loadModel("res/ImportTests/Importing2.efactory");
-		TestModel parentReference = testModel.getSingleRequired().getParentReference();
-		Assert.assertNotNull(parentReference);
-		Assert.assertFalse(parentReference.eIsProxy());
-		Assert.assertNotNull(parentReference.eResource());
+	@SuppressWarnings("unused")
+	public void testXcore() throws Exception {
+		XcoreStandaloneSetup.doSetup();
+		GenModel genModel = (GenModel) resourceProvider.loadModel("model/TestModel2.xcore");
+		// feature = how to get the 'age' out of this??
+		EObject eObject = resourceProvider.loadModel("res/xcore/XcoreTest.efactory");
+		// TODO ideally should eObject.eGet(feature) - to check age is 99
 	}
 }

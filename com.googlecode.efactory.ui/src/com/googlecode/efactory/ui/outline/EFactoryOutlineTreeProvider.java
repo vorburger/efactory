@@ -16,6 +16,7 @@ import org.eclipse.xtext.ui.editor.outline.IOutlineNode;
 import org.eclipse.xtext.ui.editor.outline.impl.DefaultOutlineTreeProvider;
 import org.eclipse.xtext.ui.editor.outline.impl.DocumentRootNode;
 
+import com.googlecode.efactory.building.ModelBuilderException;
 import com.googlecode.efactory.eFactory.Factory;
 import com.googlecode.efactory.eFactory.NewObject;
 import com.googlecode.efactory.resource.EFactoryResource;
@@ -48,7 +49,14 @@ public class EFactoryOutlineTreeProvider extends DefaultOutlineTreeProvider {
 	protected void createNewObjectNode(IOutlineNode parentNode, NewObject nObject) {
 		Resource resource = nObject.eResource();
 		EFactoryResource efResource = (EFactoryResource) resource;
-		EObject eObject = efResource.getEFactoryEObject(nObject);
-		this.createNode(parentNode, eObject);
+		try {
+			final EObject eObject = efResource.getEFactoryEObject(nObject);
+			this.createNode(parentNode, eObject);
+		} catch (ModelBuilderException e) {
+			// if we cannot get the built EObject (ModelBuilder), 
+			// we could e.g. just show the source in the Outline instead?
+			// but this doesn't work, leads to StackOverflowError.. TODO needs more thought.
+			// this.createNode(parentNode, nObject);
+		}
 	}
 }

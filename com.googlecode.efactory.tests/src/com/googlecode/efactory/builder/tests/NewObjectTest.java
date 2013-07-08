@@ -18,12 +18,9 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 
-import testmodel.TestModel;
-
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.googlecode.efactory.eFactory.Attribute;
-import com.googlecode.efactory.eFactory.Factory;
 import com.googlecode.efactory.eFactory.Feature;
 import com.googlecode.efactory.eFactory.NewObject;
 import com.googlecode.efactory.util.ValueResolver;
@@ -33,8 +30,6 @@ public class NewObjectTest extends AbstractModelBuilderTest {
 	private static final String TEST_MODEL_NAME = "test";
 
 	public void testBuild_NewObject() throws Exception {
-		EObject result = modelBuilder.build(factory);
-		TestModel testModel = checkType(TestModel.class, result);
 		checkName(testModel, TEST_MODEL_NAME);
 		
 		NewObject newObject = factory.getRoot();
@@ -99,22 +94,6 @@ public class NewObjectTest extends AbstractModelBuilderTest {
 			count = Integer.valueOf(count.intValue() + 1);
 		}
 		featureValueCount.put(feature.getEFeature(), count);
-	}
-
-	public void testBuild_getNewObject_Caching() throws Exception {
-		EObject result = modelBuilder.build(factory);
-		EObject result2 = modelBuilder.build(factory);
-		assertEquals(result, result2);
-	}
-
-	public void testBuild_getNewObject_Null() throws Exception {
-		try {
-			modelBuilder.build((Factory) null);
-		} catch (IllegalArgumentException e) {
-			// expected
-			return;
-		}
-		fail("Expected IllegalArgumentException for null argument");
 	}
 
 	@Override

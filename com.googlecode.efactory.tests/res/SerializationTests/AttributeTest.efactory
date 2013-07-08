@@ -2,6 +2,7 @@
 use testmodel.*
 
 TestModel testModelName {
+  singleRequired = SingleRequired { parentAttribute = false }	
   attributeTest += AttributeTestContainer test {
     oneInt = 1
     manyInt += 1

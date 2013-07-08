@@ -16,8 +16,8 @@ import org.eclipse.emf.ecore.EObject;
 
 import testmodel.TestModel;
 
-import com.googlecode.efactory.building.ModelBuilder;
 import com.googlecode.efactory.eFactory.Factory;
+import com.googlecode.efactory.resource.EFactoryResource;
 import com.googlecode.efactory.tests.util.ResourceProvider;
 import com.googlecode.efactory.tests.util.TestConstants;
 import com.googlecode.efactory.tests.util.TestSetup;
@@ -25,10 +25,9 @@ import com.googlecode.efactory.util.Find;
 
 public abstract class AbstractModelBuilderTest extends TestCase {
 
-	protected ModelBuilder modelBuilder;
 	private ResourceProvider resourceProvider;
 	protected Factory factory;
-	protected EObject testModel;
+	protected TestModel testModel;
 
 	public AbstractModelBuilderTest() {
 		super();
@@ -42,10 +41,8 @@ public abstract class AbstractModelBuilderTest extends TestCase {
 	protected void setUp() throws Exception {
 		TestSetup.INSTANCE.doSetup();
 		this.resourceProvider = new ResourceProvider(TestConstants.PLUGIN_ID);
-		this.factory = resourceProvider.loadFactory("res/BuilderTests/"
-				+ getTestModelName());
-		this.modelBuilder = new ModelBuilder();
-		testModel = modelBuilder.build(factory);
+		this.testModel = resourceProvider.loadModel("res/BuilderTests/" + getTestModelName(), TestModel.class);
+		this.factory = ((EFactoryResource) testModel.eResource()).getFactory();
 	}
 
 	protected abstract String getTestModelName();

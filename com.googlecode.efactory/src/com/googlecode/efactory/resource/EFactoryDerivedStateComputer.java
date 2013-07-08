@@ -46,9 +46,18 @@ public class EFactoryDerivedStateComputer implements IDerivedStateComputer {
 	// implementation inspired by XcoreModelAssociator (more than JvmModelAssociator) 
 	public void installDerivedState(DerivedStateAwareResource resource, boolean preLinkingPhase) {
 	    final IParseResult parseResult = resource.getParseResult();
-		if (parseResult != null && parseResult.getRootASTElement() instanceof Factory)
+		if (parseResult != null && parseResult.getRootASTElement() != null)
 	    {
-	    	Factory model = (Factory)parseResult.getRootASTElement();
+			final EObject rootASTElement = parseResult.getRootASTElement();
+			if (!(rootASTElement instanceof Factory))
+				return;
+	    	Factory model = (Factory)rootASTElement;
+	    	if (model != null && model.getRoot() != null && model.getRoot().getEClass() != null && model.getRoot().getEClass().eIsProxy()) {
+	    		// If linking to the used eClass is not available yet,
+	    		// then just give up (as it will come back and retry)
+	    		return;
+	    	}
+	    	
 	    	EFactoryResource efResource = (EFactoryResource) resource;
 			ModelBuilder builder = efResource.getBuilder();
 			try {

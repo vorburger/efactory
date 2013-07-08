@@ -11,6 +11,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import org.eclipse.emf.common.util.DiagnosticException;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.compare.diff.metamodel.DiffElement;
@@ -46,18 +47,6 @@ public abstract class AbstractSerializationTest extends AbstractEFactoryTest {
 
 	@Inject
 	private ISerializer serializer;
-
-	protected Factory loadFactory(URI uri) throws IOException {
-		Factory eFactory = resourceProvider.loadFactory(uri);
-		boolean hasNoErrors = eFactory.eResource().getErrors().isEmpty();
-		boolean hasNoWarnings = eFactory.eResource().getWarnings().isEmpty();
-		boolean isFailed = !(hasNoWarnings && hasNoErrors);
-		if (isFailed) {
-			printActual();
-			fail("Serialization produced errors");
-		}
-		return eFactory;
-	}
 
 	protected void printActual() throws IOException {
 		System.out.println(readFile(temp));
@@ -134,16 +123,14 @@ public abstract class AbstractSerializationTest extends AbstractEFactoryTest {
 
 	protected void performSerializationTest(String name) throws Exception {
 		EObject testModel = loadTestModel(name);
-		Factory expected = ((EFactoryResource) testModel.eResource())
-				.getFactory();
+		Factory expected = ((EFactoryResource) testModel.eResource()).getFactory();
 		FactoryBuilder builder = new FactoryBuilder();
 		Factory actual = builder.buildFactory(testModel);
 
 		assertModelsEquals(expected, actual);
 	}
 
-	private void assertModelsEquals(Factory expected, Factory actual)
-			throws InterruptedException, IOException {
+	private void assertModelsEquals(Factory expected, Factory actual) throws InterruptedException, IOException {
 		XtextResourceSet rs = new XtextResourceSet();
 		Resource r = rs.createResource(createTempUri());
 		r.getContents().add(actual);
@@ -151,7 +138,7 @@ public abstract class AbstractSerializationTest extends AbstractEFactoryTest {
 		compare(expected, actual);
 	}
 
-	private EObject loadTestModel(String name) throws IOException {
+	private EObject loadTestModel(String name) throws IOException, DiagnosticException {
 		String path = ROOT_FOLDER + name;
 		EObject model = resourceProvider.loadModel(path);
 		removeAdapters(model);

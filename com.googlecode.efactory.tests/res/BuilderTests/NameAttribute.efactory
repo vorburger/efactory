@@ -13,8 +13,9 @@ TestModel testModelName {
 		noNameTest = NoName noNameTest {
 		
 		}
-		
 	}
+	
+	singleRequired = SingleRequired { }
 	
 } 
 

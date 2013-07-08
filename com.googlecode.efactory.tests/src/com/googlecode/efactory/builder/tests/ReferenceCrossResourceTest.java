@@ -6,17 +6,15 @@
  * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors:
- *     Michael Vorburger - initial implementation
+ *     Michael Vorburger - initial API and implementation
  ******************************************************************************/
 package com.googlecode.efactory.builder.tests;
 
 import javax.inject.Inject;
 
-import junit.framework.Assert;
-
 import org.eclipse.xtext.junit4.InjectWith;
 import org.eclipse.xtext.junit4.XtextRunner;
-import org.junit.Ignore;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -28,24 +26,14 @@ import com.googlecode.efactory.tests.util.TestSetup;
 
 @RunWith(XtextRunner.class)
 @InjectWith(EFactoryInjectorProvider.class)
-public class PartialTest {
+public class ReferenceCrossResourceTest {
 
-	@Inject ResourceProvider rp;
-	
-	@Test
-	public void testPartiallyTypedResourceNoExceptions() throws Exception {
+	@Inject ResourceProvider provider;
+
+	@Test public void testCrossResourceReference() throws Exception {
 		TestSetup.INSTANCE.doSetup();
-		TestModel testModel = rp.loadModel("res/BuilderTests/PartialTest.efactory", TestModel.class, false);
-		Assert.assertEquals("Hi", testModel.getName());
-		Assert.assertNull(testModel.getSingleRequired());
-	}
-	
-	@Test
-	@Ignore // TODO just like test above, if not validating, this must still pass.. 
-	public void testAnotherPartiallyTypedResourceNoExceptions() throws Exception {
-		TestSetup.INSTANCE.doSetup();
-		TestModel testModel = rp.loadModel("res/BuilderTests/Partial2Test.efactory", TestModel.class, false);
-		Assert.assertEquals("Hi", testModel.getName());
-		Assert.assertNull(testModel.getSingleRequired());
+		/*TestModel aModel =*/ provider.loadModel("res/BuilderTests/ReferenceCrossResourceTestA.efactory", TestModel.class);
+		TestModel bModel = provider.loadModel("res/BuilderTests/ReferenceCrossResourceTestB.efactory", TestModel.class);
+		Assert.assertEquals("target1", bModel.getReferenceTestContainer().get(0).getReferenceToOne().getName());
 	}
 }

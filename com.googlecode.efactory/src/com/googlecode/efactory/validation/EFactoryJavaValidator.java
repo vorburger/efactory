@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
@@ -27,6 +28,7 @@ import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.CheckType;
 
+import com.googlecode.efactory.building.ModelBuilderException;
 import com.googlecode.efactory.eFactory.Attribute;
 import com.googlecode.efactory.eFactory.BooleanAttribute;
 import com.googlecode.efactory.eFactory.Containment;
@@ -45,7 +47,8 @@ import com.googlecode.efactory.util.ContainerResolver;
 import com.googlecode.efactory.util.EcoreUtil3;
 
 public class EFactoryJavaValidator extends AbstractEFactoryJavaValidator {
-
+	// There are a lot of possible NullPointerException in here in the scenario where some reference types are still proxies.. but the NPEs get swallowed silently by the validation infrastructure 
+	
 	public final class AttributeValidator extends EFactorySwitch<Boolean> {
 		private Feature feature;
 
@@ -98,7 +101,7 @@ public class EFactoryJavaValidator extends AbstractEFactoryJavaValidator {
 
 			boolean success = false;
 			for (EDataType validDataType : validDatatypes) {
-				if (expected == validDataType) {
+				if (equals(expected, validDataType)) {
 					success = true;
 					break;
 				}
@@ -107,6 +110,34 @@ public class EFactoryJavaValidator extends AbstractEFactoryJavaValidator {
 					+ feature.getEFeature().getEType().getName(), featureId,
 					success);
 			return success;
+		}
+
+		/* This is required due to strange Data Type validation
+		 * mismatch problem (occurs only with Xcore models),
+		 * where in the EDataType is not a EcorePackage.Literals.EINT
+		 * but has a default of '0' and appears to be from another
+		 * ecore EPackage which doesn't have the same object identity.
+		 * This is non-regression tested by XcoreTest.
+		 */
+		private boolean equals(EClassifier expected, EDataType validDataType) {
+			if (expected == null)
+				return validDataType == null;
+			else if (validDataType == null)
+				return expected == null;
+			else
+				return equals(expected.getEPackage(), validDataType.getEPackage())
+						&& expected.getName().equals(validDataType.getName());
+		}
+		private boolean equals(EPackage package1, EPackage package2) {
+			if (package1 == null)
+				return package2 == null; 
+			else if (package2 == null)
+				return package1 == null; 
+			else
+				return equals(package1.getESuperPackage(), package2.getESuperPackage())
+					&& package1.getName().equals(package2.getName())
+					&& package1.getNsPrefix().equals(package2.getNsPrefix())
+					&& package1.getNsURI().equals(package2.getNsURI());
 		}
 	}
 
@@ -122,7 +153,12 @@ public class EFactoryJavaValidator extends AbstractEFactoryJavaValidator {
 	@Check(CheckType.NORMAL)
 	public void checkFactory(Factory factory) {
 		final EFactoryResource eFResource = (EFactoryResource) factory.eResource();
-		final EObject eObject = eFResource.getEFactoryEObject(factory.getRoot());
+		EObject eObject; 
+		try {
+			eObject = eFResource.getEFactoryEObject(factory.getRoot());
+		} catch (ModelBuilderException e) {
+			return;
+		}
 		
 		Diagnostic diagnostic = Diagnostician.INSTANCE.validate(eObject);
 		for (Diagnostic childDiagnostic : diagnostic.getChildren()) {
@@ -228,6 +264,8 @@ public class EFactoryJavaValidator extends AbstractEFactoryJavaValidator {
 			EReference containmentValue, EClass candidate) {
 		boolean isAssignable = true;
 		EClassifier eType = feature.getEFeature().getEType();
+		if (eType == null)
+			return;
 		if (eType instanceof EClass) {
 			isAssignable = false;
 			EClass eClass = (EClass) eType;

@@ -48,7 +48,6 @@ import com.googlecode.efactory.building.NameAccessor;
 import com.googlecode.efactory.eFactory.Factory;
 import com.googlecode.efactory.eFactory.Import;
 import com.googlecode.efactory.eFactory.NewObject;
-import com.googlecode.efactory.eFactory.PackageImport;
 import com.googlecode.efactory.util.Resources;
 
 public class EReferenceScopeProvider {
@@ -72,13 +71,12 @@ public class EReferenceScopeProvider {
 		return elementList;
 	}
 	
-	private List<IEObjectDescription> getImports(Factory factory,
-			Resource context, EClass type) {
+	private List<IEObjectDescription> getImports(Factory factory,Resource context, EClass type) {
 		List<IEObjectDescription> elementList = new LinkedList<IEObjectDescription>();
 		final Set<String> uniqueImportURIs = new HashSet<String>(10);
 		final List<String> orderedImportURIs = new ArrayList<String>(10);
+		
 		for (Import imp : factory.getImports()) {
-
 			String uri = imp.getImportURI();
 			if (uri != null && uniqueImportURIs.add(uri)
 					&& EcoreUtil2.isValidUri(factory, URI.createURI(uri))) {
@@ -86,12 +84,16 @@ public class EReferenceScopeProvider {
 			}
 		}
 
-		for (PackageImport imp : factory.getEpackages()) {
-			String uri = imp.getEPackage().getNsURI();
-			if (uri != null && uniqueImportURIs.add(uri)) {
-				orderedImportURIs.add(uri);
-			}
-		}
+// this is plain wrong, because the NsURI of the getEpackages are not references
+// that can/should/need be resolved via EcoreUtil2.getResource().. I got this wrong.
+// it shouldn't be needed at all, but commenting it out broke the DynamicEmfTest, again... 		
+//		
+//		for (PackageImport imp : factory.getEpackages()) {
+//			String uri = imp.getEPackage().getNsURI();
+//			if (uri != null && uniqueImportURIs.add(uri)) {
+//				orderedImportURIs.add(uri);
+//			}
+//		}
 
 		for (String uri : orderedImportURIs) {
 			Resource importedResource = getResource(context, uri);

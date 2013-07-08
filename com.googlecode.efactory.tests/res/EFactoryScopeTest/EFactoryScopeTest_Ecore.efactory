@@ -1,6 +1,0 @@
-use ecore.*
- 
-EClass {
-	set  abstract = true
-} 
-
