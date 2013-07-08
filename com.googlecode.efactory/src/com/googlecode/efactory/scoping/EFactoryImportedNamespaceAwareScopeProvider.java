@@ -13,6 +13,8 @@ package com.googlecode.efactory.scoping;
 import java.util.Collections;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.xtext.naming.IQualifiedNameConverter;
@@ -24,7 +26,6 @@ import org.eclipse.xtext.scoping.impl.ImportedNamespaceAwareLocalScopeProvider;
 import org.eclipse.xtext.util.Strings;
 
 import com.google.common.collect.Lists;
-import com.google.inject.Inject;
 import com.googlecode.efactory.eFactory.EFactoryPackage;
 import com.googlecode.efactory.eFactory.Factory;
 import com.googlecode.efactory.eFactory.PackageImport;
@@ -70,7 +71,12 @@ public class EFactoryImportedNamespaceAwareScopeProvider extends ImportedNamespa
 		}
 	    return importedNamespaceResolvers;
 	}
-	  
+	 
+	// available only in Xtext v2.4, copy/pasted here for compat. with 2.3:
+	protected ImportNormalizer doCreateImportNormalizer(QualifiedName importedNamespace, boolean wildcard, boolean ignoreCase) {
+		return new ImportNormalizer(importedNamespace, wildcard, ignoreCase);
+	}
+	
 	/**
 	 * We override this because in our grammar, the trailing .* isn't part of the rule, so that we can use a reference.  
 	 */
