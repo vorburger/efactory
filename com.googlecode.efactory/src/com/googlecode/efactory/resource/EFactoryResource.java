@@ -12,8 +12,6 @@
 package com.googlecode.efactory.resource;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.jdt.annotation.NonNull;
-import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.xtext.resource.DerivedStateAwareResource;
 
 import com.google.inject.Inject;
@@ -25,7 +23,7 @@ public class EFactoryResource extends DerivedStateAwareResource {
 	@Inject
 	private ModelBuilder builder;
 	
-	@Nullable public NewObject getEFactoryElement(EObject eObject) {
+	/*@Nullable*/ public NewObject getEFactoryElement(EObject eObject) {
 		if (builder == null) {
 			return null;
 		}
@@ -34,7 +32,7 @@ public class EFactoryResource extends DerivedStateAwareResource {
 		return builder.getSource(eObject);
 	}
 
-	@NonNull public EObject getEFactoryEObject(NewObject nObject) {
+	/*@NonNull*/ public EObject getEFactoryEObject(NewObject nObject) {
 		if (builder == null) {
 			throw new IllegalStateException("EFactoryResource is missing @Injected ModelBuilder?!");
 		}
@@ -46,7 +44,7 @@ public class EFactoryResource extends DerivedStateAwareResource {
 		return builder;
 	}
 
-	@Nullable public com.googlecode.efactory.eFactory.Factory getFactory() {
+	/*@Nullable*/ public com.googlecode.efactory.eFactory.Factory getFactory() {
 		if (getContents().isEmpty()) {
 			return null;
 		}

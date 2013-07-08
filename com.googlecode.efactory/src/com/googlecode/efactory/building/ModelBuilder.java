@@ -37,7 +37,6 @@ import org.eclipse.emf.ecore.EFactory;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.jdt.annotation.NonNull;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
@@ -60,7 +59,7 @@ public class ModelBuilder {
 
 	// intentionally package local - outside clients shouldn't need to build individual NewObject, they only build(Factory)
 	// NOTE: It is the caller's (!) responsibility to add the returned EObject into another EObject (or a Resource) eContainer. 
-	@NonNull EObject build(NewObject newObject) throws ModelBuilderException {
+	/*@NonNull*/ EObject build(NewObject newObject) throws ModelBuilderException {
 		Check.notNull("Argument must not be null", newObject);
 		EObject target = mapping.get(newObject);
 		if (target != null) {
@@ -73,7 +72,7 @@ public class ModelBuilder {
 	}
 
 	@SuppressWarnings("null") // req. because EFactory.create is not null annotated
-	@NonNull private EObject createTarget(NewObject from) throws ModelBuilderException {
+	/*@NonNull*/ private EObject createTarget(NewObject from) throws ModelBuilderException {
 		EClass eClass = from.getEClass();
 		if (eClass == null) {
 			throw new ModelBuilderException("No EClass for New Object " + getNewObjectDescriptionForErrorMessage(from));
@@ -111,13 +110,13 @@ public class ModelBuilder {
 	 * @return the EObject built from the Factory
 	 * @throws ModelBuilderException if the content of the Factory prevented creation of a matching EObject
 	 */
-	public @NonNull EObject build(Factory factory) throws ModelBuilderException {
+	public /*@NonNull*/ EObject build(Factory factory) throws ModelBuilderException {
 		EObject unlinkedRoot = buildWithoutLinking(factory);
 		link();
 		return unlinkedRoot;
 	}
 
-	public @NonNull EObject buildWithoutLinking(Factory factory) throws ModelBuilderException {
+	public /*@NonNull*/ EObject buildWithoutLinking(Factory factory) throws ModelBuilderException {
 		Check.notNull("Argument must not be null", factory);
 		return build(factory.getRoot());
 	}
@@ -142,7 +141,7 @@ public class ModelBuilder {
 		}
 	}
 
-	public @NonNull EObject getBuilt(NewObject newObject) {
+	public /*@NonNull*/ EObject getBuilt(NewObject newObject) {
 		Check.notNull("Argument must not be null", newObject);
 		checkNotEmpty();
 		EObject target = mapping.get(newObject);

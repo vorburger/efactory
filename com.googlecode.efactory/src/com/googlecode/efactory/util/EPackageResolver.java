@@ -32,7 +32,6 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.util.Pair;
 import org.eclipse.xtext.util.SimpleCache;
@@ -81,7 +80,7 @@ public class EPackageResolver {
 		return ePackage;
 	}
 
-	private @Nullable EPackage getEPackage(Resource resource) {
+	private /*@Nullable*/ EPackage getEPackage(Resource resource) {
 		// This will (has to, see DynamicEmfTest) find
 		// an EPackage created dynamically in an EFactory as well
 		EList<EObject> contents = resource.getContents();
