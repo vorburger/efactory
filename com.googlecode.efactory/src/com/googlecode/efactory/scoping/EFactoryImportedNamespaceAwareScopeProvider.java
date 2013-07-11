@@ -71,6 +71,11 @@ public class EFactoryImportedNamespaceAwareScopeProvider extends ImportedNamespa
 	    return importedNamespaceResolvers;
 	}
 	  
+	// copy/pasted from ImportedNamespaceAwareLocalScopeProvider v2.4, so that this compiles on Xtext 2.3 as well
+	protected ImportNormalizer doCreateImportNormalizer(QualifiedName importedNamespace, boolean wildcard, boolean ignoreCase) {
+		return new ImportNormalizer(importedNamespace, wildcard, ignoreCase);
+	}
+	
 	/**
 	 * We override this because in our grammar, the trailing .* isn't part of the rule, so that we can use a reference.  
 	 */
