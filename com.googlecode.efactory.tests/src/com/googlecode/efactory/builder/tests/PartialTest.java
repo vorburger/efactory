@@ -16,7 +16,6 @@ import org.eclipse.xtext.junit4.InjectWith;
 import org.eclipse.xtext.junit4.XtextRunner;
 import org.junit.Assert;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -49,7 +48,6 @@ public class PartialTest {
 	}
 	
 	@Test
-	@Ignore // TODO just like test above, if not validating, this must still pass.. 
 	public void testAnotherPartiallyTypedResourceNoExceptions() throws Exception {
 		TestModel testModel = rp.loadModel("res/BuilderTests/Partial2Test.efactory", TestModel.class, false);
 		Assert.assertEquals("Hi", testModel.getName());
