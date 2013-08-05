@@ -1,7 +1,7 @@
 use testmodel.* 
 
 // TODO should not need this! 
-import "ReferenceCrossResourceTestA.efactory"
+// import "ReferenceCrossResourceTestA.efactory"
  
 TestModel testModelNameB {
 	
