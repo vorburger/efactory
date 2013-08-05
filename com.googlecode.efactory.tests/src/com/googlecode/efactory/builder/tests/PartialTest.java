@@ -15,6 +15,7 @@ import javax.inject.Inject;
 import org.eclipse.xtext.junit4.InjectWith;
 import org.eclipse.xtext.junit4.XtextRunner;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,10 +31,18 @@ import com.googlecode.efactory.tests.util.TestSetup;
 public class PartialTest {
 
 	@Inject ResourceProvider rp;
+
+	@Before public void beforeTest() {
+		TestSetup.INSTANCE.doSetup();
+	}
 	
 	@Test
+	public void testEmptyResourceNoExceptions() throws Exception {
+		rp.load("res/BuilderTests/PartialEmptyTest.efactory", false);
+	}
+	
+	@Test // passes when run as OSGi test, but fails when run as SE test - unclear why?
 	public void testPartiallyTypedResourceNoExceptions() throws Exception {
-		TestSetup.INSTANCE.doSetup();
 		TestModel testModel = rp.loadModel("res/BuilderTests/PartialTest.efactory", TestModel.class, false);
 		Assert.assertEquals("Hi", testModel.getName());
 		Assert.assertNull(testModel.getSingleRequired());
@@ -42,7 +51,6 @@ public class PartialTest {
 	@Test
 	@Ignore // TODO just like test above, if not validating, this must still pass.. 
 	public void testAnotherPartiallyTypedResourceNoExceptions() throws Exception {
-		TestSetup.INSTANCE.doSetup();
 		TestModel testModel = rp.loadModel("res/BuilderTests/Partial2Test.efactory", TestModel.class, false);
 		Assert.assertEquals("Hi", testModel.getName());
 		Assert.assertNull(testModel.getSingleRequired());
