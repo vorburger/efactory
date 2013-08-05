@@ -73,6 +73,7 @@ public class EFactoryImportedNamespaceAwareScopeProvider extends ImportedNamespa
 	}
 	 
 	// available only in Xtext v2.4, copy/pasted here for compat. with 2.3:
+	// copy/pasted from ImportedNamespaceAwareLocalScopeProvider v2.4, so that this compiles on Xtext 2.3 as well
 	protected ImportNormalizer doCreateImportNormalizer(QualifiedName importedNamespace, boolean wildcard, boolean ignoreCase) {
 		return new ImportNormalizer(importedNamespace, wildcard, ignoreCase);
 	}
