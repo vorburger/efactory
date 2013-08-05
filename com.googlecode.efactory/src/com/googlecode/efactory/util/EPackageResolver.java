@@ -32,6 +32,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.util.Pair;
@@ -73,7 +74,10 @@ public class EPackageResolver {
 	}
 
 	private EPackage loadPackageAsResource(Resource context, String packageUri) {
-		return getEPackage(EcoreUtil2.getResource(context, packageUri));
+		final Resource resource = EcoreUtil2.getResource(context, packageUri);
+		if (resource == null)
+			return null;
+		return getEPackage(resource);
 	}
 
 	private EPackage getPackageFromRegistry(String packageUri) {
@@ -81,7 +85,7 @@ public class EPackageResolver {
 		return ePackage;
 	}
 
-	private @Nullable EPackage getEPackage(Resource resource) {
+	private @Nullable EPackage getEPackage(@NonNull Resource resource) {
 		// This will (has to, see DynamicEmfTest) find
 		// an EPackage created dynamically in an EFactory as well
 		EList<EObject> contents = resource.getContents();
