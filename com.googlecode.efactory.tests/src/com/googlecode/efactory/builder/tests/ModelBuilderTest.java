@@ -11,9 +11,9 @@
 package com.googlecode.efactory.builder.tests;
 
 import static org.junit.Assert.fail;
-import junit.framework.Assert;
 
 import org.eclipse.emf.ecore.EObject;
+import org.junit.Assert;
 import org.junit.Test;
 
 import testmodel.TestmodelPackage;

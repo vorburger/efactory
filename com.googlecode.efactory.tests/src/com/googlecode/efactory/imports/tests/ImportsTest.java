@@ -10,8 +10,10 @@
  ******************************************************************************/
 package com.googlecode.efactory.imports.tests;
 
-import junit.framework.Assert;
 import junit.framework.TestCase;
+
+import org.junit.Assert;
+
 import testmodel.TestModel;
 
 import com.googlecode.efactory.tests.util.ResourceProvider;
