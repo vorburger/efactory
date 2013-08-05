@@ -68,6 +68,7 @@ public class EFactoryDerivedStateComputer implements IDerivedStateComputer {
 				}
 			} catch (ModelBuilderException e) {
 				builder.clear();
+				// TODO make this a logger.debug() again.. it's only logger.error() so that I can see this better while developping..
 				logger.error(resource.getURI() + " could not be transformed by ModelBuilder (this may be normal if incomplete while editing; this Log is a DEBUG, not a WARN/ERROR)", e);
 				// No need for something like this:
 				// resource.getErrors().add(new ExceptionDiagnostic(e));
