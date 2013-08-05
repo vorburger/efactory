@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.googlecode.efactory</groupId>
+  <artifactId>efactory</artifactId>
+  <version>0.9.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <properties>
+    <tycho-version>0.18.1</tycho-version>
+  </properties>
+  <repositories>
+    <repository>
+      <id>indigo</id>
+      <layout>p2</layout>
+      <url>http://download.eclipse.org/releases/indigo</url>
+    </repository>
+    <repository>
+      <id>xtext</id>
+      <layout>p2</layout>
+      <url>http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/</url>
+    </repository>
+	<!-- temporary -->
+    <repository>
+      <id>ds-9.0</id>
+      <layout>p2</layout>
+	  <url>file:////oams.com/Software/Incoming%20Packages/tmp/SDK-DS/integration/p2repo/</url>
+<!--      <url>http://p2.oams.com/ds/9.0/integration/t24/</url> -->
+    </repository>
+  </repositories>
+  <modules>
+    <module>com.googlecode.efactory</module>
+    <module>com.googlecode.efactory.feature</module>
+    <module>com.googlecode.efactory.help</module>
+<!-- later
+    <module>com.googlecode.efactory.repository</module> -->
+    <module>com.googlecode.efactory.tests</module>
+    <module>com.googlecode.efactory.ui</module>
+    <module>com.googlecode.efactory.ui.feature</module>
+  </modules>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.eclipse.tycho</groupId>
+        <artifactId>tycho-maven-plugin</artifactId>
+        <version>${tycho-version}</version>
+        <extensions>true</extensions>
+      </plugin>
+    </plugins>
+  </build>
+</project>

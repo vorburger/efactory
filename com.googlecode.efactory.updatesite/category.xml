@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<site>
-   <feature url="features/com.googlecode.efactory.sdk_0.7.0.qualifier.jar" id="com.googlecode.efactory.sdk" version="0.7.0.qualifier">
-      <category name="EFactory"/>
-   </feature>
-   <category-def name="EFactory" label="EFactory"/>
-</site>

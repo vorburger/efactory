@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<entity:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:entity="http://com.googlecode.efactory.examples.entity/model">
-  <elements xsi:type="entity:Entity" name="Employer">
-    <extends href="Person.efactory#//@elements.0"/>
-  </elements>
-</entity:Model>
