@@ -21,6 +21,7 @@ import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
 
+import testmodel.*;
 import testmodel.Abstract;
 import testmodel.AttributeSample;
 import testmodel.AttributeTestContainer;
@@ -44,22 +45,21 @@ import testmodel.TestmodelPackage;
  * <!-- begin-user-doc --> The <b>Adapter Factory</b> for the model. It provides
  * an adapter <code>createXXX</code> method for each class of the model. <!--
  * end-user-doc -->
- * 
  * @see testmodel.TestmodelPackage
  * @generated
  */
 public class TestmodelAdapterFactory extends AdapterFactoryImpl {
 	/**
-	 * The cached model package. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The cached model package.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	protected static TestmodelPackage modelPackage;
 
 	/**
-	 * Creates an instance of the adapter factory. <!-- begin-user-doc --> <!--
+	 * Creates an instance of the adapter factory.
+	 * <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public TestmodelAdapterFactory() {
@@ -73,7 +73,6 @@ public class TestmodelAdapterFactory extends AdapterFactoryImpl {
 	 * <!-- begin-user-doc --> This implementation returns <code>true</code> if
 	 * the object is either the model's package or is an instance object of the
 	 * model. <!-- end-user-doc -->
-	 * 
 	 * @return whether this factory is applicable for the type of the object.
 	 * @generated
 	 */
@@ -83,7 +82,7 @@ public class TestmodelAdapterFactory extends AdapterFactoryImpl {
 			return true;
 		}
 		if (object instanceof EObject) {
-			return ((EObject) object).eClass().getEPackage() == modelPackage;
+			return ((EObject)object).eClass().getEPackage() == modelPackage;
 		}
 		return false;
 	}
@@ -95,119 +94,99 @@ public class TestmodelAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	protected TestmodelSwitch<Adapter> modelSwitch = new TestmodelSwitch<Adapter>() {
-		@Override
-		public Adapter caseTestModel(TestModel object) {
-			return createTestModelAdapter();
-		}
-
-		@Override
-		public Adapter caseChild(Child object) {
-			return createChildAdapter();
-		}
-
-		@Override
-		public Adapter caseSingleOptional(SingleOptional object) {
-			return createSingleOptionalAdapter();
-		}
-
-		@Override
-		public Adapter caseSingleRequired(SingleRequired object) {
-			return createSingleRequiredAdapter();
-		}
-
-		@Override
-		public Adapter caseInterface(Interface object) {
-			return createInterfaceAdapter();
-		}
-
-		@Override
-		public Adapter caseAbstract(Abstract object) {
-			return createAbstractAdapter();
-		}
-
-		@Override
-		public Adapter caseNestedElements(NestedElements object) {
-			return createNestedElementsAdapter();
-		}
-
-		@Override
-		public Adapter caseNestedElement(NestedElement object) {
-			return createNestedElementAdapter();
-		}
-
-		@Override
-		public Adapter caseAttributeSample(AttributeSample object) {
-			return createAttributeSampleAdapter();
-		}
-
-		@Override
-		public Adapter caseReferenceTestContainer(ReferenceTestContainer object) {
-			return createReferenceTestContainerAdapter();
-		}
-
-		@Override
-		public Adapter caseReferenceTarget(ReferenceTarget object) {
-			return createReferenceTargetAdapter();
-		}
-
-		@Override
-		public Adapter caseReferenceTargetSubclass(
-				ReferenceTargetSubclass object) {
-			return createReferenceTargetSubclassAdapter();
-		}
-
-		@Override
-		public Adapter caseAttributeTestContainer(AttributeTestContainer object) {
-			return createAttributeTestContainerAdapter();
-		}
-
-		@Override
-		public Adapter caseNameAttributeContainer(NameAttributeContainer object) {
-			return createNameAttributeContainerAdapter();
-		}
-
-		@Override
-		public Adapter caseDefaultName(DefaultName object) {
-			return createDefaultNameAdapter();
-		}
-
-		@Override
-		public Adapter caseCustomName(CustomName object) {
-			return createCustomNameAdapter();
-		}
-
-		@Override
-		public Adapter caseNoName(NoName object) {
-			return createNoNameAdapter();
-		}
-
-		@Override
-		public Adapter defaultCase(EObject object) {
-			return createEObjectAdapter();
-		}
-	};
+			@Override
+			public Adapter caseTestModel(TestModel object) {
+				return createTestModelAdapter();
+			}
+			@Override
+			public Adapter caseChild(Child object) {
+				return createChildAdapter();
+			}
+			@Override
+			public Adapter caseSingleOptional(SingleOptional object) {
+				return createSingleOptionalAdapter();
+			}
+			@Override
+			public Adapter caseSingleRequired(SingleRequired object) {
+				return createSingleRequiredAdapter();
+			}
+			@Override
+			public Adapter caseInterface(Interface object) {
+				return createInterfaceAdapter();
+			}
+			@Override
+			public Adapter caseAbstract(Abstract object) {
+				return createAbstractAdapter();
+			}
+			@Override
+			public Adapter caseNestedElements(NestedElements object) {
+				return createNestedElementsAdapter();
+			}
+			@Override
+			public Adapter caseNestedElement(NestedElement object) {
+				return createNestedElementAdapter();
+			}
+			@Override
+			public Adapter caseAttributeSample(AttributeSample object) {
+				return createAttributeSampleAdapter();
+			}
+			@Override
+			public Adapter caseReferenceTestContainer(ReferenceTestContainer object) {
+				return createReferenceTestContainerAdapter();
+			}
+			@Override
+			public Adapter caseReferenceTarget(ReferenceTarget object) {
+				return createReferenceTargetAdapter();
+			}
+			@Override
+			public Adapter caseReferenceTargetSubclass(ReferenceTargetSubclass object) {
+				return createReferenceTargetSubclassAdapter();
+			}
+			@Override
+			public Adapter caseAttributeTestContainer(AttributeTestContainer object) {
+				return createAttributeTestContainerAdapter();
+			}
+			@Override
+			public Adapter caseNameAttributeContainer(NameAttributeContainer object) {
+				return createNameAttributeContainerAdapter();
+			}
+			@Override
+			public Adapter caseDefaultName(DefaultName object) {
+				return createDefaultNameAdapter();
+			}
+			@Override
+			public Adapter caseCustomName(CustomName object) {
+				return createCustomNameAdapter();
+			}
+			@Override
+			public Adapter caseNoName(NoName object) {
+				return createNoNameAdapter();
+			}
+			@Override
+			public Adapter defaultCase(EObject object) {
+				return createEObjectAdapter();
+			}
+		};
 
 	/**
-	 * Creates an adapter for the <code>target</code>. <!-- begin-user-doc -->
+	 * Creates an adapter for the <code>target</code>.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
-	 * @param target
-	 *            the object to adapt.
+	 * @param target the object to adapt.
 	 * @return the adapter for the <code>target</code>.
 	 * @generated
 	 */
 	@Override
 	public Adapter createAdapter(Notifier target) {
-		return modelSwitch.doSwitch((EObject) target);
+		return modelSwitch.doSwitch((EObject)target);
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link testmodel.TestModel
-	 * <em>Test Model</em>}'. <!-- begin-user-doc --> This default
+	 * Creates a new adapter for an object of class '{@link testmodel.TestModel <em>Test Model</em>}'.
+	 * <!-- begin-user-doc --> This default
 	 * implementation returns null so that we can easily ignore cases; it's
 	 * useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
-	 * 
 	 * @return the new adapter.
 	 * @see testmodel.TestModel
 	 * @generated
@@ -337,13 +316,11 @@ public class TestmodelAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '
-	 * {@link testmodel.ReferenceTestContainer
-	 * <em>Reference Test Container</em>}'. <!-- begin-user-doc --> This default
+	 * Creates a new adapter for an object of class '{@link testmodel.ReferenceTestContainer <em>Reference Test Container</em>}'.
+	 * <!-- begin-user-doc --> This default
 	 * implementation returns null so that we can easily ignore cases; it's
 	 * useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
-	 * 
 	 * @return the new adapter.
 	 * @see testmodel.ReferenceTestContainer
 	 * @generated
@@ -368,13 +345,11 @@ public class TestmodelAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '
-	 * {@link testmodel.ReferenceTargetSubclass
-	 * <em>Reference Target Subclass</em>}'. <!-- begin-user-doc --> This
+	 * Creates a new adapter for an object of class '{@link testmodel.ReferenceTargetSubclass <em>Reference Target Subclass</em>}'.
+	 * <!-- begin-user-doc --> This
 	 * default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases
 	 * anyway. <!-- end-user-doc -->
-	 * 
 	 * @return the new adapter.
 	 * @see testmodel.ReferenceTargetSubclass
 	 * @generated
@@ -384,13 +359,11 @@ public class TestmodelAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '
-	 * {@link testmodel.AttributeTestContainer
-	 * <em>Attribute Test Container</em>}'. <!-- begin-user-doc --> This default
+	 * Creates a new adapter for an object of class '{@link testmodel.AttributeTestContainer <em>Attribute Test Container</em>}'.
+	 * <!-- begin-user-doc --> This default
 	 * implementation returns null so that we can easily ignore cases; it's
 	 * useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
-	 * 
 	 * @return the new adapter.
 	 * @see testmodel.AttributeTestContainer
 	 * @generated
@@ -400,13 +373,11 @@ public class TestmodelAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '
-	 * {@link testmodel.NameAttributeContainer
-	 * <em>Name Attribute Container</em>}'. <!-- begin-user-doc --> This default
+	 * Creates a new adapter for an object of class '{@link testmodel.NameAttributeContainer <em>Name Attribute Container</em>}'.
+	 * <!-- begin-user-doc --> This default
 	 * implementation returns null so that we can easily ignore cases; it's
 	 * useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
-	 * 
 	 * @return the new adapter.
 	 * @see testmodel.NameAttributeContainer
 	 * @generated
@@ -416,12 +387,11 @@ public class TestmodelAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '
-	 * {@link testmodel.DefaultName <em>Default Name</em>}'. <!-- begin-user-doc
+	 * Creates a new adapter for an object of class '{@link testmodel.DefaultName <em>Default Name</em>}'.
+	 * <!-- begin-user-doc
 	 * --> This default implementation returns null so that we can easily ignore
 	 * cases; it's useful to ignore a case when inheritance will catch all the
 	 * cases anyway. <!-- end-user-doc -->
-	 * 
 	 * @return the new adapter.
 	 * @see testmodel.DefaultName
 	 * @generated
@@ -431,12 +401,11 @@ public class TestmodelAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '
-	 * {@link testmodel.CustomName <em>Custom Name</em>}'. <!-- begin-user-doc
+	 * Creates a new adapter for an object of class '{@link testmodel.CustomName <em>Custom Name</em>}'.
+	 * <!-- begin-user-doc
 	 * --> This default implementation returns null so that we can easily ignore
 	 * cases; it's useful to ignore a case when inheritance will catch all the
 	 * cases anyway. <!-- end-user-doc -->
-	 * 
 	 * @return the new adapter.
 	 * @see testmodel.CustomName
 	 * @generated
@@ -461,9 +430,9 @@ public class TestmodelAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for the default case. <!-- begin-user-doc --> This
+	 * Creates a new adapter for the default case.
+	 * <!-- begin-user-doc --> This
 	 * default implementation returns null. <!-- end-user-doc -->
-	 * 
 	 * @return the new adapter.
 	 * @generated
 	 */

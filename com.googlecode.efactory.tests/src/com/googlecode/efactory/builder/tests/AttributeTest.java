@@ -46,6 +46,14 @@ public class AttributeTest extends AbstractModelBuilderTest {
 		assertEquals(expected, actual);
 	}
 
+	public void testAttribute_OneInteger() throws Exception {
+		AttributeTestContainer fixture = find(AttributeTestContainer.class,
+				TEST_NAME);
+		Integer actual = fixture.getOneInteger();
+		Integer expected = 1;
+		assertEquals(expected, actual);
+	}
+	
 	public void testAttribute_OneDouble() throws Exception {
 		AttributeTestContainer fixture = find(AttributeTestContainer.class,
 				TEST_NAME);

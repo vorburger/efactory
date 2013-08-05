@@ -21,14 +21,14 @@ import org.eclipse.emf.ecore.EObject;
 /**
  * <!-- begin-user-doc --> A representation of the model object '
  * <em><b>Nested Element</b></em>'. <!-- end-user-doc -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link testmodel.NestedElement#getId <em>Id</em>}</li>
+ *   <li>{@link testmodel.NestedElement#getId <em>Id</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @see testmodel.TestmodelPackage#getNestedElement()
  * @model
  * @generated
@@ -52,11 +52,9 @@ public interface NestedElement extends EObject {
 	String getId();
 
 	/**
-	 * Sets the value of the '{@link testmodel.NestedElement#getId <em>Id</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @param value
-	 *            the new value of the '<em>Id</em>' attribute.
+	 * Sets the value of the '{@link testmodel.NestedElement#getId <em>Id</em>}' attribute.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Id</em>' attribute.
 	 * @see #getId()
 	 * @generated
 	 */

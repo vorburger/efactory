@@ -30,17 +30,16 @@ import testmodel.TestmodelPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link testmodel.impl.DefaultNameImpl#getName <em>Name</em>}</li>
+ *   <li>{@link testmodel.impl.DefaultNameImpl#getName <em>Name</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class DefaultNameImpl extends EObjectImpl implements DefaultName {
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @see #getName()
 	 * @generated
 	 * @ordered
@@ -50,7 +49,6 @@ public class DefaultNameImpl extends EObjectImpl implements DefaultName {
 	/**
 	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @see #getName()
 	 * @generated
 	 * @ordered
@@ -59,7 +57,6 @@ public class DefaultNameImpl extends EObjectImpl implements DefaultName {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected DefaultNameImpl() {
@@ -68,7 +65,6 @@ public class DefaultNameImpl extends EObjectImpl implements DefaultName {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -78,7 +74,6 @@ public class DefaultNameImpl extends EObjectImpl implements DefaultName {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public String getName() {
@@ -87,85 +82,76 @@ public class DefaultNameImpl extends EObjectImpl implements DefaultName {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					TestmodelPackage.DEFAULT_NAME__NAME, oldName, name));
+			eNotify(new ENotificationImpl(this, Notification.SET, TestmodelPackage.DEFAULT_NAME__NAME, oldName, name));
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case TestmodelPackage.DEFAULT_NAME__NAME:
-			return getName();
+			case TestmodelPackage.DEFAULT_NAME__NAME:
+				return getName();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case TestmodelPackage.DEFAULT_NAME__NAME:
-			setName((String) newValue);
-			return;
+			case TestmodelPackage.DEFAULT_NAME__NAME:
+				setName((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case TestmodelPackage.DEFAULT_NAME__NAME:
-			setName(NAME_EDEFAULT);
-			return;
+			case TestmodelPackage.DEFAULT_NAME__NAME:
+				setName(NAME_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case TestmodelPackage.DEFAULT_NAME__NAME:
-			return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT
-					.equals(name);
+			case TestmodelPackage.DEFAULT_NAME__NAME:
+				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 		}
 		return super.eIsSet(featureID);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
 	public String toString() {
-		if (eIsProxy())
-			return super.toString();
+		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (name: ");

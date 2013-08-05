@@ -55,7 +55,7 @@ public class EFactoryJavaValidator extends AbstractEFactoryJavaValidator {
 		@Override
 		public Boolean caseBooleanAttribute(BooleanAttribute object) {
 			EAttribute featureId = EFactoryPackage.Literals.BOOLEAN_ATTRIBUTE__VALUE;
-			return performAssert(featureId, EcorePackage.Literals.EBOOLEAN);
+			return performAssert(featureId, EcorePackage.Literals.EBOOLEAN, EcorePackage.Literals.EBOOLEAN_OBJECT);
 		}
 
 		@Override
@@ -68,8 +68,15 @@ public class EFactoryJavaValidator extends AbstractEFactoryJavaValidator {
 		public Boolean caseIntegerAttribute(IntegerAttribute object) {
 			EAttribute featureId = EFactoryPackage.Literals.INTEGER_ATTRIBUTE__VALUE;
 			return performAssert(featureId, EcorePackage.Literals.EINT,
+					EcorePackage.Literals.EINTEGER_OBJECT,
+					EcorePackage.Literals.ELONG,
+					EcorePackage.Literals.ELONG_OBJECT,
 					EcorePackage.Literals.EBIG_INTEGER,
-					EcorePackage.Literals.ESHORT);
+					EcorePackage.Literals.ESHORT,
+					EcorePackage.Literals.ESHORT_OBJECT,
+					EcorePackage.Literals.EBYTE,
+					EcorePackage.Literals.EBYTE_OBJECT
+					);
 		}
 
 		@Override
@@ -92,6 +99,9 @@ public class EFactoryJavaValidator extends AbstractEFactoryJavaValidator {
 		public Boolean caseDoubleAttribute(DoubleAttribute object) {
 			EAttribute featureId = EFactoryPackage.Literals.DOUBLE_ATTRIBUTE__VALUE;
 			return performAssert(featureId, EcorePackage.Literals.EDOUBLE,
+					EcorePackage.Literals.EDOUBLE_OBJECT,
+					EcorePackage.Literals.EFLOAT,
+					EcorePackage.Literals.EFLOAT_OBJECT,
 					EcorePackage.Literals.EBIG_DECIMAL);
 		}
 
@@ -106,9 +116,16 @@ public class EFactoryJavaValidator extends AbstractEFactoryJavaValidator {
 					break;
 				}
 			}
-			assertTrue("Attribute must be of type "
-					+ feature.getEFeature().getEType().getName(), featureId,
-					success);
+			if (!success) {
+				final StringBuffer msg = new StringBuffer("EF Attribute must be one of types ");
+				for (EDataType eDataType : validDatatypes) {
+					msg.append(eDataType.getName());
+					msg.append(", ");
+				}
+				msg.append(" but was ");
+				msg.append(feature.getEFeature().getEType().getName());
+				error(msg.toString(), featureId);
+			}
 			return success;
 		}
 

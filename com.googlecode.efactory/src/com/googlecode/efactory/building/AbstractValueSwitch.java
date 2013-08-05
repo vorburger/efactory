@@ -31,38 +31,38 @@ public abstract class AbstractValueSwitch<T> {
 
 	protected abstract T caseEnum(EEnumLiteral value);
 
-	protected abstract T caseInteger(int value);
+	protected abstract T caseInt(Integer value);
 
-	protected abstract T caseShort(short value);
+	protected abstract T caseShort(Short value);
 
-	protected abstract T caseInteger(BigInteger value);
+	protected abstract T caseBigInteger(BigInteger value);
 
 	protected abstract T caseBigDecimal(BigDecimal value);
 
-	protected abstract T caseDouble(double value);
+	protected abstract T caseDouble(Double value);
 
-	protected abstract T caseLong(long value);
+	protected abstract T caseLong(Long value);
 
 	protected abstract T caseDate(Date value);
 
 	public T doSwitch(Class<?> clazz, Object value) {
-		if (clazz == Long.class) {
-			return caseLong(Long.parseLong(value.toString()));
+		if (clazz == long.class || clazz == Long.class) {
+			return caseLong(Long.valueOf(value.toString()));
 		}
-		if (clazz == double.class) {
-			return caseDouble(Double.parseDouble(value.toString()));
+		if (clazz == double.class || clazz == Double.class) {
+			return caseDouble(Double.valueOf(value.toString()));
 		}
 		if (clazz == BigDecimal.class) {
 			return caseBigDecimal(new BigDecimal(value.toString()));
 		}
 		if (clazz == BigInteger.class) {
-			return caseInteger(new BigInteger(value.toString()));
+			return caseBigInteger(new BigInteger(value.toString()));
 		}
-		if (clazz == short.class) {
-			return caseShort(Short.parseShort(value.toString()));
+		if (clazz == short.class || clazz == Short.class) {
+			return caseShort(Short.valueOf(value.toString()));
 		}
-		if (clazz == int.class) {
-			return caseInteger(Integer.parseInt(value.toString()));
+		if (clazz == int.class || clazz == Integer.class) {
+			return caseInt(Integer.valueOf(value.toString()));
 		}
 		if (value instanceof EEnumLiteral) {
 			return caseEnum((EEnumLiteral) value);
@@ -70,7 +70,7 @@ public abstract class AbstractValueSwitch<T> {
 		if (Enumerator.class.isAssignableFrom(clazz)) {
 			return caseEnum((Enumerator) value);
 		}
-		if (clazz == boolean.class) {
+		if (clazz == boolean.class || clazz == Boolean.class) {
 			return caseBoolean(Boolean.valueOf(value.toString()));
 		}
 		if (clazz == String.class) {

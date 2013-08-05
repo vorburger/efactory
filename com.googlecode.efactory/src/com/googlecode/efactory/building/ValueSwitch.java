@@ -26,12 +26,12 @@ import org.eclipse.emf.ecore.EEnumLiteral;
 public class ValueSwitch extends AbstractValueSwitch<Object> {
 
 	@Override
-	protected Object caseLong(long value) {
+	protected Object caseLong(Long value) {
 		return value;
 	}
 
 	@Override
-	protected Object caseDouble(double value) {
+	protected Object caseDouble(Double value) {
 		return value;
 	}
 
@@ -41,17 +41,17 @@ public class ValueSwitch extends AbstractValueSwitch<Object> {
 	}
 
 	@Override
-	protected Object caseInteger(BigInteger value) {
+	protected Object caseBigInteger(BigInteger value) {
 		return value;
 	}
 
 	@Override
-	protected Object caseShort(short value) {
+	protected Object caseShort(Short value) {
 		return value;
 	}
 
 	@Override
-	protected Object caseInteger(int value) {
+	protected Object caseInt(Integer value) {
 		return value;
 	}
 

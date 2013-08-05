@@ -27,13 +27,12 @@ import testmodel.TestmodelPackage;
  * <em><b>Nested Elements</b></em>'. <!-- end-user-doc -->
  * <p>
  * </p>
- * 
+ *
  * @generated
  */
 public class NestedElementsImpl extends EObjectImpl implements NestedElements {
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected NestedElementsImpl() {
@@ -42,7 +41,6 @@ public class NestedElementsImpl extends EObjectImpl implements NestedElements {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override

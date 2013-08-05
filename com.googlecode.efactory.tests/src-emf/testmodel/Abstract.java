@@ -21,17 +21,16 @@ import org.eclipse.emf.ecore.EObject;
 /**
  * <!-- begin-user-doc --> A representation of the model object '
  * <em><b>Abstract</b></em>'. <!-- end-user-doc -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link testmodel.Abstract#isParentAttribute <em>Parent Attribute</em>}</li>
- * <li>{@link testmodel.Abstract#getParentReference <em>Parent Reference</em>}</li>
- * <li>{@link testmodel.Abstract#getParentContainment <em>Parent Containment
- * </em>}</li>
+ *   <li>{@link testmodel.Abstract#isParentAttribute <em>Parent Attribute</em>}</li>
+ *   <li>{@link testmodel.Abstract#getParentReference <em>Parent Reference</em>}</li>
+ *   <li>{@link testmodel.Abstract#getParentContainment <em>Parent Containment</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @see testmodel.TestmodelPackage#getAbstract()
  * @model abstract="true"
  * @generated
@@ -45,7 +44,6 @@ public interface Abstract extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
 	 * @return the value of the '<em>Parent Attribute</em>' attribute.
 	 * @see #setParentAttribute(boolean)
 	 * @see testmodel.TestmodelPackage#getAbstract_ParentAttribute()
@@ -55,12 +53,10 @@ public interface Abstract extends EObject {
 	boolean isParentAttribute();
 
 	/**
-	 * Sets the value of the '{@link testmodel.Abstract#isParentAttribute
-	 * <em>Parent Attribute</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * Sets the value of the '{@link testmodel.Abstract#isParentAttribute <em>Parent Attribute</em>}' attribute.
+	 * <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
-	 * @param value
-	 *            the new value of the '<em>Parent Attribute</em>' attribute.
+	 * @param value the new value of the '<em>Parent Attribute</em>' attribute.
 	 * @see #isParentAttribute()
 	 * @generated
 	 */
@@ -74,7 +70,6 @@ public interface Abstract extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
 	 * @return the value of the '<em>Parent Reference</em>' reference.
 	 * @see #setParentReference(TestModel)
 	 * @see testmodel.TestmodelPackage#getAbstract_ParentReference()
@@ -84,12 +79,10 @@ public interface Abstract extends EObject {
 	TestModel getParentReference();
 
 	/**
-	 * Sets the value of the '{@link testmodel.Abstract#getParentReference
-	 * <em>Parent Reference</em>}' reference. <!-- begin-user-doc --> <!--
+	 * Sets the value of the '{@link testmodel.Abstract#getParentReference <em>Parent Reference</em>}' reference.
+	 * <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
-	 * @param value
-	 *            the new value of the '<em>Parent Reference</em>' reference.
+	 * @param value the new value of the '<em>Parent Reference</em>' reference.
 	 * @see #getParentReference()
 	 * @generated
 	 */
@@ -103,7 +96,6 @@ public interface Abstract extends EObject {
 	 * clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
 	 * @return the value of the '<em>Parent Containment</em>' reference.
 	 * @see #setParentContainment(Interface)
 	 * @see testmodel.TestmodelPackage#getAbstract_ParentContainment()
@@ -113,12 +105,10 @@ public interface Abstract extends EObject {
 	Interface getParentContainment();
 
 	/**
-	 * Sets the value of the '{@link testmodel.Abstract#getParentContainment
-	 * <em>Parent Containment</em>}' reference. <!-- begin-user-doc --> <!--
+	 * Sets the value of the '{@link testmodel.Abstract#getParentContainment <em>Parent Containment</em>}' reference.
+	 * <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
-	 * @param value
-	 *            the new value of the '<em>Parent Containment</em>' reference.
+	 * @param value the new value of the '<em>Parent Containment</em>' reference.
 	 * @see #getParentContainment()
 	 * @generated
 	 */

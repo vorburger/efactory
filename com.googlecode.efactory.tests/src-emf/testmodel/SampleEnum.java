@@ -26,16 +26,15 @@ import org.eclipse.emf.common.util.Enumerator;
  * <!-- begin-user-doc --> A representation of the literals of the enumeration '
  * <em><b>Sample Enum</b></em>', and utility methods for working with them. <!--
  * end-user-doc -->
- * 
  * @see testmodel.TestmodelPackage#getSampleEnum()
  * @model
  * @generated
  */
 public enum SampleEnum implements Enumerator {
 	/**
-	 * The '<em><b>Sample</b></em>' literal object. <!-- begin-user-doc --> <!--
+	 * The '<em><b>Sample</b></em>' literal object.
+	 * <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
 	 * @see #SAMPLE_VALUE
 	 * @generated
 	 * @ordered
@@ -43,9 +42,9 @@ public enum SampleEnum implements Enumerator {
 	SAMPLE(0, "Sample", "Sample"),
 
 	/**
-	 * The '<em><b>Sample2</b></em>' literal object. <!-- begin-user-doc -->
+	 * The '<em><b>Sample2</b></em>' literal object.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #SAMPLE2_VALUE
 	 * @generated
 	 * @ordered
@@ -53,13 +52,13 @@ public enum SampleEnum implements Enumerator {
 	SAMPLE2(1, "Sample2", "Sample2");
 
 	/**
-	 * The '<em><b>Sample</b></em>' literal value. <!-- begin-user-doc -->
+	 * The '<em><b>Sample</b></em>' literal value.
+	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of '<em><b>Sample</b></em>' literal object isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #SAMPLE
 	 * @model name="Sample"
 	 * @generated
@@ -68,13 +67,13 @@ public enum SampleEnum implements Enumerator {
 	public static final int SAMPLE_VALUE = 0;
 
 	/**
-	 * The '<em><b>Sample2</b></em>' literal value. <!-- begin-user-doc -->
+	 * The '<em><b>Sample2</b></em>' literal value.
+	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of '<em><b>Sample2</b></em>' literal object isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #SAMPLE2
 	 * @model name="Sample2"
 	 * @generated
@@ -88,22 +87,21 @@ public enum SampleEnum implements Enumerator {
 	 * 
 	 * @generated
 	 */
-	private static final SampleEnum[] VALUES_ARRAY = new SampleEnum[] { SAMPLE,
-			SAMPLE2, };
+	private static final SampleEnum[] VALUES_ARRAY = new SampleEnum[] {
+			SAMPLE,
+			SAMPLE2,
+		};
 
 	/**
-	 * A public read-only list of all the '<em><b>Sample Enum</b></em>'
-	 * enumerators. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * A public read-only list of all the '<em><b>Sample Enum</b></em>' enumerators.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final List<SampleEnum> VALUES = Collections
-			.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+	public static final List<SampleEnum> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
-	 * Returns the '<em><b>Sample Enum</b></em>' literal with the specified
-	 * literal value. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * Returns the '<em><b>Sample Enum</b></em>' literal with the specified literal value.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	public static SampleEnum get(String literal) {
@@ -117,9 +115,8 @@ public enum SampleEnum implements Enumerator {
 	}
 
 	/**
-	 * Returns the '<em><b>Sample Enum</b></em>' literal with the specified
-	 * name. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * Returns the '<em><b>Sample Enum</b></em>' literal with the specified name.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	public static SampleEnum getByName(String name) {
@@ -133,46 +130,40 @@ public enum SampleEnum implements Enumerator {
 	}
 
 	/**
-	 * Returns the '<em><b>Sample Enum</b></em>' literal with the specified
-	 * integer value. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * Returns the '<em><b>Sample Enum</b></em>' literal with the specified integer value.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	public static SampleEnum get(int value) {
 		switch (value) {
-		case SAMPLE_VALUE:
-			return SAMPLE;
-		case SAMPLE2_VALUE:
-			return SAMPLE2;
+			case SAMPLE_VALUE: return SAMPLE;
+			case SAMPLE2_VALUE: return SAMPLE2;
 		}
 		return null;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	private final int value;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	private final String name;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	private final String literal;
 
 	/**
-	 * Only this class can construct instances. <!-- begin-user-doc --> <!--
+	 * Only this class can construct instances.
+	 * <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	private SampleEnum(int value, String name, String literal) {
@@ -183,35 +174,31 @@ public enum SampleEnum implements Enumerator {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public int getValue() {
-		return value;
+	  return value;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public String getName() {
-		return name;
+	  return name;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public String getLiteral() {
-		return literal;
+	  return literal;
 	}
 
 	/**
-	 * Returns the literal value of the enumerator, which is its string
-	 * representation. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * Returns the literal value of the enumerator, which is its string representation.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override

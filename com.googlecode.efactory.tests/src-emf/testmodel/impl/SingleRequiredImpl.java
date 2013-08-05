@@ -38,14 +38,12 @@ import testmodel.TestmodelPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link testmodel.impl.SingleRequiredImpl#getNestedElements <em>Nested
- * Elements</em>}</li>
- * <li>{@link testmodel.impl.SingleRequiredImpl#getNestedElement <em>Nested
- * Element</em>}</li>
- * <li>{@link testmodel.impl.SingleRequiredImpl#getName <em>Name</em>}</li>
+ *   <li>{@link testmodel.impl.SingleRequiredImpl#getNestedElements <em>Nested Elements</em>}</li>
+ *   <li>{@link testmodel.impl.SingleRequiredImpl#getNestedElement <em>Nested Element</em>}</li>
+ *   <li>{@link testmodel.impl.SingleRequiredImpl#getName <em>Name</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class SingleRequiredImpl extends AbstractImpl implements SingleRequired {
@@ -61,10 +59,9 @@ public class SingleRequiredImpl extends AbstractImpl implements SingleRequired {
 	protected EList<NestedElements> nestedElements;
 
 	/**
-	 * The cached value of the '{@link #getNestedElement()
-	 * <em>Nested Element</em>}' containment reference. <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getNestedElement() <em>Nested Element</em>}' containment reference.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @see #getNestedElement()
 	 * @generated
 	 * @ordered
@@ -74,7 +71,6 @@ public class SingleRequiredImpl extends AbstractImpl implements SingleRequired {
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @see #getName()
 	 * @generated
 	 * @ordered
@@ -84,7 +80,6 @@ public class SingleRequiredImpl extends AbstractImpl implements SingleRequired {
 	/**
 	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @see #getName()
 	 * @generated
 	 * @ordered
@@ -93,7 +88,6 @@ public class SingleRequiredImpl extends AbstractImpl implements SingleRequired {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected SingleRequiredImpl() {
@@ -102,7 +96,6 @@ public class SingleRequiredImpl extends AbstractImpl implements SingleRequired {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -112,21 +105,17 @@ public class SingleRequiredImpl extends AbstractImpl implements SingleRequired {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public EList<NestedElements> getNestedElements() {
 		if (nestedElements == null) {
-			nestedElements = new EObjectContainmentEList<NestedElements>(
-					NestedElements.class, this,
-					TestmodelPackage.SINGLE_REQUIRED__NESTED_ELEMENTS);
+			nestedElements = new EObjectContainmentEList<NestedElements>(NestedElements.class, this, TestmodelPackage.SINGLE_REQUIRED__NESTED_ELEMENTS);
 		}
 		return nestedElements;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public NestedElement getNestedElement() {
@@ -135,7 +124,6 @@ public class SingleRequiredImpl extends AbstractImpl implements SingleRequired {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public NotificationChain basicSetNestedElement(
@@ -143,52 +131,32 @@ public class SingleRequiredImpl extends AbstractImpl implements SingleRequired {
 		NestedElement oldNestedElement = nestedElement;
 		nestedElement = newNestedElement;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this,
-					Notification.SET,
-					TestmodelPackage.SINGLE_REQUIRED__NESTED_ELEMENT,
-					oldNestedElement, newNestedElement);
-			if (msgs == null)
-				msgs = notification;
-			else
-				msgs.add(notification);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, TestmodelPackage.SINGLE_REQUIRED__NESTED_ELEMENT, oldNestedElement, newNestedElement);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setNestedElement(NestedElement newNestedElement) {
 		if (newNestedElement != nestedElement) {
 			NotificationChain msgs = null;
 			if (nestedElement != null)
-				msgs = ((InternalEObject) nestedElement)
-						.eInverseRemove(
-								this,
-								EOPPOSITE_FEATURE_BASE
-										- TestmodelPackage.SINGLE_REQUIRED__NESTED_ELEMENT,
-								null, msgs);
+				msgs = ((InternalEObject)nestedElement).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - TestmodelPackage.SINGLE_REQUIRED__NESTED_ELEMENT, null, msgs);
 			if (newNestedElement != null)
-				msgs = ((InternalEObject) newNestedElement)
-						.eInverseAdd(
-								this,
-								EOPPOSITE_FEATURE_BASE
-										- TestmodelPackage.SINGLE_REQUIRED__NESTED_ELEMENT,
-								null, msgs);
+				msgs = ((InternalEObject)newNestedElement).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - TestmodelPackage.SINGLE_REQUIRED__NESTED_ELEMENT, null, msgs);
 			msgs = basicSetNestedElement(newNestedElement, msgs);
-			if (msgs != null)
-				msgs.dispatch();
-		} else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					TestmodelPackage.SINGLE_REQUIRED__NESTED_ELEMENT,
-					newNestedElement, newNestedElement));
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, TestmodelPackage.SINGLE_REQUIRED__NESTED_ELEMENT, newNestedElement, newNestedElement));
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public String getName() {
@@ -197,126 +165,114 @@ public class SingleRequiredImpl extends AbstractImpl implements SingleRequired {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					TestmodelPackage.SINGLE_REQUIRED__NAME, oldName, name));
+			eNotify(new ENotificationImpl(this, Notification.SET, TestmodelPackage.SINGLE_REQUIRED__NAME, oldName, name));
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd,
 			int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case TestmodelPackage.SINGLE_REQUIRED__NESTED_ELEMENTS:
-			return ((InternalEList<?>) getNestedElements()).basicRemove(
-					otherEnd, msgs);
-		case TestmodelPackage.SINGLE_REQUIRED__NESTED_ELEMENT:
-			return basicSetNestedElement(null, msgs);
+			case TestmodelPackage.SINGLE_REQUIRED__NESTED_ELEMENTS:
+				return ((InternalEList<?>)getNestedElements()).basicRemove(otherEnd, msgs);
+			case TestmodelPackage.SINGLE_REQUIRED__NESTED_ELEMENT:
+				return basicSetNestedElement(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case TestmodelPackage.SINGLE_REQUIRED__NESTED_ELEMENTS:
-			return getNestedElements();
-		case TestmodelPackage.SINGLE_REQUIRED__NESTED_ELEMENT:
-			return getNestedElement();
-		case TestmodelPackage.SINGLE_REQUIRED__NAME:
-			return getName();
+			case TestmodelPackage.SINGLE_REQUIRED__NESTED_ELEMENTS:
+				return getNestedElements();
+			case TestmodelPackage.SINGLE_REQUIRED__NESTED_ELEMENT:
+				return getNestedElement();
+			case TestmodelPackage.SINGLE_REQUIRED__NAME:
+				return getName();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case TestmodelPackage.SINGLE_REQUIRED__NESTED_ELEMENTS:
-			getNestedElements().clear();
-			getNestedElements().addAll(
-					(Collection<? extends NestedElements>) newValue);
-			return;
-		case TestmodelPackage.SINGLE_REQUIRED__NESTED_ELEMENT:
-			setNestedElement((NestedElement) newValue);
-			return;
-		case TestmodelPackage.SINGLE_REQUIRED__NAME:
-			setName((String) newValue);
-			return;
+			case TestmodelPackage.SINGLE_REQUIRED__NESTED_ELEMENTS:
+				getNestedElements().clear();
+				getNestedElements().addAll((Collection<? extends NestedElements>)newValue);
+				return;
+			case TestmodelPackage.SINGLE_REQUIRED__NESTED_ELEMENT:
+				setNestedElement((NestedElement)newValue);
+				return;
+			case TestmodelPackage.SINGLE_REQUIRED__NAME:
+				setName((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case TestmodelPackage.SINGLE_REQUIRED__NESTED_ELEMENTS:
-			getNestedElements().clear();
-			return;
-		case TestmodelPackage.SINGLE_REQUIRED__NESTED_ELEMENT:
-			setNestedElement((NestedElement) null);
-			return;
-		case TestmodelPackage.SINGLE_REQUIRED__NAME:
-			setName(NAME_EDEFAULT);
-			return;
+			case TestmodelPackage.SINGLE_REQUIRED__NESTED_ELEMENTS:
+				getNestedElements().clear();
+				return;
+			case TestmodelPackage.SINGLE_REQUIRED__NESTED_ELEMENT:
+				setNestedElement((NestedElement)null);
+				return;
+			case TestmodelPackage.SINGLE_REQUIRED__NAME:
+				setName(NAME_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case TestmodelPackage.SINGLE_REQUIRED__NESTED_ELEMENTS:
-			return nestedElements != null && !nestedElements.isEmpty();
-		case TestmodelPackage.SINGLE_REQUIRED__NESTED_ELEMENT:
-			return nestedElement != null;
-		case TestmodelPackage.SINGLE_REQUIRED__NAME:
-			return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT
-					.equals(name);
+			case TestmodelPackage.SINGLE_REQUIRED__NESTED_ELEMENTS:
+				return nestedElements != null && !nestedElements.isEmpty();
+			case TestmodelPackage.SINGLE_REQUIRED__NESTED_ELEMENT:
+				return nestedElement != null;
+			case TestmodelPackage.SINGLE_REQUIRED__NAME:
+				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 		}
 		return super.eIsSet(featureID);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
 	public String toString() {
-		if (eIsProxy())
-			return super.toString();
+		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (name: ");

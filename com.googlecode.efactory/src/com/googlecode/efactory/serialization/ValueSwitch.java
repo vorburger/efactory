@@ -69,7 +69,7 @@ class ValueSwitch extends AbstractValueSwitch<Value> {
 	}
 
 	@Override
-	protected Value caseDouble(double value) {
+	protected Value caseDouble(Double value) {
 		return createDoubleAttribute(value);
 	}
 
@@ -92,7 +92,7 @@ class ValueSwitch extends AbstractValueSwitch<Value> {
 	}
 	
 	@Override
-	protected Value caseInteger(int value) {
+	protected Value caseInt(Integer value) {
 		return createIntValue(value);
 	}
 	
@@ -104,12 +104,12 @@ class ValueSwitch extends AbstractValueSwitch<Value> {
 	}
 
 	@Override
-	protected Value caseInteger(BigInteger value) {
+	protected Value caseBigInteger(BigInteger value) {
 		return createIntValue(value.intValue());
 	}
 
 	@Override
-	protected Value caseLong(long value) {
+	protected Value caseLong(Long value) {
 		IntegerAttribute attribute = EFactoryFactory.eINSTANCE
 				.createIntegerAttribute();
 		attribute.setValue(value);
@@ -117,7 +117,7 @@ class ValueSwitch extends AbstractValueSwitch<Value> {
 	}
 
 	@Override
-	protected Value caseShort(short value) {
+	protected Value caseShort(Short value) {
 		IntegerAttribute attribute = EFactoryFactory.eINSTANCE
 				.createIntegerAttribute();
 		attribute.setValue(value);

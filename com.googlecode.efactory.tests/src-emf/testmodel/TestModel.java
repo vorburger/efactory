@@ -22,25 +22,22 @@ import org.eclipse.emf.ecore.EObject;
 /**
  * <!-- begin-user-doc --> A representation of the model object '
  * <em><b>Test Model</b></em>'. <!-- end-user-doc -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link testmodel.TestModel#getChildren <em>Children</em>}</li>
- * <li>{@link testmodel.TestModel#getSingleOptional <em>Single Optional</em>}</li>
- * <li>{@link testmodel.TestModel#getSingleRequired <em>Single Required</em>}</li>
- * <li>{@link testmodel.TestModel#getName <em>Name</em>}</li>
- * <li>{@link testmodel.TestModel#getAttributeSample <em>Attribute Sample</em>}</li>
- * <li>{@link testmodel.TestModel#getLinkToSingleRequired <em>Link To Single
- * Required</em>}</li>
- * <li>{@link testmodel.TestModel#getReferenceTestContainer <em>Reference Test
- * Container</em>}</li>
- * <li>{@link testmodel.TestModel#getAttributeTest <em>Attribute Test</em>}</li>
- * <li>{@link testmodel.TestModel#getNameAttributeTest <em>Name Attribute Test
- * </em>}</li>
+ *   <li>{@link testmodel.TestModel#getChildren <em>Children</em>}</li>
+ *   <li>{@link testmodel.TestModel#getSingleOptional <em>Single Optional</em>}</li>
+ *   <li>{@link testmodel.TestModel#getSingleRequired <em>Single Required</em>}</li>
+ *   <li>{@link testmodel.TestModel#getName <em>Name</em>}</li>
+ *   <li>{@link testmodel.TestModel#getAttributeSample <em>Attribute Sample</em>}</li>
+ *   <li>{@link testmodel.TestModel#getLinkToSingleRequired <em>Link To Single Required</em>}</li>
+ *   <li>{@link testmodel.TestModel#getReferenceTestContainer <em>Reference Test Container</em>}</li>
+ *   <li>{@link testmodel.TestModel#getAttributeTest <em>Attribute Test</em>}</li>
+ *   <li>{@link testmodel.TestModel#getNameAttributeTest <em>Name Attribute Test</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @see testmodel.TestmodelPackage#getTestModel()
  * @model
  * @generated
@@ -64,16 +61,14 @@ public interface TestModel extends EObject {
 	EList<Child> getChildren();
 
 	/**
-	 * Returns the value of the '<em><b>Single Optional</b></em>' containment
-	 * reference. <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Single Optional</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Single Optional</em>' containment reference
 	 * isn't clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
-	 * @return the value of the '<em>Single Optional</em>' containment
-	 *         reference.
+	 * @return the value of the '<em>Single Optional</em>' containment reference.
 	 * @see #setSingleOptional(SingleOptional)
 	 * @see testmodel.TestmodelPackage#getTestModel_SingleOptional()
 	 * @model containment="true"
@@ -82,29 +77,24 @@ public interface TestModel extends EObject {
 	SingleOptional getSingleOptional();
 
 	/**
-	 * Sets the value of the '{@link testmodel.TestModel#getSingleOptional
-	 * <em>Single Optional</em>}' containment reference. <!-- begin-user-doc -->
+	 * Sets the value of the '{@link testmodel.TestModel#getSingleOptional <em>Single Optional</em>}' containment reference.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
-	 * @param value
-	 *            the new value of the '<em>Single Optional</em>' containment
-	 *            reference.
+	 * @param value the new value of the '<em>Single Optional</em>' containment reference.
 	 * @see #getSingleOptional()
 	 * @generated
 	 */
 	void setSingleOptional(SingleOptional value);
 
 	/**
-	 * Returns the value of the '<em><b>Single Required</b></em>' containment
-	 * reference. <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Single Required</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Single Required</em>' containment reference
 	 * isn't clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
-	 * @return the value of the '<em>Single Required</em>' containment
-	 *         reference.
+	 * @return the value of the '<em>Single Required</em>' containment reference.
 	 * @see #setSingleRequired(SingleRequired)
 	 * @see testmodel.TestmodelPackage#getTestModel_SingleRequired()
 	 * @model containment="true" required="true"
@@ -113,13 +103,10 @@ public interface TestModel extends EObject {
 	SingleRequired getSingleRequired();
 
 	/**
-	 * Sets the value of the '{@link testmodel.TestModel#getSingleRequired
-	 * <em>Single Required</em>}' containment reference. <!-- begin-user-doc -->
+	 * Sets the value of the '{@link testmodel.TestModel#getSingleRequired <em>Single Required</em>}' containment reference.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
-	 * @param value
-	 *            the new value of the '<em>Single Required</em>' containment
-	 *            reference.
+	 * @param value the new value of the '<em>Single Required</em>' containment reference.
 	 * @see #getSingleRequired()
 	 * @generated
 	 */
@@ -143,27 +130,23 @@ public interface TestModel extends EObject {
 	String getName();
 
 	/**
-	 * Sets the value of the '{@link testmodel.TestModel#getName <em>Name</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @param value
-	 *            the new value of the '<em>Name</em>' attribute.
+	 * Sets the value of the '{@link testmodel.TestModel#getName <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Name</em>' attribute.
 	 * @see #getName()
 	 * @generated
 	 */
 	void setName(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Attribute Sample</b></em>' containment
-	 * reference. <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Attribute Sample</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Attribute Sample</em>' containment reference
 	 * isn't clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
-	 * @return the value of the '<em>Attribute Sample</em>' containment
-	 *         reference.
+	 * @return the value of the '<em>Attribute Sample</em>' containment reference.
 	 * @see #setAttributeSample(AttributeSample)
 	 * @see testmodel.TestmodelPackage#getTestModel_AttributeSample()
 	 * @model containment="true"
@@ -172,27 +155,23 @@ public interface TestModel extends EObject {
 	AttributeSample getAttributeSample();
 
 	/**
-	 * Sets the value of the '{@link testmodel.TestModel#getAttributeSample
-	 * <em>Attribute Sample</em>}' containment reference. <!-- begin-user-doc
+	 * Sets the value of the '{@link testmodel.TestModel#getAttributeSample <em>Attribute Sample</em>}' containment reference.
+	 * <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
-	 * @param value
-	 *            the new value of the '<em>Attribute Sample</em>' containment
-	 *            reference.
+	 * @param value the new value of the '<em>Attribute Sample</em>' containment reference.
 	 * @see #getAttributeSample()
 	 * @generated
 	 */
 	void setAttributeSample(AttributeSample value);
 
 	/**
-	 * Returns the value of the '<em><b>Link To Single Required</b></em>'
-	 * reference. <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Link To Single Required</b></em>' reference.
+	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Link To Single Required</em>' reference isn't
 	 * clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
 	 * @return the value of the '<em>Link To Single Required</em>' reference.
 	 * @see #setLinkToSingleRequired(SingleRequired)
 	 * @see testmodel.TestmodelPackage#getTestModel_LinkToSingleRequired()
@@ -202,32 +181,26 @@ public interface TestModel extends EObject {
 	SingleRequired getLinkToSingleRequired();
 
 	/**
-	 * Sets the value of the '
-	 * {@link testmodel.TestModel#getLinkToSingleRequired
-	 * <em>Link To Single Required</em>}' reference. <!-- begin-user-doc -->
+	 * Sets the value of the '{@link testmodel.TestModel#getLinkToSingleRequired <em>Link To Single Required</em>}' reference.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
-	 * @param value
-	 *            the new value of the '<em>Link To Single Required</em>'
-	 *            reference.
+	 * @param value the new value of the '<em>Link To Single Required</em>' reference.
 	 * @see #getLinkToSingleRequired()
 	 * @generated
 	 */
 	void setLinkToSingleRequired(SingleRequired value);
 
 	/**
-	 * Returns the value of the '<em><b>Reference Test Container</b></em>'
-	 * containment reference list. The list contents are of type
-	 * {@link testmodel.ReferenceTestContainer}. <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Reference Test Container</b></em>' containment reference list.
+	 * The list contents are of type {@link testmodel.ReferenceTestContainer}.
+	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Reference Test Container</em>' containment
 	 * reference isn't clear, there really should be more of a description
 	 * here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
-	 * @return the value of the '<em>Reference Test Container</em>' containment
-	 *         reference list.
+	 * @return the value of the '<em>Reference Test Container</em>' containment reference list.
 	 * @see testmodel.TestmodelPackage#getTestModel_ReferenceTestContainer()
 	 * @model containment="true"
 	 * @generated
@@ -235,17 +208,15 @@ public interface TestModel extends EObject {
 	EList<ReferenceTestContainer> getReferenceTestContainer();
 
 	/**
-	 * Returns the value of the '<em><b>Attribute Test</b></em>' containment
-	 * reference list. The list contents are of type
-	 * {@link testmodel.AttributeTestContainer}. <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Attribute Test</b></em>' containment reference list.
+	 * The list contents are of type {@link testmodel.AttributeTestContainer}.
+	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Attribute Test</em>' containment reference
 	 * list isn't clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
-	 * @return the value of the '<em>Attribute Test</em>' containment reference
-	 *         list.
+	 * @return the value of the '<em>Attribute Test</em>' containment reference list.
 	 * @see testmodel.TestmodelPackage#getTestModel_AttributeTest()
 	 * @model containment="true"
 	 * @generated
@@ -253,18 +224,16 @@ public interface TestModel extends EObject {
 	EList<AttributeTestContainer> getAttributeTest();
 
 	/**
-	 * Returns the value of the '<em><b>Name Attribute Test</b></em>'
-	 * containment reference list. The list contents are of type
-	 * {@link testmodel.NameAttributeContainer}. <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Name Attribute Test</b></em>' containment reference list.
+	 * The list contents are of type {@link testmodel.NameAttributeContainer}.
+	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Name Attribute Test</em>' containment
 	 * reference list isn't clear, there really should be more of a description
 	 * here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
-	 * @return the value of the '<em>Name Attribute Test</em>' containment
-	 *         reference list.
+	 * @return the value of the '<em>Name Attribute Test</em>' containment reference list.
 	 * @see testmodel.TestmodelPackage#getTestModel_NameAttributeTest()
 	 * @model containment="true"
 	 * @generated

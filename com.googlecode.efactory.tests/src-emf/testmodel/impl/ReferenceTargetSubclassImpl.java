@@ -26,14 +26,13 @@ import testmodel.TestmodelPackage;
  * <em><b>Reference Target Subclass</b></em>'. <!-- end-user-doc -->
  * <p>
  * </p>
- * 
+ *
  * @generated
  */
 public class ReferenceTargetSubclassImpl extends ReferenceTargetImpl implements
 		ReferenceTargetSubclass {
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected ReferenceTargetSubclassImpl() {
@@ -42,7 +41,6 @@ public class ReferenceTargetSubclassImpl extends ReferenceTargetImpl implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override

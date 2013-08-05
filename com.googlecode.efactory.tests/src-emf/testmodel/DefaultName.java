@@ -21,14 +21,14 @@ import org.eclipse.emf.ecore.EObject;
 /**
  * <!-- begin-user-doc --> A representation of the model object '
  * <em><b>Default Name</b></em>'. <!-- end-user-doc -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link testmodel.DefaultName#getName <em>Name</em>}</li>
+ *   <li>{@link testmodel.DefaultName#getName <em>Name</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @see testmodel.TestmodelPackage#getDefaultName()
  * @model
  * @generated
@@ -52,11 +52,9 @@ public interface DefaultName extends EObject {
 	String getName();
 
 	/**
-	 * Sets the value of the '{@link testmodel.DefaultName#getName
-	 * <em>Name</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @param value
-	 *            the new value of the '<em>Name</em>' attribute.
+	 * Sets the value of the '{@link testmodel.DefaultName#getName <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Name</em>' attribute.
 	 * @see #getName()
 	 * @generated
 	 */

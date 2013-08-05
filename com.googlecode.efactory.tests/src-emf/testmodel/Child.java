@@ -22,14 +22,14 @@ import org.eclipse.emf.ecore.EObject;
 /**
  * <!-- begin-user-doc --> A representation of the model object '
  * <em><b>Child</b></em>'. <!-- end-user-doc -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link testmodel.Child#getReferenceList <em>Reference List</em>}</li>
+ *   <li>{@link testmodel.Child#getReferenceList <em>Reference List</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @see testmodel.TestmodelPackage#getChild()
  * @model
  * @generated

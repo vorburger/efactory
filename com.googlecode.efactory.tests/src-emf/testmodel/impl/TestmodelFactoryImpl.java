@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 
+import testmodel.*;
 import testmodel.AttributeSample;
 import testmodel.AttributeTestContainer;
 import testmodel.Child;
@@ -45,34 +46,33 @@ import testmodel.TestmodelPackage;
 /**
  * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!--
  * end-user-doc -->
- * 
  * @generated
  */
 public class TestmodelFactoryImpl extends EFactoryImpl implements
 		TestmodelFactory {
 	/**
-	 * Creates the default factory implementation. <!-- begin-user-doc --> <!--
+	 * Creates the default factory implementation.
+	 * <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public static TestmodelFactory init() {
 		try {
-			TestmodelFactory theTestmodelFactory = (TestmodelFactory) EPackage.Registry.INSTANCE
-					.getEFactory("http://testmodel/1.0");
+			TestmodelFactory theTestmodelFactory = (TestmodelFactory)EPackage.Registry.INSTANCE.getEFactory(TestmodelPackage.eNS_URI);
 			if (theTestmodelFactory != null) {
 				return theTestmodelFactory;
 			}
-		} catch (Exception exception) {
+		}
+		catch (Exception exception) {
 			EcorePlugin.INSTANCE.log(exception);
 		}
 		return new TestmodelFactoryImpl();
 	}
 
 	/**
-	 * Creates an instance of the factory. <!-- begin-user-doc --> <!--
+	 * Creates an instance of the factory.
+	 * <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public TestmodelFactoryImpl() {
@@ -81,83 +81,61 @@ public class TestmodelFactoryImpl extends EFactoryImpl implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
-		case TestmodelPackage.TEST_MODEL:
-			return createTestModel();
-		case TestmodelPackage.CHILD:
-			return createChild();
-		case TestmodelPackage.SINGLE_OPTIONAL:
-			return createSingleOptional();
-		case TestmodelPackage.SINGLE_REQUIRED:
-			return createSingleRequired();
-		case TestmodelPackage.NESTED_ELEMENTS:
-			return createNestedElements();
-		case TestmodelPackage.NESTED_ELEMENT:
-			return createNestedElement();
-		case TestmodelPackage.ATTRIBUTE_SAMPLE:
-			return createAttributeSample();
-		case TestmodelPackage.REFERENCE_TEST_CONTAINER:
-			return createReferenceTestContainer();
-		case TestmodelPackage.REFERENCE_TARGET:
-			return createReferenceTarget();
-		case TestmodelPackage.REFERENCE_TARGET_SUBCLASS:
-			return createReferenceTargetSubclass();
-		case TestmodelPackage.ATTRIBUTE_TEST_CONTAINER:
-			return createAttributeTestContainer();
-		case TestmodelPackage.NAME_ATTRIBUTE_CONTAINER:
-			return createNameAttributeContainer();
-		case TestmodelPackage.DEFAULT_NAME:
-			return createDefaultName();
-		case TestmodelPackage.CUSTOM_NAME:
-			return createCustomName();
-		case TestmodelPackage.NO_NAME:
-			return createNoName();
-		default:
-			throw new IllegalArgumentException("The class '" + eClass.getName()
-					+ "' is not a valid classifier");
+			case TestmodelPackage.TEST_MODEL: return createTestModel();
+			case TestmodelPackage.CHILD: return createChild();
+			case TestmodelPackage.SINGLE_OPTIONAL: return createSingleOptional();
+			case TestmodelPackage.SINGLE_REQUIRED: return createSingleRequired();
+			case TestmodelPackage.NESTED_ELEMENTS: return createNestedElements();
+			case TestmodelPackage.NESTED_ELEMENT: return createNestedElement();
+			case TestmodelPackage.ATTRIBUTE_SAMPLE: return createAttributeSample();
+			case TestmodelPackage.REFERENCE_TEST_CONTAINER: return createReferenceTestContainer();
+			case TestmodelPackage.REFERENCE_TARGET: return createReferenceTarget();
+			case TestmodelPackage.REFERENCE_TARGET_SUBCLASS: return createReferenceTargetSubclass();
+			case TestmodelPackage.ATTRIBUTE_TEST_CONTAINER: return createAttributeTestContainer();
+			case TestmodelPackage.NAME_ATTRIBUTE_CONTAINER: return createNameAttributeContainer();
+			case TestmodelPackage.DEFAULT_NAME: return createDefaultName();
+			case TestmodelPackage.CUSTOM_NAME: return createCustomName();
+			case TestmodelPackage.NO_NAME: return createNoName();
+			default:
+				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
-		case TestmodelPackage.SAMPLE_ENUM:
-			return createSampleEnumFromString(eDataType, initialValue);
-		default:
-			throw new IllegalArgumentException("The datatype '"
-					+ eDataType.getName() + "' is not a valid classifier");
+			case TestmodelPackage.SAMPLE_ENUM:
+				return createSampleEnumFromString(eDataType, initialValue);
+			default:
+				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
-		case TestmodelPackage.SAMPLE_ENUM:
-			return convertSampleEnumToString(eDataType, instanceValue);
-		default:
-			throw new IllegalArgumentException("The datatype '"
-					+ eDataType.getName() + "' is not a valid classifier");
+			case TestmodelPackage.SAMPLE_ENUM:
+				return convertSampleEnumToString(eDataType, instanceValue);
+			default:
+				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public TestModel createTestModel() {
@@ -167,7 +145,6 @@ public class TestmodelFactoryImpl extends EFactoryImpl implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public Child createChild() {
@@ -177,7 +154,6 @@ public class TestmodelFactoryImpl extends EFactoryImpl implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public SingleOptional createSingleOptional() {
@@ -187,7 +163,6 @@ public class TestmodelFactoryImpl extends EFactoryImpl implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public SingleRequired createSingleRequired() {
@@ -197,7 +172,6 @@ public class TestmodelFactoryImpl extends EFactoryImpl implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public NestedElements createNestedElements() {
@@ -207,7 +181,6 @@ public class TestmodelFactoryImpl extends EFactoryImpl implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public NestedElement createNestedElement() {
@@ -217,7 +190,6 @@ public class TestmodelFactoryImpl extends EFactoryImpl implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public AttributeSample createAttributeSample() {
@@ -227,7 +199,6 @@ public class TestmodelFactoryImpl extends EFactoryImpl implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public ReferenceTestContainer createReferenceTestContainer() {
@@ -237,7 +208,6 @@ public class TestmodelFactoryImpl extends EFactoryImpl implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public ReferenceTarget createReferenceTarget() {
@@ -247,7 +217,6 @@ public class TestmodelFactoryImpl extends EFactoryImpl implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public ReferenceTargetSubclass createReferenceTargetSubclass() {
@@ -257,7 +226,6 @@ public class TestmodelFactoryImpl extends EFactoryImpl implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public AttributeTestContainer createAttributeTestContainer() {
@@ -267,7 +235,6 @@ public class TestmodelFactoryImpl extends EFactoryImpl implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public NameAttributeContainer createNameAttributeContainer() {
@@ -277,7 +244,6 @@ public class TestmodelFactoryImpl extends EFactoryImpl implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public DefaultName createDefaultName() {
@@ -287,7 +253,6 @@ public class TestmodelFactoryImpl extends EFactoryImpl implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public CustomName createCustomName() {
@@ -297,7 +262,6 @@ public class TestmodelFactoryImpl extends EFactoryImpl implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public NoName createNoName() {
@@ -307,22 +271,17 @@ public class TestmodelFactoryImpl extends EFactoryImpl implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public SampleEnum createSampleEnumFromString(EDataType eDataType,
 			String initialValue) {
 		SampleEnum result = SampleEnum.get(initialValue);
-		if (result == null)
-			throw new IllegalArgumentException("The value '" + initialValue
-					+ "' is not a valid enumerator of '" + eDataType.getName()
-					+ "'");
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
 		return result;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public String convertSampleEnumToString(EDataType eDataType,
@@ -332,16 +291,14 @@ public class TestmodelFactoryImpl extends EFactoryImpl implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public TestmodelPackage getTestmodelPackage() {
-		return (TestmodelPackage) getEPackage();
+		return (TestmodelPackage)getEPackage();
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @deprecated
 	 * @generated
 	 */

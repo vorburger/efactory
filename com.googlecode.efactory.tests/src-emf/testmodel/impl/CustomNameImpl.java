@@ -30,10 +30,10 @@ import testmodel.TestmodelPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link testmodel.impl.CustomNameImpl#getId <em>Id</em>}</li>
+ *   <li>{@link testmodel.impl.CustomNameImpl#getId <em>Id</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class CustomNameImpl extends EObjectImpl implements CustomName {
@@ -59,7 +59,6 @@ public class CustomNameImpl extends EObjectImpl implements CustomName {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected CustomNameImpl() {
@@ -68,7 +67,6 @@ public class CustomNameImpl extends EObjectImpl implements CustomName {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -78,7 +76,6 @@ public class CustomNameImpl extends EObjectImpl implements CustomName {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public String getId() {
@@ -87,84 +84,76 @@ public class CustomNameImpl extends EObjectImpl implements CustomName {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					TestmodelPackage.CUSTOM_NAME__ID, oldId, id));
+			eNotify(new ENotificationImpl(this, Notification.SET, TestmodelPackage.CUSTOM_NAME__ID, oldId, id));
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case TestmodelPackage.CUSTOM_NAME__ID:
-			return getId();
+			case TestmodelPackage.CUSTOM_NAME__ID:
+				return getId();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case TestmodelPackage.CUSTOM_NAME__ID:
-			setId((String) newValue);
-			return;
+			case TestmodelPackage.CUSTOM_NAME__ID:
+				setId((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case TestmodelPackage.CUSTOM_NAME__ID:
-			setId(ID_EDEFAULT);
-			return;
+			case TestmodelPackage.CUSTOM_NAME__ID:
+				setId(ID_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case TestmodelPackage.CUSTOM_NAME__ID:
-			return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
+			case TestmodelPackage.CUSTOM_NAME__ID:
+				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
 		}
 		return super.eIsSet(featureID);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
 	public String toString() {
-		if (eIsProxy())
-			return super.toString();
+		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (id: ");

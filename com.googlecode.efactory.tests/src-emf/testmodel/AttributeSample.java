@@ -25,20 +25,18 @@ import org.eclipse.emf.ecore.EObject;
 /**
  * <!-- begin-user-doc --> A representation of the model object '
  * <em><b>Attribute Sample</b></em>'. <!-- end-user-doc -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link testmodel.AttributeSample#getSingleIntOptional <em>Single Int
- * Optional</em>}</li>
- * <li>{@link testmodel.AttributeSample#getListIntRequired <em>List Int Required
- * </em>}</li>
- * <li>{@link testmodel.AttributeSample#getBigDecimal <em>Big Decimal</em>}</li>
- * <li>{@link testmodel.AttributeSample#getBigInteger <em>Big Integer</em>}</li>
- * <li>{@link testmodel.AttributeSample#getDouble <em>Double</em>}</li>
+ *   <li>{@link testmodel.AttributeSample#getSingleIntOptional <em>Single Int Optional</em>}</li>
+ *   <li>{@link testmodel.AttributeSample#getListIntRequired <em>List Int Required</em>}</li>
+ *   <li>{@link testmodel.AttributeSample#getBigDecimal <em>Big Decimal</em>}</li>
+ *   <li>{@link testmodel.AttributeSample#getBigInteger <em>Big Integer</em>}</li>
+ *   <li>{@link testmodel.AttributeSample#getDouble <em>Double</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @see testmodel.TestmodelPackage#getAttributeSample()
  * @model
  * @generated
@@ -52,7 +50,6 @@ public interface AttributeSample extends EObject {
 	 * clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
 	 * @return the value of the '<em>Single Int Optional</em>' attribute.
 	 * @see #setSingleIntOptional(int)
 	 * @see testmodel.TestmodelPackage#getAttributeSample_SingleIntOptional()
@@ -62,13 +59,10 @@ public interface AttributeSample extends EObject {
 	int getSingleIntOptional();
 
 	/**
-	 * Sets the value of the '
-	 * {@link testmodel.AttributeSample#getSingleIntOptional
-	 * <em>Single Int Optional</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * Sets the value of the '{@link testmodel.AttributeSample#getSingleIntOptional <em>Single Int Optional</em>}' attribute.
+	 * <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
-	 * @param value
-	 *            the new value of the '<em>Single Int Optional</em>' attribute.
+	 * @param value the new value of the '<em>Single Int Optional</em>' attribute.
 	 * @see #getSingleIntOptional()
 	 * @generated
 	 */
@@ -109,12 +103,10 @@ public interface AttributeSample extends EObject {
 	BigDecimal getBigDecimal();
 
 	/**
-	 * Sets the value of the '{@link testmodel.AttributeSample#getBigDecimal
-	 * <em>Big Decimal</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * Sets the value of the '{@link testmodel.AttributeSample#getBigDecimal <em>Big Decimal</em>}' attribute.
+	 * <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
-	 * @param value
-	 *            the new value of the '<em>Big Decimal</em>' attribute.
+	 * @param value the new value of the '<em>Big Decimal</em>' attribute.
 	 * @see #getBigDecimal()
 	 * @generated
 	 */
@@ -138,12 +130,10 @@ public interface AttributeSample extends EObject {
 	BigInteger getBigInteger();
 
 	/**
-	 * Sets the value of the '{@link testmodel.AttributeSample#getBigInteger
-	 * <em>Big Integer</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * Sets the value of the '{@link testmodel.AttributeSample#getBigInteger <em>Big Integer</em>}' attribute.
+	 * <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
-	 * @param value
-	 *            the new value of the '<em>Big Integer</em>' attribute.
+	 * @param value the new value of the '<em>Big Integer</em>' attribute.
 	 * @see #getBigInteger()
 	 * @generated
 	 */

@@ -27,13 +27,12 @@ import testmodel.TestmodelPackage;
  * <em><b>Single Optional</b></em>'. <!-- end-user-doc -->
  * <p>
  * </p>
- * 
+ *
  * @generated
  */
 public class SingleOptionalImpl extends EObjectImpl implements SingleOptional {
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected SingleOptionalImpl() {
@@ -42,7 +41,6 @@ public class SingleOptionalImpl extends EObjectImpl implements SingleOptional {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override

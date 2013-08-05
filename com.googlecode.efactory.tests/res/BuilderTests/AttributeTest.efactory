@@ -10,6 +10,7 @@ TestModel testModelName {
 		manyBool += true
 		
 		oneInt = 1
+		oneInteger = 1
 		manyInt += 1
 		manyInt += 2  
 		manyInt += 3

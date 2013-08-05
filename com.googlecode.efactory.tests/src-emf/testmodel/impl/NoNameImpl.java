@@ -27,13 +27,12 @@ import testmodel.TestmodelPackage;
  * <em><b>No Name</b></em>'. <!-- end-user-doc -->
  * <p>
  * </p>
- * 
+ *
  * @generated
  */
 public class NoNameImpl extends EObjectImpl implements NoName {
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected NoNameImpl() {
@@ -42,7 +41,6 @@ public class NoNameImpl extends EObjectImpl implements NoName {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
