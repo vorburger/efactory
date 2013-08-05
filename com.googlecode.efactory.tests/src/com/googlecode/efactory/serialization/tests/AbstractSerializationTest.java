@@ -6,19 +6,15 @@ import java.io.IOException;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
-import java.util.List;
 
 import org.eclipse.emf.common.util.DiagnosticException;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.compare.diff.metamodel.DiffElement;
-import org.eclipse.emf.compare.diff.metamodel.DiffModel;
-import org.eclipse.emf.compare.diff.service.DiffService;
-import org.eclipse.emf.compare.match.metamodel.MatchModel;
-import org.eclipse.emf.compare.match.service.MatchService;
+import org.eclipse.emf.compare.Comparison;
+import org.eclipse.emf.compare.Diff;
+import org.eclipse.emf.compare.EMFCompare;
+import org.eclipse.emf.compare.scope.IComparisonScope;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.resource.XtextResourceSet;
@@ -87,38 +83,19 @@ public abstract class AbstractSerializationTest extends AbstractEFactoryTest {
 			throw new IllegalStateException("why is there MORE contents in the resource? EMF Compare diff test will not work..");
 		}
 		
-		// Matching model elements
-		MatchModel match = MatchService.doMatch(expected, actual,
-				Collections.<String, Object> emptyMap());
-		DiffModel diff = DiffService.doDiff(match, false);
-		List<DiffElement> differences = new ArrayList<DiffElement>(
-				diff.getOwnedElements());
+		// @see http://wiki.eclipse.org/EMF_Compare/Developer_Guide
+		IComparisonScope scope = EMFCompare.createDefaultScope(expected, actual);
+		EMFCompare comparator = EMFCompare.builder().build();
+		Comparison comparison = comparator.compare(scope);
 
-		if (differences.get(0).getSubDiffElements().size() > 0) {
-			StringBuilder descriptionOfDifferences = new StringBuilder();
-			for (DiffElement d : differences) {
-				System.out.println(d.toString());
-				descriptionOfDifferences.append(getDifferences(d));
-			}
-			assertEquals(descriptionOfDifferences.toString(),
-					toString(expected), toString(actual));
-		}
+		// Matching model elements
+		EList<Diff> differences = comparison.getDifferences();
+		// TODO not sure if differences.toString() is useful?
+		assertTrue("Models differ: " + differences.toString(), differences.isEmpty());
 	}
 
 	private String toString(Factory object) {
 		return serializer.serialize(object);
-	}
-
-	private String getDifferences(DiffElement diff) {
-		StringBuilder builder = new StringBuilder();
-		for (DiffElement s : diff.getSubDiffElements()) {
-			builder.append(s.toString());
-			builder.append('\n');
-			if (s.getSubDiffElements().size() > 0) {
-				builder.append(getDifferences(s));
-			}
-		}
-		return builder.toString();
 	}
 
 	protected void performSerializationTest(String name) throws Exception {
