@@ -15,7 +15,7 @@ import javax.inject.Inject;
 import org.eclipse.xtext.junit4.InjectWith;
 import org.eclipse.xtext.junit4.XtextRunner;
 import org.junit.Assert;
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,7 +32,7 @@ public class PartialTest {
 
 	@Inject ResourceProvider rp;
 
-	@Before public void beforeTest() {
+	@BeforeClass public static void beforeTest() {
 		TestSetup.INSTANCE.doSetup();
 	}
 	
@@ -41,7 +41,7 @@ public class PartialTest {
 		rp.load("res/BuilderTests/PartialEmptyTest.efactory", false);
 	}
 	
-	@Test // passes when run as OSGi test, but fails when run as SE test - unclear why?
+	@Test
 	public void testPartiallyTypedResourceNoExceptions() throws Exception {
 		TestModel testModel = rp.loadModel("res/BuilderTests/PartialTest.efactory", TestModel.class, false);
 		Assert.assertEquals("Hi", testModel.getName());
