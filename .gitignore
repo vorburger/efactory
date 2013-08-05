@@ -5,3 +5,4 @@ src-gen
 .svn
 xtend-gen
 rebel.xml
+plugin.xml_gen
