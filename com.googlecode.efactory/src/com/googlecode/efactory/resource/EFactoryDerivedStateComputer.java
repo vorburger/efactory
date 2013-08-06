@@ -38,7 +38,7 @@ import com.googlecode.efactory.eFactory.Factory;
  * @author Michael Vorburger
  */
 public class EFactoryDerivedStateComputer implements IDerivedStateComputer {
-	private static Logger logger = Logger.getLogger(EFactoryDerivedStateComputer.class);
+	private static final Logger logger = Logger.getLogger(EFactoryDerivedStateComputer.class);
 
 	@Inject
 	private IReferableElementsUnloader unloader;

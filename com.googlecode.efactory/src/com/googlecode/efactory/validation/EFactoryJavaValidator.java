@@ -170,6 +170,8 @@ public class EFactoryJavaValidator extends AbstractEFactoryJavaValidator {
 	@Check(CheckType.NORMAL)
 	public void checkFactory(Factory factory) {
 		final EFactoryResource eFResource = (EFactoryResource) factory.eResource();
+		if (!eFResource.isBuilt())
+			return;
 		EObject eObject; 
 		try {
 			eObject = eFResource.getEFactoryEObject(factory.getRoot());
@@ -218,7 +220,6 @@ public class EFactoryJavaValidator extends AbstractEFactoryJavaValidator {
 					hasDuplicate);
 			existingFeatures.add(eFeature);
 		}
-
 	}
 	
 	@Check
@@ -293,9 +294,7 @@ public class EFactoryJavaValidator extends AbstractEFactoryJavaValidator {
 			EClass eClass = (EClass) eType;
 			isAssignable = EcoreUtil2.isAssignableFrom(eClass, candidate);
 		}
-		assertTrue(
-				"Wrong type. Expected instance of '" + eType.getName() + "'",
-				containmentValue, isAssignable);
+		assertTrue("Wrong type. Expected instance of '" + eType.getName() + "'", containmentValue, isAssignable);
 	}
 
 	private void checkIsNotContainment(EStructuralFeature eStructuralFeature) {
@@ -346,14 +345,12 @@ public class EFactoryJavaValidator extends AbstractEFactoryJavaValidator {
 	@Check
 	public void checkAttribute(Attribute attribute) {
 		Feature feature = getFeature(attribute);
-		assertFalse("Value must be an attribute but is a reference", null,
-				isEReference(feature.getEFeature()));
+		assertFalse("Value must be an attribute but is a reference", null, isEReference(feature.getEFeature()));
 
 		checkAttributeType(feature, attribute);
 	}
 
-	private void assertFalse(String message, EStructuralFeature feature,
-			boolean value) {
+	private void assertFalse(String message, EStructuralFeature feature, boolean value) {
 		if (value) {
 			error(message, feature);
 		}
@@ -361,8 +358,8 @@ public class EFactoryJavaValidator extends AbstractEFactoryJavaValidator {
 
 	private void checkAttributeType(Feature feature, Attribute attribute) {
 		attributeValidator.validate(feature, attribute);
-
 	}
+	
 	private Feature getFeature(EObject eObject) {
 		return containerResolver.resolve(Feature.class, eObject);
 	}

@@ -26,6 +26,10 @@ public class EFactoryResource extends DerivedStateAwareResource {
 	@Inject
 	private ModelBuilder builder;
 	
+	public boolean isBuilt() {
+		return getBuilder().isBuilt();
+	}
+	
 	@Nullable public NewObject getEFactoryElement(EObject eObject) {
 		if (builder == null) {
 			return null;
@@ -40,17 +44,20 @@ public class EFactoryResource extends DerivedStateAwareResource {
 	}
 
 	@NonNull public EObject getEFactoryEObject(NewObject nObject) throws ModelBuilderException {
-		if (builder == null) {
-			throw new IllegalStateException("EFactoryResource is missing @Injected ModelBuilder?!");
-		}
-		return builder.getBuilt(nObject);
-	}
-	
-	// package-private, as only used by EFactoryDerivedStateComputer
-	ModelBuilder getBuilder() {
-		return builder;
+		return getBuilder().getBuilt(nObject);
 	}
 
+	// package-private, as only used by EFactoryDerivedStateComputer
+	@NonNull ModelBuilder getBuilder() throws IllegalStateException {
+		// written in this weired style just to satisfy Eclipse' slightly dumb null check
+		final ModelBuilder _builder = builder;
+		if (_builder != null) {
+			return _builder;
+		} else {
+			throw new IllegalStateException("EFactoryResource is missing @Injected ModelBuilder?!");
+		}
+	}
+	
 	@Nullable public com.googlecode.efactory.eFactory.Factory getFactory() {
 		if (getContents().isEmpty()) {
 			return null;
