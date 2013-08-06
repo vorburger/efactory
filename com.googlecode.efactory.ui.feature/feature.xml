@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="com.googlecode.efactory.ui"
+      id="com.googlecode.efactory.ui.feature"
       label="EFactory UI"
       version="0.9.0.qualifier">
 

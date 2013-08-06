@@ -20,20 +20,17 @@
       <layout>p2</layout>
       <url>http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/</url>
     </repository>
-	<!-- temporary -->
     <repository>
-      <id>ds-9.0</id>
+      <id>emf.compare</id>
       <layout>p2</layout>
-	  <url>file:////oams.com/Software/Incoming%20Packages/tmp/SDK-DS/integration/p2repo/</url>
-<!--      <url>http://p2.oams.com/ds/9.0/integration/t24/</url> -->
+      <url>http://download.eclipse.org/modeling/emf/compare/updates/releases/</url>
     </repository>
   </repositories>
   <modules>
     <module>com.googlecode.efactory</module>
     <module>com.googlecode.efactory.feature</module>
     <module>com.googlecode.efactory.help</module>
-<!-- later
-    <module>com.googlecode.efactory.repository</module> -->
+    <module>com.googlecode.efactory.repository</module>
     <module>com.googlecode.efactory.tests</module>
     <module>com.googlecode.efactory.ui</module>
     <module>com.googlecode.efactory.ui.feature</module>
