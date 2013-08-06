@@ -25,6 +25,7 @@ import org.eclipse.xtext.resource.IResourceFactory;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider;
 import org.eclipse.xtext.util.PolymorphicDispatcher;
+import org.eclipse.xtext.validation.IResourceValidator;
 
 import com.google.inject.Binder;
 import com.google.inject.TypeLiteral;
@@ -94,4 +95,9 @@ public class EFactoryRuntimeModule
 	public Class<? extends ILocationInFileProvider> bindILocationInFileProvider() {
 		return EFactoryLocationInFileProvider.class;
 	}
+	
+	@SuppressWarnings("restriction")
+	public Class<? extends IResourceValidator> bindIResourceValidator() {
+		return org.eclipse.xtext.xbase.annotations.validation.DerivedStateAwareResourceValidator.class;
+	}	
 }
