@@ -220,10 +220,11 @@ public class EFactoryJavaValidator extends AbstractEFactoryJavaValidator {
 		}
 
 	}
+	
 	@Check
 	public void checkFeature(Feature feature) {
 		EStructuralFeature eFeature = feature.getEFeature();
-		if (eFeature == null) {
+		if (eFeature == null || eFeature.eIsProxy()) {
 			return;
 		}
 		checkCardinality(feature);
@@ -261,9 +262,13 @@ public class EFactoryJavaValidator extends AbstractEFactoryJavaValidator {
 	@Check
 	public void checkReference(Reference reference) {
 		Feature feature = getFeature(reference);
-		checkIsEReference(feature);
-		checkIsNotContainment(feature.getEFeature());
-		checkIsAssignable(feature, EFactoryPackage.Literals.REFERENCE__VALUE,
+		EStructuralFeature eFeature = feature.getEFeature();
+		if (eFeature == null || eFeature.eIsProxy()) {
+			return;
+		}
+		checkIsEReference(eFeature);
+		checkIsNotContainment(eFeature);
+		checkIsAssignable(eFeature, EFactoryPackage.Literals.REFERENCE__VALUE,
 				getReferencedType(reference));
 	}
 
@@ -277,10 +282,10 @@ public class EFactoryJavaValidator extends AbstractEFactoryJavaValidator {
 		}
 	}
 
-	private void checkIsAssignable(Feature feature,
+	private void checkIsAssignable(EStructuralFeature eFeature,
 			EReference containmentValue, EClass candidate) {
 		boolean isAssignable = true;
-		EClassifier eType = feature.getEFeature().getEType();
+		EClassifier eType = eFeature.getEType();
 		if (eType == null)
 			return;
 		if (eType instanceof EClass) {
@@ -303,11 +308,10 @@ public class EFactoryJavaValidator extends AbstractEFactoryJavaValidator {
 		return EcoreUtil3.isEContainment(eStructuralFeature);
 	}
 
-	private void checkIsEReference(Feature feature) {
-		EStructuralFeature eStructuralFeature = feature.getEFeature();
+	private void checkIsEReference(EStructuralFeature eFeature) {
 		assertTrue("Value must be a reference but is an attribute",
 				EFactoryPackage.Literals.REFERENCE__VALUE,
-				isEReference(eStructuralFeature));
+				isEReference(eFeature));
 	}
 
 	private boolean isEReference(EStructuralFeature eStructuralFeature) {
@@ -317,17 +321,19 @@ public class EFactoryJavaValidator extends AbstractEFactoryJavaValidator {
 	@Check
 	public void checkContainment(Containment containment) {
 		Feature feature = getFeature(containment);
-		checkIsContainment(feature);
-		checkIsAssignable(feature, EFactoryPackage.Literals.CONTAINMENT__VALUE,
+		EStructuralFeature eFeature = feature.getEFeature();
+		if (eFeature == null || eFeature.eIsProxy()) {
+			return;
+		}
+		checkIsContainment(eFeature);
+		checkIsAssignable(eFeature, EFactoryPackage.Literals.CONTAINMENT__VALUE,
 				containment.getValue().getEClass());
-
 	}
 
-	private void checkIsContainment(Feature feature) {
-		EStructuralFeature eStructuralFeature = feature.getEFeature();
+	private void checkIsContainment(EStructuralFeature eFeature) {
 		assertTrue("Value must be a new object but is a reference",
 				EFactoryPackage.Literals.FEATURE__VALUE,
-				isContainment(eStructuralFeature));
+				isContainment(eFeature));
 	}
 
 	private void assertTrue(String message, EStructuralFeature feature,
