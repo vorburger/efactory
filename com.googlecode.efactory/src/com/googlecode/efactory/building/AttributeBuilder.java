@@ -45,8 +45,9 @@ public class AttributeBuilder extends FeatureBuilder {
 	public void build() {
 		if (!(getFeature().getEFeature() instanceof EAttribute))
 			return;
-		
 		EAttribute targetFeature = (EAttribute) getFeature().getEFeature();
+		if (targetFeature.eIsProxy())
+			return;
 		Class<?> clazz = targetFeature.getEAttributeType().getInstanceClass();
 		Object newValue = valueResolver.apply(attribute);
 		newValue = convertToTargetType(clazz, newValue);
@@ -55,6 +56,5 @@ public class AttributeBuilder extends FeatureBuilder {
 
 	private Object convertToTargetType(Class<?> clazz, Object newValue) {
 		return new ValueSwitch().doSwitch(clazz, newValue);
-
 	}
 }

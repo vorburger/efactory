@@ -27,6 +27,7 @@
 package com.googlecode.efactory.building;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EStructuralFeature;
 
 import com.googlecode.efactory.eFactory.Containment;
 import com.googlecode.efactory.util.EcoreUtil3;
@@ -42,9 +43,10 @@ public class ContainmentBuilder extends FeatureBuilder {
 	@Override
 	public void build() throws ModelBuilderException {
 		EObject newValue = getModelBuilder().build(containment.getValue());
-		EcoreUtil3.setOrAddValue(getContainer(), getFeature().getEFeature(),
-				newValue);
-
+		final EStructuralFeature eFeature = getFeature().getEFeature();
+		if (eFeature.eIsProxy())
+			return;
+		EcoreUtil3.setOrAddValue(getContainer(), eFeature, newValue);
 	}
 
 }

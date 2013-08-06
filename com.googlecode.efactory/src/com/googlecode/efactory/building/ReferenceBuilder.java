@@ -28,6 +28,7 @@ package com.googlecode.efactory.building;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.xtext.linking.lazy.LazyURIEncoder;
 
@@ -51,7 +52,10 @@ public class ReferenceBuilder extends FeatureBuilder {
 
 	public void link() throws ModelBuilderException {
 		EObject newValue = getReferencedObject();
-		EcoreUtil3.setOrAddValue(getContainer(), getFeature().getEFeature(), newValue);
+		final EStructuralFeature eFeature = getFeature().getEFeature();
+		if (eFeature.eIsProxy())
+			return;
+		EcoreUtil3.setOrAddValue(getContainer(), eFeature, newValue);
 	}
 	
 	private EObject getReferencedObject() throws ModelBuilderException {
