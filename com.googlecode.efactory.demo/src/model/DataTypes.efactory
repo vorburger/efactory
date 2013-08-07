@@ -1,6 +1,0 @@
-use "http://com.googlecode.efactory.examples.entity/model"
- 
-new Model {         
-	elements += new SimpleType String
-	elements += new SimpleType Integer
-}  
