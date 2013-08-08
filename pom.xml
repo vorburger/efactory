@@ -31,7 +31,17 @@
     </repository>
   </repositories>
 -->
-
+	<pluginRepositories>
+		<!-- Repository to resolve fornax-oaw-m2-plugin -->
+		<pluginRepository>
+			<id>fornax-releases</id>
+			<url>http://fornax.itemis.de/nexus/content/repositories/public/</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+	
 	<modules>
 		<module>com.googlecode.efactory.target</module>
 		<module>com.googlecode.efactory</module>
