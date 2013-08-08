@@ -9,3 +9,4 @@ Continous Integration
 ---------------------
 
 see https://travis-ci.org/vorburger/efactory
+[![Build Status](https://travis-ci.org/vorburger/efactory.png?branch=master)](https://travis-ci.org/vorburger/efactory)
