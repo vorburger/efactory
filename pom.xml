@@ -46,11 +46,12 @@
 		<module>com.googlecode.efactory.target</module>
 		<module>com.googlecode.efactory</module>
 		<module>com.googlecode.efactory.feature</module>
-		<module>com.googlecode.efactory.help</module>
-		<module>com.googlecode.efactory.repository</module>
-		<module>com.googlecode.efactory.tests</module>
 		<module>com.googlecode.efactory.ui</module>
 		<module>com.googlecode.efactory.ui.feature</module>
+		<module>com.googlecode.efactory.tests</module>
+		<module>com.googlecode.efactory.tests.feature</module>
+		<module>com.googlecode.efactory.help</module>
+		<module>com.googlecode.efactory.repository</module>
 	</modules>
 	<build>
 		<plugins>
@@ -212,52 +213,4 @@
 		</pluginManagement>
 	</build>
 
-	<profiles>
-		<profile>
-			<id>deploy</id>
-			<activation>
-				<activeByDefault>false</activeByDefault>
-			</activation>
-			<build>
-				<plugins>
-					<!-- alternatively, you could also use the org.apache.maven.plugins:maven-scm-plugin, 
-						like e.g. https://github.com/tonnymadsen/ui-bindings/blob/master/com.rcpcompany.updatesite/pom.xml 
-						does -->
-					<plugin>
-						<groupId>com.github.github</groupId>
-						<artifactId>site-maven-plugin</artifactId>
-						<version>0.8</version>
-						<configuration>
-							<!-- git commit message -->
-							<message>Repo for ${project.groupId}:${project.artifactId}:${project.version} ~${maven.build.timestamp}</message>
-							<noJekyll>true</noJekyll>                             <!-- disable webpage processing -->
-							<outputDirectory>com.googlecode.efactory.repository/target/repository</outputDirectory>
-		
-							<!-- <dryRun>true</dryRun> -->
-							<repositoryOwner>vorburger</repositoryOwner>          <!-- github username -->
-							<repositoryName>efactory-repository</repositoryName>  <!-- github repo name -->
-							<branch>refs/heads/gh-pages</branch>                  <!-- remote branch name -->
-		
-							<!-- This token, obtained from https://github.com/settings/applications, 
-								is encrypted using http://about.travis-ci.org/docs/user/build-configuration/#Secure-environment-variables -->
-							<oauth2Token>${env.TOKEN}</oauth2Token>
-		
-							<includes>
-								<include>**/*</include>
-							</includes>
-						</configuration>
-						<executions>
-							<!-- run site-maven-plugin's 'site' target as part of the build's normal 'deploy' phase -->
-							<execution>
-								<goals>
-									<goal>site</goal>
-								</goals>
-								<phase>install</phase>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
 </project>
