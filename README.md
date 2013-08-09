@@ -8,7 +8,7 @@ and introductory screen cast http://www.youtube.com/watch?v=ToUWqIRHkHY
 How to Install?
 ---------------
 
-* Eclipse Help > Install New Software... Add... new Repository Location (TBD).
+* Eclipse Help > Install New Software... Add... new Repository Location http://www.vorburger.ch/efactory-repository/
 
 
 How to Develop?
