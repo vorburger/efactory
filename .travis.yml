@@ -1,5 +1,5 @@
 language: java
-script: mvn clean deploy
+script: mvn -Pdeploy clean install
 jdk:
 - openjdk6
 before_install:
