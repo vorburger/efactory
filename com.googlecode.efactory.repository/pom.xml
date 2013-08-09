@@ -30,7 +30,7 @@
 							<!-- git commit message -->
 							<message>Repo for ${project.groupId}:${project.artifactId}:${project.version} ~${maven.build.timestamp}</message>
 							<noJekyll>true</noJekyll>                             <!-- disable webpage processing -->
-							<outputDirectory>com.googlecode.efactory.repository/target/repository</outputDirectory>
+							<outputDirectory>target/repository</outputDirectory>
 		
 							<!-- <dryRun>true</dryRun> -->
 							<repositoryOwner>vorburger</repositoryOwner>          <!-- github username -->
