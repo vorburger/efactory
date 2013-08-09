@@ -29,6 +29,7 @@ package com.googlecode.efactory.util;
 import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.WrappedException;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -81,7 +82,7 @@ public class EPackageResolver {
 	}
 
 	private EPackage getPackageFromRegistry(String packageUri) {
-		EPackage ePackage = EPackage.Registry.INSTANCE.getEPackage(packageUri);
+		EPackage ePackage = safeGetEPackageFromGlobalRegistry(packageUri);
 		return ePackage;
 	}
 
@@ -103,8 +104,21 @@ public class EPackageResolver {
 		return Iterables.transform(packageUris,
 				new Function<String, EPackage>() {
 					public EPackage apply(String uri) {
-						return EPackage.Registry.INSTANCE.getEPackage(uri);
+						return safeGetEPackageFromGlobalRegistry(uri);
 					}
 				});
+	}
+	
+	/**
+	 * Introduced due to DS-6421; we've seen a corner case where there is no EMF ECore model gen.
+	 * code, in the case of another Xtext lang. which "overloaded" Xbase, butdoesn't have
+	 * ANY grammar rules or terminals of it's own.
+	 */
+	private EPackage safeGetEPackageFromGlobalRegistry(String nsURI) {
+		try {
+			return EPackage.Registry.INSTANCE.getEPackage(nsURI);
+		} catch (WrappedException e) {
+			return null;
+		}
 	}
 }
