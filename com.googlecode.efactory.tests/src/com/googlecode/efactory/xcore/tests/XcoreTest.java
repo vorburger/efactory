@@ -17,7 +17,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.xcore.XcoreStandaloneSetup;
 import org.eclipse.xtext.junit4.InjectWith;
 import org.eclipse.xtext.junit4.XtextRunner;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -34,7 +33,7 @@ public class XcoreTest {
 	@Inject ResourceProvider resourceProvider;
 
 	@Test
-	@Ignore // TODO re-enable after clarification of https://bugs.eclipse.org/bugs/show_bug.cgi?id=414416
+	//@Ignore // TODO re-enable after clarification of https://bugs.eclipse.org/bugs/show_bug.cgi?id=414416
 	@SuppressWarnings("unused")
 	public void testXcore() throws Exception {
 		XcoreStandaloneSetup.doSetup();
