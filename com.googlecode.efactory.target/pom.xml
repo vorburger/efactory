@@ -7,7 +7,6 @@
 		<groupId>com.googlecode.efactory</groupId>
 		<version>0.9.0-SNAPSHOT</version>
 	</parent>
-	<groupId>com.googlecode.efactory</groupId>
 	<artifactId>com.googlecode.efactory.target</artifactId>
 	<packaging>eclipse-target-definition</packaging>
 
