@@ -1,7 +1,10 @@
 language: java
-script: mvn clean install
+script: mvn clean deploy
 jdk:
-  - openjdk6
+- openjdk6
 before_install:
-  - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
+- export DISPLAY=:99.0
+- sh -e /etc/init.d/xvfb start
+env:
+  global:
+    secure: PqtoiyH+wkJDTpyy8B4WfAxOmAN/XTLV1fmZgf8U89u64Kpe+bi17HSk77JGV+sVfGYe+n6nQV6tpx5eH6Ex5l/pSokrlGlpecvE6Xs8DiMPZW6j6dLu1YoNaXPUzTs0xQHmVxJ4M6ioIyMZZ4w2fqDtIOdYNGg2x7NveDb5+wk=
