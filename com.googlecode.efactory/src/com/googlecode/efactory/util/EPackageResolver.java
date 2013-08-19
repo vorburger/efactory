@@ -41,6 +41,7 @@ import org.eclipse.xtext.util.SimpleCache;
 import org.eclipse.xtext.util.Tuples;
 
 import com.google.common.base.Function;
+import com.google.common.base.Predicates;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.inject.Singleton;
@@ -50,16 +51,14 @@ public class EPackageResolver {
 
 	private SimpleCache<Pair<Resource, String>, EPackage> cache = new SimpleCache<Pair<Resource, String>, EPackage>(
 			new Function<Pair<Resource, String>, EPackage>() {
-
+				@SuppressWarnings("null") // OK, because we know cache is only used from resolve() below, which has @NonNull args
 				public EPackage apply(Pair<Resource, String> tuple) {
-
 					String packageUri = tuple.getSecond();
 					EPackage ePackage = getPackageFromRegistry(packageUri);
 					if (ePackage == null) {
-						ePackage = loadPackageAsResource(tuple.getFirst(),
-								packageUri);
+						ePackage = loadPackageAsResource(tuple.getFirst(), packageUri);
 					}
-					return ePackage;
+					return ePackage; // could still be null here..
 				}
 			});
 
@@ -69,21 +68,31 @@ public class EPackageResolver {
 	 * @param packageUri an EMF Package URI
 	 * @return EPackage, or null if the resource does not contain an EPackage
 	 */
-	public EPackage resolve(Resource resource, String packageUri) {
+	public @Nullable EPackage resolve(@NonNull Resource resource, @NonNull String packageUri) {
 		Pair<Resource, String> pair = Tuples.create(resource, packageUri);
 		return cache.get(pair);
 	}
 
-	private EPackage loadPackageAsResource(Resource context, String packageUri) {
+	protected @Nullable EPackage loadPackageAsResource(@NonNull Resource context, @NonNull String packageUri) {
 		final Resource resource = EcoreUtil2.getResource(context, packageUri);
 		if (resource == null)
 			return null;
 		return getEPackage(resource);
 	}
 
-	private EPackage getPackageFromRegistry(String packageUri) {
-		EPackage ePackage = safeGetEPackageFromGlobalRegistry(packageUri);
-		return ePackage;
+	/**
+	 * We've seen a corner case (DS-6421) where there is no EMF ECore model gen.
+	 * code, in the case of another Xtext lang. which "overloaded" Xbase, but doesn't have
+	 * ANY grammar rules or terminals of it's own.
+	 * 
+	 * @return EPackage for nsURI, or null if there was a lookup problem.
+	 */
+	protected @Nullable EPackage getPackageFromRegistry(@NonNull String nsURI) {
+		try {
+			return EPackage.Registry.INSTANCE.getEPackage(nsURI);
+		} catch (WrappedException e) {
+			return null;
+		}
 	}
 
 	private @Nullable EPackage getEPackage(@NonNull Resource resource) {
@@ -97,28 +106,21 @@ public class EPackageResolver {
 		return null;
 	}
 
+	/**
+	 * All known EPackages.
+	 * @return Iterable of EPackage, WITHOUT ANY null ENTRIES!
+	 */
 	public Iterable<EPackage> getAllRegisteredEPackages() {
 		// copy due to potential CME while resolving EPackages
-		List<String> packageUris = Lists
-				.newArrayList(EPackage.Registry.INSTANCE.keySet());
-		return Iterables.transform(packageUris,
+		List<String> packageUris = Lists.newArrayList(EPackage.Registry.INSTANCE.keySet());
+		Iterable<String> packageUrisWithoutAnyNulls = Iterables.filter(packageUris, Predicates.notNull());
+		Iterable<EPackage> packagesMaybeWithNull = Iterables.transform(packageUrisWithoutAnyNulls,
 				new Function<String, EPackage>() {
-					public EPackage apply(String uri) {
-						return safeGetEPackageFromGlobalRegistry(uri);
+					public EPackage apply(@NonNull String uri) {
+						return getPackageFromRegistry(uri);
 					}
 				});
-	}
-	
-	/**
-	 * Introduced due to DS-6421; we've seen a corner case where there is no EMF ECore model gen.
-	 * code, in the case of another Xtext lang. which "overloaded" Xbase, butdoesn't have
-	 * ANY grammar rules or terminals of it's own.
-	 */
-	private EPackage safeGetEPackageFromGlobalRegistry(String nsURI) {
-		try {
-			return EPackage.Registry.INSTANCE.getEPackage(nsURI);
-		} catch (WrappedException e) {
-			return null;
-		}
+		Iterable<EPackage> packagesWithoutAnyNulls = Iterables.filter(packagesMaybeWithNull, Predicates.notNull());
+		return packagesWithoutAnyNulls;
 	}
 }
