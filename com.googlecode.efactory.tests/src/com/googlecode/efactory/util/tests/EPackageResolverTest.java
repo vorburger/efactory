@@ -10,32 +10,32 @@
  ******************************************************************************/
 package com.googlecode.efactory.util.tests;
 
-import junit.framework.TestCase;
-
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
 import com.googlecode.efactory.tests.util.TestSetup;
 import com.googlecode.efactory.util.EPackageResolver;
 
-public class EPackageResolverTest extends TestCase {
-	Resource context = new XMIResourceImpl();
+public class EPackageResolverTest {
 
-	@Override
-	protected void setUp() throws Exception {
-		super.setUp();
+	@Before
+	public void setUp() throws Exception {
 		TestSetup.INSTANCE.doSetup();
 	}
 
+	@Test
 	public void testResolveString_Registry() {
-
-		EPackage ePackage = new EPackageResolver().resolve(context,
-				EcorePackage.eINSTANCE.getNsURI());
-		assertNotNull(ePackage);
-		assertEquals(EcorePackage.eINSTANCE.getNsURI(), ePackage.getNsURI()
-				.toString());
+		final Resource context = new XMIResourceImpl();
+		final String nsURI = EcorePackage.eINSTANCE.getNsURI();
+		Assert.assertNotNull(nsURI);
+		EPackage ePackage = new EPackageResolver().resolve(context, nsURI);
+		Assert.assertNotNull(ePackage);
+		Assert.assertEquals(nsURI, ePackage.getNsURI().toString());
 	}
 
 }
