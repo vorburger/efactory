@@ -25,6 +25,7 @@ import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.googlecode.efactory.building.ModelBuilder;
 import com.googlecode.efactory.building.ModelBuilderException;
+import com.googlecode.efactory.building.resync.EFactoryAdapter;
 import com.googlecode.efactory.eFactory.Factory;
 
 /**
@@ -67,6 +68,7 @@ public class EFactoryDerivedStateComputer implements IDerivedStateComputer {
 			ModelBuilder builder = efResource.getBuilder();
 			try {
 				EObject eModel = builder.buildWithoutLinking(model);
+				eModel.eAdapters().add(new EFactoryAdapter());
 				resource.getContents().add(eModel);
 				if (!preLinkingPhase) {
 					builder.link();
