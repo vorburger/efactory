@@ -25,8 +25,8 @@ import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.googlecode.efactory.building.ModelBuilder;
 import com.googlecode.efactory.building.ModelBuilderException;
-import com.googlecode.efactory.building.resync.EFactoryAdapter;
 import com.googlecode.efactory.eFactory.Factory;
+import com.googlecode.efactory.serialization.EFactoryAdapter;
 
 /**
  * Adds the actual EObject. Uses the FactoryBuilder.

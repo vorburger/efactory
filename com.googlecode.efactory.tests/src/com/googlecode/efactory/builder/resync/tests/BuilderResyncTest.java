@@ -82,6 +82,8 @@ public class BuilderResyncTest {
 		
 		// Change the TestModel and re-check the EFactory model
 		testModel.setName("tested");
+		efValue = eFactory.getRoot().getFeatures().get(0).getValue();
+		efStringValue = (StringAttribute) efValue;
 		assertEquals("tested", efStringValue.getValue());
 	}
 
