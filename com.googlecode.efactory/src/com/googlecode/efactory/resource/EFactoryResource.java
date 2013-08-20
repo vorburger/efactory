@@ -15,16 +15,20 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.xtext.resource.DerivedStateAwareResource;
+import org.eclipse.xtext.resource.XtextResource;
+import org.eclipse.xtext.util.concurrent.IWriteAccess;
 
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 import com.googlecode.efactory.building.ModelBuilder;
 import com.googlecode.efactory.building.ModelBuilderException;
 import com.googlecode.efactory.eFactory.NewObject;
 
 public class EFactoryResource extends DerivedStateAwareResource {
 
-	@Inject
-	private ModelBuilder builder;
+	@Inject private ModelBuilder builder;
+	
+	protected IWriteAccess<XtextResource> documentWriteAccess;
 	
 	public boolean isBuilt() {
 		return getBuilder().isBuilt();
@@ -49,7 +53,7 @@ public class EFactoryResource extends DerivedStateAwareResource {
 
 	// package-private, as only used by EFactoryDerivedStateComputer
 	@NonNull ModelBuilder getBuilder() throws IllegalStateException {
-		// written in this weired style just to satisfy Eclipse' slightly dumb null check
+		// written in this weird style just to satisfy Eclipse' slightly dumb null check
 		final ModelBuilder _builder = builder;
 		if (_builder != null) {
 			return _builder;
@@ -65,4 +69,20 @@ public class EFactoryResource extends DerivedStateAwareResource {
 		return (com.googlecode.efactory.eFactory.Factory) getContents().get(0);
 	}
 
+	public void setWriteAccess(IWriteAccess<XtextResource> xtextDocument) {
+		this.documentWriteAccess = xtextDocument;
+	}
+
+	// package-private, as only used by EFactoryDerivedStateComputer
+	@NonNull Provider<IWriteAccess<XtextResource>> getWriteAccessProvider() {
+		return new Provider<IWriteAccess<XtextResource>>() {
+			@SuppressWarnings("null") // JDT null check even in Kepler is still too dumb to understand the if null means return will never return null.. :( 
+			public @NonNull IWriteAccess<XtextResource> get() {
+				if (documentWriteAccess == null)
+					// throw new IllegalStateException("setWriteAccess(IWriteAccess<XtextResource>) should have been called by com.googlecode.efactory.ui.editor.EFactoryXtextDocument.setInput(XtextResource), but wasnt't (yet) - how come?");
+					return new XtextResourceDirectAccess(EFactoryResource.this);
+				return documentWriteAccess;
+			}
+		};
+	}
 }

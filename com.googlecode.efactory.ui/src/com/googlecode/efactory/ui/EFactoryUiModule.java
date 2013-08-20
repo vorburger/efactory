@@ -18,12 +18,14 @@ import org.eclipse.xtext.resource.IResourceFactory;
 import org.eclipse.xtext.ui.editor.contentassist.IContentAssistantFactory;
 import org.eclipse.xtext.ui.editor.contentassist.XtextContentAssistProcessor;
 import org.eclipse.xtext.ui.editor.folding.IFoldingRegionProvider;
+import org.eclipse.xtext.ui.editor.model.XtextDocument;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.ISemanticHighlightingCalculator;
 
 import com.google.inject.Binder;
 import com.google.inject.name.Names;
 import com.googlecode.efactory.ui.contentassist.EFactoryContentAssistantFactory;
 import com.googlecode.efactory.ui.editor.EFactoryFoldingRegionProvider;
+import com.googlecode.efactory.ui.editor.EFactoryXtextDocument;
 import com.googlecode.efactory.ui.highlighting.EFactoryHighlightingCalculator;
 import com.googlecode.efactory.ui.resource.EFactoryResourceFactory;
 
@@ -49,6 +51,11 @@ public class EFactoryUiModule extends
 				EFactoryHighlightingCalculator.class);
 		binder.bind(IFoldingRegionProvider.class).to(
 				EFactoryFoldingRegionProvider.class);
+		
+		// it's important to bind to XtextDocument instead of to IXtextDocument
+		// (I think), because there is no default declaration, and @Inject in
+		// Xtext code base directly uses XtextDocument instead of IXtextDocument
+		binder.bind(XtextDocument.class).to(EFactoryXtextDocument.class);
 	}
 
 	@Override

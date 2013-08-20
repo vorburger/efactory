@@ -18,8 +18,11 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EContentAdapter;
+import org.eclipse.xtext.resource.XtextResource;
+import org.eclipse.xtext.util.concurrent.IUnitOfWork;
+import org.eclipse.xtext.util.concurrent.IWriteAccess;
 
-import com.googlecode.efactory.building.ModelBuilder;
+import com.google.inject.Provider;
 import com.googlecode.efactory.building.NoNameFeatureMappingException;
 import com.googlecode.efactory.eFactory.Feature;
 import com.googlecode.efactory.eFactory.NewObject;
@@ -40,12 +43,18 @@ import com.googlecode.efactory.resource.EFactoryResource;
  * @author Michael Vorburger
  */
 public class EFactoryAdapter extends EContentAdapter {
-	private static Logger logger = Logger.getLogger(ModelBuilder.class);
+	private static Logger logger = Logger.getLogger(EFactoryAdapter.class);
+	
+	// Provider<> is used to keep this lazy - at the time this is constructed, it might not be available, yet
+	protected final Provider<IWriteAccess<XtextResource>> writeAccessProvider;
+
+	public EFactoryAdapter(Provider<IWriteAccess<XtextResource>> writeAccessProvider) {
+		this.writeAccessProvider = writeAccessProvider;
+	}
 
 	@Override
 	public void notifyChanged(Notification msg) {
 		super.notifyChanged(msg); // MUST do first
-		System.out.println(msg);
 
 		if (msg.isTouch())
 			return;
@@ -70,24 +79,22 @@ public class EFactoryAdapter extends EContentAdapter {
 	}
 
 	// setOrAddValue ?
-	protected void setValue(Feature factoryFeature, Notification msg) throws NoNameFeatureMappingException {
+	protected void setValue(final Feature factoryFeature, final Notification msg) throws NoNameFeatureMappingException {
 		FactoryBuilder factoryBuilder = null; // TODO ???
+		// TODO does the reading here have to be done inside an IUnitOfWork as well?! Even if we already have the Feature in hand? Why? @see http://koehnlein.blogspot.ch/2010/06/semantic-model-access-in-xtext.html
 		final EAttribute eAttribute = (EAttribute) factoryFeature.getEFeature();
 		FeatureBuilder builder = AttributeBuilder.attribute(eAttribute, factoryBuilder).value(msg.getNewValue());
-		Value newEFValue = builder.createValue();
-		// builder.build(); // if the Features doesn't exist yet..
+		final Value newEFValue = builder.createValue(); // OR: builder.build(); // if the Features doesn't exist yet..
 		
-		factoryFeature.setValue(newEFValue);
-//		Value value = factoryFeature.getValue();
-//		StringAttribute string = (StringAttribute) value;
-//		string.setValue(((StringAttribute)newEFValue).getValue());
-/*		
-		Value value = factoryFeature.getValue();
-		if (value instanceof StringAttribute) {
-			StringAttribute string = (StringAttribute) value;
-			string.setValue(msg.getNewStringValue());
-		}
-*/
+		// do NOT just: factoryFeature.setValue(newEFValue); // @see http://koehnlein.blogspot.ch/2010/06/semantic-model-access-in-xtext.html
+		final String uriFragment = factoryFeature.eResource().getURIFragment(factoryFeature);
+		writeAccessProvider.get().modify(new IUnitOfWork.Void<XtextResource>() {
+			@Override
+			public void process(XtextResource resource) throws Exception {
+				final Feature localFactoryFeature = (Feature) resource.getEObject(uriFragment);
+				localFactoryFeature.setValue(newEFValue);
+			}
+		});
 	}
 		
 	protected Feature findChangedFactoryFeature(final Notification msg, final NewObject newObject) {
