@@ -2,5 +2,5 @@ use testmodel.*
 
 TestModel {
 	name = "test"
-	singleRequired = SingleRequired { }	
+	singleRequired = SingleRequired { }
 }
