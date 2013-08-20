@@ -68,11 +68,15 @@ public class EFactoryDerivedStateComputer implements IDerivedStateComputer {
 			ModelBuilder builder = efResource.getBuilder();
 			try {
 				EObject eModel = builder.buildWithoutLinking(model);
-				eModel.eAdapters().add(new EFactoryAdapter());
 				resource.getContents().add(eModel);
 				if (!preLinkingPhase) {
 					builder.link();
 				}
+				// add our change notification listener only AFTER
+				// the buildWithoutLinking() + link(), because we don't
+				// want/need to get the notifications from the Builder - only
+				// from external clients (e.g. Generic Ecore editor UI, etc.)
+				eModel.eAdapters().add(new EFactoryAdapter());
 			} catch (ModelBuilderException e) {
 				builder.clear();
 				// TODO make this a logger.debug() again.. it's only logger.error() so that I can see this better while developping..
