@@ -86,7 +86,7 @@ public class EFactoryAdapter extends EContentAdapter {
 		try {
 			switch (msg.getEventType()) {
 				case Notification.SET :
-					setValue(factoryFeature, msg);
+					setOrRemoveValue(factoryFeature, msg);
 					break;
 			}
 		} catch (NoNameFeatureMappingException e) {
@@ -110,6 +110,13 @@ public class EFactoryAdapter extends EContentAdapter {
 		}
 	}
 
+	protected void setOrRemoveValue(final Feature factoryFeature, final Notification msg) throws NoNameFeatureMappingException {
+		if (msg.getNewValue() != null)
+			setValue(factoryFeature, msg);
+		else
+			removeValue(factoryFeature, msg);
+	}
+	
 	// setOrAddValue ?
 	protected void setValue(final Feature factoryFeature, final Notification msg) throws NoNameFeatureMappingException {
 		FactoryBuilder factoryBuilder = null; // TODO ???
@@ -127,6 +134,12 @@ public class EFactoryAdapter extends EContentAdapter {
 				localFactoryFeature.setValue(newEFValue);
 			}
 		});
+	}
+	
+	protected void removeValue(Feature factoryFeature, Notification msg) {
+		NewObject newObject = (NewObject) factoryFeature.eContainer();
+		EList<Feature> newObjectFeatures = newObject.getFeatures();
+		newObjectFeatures.remove(factoryFeature);
 	}
 		
 	protected @Nullable Feature findChangedFactoryFeature(final Notification msg, final NewObject newObject) {

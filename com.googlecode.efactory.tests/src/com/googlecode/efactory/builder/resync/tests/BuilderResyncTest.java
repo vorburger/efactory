@@ -13,6 +13,7 @@ package com.googlecode.efactory.builder.resync.tests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import javax.inject.Inject;
 
@@ -85,6 +86,10 @@ public class BuilderResyncTest {
 		testModel.setName("tested");
 		assertEquals("tested", getRootObjectFirstFeatureAsString(eFactory));
 		assertNull(eFactory.getRoot().getName()); // as there already was name = "test", it should NOT become TestModel tested
+		
+		int nFeatures = eFactory.getRoot().getFeatures().size();
+		testModel.setName(null);
+		assertTrue(eFactory.getRoot().getFeatures().size() == nFeatures - 1);
 	}
 
 	protected String getRootObjectFirstFeatureAsString(Factory eFactory) {
@@ -105,6 +110,10 @@ public class BuilderResyncTest {
 		// Change the TestModel and re-check the EFactory model
 		testModel.setName("tested");
 		assertEquals("tested", eFactory.getRoot().getName());
+		
+		// Check setting null (unsetting)
+		testModel.setName(null);
+		assertNull(eFactory.getRoot().getName());
 	}
 
 	@Test
