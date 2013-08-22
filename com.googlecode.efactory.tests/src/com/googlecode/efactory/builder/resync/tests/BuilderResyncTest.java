@@ -12,6 +12,7 @@ package com.googlecode.efactory.builder.resync.tests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import javax.inject.Inject;
 
@@ -59,7 +60,7 @@ public class BuilderResyncTest {
 	}
 
 	@Test
-	public void testChangeName() throws Exception {
+	public void testChangeNameStringValueFeature() throws Exception {
 		EList<EObject> resourceContents = rp.get().load("res/BuilderResyncTests/1TestModelWithNameProperty.efactory", true);
 		
 		// Check the EFactory model
@@ -80,11 +81,30 @@ public class BuilderResyncTest {
 		testModel = (TestModel) resourceContents.get(1);
 		assertEquals("testit", testModel.getName());
 		
+		// Change the TestModel and re-check the EFactory model (EFactoryAdapter did it's thing)
+		testModel.setName("tested");
+		assertEquals("tested", getRootObjectFirstFeatureAsString(eFactory));
+		assertNull(eFactory.getRoot().getName()); // as there already was name = "test", it should NOT become TestModel tested
+	}
+
+	protected String getRootObjectFirstFeatureAsString(Factory eFactory) {
+		final Value efValue = eFactory.getRoot().getFeatures().get(0).getValue();
+		final StringAttribute efStringValue = (StringAttribute) efValue;
+		return efStringValue.getValue();
+	}
+
+	@Test
+	public void testChangeNewObjectNameAfterClass() throws Exception {
+		EList<EObject> resourceContents = rp.get().load("res/BuilderResyncTests/2TestModelWithNameAfterEClass.efactory", true);
+		Factory eFactory = (Factory) resourceContents.get(0);
+
+		// Check the TestModel
+		TestModel testModel = (TestModel) resourceContents.get(1);
+		assertEquals("test", testModel.getName());
+		
 		// Change the TestModel and re-check the EFactory model
 		testModel.setName("tested");
-		efValue = eFactory.getRoot().getFeatures().get(0).getValue();
-		efStringValue = (StringAttribute) efValue;
-		assertEquals("tested", efStringValue.getValue());
+		assertEquals("tested", eFactory.getRoot().getName());
 	}
 
 	@Test
@@ -105,6 +125,19 @@ public class BuilderResyncTest {
 		assertEquals(TestmodelPackage.Literals.ATTRIBUTE_SAMPLE, efContainmentValue.getValue().getEClass());
 		IntegerAttribute singleIntOptional = (IntegerAttribute)efContainmentValue.getValue().getFeatures().get(0).getValue();
 		assertEquals(123, singleIntOptional.getValue());
+	}
+
+	@Test
+	@Ignore // TODO
+	public void testCreateCompletelyNew() throws Exception {
+		// don't load anything, just create new resource, and add (nested) stuff.. add element to list before (no change tracker attached yet) and after attaching it to resource
+		// set name, and make sure it goes into eFactory.getRoot().getName() instead of a Feature (make sure it's null)
+		// assert no epackages, imports, annotations have been created
+	}
+	
+	@Test
+	@Ignore // TODO
+	public void testAddToList() throws Exception {
 	}
 
 }

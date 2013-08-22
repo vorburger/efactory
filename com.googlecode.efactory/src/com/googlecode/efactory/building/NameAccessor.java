@@ -31,6 +31,7 @@ import java.util.Iterator;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.xtext.EcoreUtil2;
 
 import com.google.common.collect.Iterators;
@@ -67,17 +68,21 @@ public class NameAccessor {
 		}
 		return name.toString();
 	}
+	
 	private void setName(EObject eObject, String name, EAttribute nameAttribute) {
 		eObject.eSet(nameAttribute, name);
 	}
 
-	public EAttribute getNameAttribute(EObject context, EObject eObject) throws NoNameFeatureMappingException {
+	public @NonNull EAttribute getNameAttribute(EObject context, EObject eObject) throws NoNameFeatureMappingException {
 		Iterator<CustomNameMapping> customMappings = getCustomNameMappings(context);
 		while (customMappings.hasNext()) {
 			CustomNameMapping mapping = customMappings.next();
-			if (EcoreUtil2.isAssignableFrom(mapping.getEClass(), eObject
-					.eClass())) {
-				return mapping.getNameFeature();
+			if (EcoreUtil2.isAssignableFrom(mapping.getEClass(), eObject.eClass())) {
+				EAttribute attribute = mapping.getNameFeature();
+				if (attribute != null)
+					return attribute;
+				else
+					throw newNoNameFeatureMappingException(eObject);
 			}
 		}
 
@@ -85,11 +90,19 @@ public class NameAccessor {
 		if (globalMappings.hasNext()) {
 			GlobalNameMapping mapping = globalMappings.next();
 			if (hasEAttribute(eObject, mapping.getNameFeature())) {
-				return getNameAttribute(mapping, eObject);
+				EAttribute attribute = getNameAttribute(mapping, eObject);
+				if (attribute != null)
+					return attribute;
+				else
+					throw newNoNameFeatureMappingException(eObject);
 			}
 		}
 
-		throw new NoNameFeatureMappingException(
+		throw newNoNameFeatureMappingException(eObject);
+	}
+
+	protected NoNameFeatureMappingException newNoNameFeatureMappingException(EObject eObject) throws NoNameFeatureMappingException {
+		return new NoNameFeatureMappingException(
 				"No name mapping defined for type '"
 						+ eObject.eClass().getName() + "'");
 	}
@@ -102,10 +115,10 @@ public class NameAccessor {
 		return eObject.eClass().getEStructuralFeature(nameFeature);
 	}
 
-	private EAttribute getNameAttribute(GlobalNameMapping mapping,
-			EObject eObject) {
+	private EAttribute getNameAttribute(GlobalNameMapping mapping, EObject eObject) {
 		return (EAttribute) getFeature(eObject, mapping.getNameFeature());
 	}
+	
 	private Iterator<GlobalNameMapping> getGlobalNameMappings(EObject context) {
 		Iterator<GlobalNameMapping> globalMappings = Find.allInResourceSet(
 				context, GlobalNameMapping.class);

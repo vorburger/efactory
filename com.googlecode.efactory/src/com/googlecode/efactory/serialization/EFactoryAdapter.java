@@ -18,12 +18,16 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EContentAdapter;
+import org.eclipse.jdt.annotation.NonNull;
+import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import org.eclipse.xtext.util.concurrent.IWriteAccess;
 
 import com.google.inject.Provider;
+import com.googlecode.efactory.building.NameAccessor;
 import com.googlecode.efactory.building.NoNameFeatureMappingException;
+import com.googlecode.efactory.eFactory.Factory;
 import com.googlecode.efactory.eFactory.Feature;
 import com.googlecode.efactory.eFactory.NewObject;
 import com.googlecode.efactory.eFactory.Value;
@@ -48,6 +52,8 @@ public class EFactoryAdapter extends EContentAdapter {
 	// Provider<> is used to keep this lazy - at the time this is constructed, it might not be available, yet
 	protected final Provider<IWriteAccess<XtextResource>> writeAccessProvider;
 
+	protected NameAccessor nameAccessor = new NameAccessor();
+	
 	public EFactoryAdapter(Provider<IWriteAccess<XtextResource>> writeAccessProvider) {
 		this.writeAccessProvider = writeAccessProvider;
 	}
@@ -58,14 +64,24 @@ public class EFactoryAdapter extends EContentAdapter {
 
 		if (msg.isTouch())
 			return;
+
+		final EObject eNotifier = (EObject) msg.getNotifier();
+		if (eNotifier == null)
+			throw new IllegalArgumentException("Huh, Notification without notifier?! " + msg.toString());
 		
-		final NewObject newObject = findChangedNewObject(msg);
-		if (newObject == null)
+		final NewObject newObject = getChangedNewObject(eNotifier);
+		if (newObject == null) // TODO once auto-creation is implemented, this should never be null anymore
 			return;
 		
 		final Feature factoryFeature = findChangedFactoryFeature(msg, newObject);
-		if (factoryFeature == null)
-			return;
+		if (factoryFeature == null) {
+			// The NewObject doesn't have a dedicated name Feature, so try to set name property of NewObject
+			if (handledAsNameChange(msg, eNotifier, newObject)) {
+				return;
+			} else {
+				return; // TODO bad.. create it, if needed
+			}
+		}
 		
 		try {
 			switch (msg.getEventType()) {
@@ -75,6 +91,22 @@ public class EFactoryAdapter extends EContentAdapter {
 			}
 		} catch (NoNameFeatureMappingException e) {
 			logger.warn("NoNameFeatureMappingException in notifyChanged() handling for: " + msg.toString(), e);
+		}
+	}
+
+	protected boolean handledAsNameChange(Notification msg, EObject eNotifier, NewObject newObject) {
+		// TODO handle msg.getEventType().. what if the name is removed?!
+		Factory contextFactory = getEFactoryResource(eNotifier).getFactory();
+		try {
+			EAttribute nameAttribute = nameAccessor.getNameAttribute(contextFactory, eNotifier);
+			if (nameAttribute.equals(msg.getFeature())) {
+				String newName = msg.getNewStringValue();
+				newObject.setName(newName);
+				return true;
+			} else
+				return false;
+		} catch (NoNameFeatureMappingException e) {
+			return false;
 		}
 	}
 
@@ -97,27 +129,35 @@ public class EFactoryAdapter extends EContentAdapter {
 		});
 	}
 		
-	protected Feature findChangedFactoryFeature(final Notification msg, final NewObject newObject) {
-		final Object changedFeature = msg.getFeature();
-		final EStructuralFeature changedEFeature = (EStructuralFeature) changedFeature;
+	protected @Nullable Feature findChangedFactoryFeature(final Notification msg, final NewObject newObject) {
+		final EStructuralFeature changedEFeature = (EStructuralFeature) msg.getFeature();
 		final EList<Feature> newObjectAllFeatures = newObject.getFeatures();
-		// TODO could use org.eclipse.xtext.util.SimpleCache<Key, Value> to cache result of this search loop 
 		for (Feature feature : newObjectAllFeatures) {
 			if (changedEFeature.equals(feature.getEFeature())) {
 				return feature;
 			}
 		}
-		// TODO this is wrong actually - it has to work for features which are not yet in the Factory, too.. so create them on the fly, if needed @see com.googlecode.efactory.builder.resync.tests.BuilderResyncTest.testSetNewFeature()
+		// TODO this is wrong actually - later it has to work for features which are not yet on the NewObject the Factory, too.. so create them on the fly, if needed @see com.googlecode.efactory.builder.resync.tests.BuilderResyncTest.testSetNewFeature()
+		// BUT it should NOT create the name Feature if it doesn't exist yet.. sync code above
+		// so that logic should be in a separate method
 		return null;
 	}
 
-	protected NewObject findChangedNewObject(Notification msg) {
-		final Object notifier = msg.getNotifier();
-		final EObject eNotifier = (EObject) notifier;
+	// TODO this is wrong actually - later it has to work for EObject which are not yet in the Factory, too.. so create them on the fly, if needed @see com.googlecode.efactory.builder.resync.tests.BuilderResyncTest.testSetNewFeature()
+	// TODO @NonNull
+	protected @Nullable NewObject getChangedNewObject(EObject eNotifier) {
+		return getEFactoryResource(eNotifier).getEFactoryElement(eNotifier);
+	}
+/*
+	protected @NonNull EFactoryResource getEFactoryResource(Notification msg) {
+		final EObject eNotifier = (EObject) msg.getNotifier();
+		return getEFactoryResource(eNotifier);
+	}
+*/	
+	@SuppressWarnings("null") // assuming EObject eNotifier is ALWAYS in a EResource
+	protected @NonNull EFactoryResource getEFactoryResource(EObject eNotifier) {
 		final Resource eNotifierResource = eNotifier.eResource();
-		final EFactoryResource eNotifierFactoryResource = (EFactoryResource) eNotifierResource;  
-		final NewObject newObject = eNotifierFactoryResource.getEFactoryElement(eNotifier);
-		return newObject;
+		return (EFactoryResource) eNotifierResource;
 	}
 	
 }
