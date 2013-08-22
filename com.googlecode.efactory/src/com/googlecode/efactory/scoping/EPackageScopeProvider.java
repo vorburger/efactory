@@ -47,7 +47,7 @@ import com.googlecode.efactory.util.EFactoryUtil;
 import com.googlecode.efactory.util.EPackageResolver;
 import com.googlecode.efactory.util.EcoreUtil3;
 
-public class EPackageScopeProvider {
+public class EPackageScopeProvider implements IEPackageScopeProvider {
 
 	@Inject
 	private EFactoryUtil eFactoryUtil;

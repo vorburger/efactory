@@ -41,7 +41,7 @@ public class EFactoryScopeProvider extends AbstractDeclarativeScopeProvider {
 	private EReferenceScopeProvider eReferenceScopeProvider;
 
 	@Inject
-	private EPackageScopeProvider ePackageScopeProvider;
+	private IEPackageScopeProvider ePackageScopeProvider;
 
 	public IScope scope_PackageImport_ePackage(PackageImport packageImport, EReference eReference) {
 		final IScope parent = delegateGetScope(packageImport, eReference);

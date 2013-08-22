@@ -35,6 +35,8 @@ import com.googlecode.efactory.resource.EFactoryDerivedStateComputer;
 import com.googlecode.efactory.resource.EFactoryLocationInFileProvider;
 import com.googlecode.efactory.resource.EFactoryStandaloneResourceFactory;
 import com.googlecode.efactory.scoping.EFactoryImportedNamespaceAwareScopeProvider;
+import com.googlecode.efactory.scoping.EPackageScopeProvider;
+import com.googlecode.efactory.scoping.IEPackageScopeProvider;
 import com.googlecode.efactory.scoping.WarningErrorHandlerWithoutNoSuchMethodException;
 import com.googlecode.efactory.serialization.EFactoryTransientValueService;
 
@@ -93,6 +95,10 @@ public class EFactoryRuntimeModule
 	@Override
 	public Class<? extends ILocationInFileProvider> bindILocationInFileProvider() {
 		return EFactoryLocationInFileProvider.class;
+	}
+	
+	public Class<? extends IEPackageScopeProvider> bindIEPackageScopeProvider() {
+		return EPackageScopeProvider.class;
 	}
 	
 //	@SuppressWarnings("restriction")
