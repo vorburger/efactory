@@ -15,18 +15,24 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.io.File;
+
 import javax.inject.Inject;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.junit4.InjectWith;
 import org.eclipse.xtext.junit4.XtextRunner;
+import org.eclipse.xtext.resource.XtextResourceSet;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import testmodel.AttributeSample;
+import testmodel.SingleRequired;
 import testmodel.TestModel;
 import testmodel.TestmodelFactory;
 import testmodel.TestmodelPackage;
@@ -36,6 +42,7 @@ import com.googlecode.efactory.EFactoryInjectorProvider;
 import com.googlecode.efactory.eFactory.Containment;
 import com.googlecode.efactory.eFactory.Factory;
 import com.googlecode.efactory.eFactory.IntegerAttribute;
+import com.googlecode.efactory.eFactory.NewObject;
 import com.googlecode.efactory.eFactory.StringAttribute;
 import com.googlecode.efactory.eFactory.Value;
 import com.googlecode.efactory.resource.EFactoryResource;
@@ -117,7 +124,6 @@ public class BuilderResyncTest {
 	}
 
 	@Test
-	@Ignore // TODO
 	public void testSetNewFeature() throws Exception {
 		EList<EObject> resourceContents = rp.get().load("res/BuilderResyncTests/1TestModelWithNameProperty.efactory", true);
 
@@ -129,24 +135,45 @@ public class BuilderResyncTest {
 
 		// Check the EFactory model
 		Factory eFactory = (Factory) resourceContents.get(0);
-		Value efValue = eFactory.getRoot().getFeatures().get(1).getValue();
+		Value efValue = eFactory.getRoot().getFeatures().get(2).getValue();
 		Containment efContainmentValue = (Containment) efValue;
-		assertEquals(TestmodelPackage.Literals.ATTRIBUTE_SAMPLE, efContainmentValue.getValue().getEClass());
-		IntegerAttribute singleIntOptional = (IntegerAttribute)efContainmentValue.getValue().getFeatures().get(0).getValue();
+		final NewObject newObject = efContainmentValue.getValue();
+		assertEquals(TestmodelPackage.Literals.ATTRIBUTE_SAMPLE, newObject.getEClass());
+		IntegerAttribute singleIntOptional = (IntegerAttribute)newObject.getFeatures().get(0).getValue();
 		assertEquals(123, singleIntOptional.getValue());
 	}
 
 	@Test
-	@Ignore // TODO
+	@Ignore
 	public void testCreateCompletelyNew() throws Exception {
-		// don't load anything, just create new resource, and add (nested) stuff.. add element to list before (no change tracker attached yet) and after attaching it to resource
-		// set name, and make sure it goes into eFactory.getRoot().getName() instead of a Feature (make sure it's null)
-		// assert no epackages, imports, annotations have been created
+		File newFile = File.createTempFile(getClass().getName() + "Model", ".efactory");
+		URI newResourceURI = URI.createFileURI(newFile.getAbsolutePath());
+		
+		XtextResourceSet rs = new XtextResourceSet();
+		Resource r = rs.createResource(newResourceURI);
+
+		TestModel testModel = TestmodelFactory.eINSTANCE.createTestModel();
+		SingleRequired singleRequired = TestmodelFactory.eINSTANCE.createSingleRequired();
+		testModel.setSingleRequired(singleRequired);
+		testModel.setName("testCreateCompletelyNew");
+		
+		assertEquals(1, r.getContents().size());
+		r.getContents().add(testModel);
+		assertEquals(2, r.getContents().size());
+		
+		Factory factory = (Factory) r.getContents().get(0);
+		String nameAgain = factory.getRoot().getName();
+		assertEquals("testCreateCompletelyNew", nameAgain);
+
+		assertNull(factory.getEpackages());
+		assertNull(factory.getImports());
+		assertNull(factory.getAnnotations());
 	}
 	
 	@Test
 	@Ignore // TODO
 	public void testAddToList() throws Exception {
+		// add (nested) stuff.. add element to list before (no change tracker attached yet) and after attaching it to resource
 	}
 
 }

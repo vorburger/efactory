@@ -20,7 +20,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 
-import com.googlecode.efactory.building.NoNameFeatureMappingException;
 import com.googlecode.efactory.eFactory.Containment;
 import com.googlecode.efactory.eFactory.EFactoryFactory;
 import com.googlecode.efactory.eFactory.Factory;
@@ -35,20 +34,20 @@ class ContainmentBuilder extends FeatureBuilder {
 	@SuppressWarnings("unused")
 	private Factory context;
 
-	private ContainmentBuilder(EReference containment, FactoryBuilder factoryBuilder) {
+	private ContainmentBuilder(EReference containment, IFactoryBuilder factoryBuilder) {
 		super(factoryBuilder);
 		this.containment = containment;
 	}
 
 	@Override
-	protected Value createValue() throws NoNameFeatureMappingException {
+	protected Value createValue() {
 		Containment newContainment = EFactoryFactory.eINSTANCE
 				.createContainment();
 		newContainment.setValue(createNewObject());
 		return newContainment;
 	}
 
-	private NewObject createNewObject() throws NoNameFeatureMappingException {
+	private NewObject createNewObject() {
 		if (value instanceof EObject) {
 			EObject eObjectValue = (EObject) value;
 			return factoryBuilder.getOrBuildNewObject(eObjectValue);
@@ -68,7 +67,7 @@ class ContainmentBuilder extends FeatureBuilder {
 		return containment;
 	}
 
-	public static ContainmentBuilder containment(EReference containment, FactoryBuilder factoryBuilder) {
+	public static ContainmentBuilder containment(EReference containment, IFactoryBuilder factoryBuilder) {
 		return new ContainmentBuilder(containment, factoryBuilder);
 	}
 

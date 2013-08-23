@@ -36,28 +36,32 @@ class NewObjectBuilder {
 	private final Factory context;
 	private NameAccessor nameAccessor = new NameAccessor();
 	private EAttribute nameEAttribute;
-	private final FactoryBuilder factoryBuilder;
+	private final IFactoryBuilder factoryBuilder;
 	
-	private NewObjectBuilder(Factory context, FactoryBuilder factoryBuilder) {
+	private NewObjectBuilder(Factory context, IFactoryBuilder factoryBuilder) {
 		this.context = context;
 		this.factoryBuilder = factoryBuilder;
 	}
 
-	public static NewObjectBuilder context(Factory context, FactoryBuilder factoryBuilder) {
+	public static NewObjectBuilder context(Factory context, IFactoryBuilder factoryBuilder) {
 		return new NewObjectBuilder(context, factoryBuilder);
 	}
 
-	public NewObject build(EObject input) throws NoNameFeatureMappingException {
+	public NewObject build(EObject input) {
 		NewObject newObject = EFactoryFactory.eINSTANCE.createNewObject();
 		newObject.setEClass(input.eClass());
-		newObject.setName(getName(input));
+		try {
+			newObject.setName(getName(input));
+		} catch (NoNameFeatureMappingException e) {
+			// OK, we cannot name the object... ignore and move on!
+		}
 		addAttributes(newObject, input);
 		addContainments(newObject, input);
 		addReferences(newObject, input);
 		return newObject;
 	}
 
-	private void addContainments(NewObject newObject, EObject input) throws NoNameFeatureMappingException {
+	private void addContainments(NewObject newObject, EObject input) {
 		EList<Feature> features = newObject.getFeatures();
 		for (EReference containment : input.eClass().getEAllContainments()) {
 			Object containmentValue = input.eGet(containment);
@@ -74,16 +78,15 @@ class NewObjectBuilder {
 				}
 			}
 		}
-
 	}
 
 	private Feature createContainment(EReference containment,
-			Object containmentValue) throws NoNameFeatureMappingException {
+			Object containmentValue) {
 		return ContainmentBuilder.containment(containment, factoryBuilder).factory(context)
 				.value(containmentValue).build();
 	}
 	
-	private void addReferences(NewObject newObject, EObject input) throws NoNameFeatureMappingException {
+	private void addReferences(NewObject newObject, EObject input) {
 		EList<Feature> features = newObject.getFeatures();
 		for (EReference eReference : input.eClass().getEAllReferences()) {
 			if (!eReference.isContainment()) {
@@ -100,16 +103,15 @@ class NewObjectBuilder {
 				}
 			}
 		}
-
 	}
 
 	private void createReference(EList<Feature> features,
-			EReference eReference, Object referencedElement) throws NoNameFeatureMappingException {
+			EReference eReference, Object referencedElement) {
 		features.add(ReferenceBuilder.reference(eReference, factoryBuilder)
-				.element((EObject) referencedElement).build());
+				.value(referencedElement).build());
 	}
 
-	private void addAttributes(NewObject newObject, EObject input) throws NoNameFeatureMappingException {
+	private void addAttributes(NewObject newObject, EObject input) {
 		EList<Feature> features = newObject.getFeatures();
 
 		for (EAttribute attribute : input.eClass().getEAllAttributes()) {
@@ -128,11 +130,10 @@ class NewObjectBuilder {
 				}
 			}
 		}
-
 	}
 
 	private void createAttribute(EList<Feature> features, EAttribute attribute,
-			Object value) throws NoNameFeatureMappingException {
+			Object value) {
 		features.add(AttributeBuilder.attribute(attribute, factoryBuilder)
 				.value(value).build());
 	}

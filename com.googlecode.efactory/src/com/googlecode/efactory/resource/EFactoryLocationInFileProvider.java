@@ -47,7 +47,7 @@ public class EFactoryLocationInFileProvider extends DefaultLocationInFileProvide
 	protected EObject getRealObject(EObject semanticObject) {
 		Resource resource = semanticObject.eResource();
 		EFactoryResource efResource = (EFactoryResource) resource;
-		NewObject newObject = efResource.getEFactoryElement(semanticObject);
+		NewObject newObject = efResource.getEFactoryNewObject(semanticObject);
 		if (newObject != null)
 			return newObject;
 		else

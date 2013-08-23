@@ -27,13 +27,13 @@ class AttributeBuilder extends FeatureBuilder {
 	private ValueSwitch valueSwitch;
 
 	EAttribute attribute;
-	private AttributeBuilder(EAttribute attribute, FactoryBuilder factoryBuilder) {
+	private AttributeBuilder(EAttribute attribute, IFactoryBuilder factoryBuilder) {
 		super(factoryBuilder);
 		this.attribute = attribute;
 		valueSwitch = new ValueSwitch(attribute);
 	}
 	
-	public static FeatureBuilder attribute(EAttribute attribute, FactoryBuilder factoryBuilder) {
+	public static FeatureBuilder attribute(EAttribute attribute, IFactoryBuilder factoryBuilder) {
 		return new AttributeBuilder(attribute, factoryBuilder);
 	}
 

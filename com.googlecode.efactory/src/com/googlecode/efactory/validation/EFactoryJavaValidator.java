@@ -194,7 +194,7 @@ public class EFactoryJavaValidator extends AbstractEFactoryJavaValidator {
 	private EObject getSource(EFactoryResource resource, Diagnostic diagnostic) {
 		for (Object data : diagnostic.getData()) {
 			if (data instanceof EObject) {
-				return resource.getEFactoryElement((EObject) data);
+				return resource.getEFactoryNewObject((EObject) data);
 			}
 		}
 		return null;

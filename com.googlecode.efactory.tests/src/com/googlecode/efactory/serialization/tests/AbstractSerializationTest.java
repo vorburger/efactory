@@ -100,7 +100,8 @@ public abstract class AbstractSerializationTest extends AbstractEFactoryTest {
 
 	protected void performSerializationTest(String name) throws Exception {
 		EObject testModel = loadTestModel(name);
-		Factory expected = ((EFactoryResource) testModel.eResource()).getFactory();
+		Factory expected = ((EFactoryResource) testModel.eResource()).getEFactoryFactory();
+		
 		FactoryBuilder builder = new FactoryBuilder();
 		Factory actual = builder.buildFactory(testModel);
 

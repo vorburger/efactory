@@ -46,6 +46,10 @@ public class EFactoryDerivedStateComputer implements IDerivedStateComputer {
 	
 	// implementation inspired by XcoreModelAssociator (more than JvmModelAssociator) 
 	public void installDerivedState(DerivedStateAwareResource resource, boolean preLinkingPhase) {
+//		if (resource.getContents().size() != 1) {
+//			throw new IllegalArgumentException();
+//		}
+		
 	    final IParseResult parseResult = resource.getParseResult();
 		if (parseResult != null && parseResult.getRootASTElement() != null)
 	    {

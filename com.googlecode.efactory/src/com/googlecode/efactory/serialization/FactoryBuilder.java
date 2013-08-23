@@ -27,7 +27,7 @@ import com.googlecode.efactory.eFactory.Factory;
 import com.googlecode.efactory.eFactory.NewObject;
 import com.googlecode.efactory.eFactory.PackageImport;
 
-public class FactoryBuilder {
+public class FactoryBuilder implements IFactoryBuilder {
 
 	private Map<EObject, NewObject> mapping = new HashMap<EObject, NewObject>();
 	private Factory factory;
@@ -43,8 +43,7 @@ public class FactoryBuilder {
 		return factory;
 	}
 	
-	// intentionally package-local, for the moment
-	NewObject getOrBuildNewObject(EObject eObject) throws NoNameFeatureMappingException {
+	public NewObject getOrBuildNewObject(EObject eObject) {
 		NewObject newObject = mapping.get(eObject);
 		if (newObject == null) {
 			newObject = createNewObject(eObject);
@@ -53,7 +52,7 @@ public class FactoryBuilder {
 		return newObject;
 	}
 	
-	private NewObject createNewObject(EObject eObject) throws NoNameFeatureMappingException {
+	private NewObject createNewObject(EObject eObject) {
 		NewObjectBuilder builder = NewObjectBuilder.context(factory, this);
 		NewObject newObject = builder.build(eObject);
 		return newObject;

@@ -34,7 +34,7 @@ public class EFactoryResource extends DerivedStateAwareResource {
 		return getBuilder().isBuilt();
 	}
 	
-	@Nullable public NewObject getEFactoryElement(EObject eObject) {
+	@Nullable public NewObject getEFactoryNewObject(EObject eObject) {
 		if (builder == null) {
 			return null;
 		}
@@ -62,7 +62,7 @@ public class EFactoryResource extends DerivedStateAwareResource {
 		}
 	}
 	
-	@Nullable public com.googlecode.efactory.eFactory.Factory getFactory() {
+	@Nullable public com.googlecode.efactory.eFactory.Factory getEFactoryFactory() {
 		if (getContents().isEmpty()) {
 			return null;
 		}

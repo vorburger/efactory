@@ -20,7 +20,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 
-import com.googlecode.efactory.building.NoNameFeatureMappingException;
 import com.googlecode.efactory.eFactory.EFactoryFactory;
 import com.googlecode.efactory.eFactory.NewObject;
 import com.googlecode.efactory.eFactory.Reference;
@@ -30,17 +29,16 @@ import com.googlecode.efactory.eFactory.Value;
 class ReferenceBuilder extends FeatureBuilder {
 
 	private EReference eReference;
-	private EObject referencedElement;
 
-	private ReferenceBuilder(EReference reference, FactoryBuilder factoryBuilder) {
+	private ReferenceBuilder(EReference reference, IFactoryBuilder factoryBuilder) {
 		super(factoryBuilder);
 		this.eReference = reference;
 	}
 
 	@Override
-	protected Value createValue() throws NoNameFeatureMappingException {
+	protected Value createValue() {
 		Reference reference = EFactoryFactory.eINSTANCE.createReference();
-		NewObject newObject = factoryBuilder.getOrBuildNewObject(referencedElement);
+		NewObject newObject = factoryBuilder.getOrBuildNewObject((EObject) value);
 		reference.setValue(newObject);
 		return reference;
 	}
@@ -50,13 +48,8 @@ class ReferenceBuilder extends FeatureBuilder {
 		return eReference;
 	}
 
-	public static ReferenceBuilder reference(EReference reference, FactoryBuilder factoryBuilder) {
+	public static ReferenceBuilder reference(EReference reference, IFactoryBuilder factoryBuilder) {
 		return new ReferenceBuilder(reference, factoryBuilder);
-	}
-
-	public FeatureBuilder element(EObject referencedElement) {
-		this.referencedElement = referencedElement;
-		return this;
 	}
 
 }

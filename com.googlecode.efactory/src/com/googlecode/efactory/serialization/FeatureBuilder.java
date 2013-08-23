@@ -18,7 +18,6 @@ package com.googlecode.efactory.serialization;
 
 import org.eclipse.emf.ecore.EStructuralFeature;
 
-import com.googlecode.efactory.building.NoNameFeatureMappingException;
 import com.googlecode.efactory.eFactory.EFactoryFactory;
 import com.googlecode.efactory.eFactory.Feature;
 import com.googlecode.efactory.eFactory.Value;
@@ -27,14 +26,14 @@ import com.googlecode.efactory.eFactory.Value;
 abstract class FeatureBuilder {
 
 	protected Object value;
-	protected final FactoryBuilder factoryBuilder;
+	protected final IFactoryBuilder factoryBuilder;
 
-	protected FeatureBuilder(FactoryBuilder factoryBuilder) {
+	protected FeatureBuilder(IFactoryBuilder factoryBuilder) {
 		super();
 		this.factoryBuilder = factoryBuilder;
 	}
 
-	protected Feature createFeature(EStructuralFeature eFeature) throws NoNameFeatureMappingException {
+	protected Feature createFeature(EStructuralFeature eFeature) {
 		Feature feature = EFactoryFactory.eINSTANCE.createFeature();
 		feature.setEFeature(eFeature);
 		feature.setIsMany(eFeature.isMany());
@@ -42,13 +41,13 @@ abstract class FeatureBuilder {
 		return feature;
 	}
 
-	public Feature build() throws NoNameFeatureMappingException {
+	public Feature build() {
 		return createFeature(getEFeature());
 	}
 
 	protected abstract EStructuralFeature getEFeature();
 
-	protected abstract Value createValue() throws NoNameFeatureMappingException;
+	protected abstract Value createValue();
 
 	public FeatureBuilder value(Object value) {
 		this.value = value;
