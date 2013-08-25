@@ -100,6 +100,6 @@ QualifiedName:
 ValidID:
 	ID;
 
-terminal LONG returns ecore::ELong : ('-')?  ('0'..'9')+;
+LONG returns ecore::ELong : ('-')?  INT;
 terminal DOUBLE returns ecore::EDouble : ('-')?  ('0'..'9')+ '.'  ('0'..'9')+;
 terminal DATE returns ecore::EDate : ('0'..'1') '0'..'9' '.' '0'..'3' '0'..'9' '.'  '0'..'9' '0'..'9' '0'..'9' '0'..'9';
