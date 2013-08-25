@@ -29,6 +29,10 @@ import com.googlecode.efactory.eFactory.PackageImport;
 
 public class FactoryBuilder implements IFactoryBuilder {
 
+	// TODO the grand re-unificiation of classic Serialization with my new re-syncing..
+	// merge this class with the new FactoryBuilder2; the mapping below will become 
+	// the same as the mapping in the ModelBuilder
+	
 	private Map<EObject, NewObject> mapping = new HashMap<EObject, NewObject>();
 	private Factory factory;
 	
@@ -44,6 +48,9 @@ public class FactoryBuilder implements IFactoryBuilder {
 	}
 	
 	public NewObject getOrBuildNewObject(EObject eObject) {
+		if (eObject == null)
+			throw new IllegalArgumentException("getOrBuildNewObject(null)");
+
 		NewObject newObject = mapping.get(eObject);
 		if (newObject == null) {
 			newObject = createNewObject(eObject);

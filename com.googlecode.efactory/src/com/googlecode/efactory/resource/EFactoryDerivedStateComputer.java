@@ -26,7 +26,6 @@ import com.google.inject.Inject;
 import com.googlecode.efactory.building.ModelBuilder;
 import com.googlecode.efactory.building.ModelBuilderException;
 import com.googlecode.efactory.eFactory.Factory;
-import com.googlecode.efactory.serialization.EFactoryAdapter;
 
 /**
  * Adds the actual EObject. Uses the FactoryBuilder.
@@ -46,10 +45,6 @@ public class EFactoryDerivedStateComputer implements IDerivedStateComputer {
 	
 	// implementation inspired by XcoreModelAssociator (more than JvmModelAssociator) 
 	public void installDerivedState(DerivedStateAwareResource resource, boolean preLinkingPhase) {
-//		if (resource.getContents().size() != 1) {
-//			throw new IllegalArgumentException();
-//		}
-		
 	    final IParseResult parseResult = resource.getParseResult();
 		if (parseResult != null && parseResult.getRootASTElement() != null)
 	    {
@@ -72,15 +67,17 @@ public class EFactoryDerivedStateComputer implements IDerivedStateComputer {
 			ModelBuilder builder = efResource.getBuilder();
 			try {
 				EObject eModel = builder.buildWithoutLinking(model);
-				resource.getContents().add(eModel);
 				if (!preLinkingPhase) {
 					builder.link();
 				}
-				// add our change notification listener only AFTER
-				// the buildWithoutLinking() + link(), because we don't
-				// want/need to get the notifications from the Builder - only
-				// from external clients (e.g. Generic Ecore editor UI, etc.)
-				eModel.eAdapters().add(new EFactoryAdapter(efResource.getWriteAccessProvider()));
+				// Do add() only AFTER the buildWithoutLinking() + link(),
+				// because we don't want/need to get the notifications from our
+				// ModelBuilder - only from external clients (e.g. Generic Ecore
+				// editor UI, etc.)
+				//
+				// Note that our EFactoryAdapter change notification listener
+				// gets added by com.googlecode.efactory.resource.EFactoryResource.attached(EObject)
+				resource.getContents().add(eModel);
 			} catch (ModelBuilderException e) {
 				builder.clear();
 				// TODO make this a logger.debug() again.. it's only logger.error() so that I can see this better while developping..

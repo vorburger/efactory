@@ -192,4 +192,8 @@ public class ModelBuilder {
 			it.remove();
 		}
 	}
+	
+	public void putEObjectNewObjectPair(EObject eObject, NewObject newObject) {
+		mapping.put(newObject, eObject);
+	}
 }

@@ -15,17 +15,16 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 import javax.inject.Inject;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.junit4.InjectWith;
 import org.eclipse.xtext.junit4.XtextRunner;
-import org.eclipse.xtext.resource.XtextResourceSet;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -143,31 +142,41 @@ public class BuilderResyncTest {
 		assertEquals(123, singleIntOptional.getValue());
 	}
 
+	/**
+	 * New objects, with an empty resource. Note: For technical implementation
+	 * reasons, this MUST be done by starting with loading an empty resource,
+	 * not with creating a new resource and adding objects to its content and
+	 * then saving it. This is because if it were done like this, then the
+	 * content(0) EFactory Factory NewObject root object wouldn't be created
+	 * first as it needs to be. This programmatic "trick" (loading empty
+	 * resource) actually corresponds to how e.g. the Sample Ecore Model Editor
+	 * (EcoreEditor), or other such UIs, would operate in practice anyways (the
+	 * would open an empty new file), so... it actually isn't really a "hack".
+	 */
 	@Test
-	@Ignore
 	public void testCreateCompletelyNew() throws Exception {
-		File newFile = File.createTempFile(getClass().getName() + "Model", ".efactory");
-		URI newResourceURI = URI.createFileURI(newFile.getAbsolutePath());
+		Path newEmptyFile = Files.createTempFile(getClass().getSimpleName() + "Model", ".efactory");
+		com.google.common.io.Files.touch(newEmptyFile.toFile()); 
 		
-		XtextResourceSet rs = new XtextResourceSet();
-		Resource r = rs.createResource(newResourceURI);
+		EList<EObject> resContents = rp.get().load(newEmptyFile.toFile(), false);
+		assertEquals(1, resContents.size()); // sic! Note: An empty resource - but it already has the Factory NewObject root object
 
 		TestModel testModel = TestmodelFactory.eINSTANCE.createTestModel();
 		SingleRequired singleRequired = TestmodelFactory.eINSTANCE.createSingleRequired();
 		testModel.setSingleRequired(singleRequired);
 		testModel.setName("testCreateCompletelyNew");
+		resContents.add(testModel);
+		assertEquals(2, resContents.size());
 		
-		assertEquals(1, r.getContents().size());
-		r.getContents().add(testModel);
-		assertEquals(2, r.getContents().size());
-		
-		Factory factory = (Factory) r.getContents().get(0);
+		Factory factory = (Factory) resContents.get(0);
 		String nameAgain = factory.getRoot().getName();
 		assertEquals("testCreateCompletelyNew", nameAgain);
+		EClass eClass = factory.getRoot().getEClass();
+		assertEquals(TestmodelPackage.Literals.TEST_MODEL, eClass);
 
-		assertNull(factory.getEpackages());
-		assertNull(factory.getImports());
-		assertNull(factory.getAnnotations());
+		assertTrue(factory.getEpackages().isEmpty());
+		assertTrue(factory.getImports().isEmpty());
+		assertTrue(factory.getAnnotations().isEmpty());
 	}
 	
 	@Test

@@ -12,18 +12,24 @@ package com.googlecode.efactory.serialization;
 
 import org.eclipse.emf.ecore.EObject;
 
+import com.googlecode.efactory.building.ModelBuilder;
 import com.googlecode.efactory.eFactory.Factory;
 import com.googlecode.efactory.eFactory.NewObject;
 import com.googlecode.efactory.resource.EFactoryResource;
 
 /**
- * FactoryBuilder based on an EFactoryResource.
+ * FactoryBuilder based on an EFactoryResource (which in trun will delegate to
+ * its ModelBuilder).
  * 
  * @see FactoryBuilder
+ * @see ModelBuilder
  * 
  * @author Michael Vorburger
  */
 public class FactoryBuilder2 implements IFactoryBuilder {
+	// TODO indented as temporary, to be re-unified with the original
+	// FactoryBuilder in the planned grand re-unificiation of classic
+	// Serialization with my new re-syncing..
 	
 	private final EFactoryResource resource;
 
@@ -36,6 +42,7 @@ public class FactoryBuilder2 implements IFactoryBuilder {
 	public NewObject getOrBuildNewObject(EObject eObject) {
 		if (eObject == null)
 			throw new IllegalArgumentException("getOrBuildNewObject(null)");
+		
 		// we cannot rely on eObject.eResource(), because programmatically newly added objects
 		// might not be in our EFactoryResource, yet.  But if the EObject does have a Resource,
 		// it better be ours.  (Or are there scenarios where this doesn't make sense?)
@@ -44,12 +51,17 @@ public class FactoryBuilder2 implements IFactoryBuilder {
 		}
 		
 		NewObject newObject = resource.getEFactoryNewObject(eObject);
-		if (newObject != null)
-			return newObject;
-		
+		if (newObject == null) {
+			newObject = createNewObject(eObject);
+			resource.putEObjectNewObjectPair(eObject, newObject);
+		}
+		return newObject;
+	}
+
+	protected NewObject createNewObject(EObject eObject) {
 		Factory factory = resource.getEFactoryFactory();
 		NewObjectBuilder builder = NewObjectBuilder.context(factory, this);
-		newObject = builder.build(eObject);
+		NewObject newObject = builder.build(eObject);
 		return newObject;
 	}
 

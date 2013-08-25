@@ -23,6 +23,7 @@ import com.google.inject.Provider;
 import com.googlecode.efactory.building.ModelBuilder;
 import com.googlecode.efactory.building.ModelBuilderException;
 import com.googlecode.efactory.eFactory.NewObject;
+import com.googlecode.efactory.serialization.EFactoryAdapter;
 
 public class EFactoryResource extends DerivedStateAwareResource {
 
@@ -85,4 +86,27 @@ public class EFactoryResource extends DerivedStateAwareResource {
 			}
 		};
 	}
+
+	/**
+	 * The "back synchronization" is done by the EFactoryAdapter we add here.
+	 * In the special case of an empty resource to which the first root EObject is added, as illustrated by the
+	 * com.googlecode.efactory.builder.resync.tests.BuilderResyncTest.testCreateCompletelyNew(),
+	 * we need this handling. 
+	 */
+	@Override
+	public void attached(EObject eObject) {
+		super.attached(eObject);
+		if (contents.size() > 1 && contents.get(1).equals(eObject)) {
+			EFactoryAdapter adapter = new EFactoryAdapter(getWriteAccessProvider());
+			if (getEFactoryNewObject(eObject) == null) {
+				adapter.setRootNewObject(eObject);
+			}
+			eObject.eAdapters().add(adapter);
+		}
+	}
+
+	public void putEObjectNewObjectPair(EObject eObject, NewObject newObject) {
+		builder.putEObjectNewObjectPair(eObject, newObject);
+	}
+	
 }

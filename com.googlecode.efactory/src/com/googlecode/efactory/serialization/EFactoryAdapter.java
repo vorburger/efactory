@@ -120,6 +120,23 @@ public class EFactoryAdapter extends EContentAdapter {
 			removeValue(factoryFeature, msg);
 	}
 	
+	public void setRootNewObject(final EObject eObject) {
+		writeAccessProvider.get().modify(new IUnitOfWork.Void<XtextResource>() {
+			@Override
+			public void process(XtextResource xResource) throws Exception {
+				// final EFactoryResource resource = getEFactoryResource(eObject);
+				EFactoryResource fResource = (EFactoryResource) xResource;
+				final Factory factory = fResource.getEFactoryFactory();
+				if (factory == null)
+					throw new IllegalStateException();
+				FactoryBuilder2 factoryBuilder = new FactoryBuilder2(fResource);
+				NewObjectBuilder builder = NewObjectBuilder.context(factory, factoryBuilder);
+				NewObject newObject = builder.build(eObject);
+				factory.setRoot(newObject);
+			}
+		});
+	}
+	
 	// setOrAddValue ?
 	protected void setValue(final Feature factoryFeature, final Notification msg) throws NoNameFeatureMappingException {
 		final EFactoryResource resource = getEFactoryResource(msg);
