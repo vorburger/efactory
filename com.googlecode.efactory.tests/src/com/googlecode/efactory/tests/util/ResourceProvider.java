@@ -61,26 +61,35 @@ public class ResourceProvider {
 		return clazz.cast(object);
 	}
 
-	public URI getUri(String relativepath) {
+	public URI getUri(String plugInRootRelativePath) {
 		URI uri;
 		if (Platform.isRunning()) {
-			uri = createPlatformURI(relativepath);
+			uri = createPlatformURI(plugInRootRelativePath);
 		} else {
-			uri = createFileUri(relativepath);
+			uri = createFileUri(plugInRootRelativePath);
 		}
 		return uri;
 	}
 
-	private URI createFileUri(String relativepath) {
-		return URI.createFileURI(new File(relativepath).getAbsolutePath());
+	private URI createFileUri(String plugInRootRelativePath) {
+		return URI.createFileURI(new File(plugInRootRelativePath).getAbsolutePath());
 	}
 
-	private URI createPlatformURI(String relativepath) {
-		return URI.createPlatformPluginURI(pluginId + "/" + relativepath, true);
+	private URI createPlatformURI(String plugInRootRelativePath) {
+		return URI.createPlatformPluginURI(pluginId + "/" + plugInRootRelativePath, true);
 	}
 
-	public EList<EObject> load(String path, boolean validate) throws IOException, DiagnosticException {
-		URI uri = getUri(path);
+	public EList<EObject> load(String plugInRootRelativePath, boolean validate) throws IOException, DiagnosticException {
+		URI uri = getUri(plugInRootRelativePath);
+		return load(uri, validate);
+	}
+	
+	public EList<EObject> load(File file, boolean validate) throws IOException, DiagnosticException {
+		URI uri = URI.createFileURI(file.getAbsolutePath());
+		return load(uri, validate);
+	}
+	
+	public EList<EObject> load(URI uri, boolean validate) throws IOException, DiagnosticException {
 		Resource resource = rs.getResource(uri, true);
 		final EList<EObject> contents = resource.getContents();
 		
@@ -90,31 +99,39 @@ public class ResourceProvider {
 			for (EObject content : contents) {
 				Diagnostician.INSTANCE.validate(content, chain);
 			}
-			logResourceDiagnostics(resource);
 			if (!BasicDiagnostic.toIStatus(chain).isOK()) {
 				throw new DiagnosticExceptionWithURIAndToString(chain, uri);
-			}		
+			}
+			
+			logResourceDiagnostics(resource);
+			if (!resource.getErrors().isEmpty() || !resource.getWarnings().isEmpty()) {
+				// This is important, because as the case of a completely empty resource used in 
+				// com.googlecode.efactory.builder.resync.tests.BuilderResyncTest.testCreateCompletelyNew()
+				// shows (change validate = true to see it), the BasicDiagnostic.toIStatus(chain).isOK()
+				// ignores resource.getErrors() problems!
+				throw new IOException(uri.toString() + " resource load produced warnings or errors (see log on System.out console)");
+			}
 		}
 		
 		if (contents.isEmpty())
-			throw new IOException("Could no load / no content (see log!) in resource: " + path);
+			throw new IOException("Could no load / no content (see log!) in resource: " + uri.toPlatformString(true));
 		return contents;
 	}
 	
-	public <T> T loadModel(String path, Class<T> clazz, boolean validate) throws IOException, DiagnosticException {
-		EList<EObject> contents = load(path, validate);
+	public <T> T loadModel(String plugInRootRelativePath, Class<T> clazz, boolean validate) throws IOException, DiagnosticException {
+		EList<EObject> contents = load(plugInRootRelativePath, validate);
 		if (contents.size() == 1)
-			throw new IOException("Could load, but found no EObject in content, other than EFactory (so the EFactoryDerivedStateComputer failed; see log!) in resource: " + path);		
+			throw new IOException("Could load, but found no EObject in content, other than EFactory (so the EFactoryDerivedStateComputer failed; see log!) in resource: " + plugInRootRelativePath);		
 		// get(1) because 0 is the root EFactory NewObject, 1 is the EObject from it
 		return get(contents, 1, clazz);
 	}
 
-	public <T> T loadModel(String path, Class<T> clazz) throws IOException, DiagnosticException {
-		return loadModel(path, clazz, true);
+	public <T> T loadModel(String plugInRootRelativePath, Class<T> clazz) throws IOException, DiagnosticException {
+		return loadModel(plugInRootRelativePath, clazz, true);
 	}
 	
-	public EObject loadModel(String path) throws IOException, DiagnosticException {
-		return loadModel(path, EObject.class);
+	public EObject loadModel(String plugInRootRelativePath) throws IOException, DiagnosticException {
+		return loadModel(plugInRootRelativePath, EObject.class);
 	}
 	
 	private void logResourceDiagnostics(Resource resource) {
