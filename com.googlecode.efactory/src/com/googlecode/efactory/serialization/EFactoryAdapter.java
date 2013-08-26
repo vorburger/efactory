@@ -87,7 +87,8 @@ public class EFactoryAdapter extends EContentAdapter {
 		try {
 			switch (msg.getEventType()) {
 				case Notification.SET :
-					setOrRemoveValue(factoryFeature, msg);
+				case Notification.ADD :
+					setAddOrRemoveValue(factoryFeature, msg);
 					break;
 			}
 		} catch (NoNameFeatureMappingException e) {
@@ -113,9 +114,9 @@ public class EFactoryAdapter extends EContentAdapter {
 		}
 	}
 
-	protected void setOrRemoveValue(final Feature factoryFeature, final Notification msg) throws NoNameFeatureMappingException {
+	protected void setAddOrRemoveValue(final Feature factoryFeature, final Notification msg) throws NoNameFeatureMappingException {
 		if (msg.getNewValue() != null)
-			setValue(factoryFeature, msg);
+			setOrAddValue(factoryFeature, msg);
 		else
 			removeValue(factoryFeature, msg);
 	}
@@ -137,8 +138,7 @@ public class EFactoryAdapter extends EContentAdapter {
 		});
 	}
 	
-	// setOrAddValue ?
-	protected void setValue(final Feature factoryFeature, final Notification msg) throws NoNameFeatureMappingException {
+	protected void setOrAddValue(final Feature factoryFeature, final Notification msg) throws NoNameFeatureMappingException {
 		final EFactoryResource resource = getEFactoryResource(msg);
 		final IFactoryBuilder factoryBuilder = new FactoryBuilder2(resource);
 		FeatureBuilder builder;
@@ -190,7 +190,7 @@ public class EFactoryAdapter extends EContentAdapter {
 		final Feature newFeature = EFactoryFactory.eINSTANCE.createFeature();
 		final EStructuralFeature changedEFeature = (EStructuralFeature) msg.getFeature();
 		newFeature.setEFeature(changedEFeature);
-		// TODO handle newFeature.setIsMany() ! but do that LATER, after I've changed syntax from += to []
+		newFeature.setIsMany(changedEFeature.isMany());
 		newObject.getFeatures().add(newFeature);
 		return newFeature;
 	}

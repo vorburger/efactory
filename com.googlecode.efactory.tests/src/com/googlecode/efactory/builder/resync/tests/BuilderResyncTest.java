@@ -30,6 +30,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import testmodel.AttributeSample;
+import testmodel.AttributeTestContainer;
+import testmodel.SampleEnum;
 import testmodel.SingleRequired;
 import testmodel.TestModel;
 import testmodel.TestmodelFactory;
@@ -38,7 +40,9 @@ import testmodel.TestmodelPackage;
 import com.google.inject.Provider;
 import com.googlecode.efactory.EFactoryInjectorProvider;
 import com.googlecode.efactory.eFactory.Containment;
+import com.googlecode.efactory.eFactory.EnumAttribute;
 import com.googlecode.efactory.eFactory.Factory;
+import com.googlecode.efactory.eFactory.Feature;
 import com.googlecode.efactory.eFactory.IntegerAttribute;
 import com.googlecode.efactory.eFactory.NewObject;
 import com.googlecode.efactory.eFactory.StringAttribute;
@@ -48,8 +52,8 @@ import com.googlecode.efactory.tests.util.ResourceProvider;
 import com.googlecode.efactory.tests.util.TestSetup;
 
 /**
- * Tests the "re-sychronization" of changes to the derived "real" EObjects to
- * the source EFactory model.
+ * Tests EFactoryAdapter's "re-sychronization" of changes to the derived "real"
+ * EObjects to the source EFactory model.
  * 
  * @author Michael Vorburger
  */
@@ -180,9 +184,91 @@ public class BuilderResyncTest {
 	}
 	
 	@Test
-	@Ignore // TODO
 	public void testAddToList() throws Exception {
 		// add (nested) stuff.. add element to list before (no change tracker attached yet) and after attaching it to resource
+		EList<EObject> resourceContents = rp.get().load("res/BuilderResyncTests/1TestModelWithNameProperty.efactory", true);
+
+		// Change the TestModel
+		TestModel testModel = (TestModel) resourceContents.get(1);
+		AttributeTestContainer firstAttributeTestContainer = TestmodelFactory.eINSTANCE.createAttributeTestContainer();
+		firstAttributeTestContainer.setOneInt(9876);
+		testModel.getAttributeTest().add(firstAttributeTestContainer);
+
+		// Check the EFactory model
+		Factory eFactory = (Factory) resourceContents.get(0);
+		checkListFeature(eFactory, 2, 9876);
+
+/*
+   TODO change multi syntax... and fix this: 
+   		
+		// add another element to existing list
+		AttributeTestContainer secondAttributeTestContainer = TestmodelFactory.eINSTANCE.createAttributeTestContainer();
+		secondAttributeTestContainer.setOneInt(5432);
+		testModel.getAttributeTest().add(secondAttributeTestContainer);
+		// check second element just added
+		checkListFeature(eFactory, 2, 5432); // TODO REMOVE THIS - it's just here to illustrate the current problem...
+		checkListFeature(eFactory, 3, 5432);
+*/		
+		// TODO remove the first element from list
+		// TODO move elements..
+		// TODO add many (two) new elements element to list
+		// TODO remove many (e.g. middle two?) elements from list
 	}
 
+	protected void checkListFeature(Factory eFactory, int featureIndex, int expectedInt) {
+		Feature newFeature = eFactory.getRoot().getFeatures().get(featureIndex);
+		assertTrue(newFeature.isIsMany());
+		Containment efContainmentValue = (Containment) newFeature.getValue();
+		NewObject newObject = efContainmentValue.getValue();
+		assertEquals(TestmodelPackage.Literals.ATTRIBUTE_TEST_CONTAINER, newObject.getEClass());
+		IntegerAttribute oneInt = (IntegerAttribute)newObject.getFeatures().get(0).getValue();
+		assertEquals(expectedInt, oneInt.getValue());
+	}
+
+	@Test
+	@Ignore // TODO testEnum
+	public void testEnum() throws Exception {
+		// add (nested) stuff.. add element to list before (no change tracker attached yet) and after attaching it to resource
+		EList<EObject> resourceContents = rp.get().load("res/BuilderResyncTests/1TestModelWithNameProperty.efactory", true);
+
+		// Change the TestModel
+		TestModel testModel = (TestModel) resourceContents.get(1);
+		AttributeTestContainer attributeTestContainer = TestmodelFactory.eINSTANCE.createAttributeTestContainer();
+		attributeTestContainer.setOneEnum(SampleEnum.SAMPLE2);
+		attributeTestContainer.getManyEnums().add(SampleEnum.SAMPLE);
+		testModel.getAttributeTest().add(attributeTestContainer);
+
+		// Check the EFactory model
+		Factory eFactory = (Factory) resourceContents.get(0);
+		final Feature newFeature = eFactory.getRoot().getFeatures().get(2);
+		assertTrue(newFeature.isIsMany());
+		Value newFeatureValue = newFeature.getValue();
+		Containment efContainmentValue = (Containment) newFeatureValue;
+		final NewObject newObject = efContainmentValue.getValue();
+		assertEquals(TestmodelPackage.Literals.ATTRIBUTE_TEST_CONTAINER, newObject.getEClass());
+		EnumAttribute oneEnum = (EnumAttribute)newObject.getFeatures().get(0).getValue();
+		assertEquals(SampleEnum.SAMPLE2.getName(), oneEnum.getValue().getName());
+		EnumAttribute manyEnums = (EnumAttribute)newObject.getFeatures().get(1).getValue();
+		assertEquals(SampleEnum.SAMPLE.getName(), manyEnums.getValue().getName());
+		
+		// more: change TestModel by adding one more enum to list
+		attributeTestContainer.getManyEnums().add(SampleEnum.SAMPLE2);
+		// more: check it again
+		manyEnums = (EnumAttribute)newObject.getFeatures().get(2).getValue();
+		assertEquals(SampleEnum.SAMPLE2.getName(), manyEnums.getValue().getName());
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
