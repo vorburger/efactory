@@ -12,6 +12,7 @@ package com.googlecode.efactory.ui.highlighting;
 
 import java.util.List;
 
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
@@ -26,13 +27,20 @@ import com.googlecode.efactory.eFactory.EFactoryPackage;
 import com.googlecode.efactory.eFactory.NewObject;
 import com.googlecode.efactory.eFactory.util.EFactorySwitch;
 
-public class EFactoryHighlightingCalculator implements
-		ISemanticHighlightingCalculator {
+/**
+ * Highlight Annotation with SemanticHighlightingConfiguration.ANNOTATION_ID,
+ * and NewObject eClass EClass + Feature eFeature(EStructuralFeature)
+ * as DefaultHighlightingConfiguration.KEYWORD_ID.
+ */
+public class EFactoryHighlightingCalculator implements ISemanticHighlightingCalculator {
 
+	// TODO OutOfMemoryError!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	
+	// TODO NewObject name with a different colour.
+	
 	private Object dummy = new Object();
 
-	public void provideHighlightingFor(XtextResource resource,
-			final IHighlightedPositionAcceptor acceptor) {
+	public void provideHighlightingFor(XtextResource resource, final IHighlightedPositionAcceptor acceptor) {
 		if (resource == null)
 			return;
 
@@ -42,7 +50,8 @@ public class EFactoryHighlightingCalculator implements
 		
 		Iterable<INode> allNodes = parseResult.getRootNode().getAsTreeIterable();
 		for (final INode abstractNode : allNodes) {
-			if (abstractNode.getSemanticElement() != null) {
+			final EObject semanticElement = abstractNode.getSemanticElement();
+			if (semanticElement != null) {
 				new EFactorySwitch<Object>() {
 
 					@Override
@@ -55,20 +64,16 @@ public class EFactoryHighlightingCalculator implements
 
 					@Override
 					public Object caseNewObject(NewObject object) {
-						EReference expectedFeature = EFactoryPackage.eINSTANCE
-								.getNewObject_EClass();
-						highlightLeafnode(acceptor, abstractNode,
-								expectedFeature);
+						EReference expectedFeature = EFactoryPackage.eINSTANCE.getNewObject_EClass();
+						highlightLeafnode(acceptor, abstractNode, expectedFeature);
 						return dummy;
 					};
 
 					@Override
 					public Object caseFeature(
 							com.googlecode.efactory.eFactory.Feature object) {
-						EReference expectedFeature = EFactoryPackage.eINSTANCE
-								.getFeature_EFeature();
-						highlightLeafnode(acceptor, abstractNode,
-								expectedFeature);
+						EReference expectedFeature = EFactoryPackage.eINSTANCE.getFeature_EFeature();
+						highlightLeafnode(acceptor, abstractNode, expectedFeature);
 						return dummy;
 					}
 
@@ -90,7 +95,7 @@ public class EFactoryHighlightingCalculator implements
 								DefaultHighlightingConfiguration.KEYWORD_ID);
 					};
 
-				}.doSwitch(abstractNode.getSemanticElement());
+				}.doSwitch(semanticElement);
 			}
 
 		}
