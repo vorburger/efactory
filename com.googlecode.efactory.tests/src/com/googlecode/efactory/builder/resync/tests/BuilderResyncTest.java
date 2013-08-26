@@ -15,8 +15,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.io.File;
 
 import javax.inject.Inject;
 
@@ -155,10 +154,11 @@ public class BuilderResyncTest {
 	 */
 	@Test
 	public void testCreateCompletelyNew() throws Exception {
-		Path newEmptyFile = Files.createTempFile(getClass().getSimpleName() + "Model", ".efactory");
-		com.google.common.io.Files.touch(newEmptyFile.toFile()); 
+		// Java 7: Path newEmptyFilePath = Files.createTempFile(); File newEmptyFile = newEmptyFilePath.toFile();
+		File newEmptyFile = File.createTempFile(getClass().getSimpleName() + "Model", ".efactory");
+		com.google.common.io.Files.touch(newEmptyFile); 
 		
-		EList<EObject> resContents = rp.get().load(newEmptyFile.toFile(), false);
+		EList<EObject> resContents = rp.get().load(newEmptyFile, false);
 		assertEquals(1, resContents.size()); // sic! Note: An empty resource - but it already has the Factory NewObject root object
 
 		TestModel testModel = TestmodelFactory.eINSTANCE.createTestModel();
