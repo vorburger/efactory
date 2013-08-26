@@ -15,15 +15,14 @@ import org.eclipse.xtext.ui.editor.syntaxcoloring.DefaultHighlightingConfigurati
 import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightingConfigurationAcceptor;
 import org.eclipse.xtext.ui.editor.utils.TextStyle;
 
-public class SemanticHighlightingConfiguration extends
-DefaultHighlightingConfiguration {
+public class SemanticHighlightingConfiguration extends DefaultHighlightingConfiguration {
 
 	public final static String ANNOTATION_ID = "Annotation";
 
 	@Override
 	public void configure(IHighlightingConfigurationAcceptor acceptor) {
-		acceptor.acceptDefaultHighlighting(ANNOTATION_ID, "Annotation",
-				crossReferenceTextStyle());
+		super.configure(acceptor);
+		acceptor.acceptDefaultHighlighting(ANNOTATION_ID, "Annotation", crossReferenceTextStyle());
 	}
 
 	public TextStyle crossReferenceTextStyle() {
@@ -31,6 +30,5 @@ DefaultHighlightingConfiguration {
 		textStyle.setBackgroundColor(new RGB(255, 255, 255));
 		textStyle.setColor(new RGB(100, 100, 100));
 		return textStyle;
-
 	}
 }

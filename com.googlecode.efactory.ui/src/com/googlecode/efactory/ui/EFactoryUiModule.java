@@ -19,21 +19,18 @@ import org.eclipse.xtext.ui.editor.contentassist.IContentAssistantFactory;
 import org.eclipse.xtext.ui.editor.contentassist.XtextContentAssistProcessor;
 import org.eclipse.xtext.ui.editor.folding.IFoldingRegionProvider;
 import org.eclipse.xtext.ui.editor.model.XtextDocument;
-import org.eclipse.xtext.ui.editor.syntaxcoloring.ISemanticHighlightingCalculator;
 
 import com.google.inject.Binder;
 import com.google.inject.name.Names;
 import com.googlecode.efactory.ui.contentassist.EFactoryContentAssistantFactory;
 import com.googlecode.efactory.ui.editor.EFactoryFoldingRegionProvider;
 import com.googlecode.efactory.ui.editor.EFactoryXtextDocument;
-import com.googlecode.efactory.ui.highlighting.EFactoryHighlightingCalculator;
 import com.googlecode.efactory.ui.resource.EFactoryResourceFactory;
 
 /**
  * Use this class to register components to be used within the IDE.
  */
-public class EFactoryUiModule extends
-		com.googlecode.efactory.ui.AbstractEFactoryUiModule {
+public class EFactoryUiModule extends com.googlecode.efactory.ui.AbstractEFactoryUiModule {
 
 	public EFactoryUiModule(AbstractUIPlugin plugin) {
 		super(plugin);
@@ -46,11 +43,8 @@ public class EFactoryUiModule extends
 				.annotatedWith(
 						Names.named(XtextContentAssistProcessor.COMPLETION_AUTO_ACTIVATION_CHARS))
 				.toInstance("="); //$NON-NLS-1$
+
 		binder.bind(IResourceFactory.class).to(EFactoryResourceFactory.class);
-		binder.bind(ISemanticHighlightingCalculator.class).to(
-				EFactoryHighlightingCalculator.class);
-		binder.bind(IFoldingRegionProvider.class).to(
-				EFactoryFoldingRegionProvider.class);
 		
 		// it's important to bind to XtextDocument instead of to IXtextDocument
 		// (I think), because there is no default declaration, and @Inject in
@@ -63,4 +57,17 @@ public class EFactoryUiModule extends
 		return EFactoryContentAssistantFactory.class;
 	}
 
+	public Class<? extends IFoldingRegionProvider> bindIFoldingRegionProvider() {
+		return EFactoryFoldingRegionProvider.class;
+	}
+
+// @see http://www.eclipse.org/forums/index.php/m/1095119/
+//	
+//	public Class<? extends org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightingConfiguration> bindIHighlightingConfiguration() {
+//		return SemanticHighlightingConfiguration.class;
+//	}
+//	
+//	public Class<? extends ISemanticHighlightingCalculator> bindISemanticHighlightingCalculator() {
+//		return EFactoryHighlightingCalculator.class;
+//	}
 }
