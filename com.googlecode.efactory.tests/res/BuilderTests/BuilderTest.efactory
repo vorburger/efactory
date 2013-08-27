@@ -1,9 +1,8 @@
 use testmodel.* 
 
 TestModel test {
-	name = "test"
 	
-	attributeSample = AttributeSample{
+	attributeSample = AttributeSample {
 		//bigDecimal = 3
 		double = 1.2
 		listIntRequired = [ 1 ]
@@ -11,8 +10,8 @@ TestModel test {
 	
 	children = [ Child {} Child {} ]
 	
-	singleRequired =  SingleRequired SingleRequired {
-		parentReference =  test      
+	singleRequired = SingleRequired {
+		parentReference = test      
 		nestedElements = [ NestedElements {} ]
 	}
 	
