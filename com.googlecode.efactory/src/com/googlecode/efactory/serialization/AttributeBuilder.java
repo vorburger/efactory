@@ -26,8 +26,9 @@ class AttributeBuilder extends FeatureBuilder {
 
 	private ValueSwitch valueSwitch;
 
-	EAttribute attribute;
-	private AttributeBuilder(EAttribute attribute, IFactoryBuilder factoryBuilder) {
+	protected EAttribute attribute;
+	
+	protected AttributeBuilder(EAttribute attribute, IFactoryBuilder factoryBuilder) {
 		super(factoryBuilder);
 		this.attribute = attribute;
 		valueSwitch = new ValueSwitch(attribute);
@@ -39,8 +40,7 @@ class AttributeBuilder extends FeatureBuilder {
 
 	@Override
 	protected Value createValue() {
-		return valueSwitch.doSwitch(attribute.getEAttributeType()
-				.getInstanceClass(), value);
+		return valueSwitch.doSwitch(attribute.getEAttributeType().getInstanceClass(), value);
 	}
 
 	@Override

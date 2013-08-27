@@ -42,6 +42,7 @@ import org.eclipse.emf.ecore.EEnumLiteral;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
@@ -126,8 +127,7 @@ public final class EcoreUtil3 {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static void setOrAddValue(EObject eObject,
-			EStructuralFeature eFeature, Object newValue) {
+	public static void setOrAddValue(EObject eObject, EStructuralFeature eFeature, Object newValue) {
 		if (eFeature.isMany()) {
 			if (newValue != null) {
 				EList<Object> eList = (EList<Object>) eObject.eGet(eFeature);
@@ -137,8 +137,7 @@ public final class EcoreUtil3 {
 			if (newValue instanceof EObject) {
 				EObject newEValue = (EObject) newValue;
 				if (newEValue.eIsProxy()) {
-					org.eclipse.emf.ecore.util.EcoreUtil.resolve(newEValue,
-							eObject);
+					EcoreUtil.resolve(newEValue, eObject);
 				}
 			}
 			eObject.eSet(eFeature, newValue);

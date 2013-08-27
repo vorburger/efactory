@@ -34,15 +34,14 @@ class ContainmentBuilder extends FeatureBuilder {
 	@SuppressWarnings("unused")
 	private Factory context;
 
-	private ContainmentBuilder(EReference containment, IFactoryBuilder factoryBuilder) {
+	protected ContainmentBuilder(EReference containment, IFactoryBuilder factoryBuilder) {
 		super(factoryBuilder);
 		this.containment = containment;
 	}
 
 	@Override
 	protected Value createValue() {
-		Containment newContainment = EFactoryFactory.eINSTANCE
-				.createContainment();
+		Containment newContainment = EFactoryFactory.eINSTANCE.createContainment();
 		newContainment.setValue(createNewObject());
 		return newContainment;
 	}
@@ -57,6 +56,7 @@ class ContainmentBuilder extends FeatureBuilder {
 					+ value.getClass() + "'");
 		}
 	}
+	
 	public ContainmentBuilder factory(Factory context) {
 		this.context = context;
 		return this;

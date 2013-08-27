@@ -30,7 +30,7 @@ class ReferenceBuilder extends FeatureBuilder {
 
 	private EReference eReference;
 
-	private ReferenceBuilder(EReference reference, IFactoryBuilder factoryBuilder) {
+	protected ReferenceBuilder(EReference reference, IFactoryBuilder factoryBuilder) {
 		super(factoryBuilder);
 		this.eReference = reference;
 	}

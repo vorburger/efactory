@@ -51,13 +51,9 @@ public class ModelBuilder {
 
 	private static Logger logger = Logger.getLogger(ModelBuilder.class);
 	private NameAccessor nameSetter = new NameAccessor();
-	private FeatureSwitch featureSwitch;
+	private final FeatureSwitch featureSwitch = new FeatureSwitch();
 	private BiMap<NewObject, EObject> mapping = HashBiMap.create();
 	private List<ReferenceBuilder> deferredLinkingFeatureBuilder = new LinkedList<ReferenceBuilder>();
-
-	public ModelBuilder() {
-		this.featureSwitch = new FeatureSwitch();
-	}
 
 	// intentionally package local - outside clients shouldn't need to build individual NewObject, they only build(Factory)
 	// NOTE: It is the caller's (!) responsibility to add the returned EObject into another EObject (or a Resource) eContainer. 

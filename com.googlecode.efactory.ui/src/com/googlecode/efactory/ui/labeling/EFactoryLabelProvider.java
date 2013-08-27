@@ -15,12 +15,10 @@ import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.xtext.ui.label.DefaultEObjectLabelProvider;
 
 import com.google.inject.Inject;
-import com.googlecode.efactory.building.NameAccessor;
 
 public class EFactoryLabelProvider extends DefaultEObjectLabelProvider {
 
-	@Inject
-	private NameAccessor nameAccessor;
+//	@Inject	private NameAccessor nameAccessor;
 
 	@Inject
 	protected EFactoryLabelProvider(AdapterFactory adapterFactory) {

@@ -13,12 +13,14 @@ package com.googlecode.efactory.ui.contentassist;
 import org.eclipse.jface.text.contentassist.ContentAssistant;
 import org.eclipse.xtext.ui.editor.contentassist.DefaultContentAssistantFactory;
 
-public class EFactoryContentAssistantFactory extends
-		DefaultContentAssistantFactory {
+public class EFactoryContentAssistantFactory extends DefaultContentAssistantFactory {
 
 	@Override
 	protected void setAutoInsert(ContentAssistant assistant) {
 		super.setAutoInsert(assistant);
+//		assistant.setAutoActivationDelay(0);
+//		assistant.enableAutoInsert(true);
+//		assistant.enablePrefixCompletion(true);
 		assistant.enableAutoActivation(true);
 	}
 }

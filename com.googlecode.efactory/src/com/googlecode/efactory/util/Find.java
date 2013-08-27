@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -40,9 +41,12 @@ import com.google.common.collect.Iterators;
 
 public final class Find {
 
-	public static <T> T child(final Class<T> candidateClass,
-			final String candidateName, EObject rootObject) {
-		EObject result = Iterators.find(rootObject.eAllContents(),
+	public static <T> T child(final Class<T> candidateClass, final String candidateName, EObject rootObject) {
+		final TreeIterator<EObject> contents = rootObject.eAllContents();
+//		if (!contents.hasNext()) {
+//			throw new IllegalArgumentException();
+//		}
+		EObject result = Iterators.find(contents,
 				new Predicate<EObject>() {
 
 					public boolean apply(EObject input) {
@@ -55,9 +59,7 @@ public final class Find {
 		return candidateClass.cast(result);
 	}
 
-	public static <T extends EObject> Iterator<T> allInResourceSet(
-			EObject context, Class<T> type) {
-
+	public static <T extends EObject> Iterator<T> allInResourceSet(EObject context, Class<T> type) {
 		Iterator<EObject> contentIterator = getResourceSetIterator(context);
 		return Iterators.filter(contentIterator, type);
 	}
@@ -74,8 +76,7 @@ public final class Find {
 		}
 		return result;
 	}
-	private static Iterator<EObject> getResourceSetIterator(
-			ResourceSet resourceSet) {
+	private static Iterator<EObject> getResourceSetIterator(ResourceSet resourceSet) {
 		Iterator<EObject> result = Iterators.emptyIterator();
 		for (Resource resource : resourceSet.getResources()) {
 			result = Iterators.concat(result, resource.getAllContents());
