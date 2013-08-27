@@ -197,7 +197,7 @@ public class BuilderResyncTest {
 
 		// Check the EFactory model
 		Factory eFactory = (Factory) resourceContents.get(0);
-		checkListFeature(eFactory, 2, 9876);
+		checkListFeature(eFactory, 2, 0, 9876);
 
 /*
    TODO change multi syntax... and fix this: 
@@ -216,14 +216,23 @@ public class BuilderResyncTest {
 		// TODO remove many (e.g. middle two?) elements from list
 	}
 
-	protected void checkListFeature(Factory eFactory, int featureIndex, int expectedInt) {
-		Feature newFeature = eFactory.getRoot().getFeatures().get(featureIndex);
-		assertTrue(newFeature.getValue().eClass().toString(), newFeature.getValue() instanceof MultiValue);
-		Containment efContainmentValue = (Containment) newFeature.getValue();
-		NewObject newObject = efContainmentValue.getValue();
-		assertEquals(TestmodelPackage.Literals.ATTRIBUTE_TEST_CONTAINER, newObject.getEClass());
+	protected void checkListFeature(Factory eFactory, int featureIndex, int multiValueIndex, int expectedInt) {
+		NewObject newObject = checkNewObjectAttributeTestContainer(eFactory, featureIndex, multiValueIndex);
 		IntegerAttribute oneInt = (IntegerAttribute)newObject.getFeatures().get(0).getValue();
 		assertEquals(expectedInt, oneInt.getValue());
+	}
+
+	protected NewObject checkNewObjectAttributeTestContainer(Factory eFactory, int featureIndex, int multiValueIndex) {
+		Feature newFeature = eFactory.getRoot().getFeatures().get(featureIndex);
+		final Value value = newFeature.getValue();
+		assertTrue(value.eClass().toString(), value instanceof MultiValue);
+		MultiValue multiValue = (MultiValue) value;
+		Value listItemValue = multiValue.getValues().get(multiValueIndex);
+		assertTrue(listItemValue.eClass().toString(), listItemValue instanceof Containment);
+		Containment efContainmentValue = (Containment) listItemValue;
+		NewObject newObject = efContainmentValue.getValue();
+		assertEquals(TestmodelPackage.Literals.ATTRIBUTE_TEST_CONTAINER, newObject.getEClass());
+		return newObject;
 	}
 
 	@Test
@@ -241,12 +250,7 @@ public class BuilderResyncTest {
 
 		// Check the EFactory model
 		Factory eFactory = (Factory) resourceContents.get(0);
-		final Feature newFeature = eFactory.getRoot().getFeatures().get(2);
-		assertTrue(newFeature.getValue() instanceof MultiValue);
-		Value newFeatureValue = newFeature.getValue();
-		Containment efContainmentValue = (Containment) newFeatureValue;
-		final NewObject newObject = efContainmentValue.getValue();
-		assertEquals(TestmodelPackage.Literals.ATTRIBUTE_TEST_CONTAINER, newObject.getEClass());
+		NewObject newObject = checkNewObjectAttributeTestContainer(eFactory, 2, 0);
 		EnumAttribute oneEnum = (EnumAttribute)newObject.getFeatures().get(0).getValue();
 		assertEquals(SampleEnum.SAMPLE2.getName(), oneEnum.getValue().getName());
 		EnumAttribute manyEnums = (EnumAttribute)newObject.getFeatures().get(1).getValue();

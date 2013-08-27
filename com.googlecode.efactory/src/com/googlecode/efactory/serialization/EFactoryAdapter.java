@@ -29,6 +29,7 @@ import com.googlecode.efactory.building.NoNameFeatureMappingException;
 import com.googlecode.efactory.eFactory.EFactoryFactory;
 import com.googlecode.efactory.eFactory.Factory;
 import com.googlecode.efactory.eFactory.Feature;
+import com.googlecode.efactory.eFactory.MultiValue;
 import com.googlecode.efactory.eFactory.NewObject;
 import com.googlecode.efactory.eFactory.Value;
 import com.googlecode.efactory.resource.EFactoryResource;
@@ -84,8 +85,10 @@ public class EFactoryAdapter extends EContentAdapter {
 		try {
 			switch (msg.getEventType()) {
 				case Notification.SET :
+					setOrRemoveValue(factoryFeature, msg);
+					break;
 				case Notification.ADD :
-					setAddOrRemoveValue(factoryFeature, msg);
+					addValue(factoryFeature, msg);
 					break;
 			}
 		} catch (NoNameFeatureMappingException e) {
@@ -111,9 +114,12 @@ public class EFactoryAdapter extends EContentAdapter {
 		}
 	}
 
-	protected void setAddOrRemoveValue(final Feature factoryFeature, final Notification msg) throws NoNameFeatureMappingException {
+	protected void setOrRemoveValue(final Feature factoryFeature, final Notification msg) throws NoNameFeatureMappingException {
+		if (factoryFeature.getEFeature().isMany())
+			// Notification.SET should never happen for isMany
+			throw new IllegalArgumentException(); 
 		if (msg.getNewValue() != null)
-			setOrAddValue(factoryFeature, msg);
+			setValue(factoryFeature, msg);
 		else
 			removeValue(factoryFeature, msg);
 	}
@@ -135,24 +141,42 @@ public class EFactoryAdapter extends EContentAdapter {
 		});
 	}
 	
-	protected void setOrAddValue(final Feature factoryFeature, final Notification msg) throws NoNameFeatureMappingException {
-		final EFactoryResource resource = getEFactoryResource(msg);
-		final IFactoryBuilder factoryBuilder = new FactoryBuilder2(resource);
-		final EStructuralFeature eFeature = factoryFeature.getEFeature();
-		final Value newEFValue = FeatureBuilderFactory.createValue(eFeature, factoryBuilder, msg.getNewValue());
-		
-		// do NOT just: factoryFeature.setValue(newEFValue); // @see http://koehnlein.blogspot.ch/2010/06/semantic-model-access-in-xtext.html
+	protected void setValue(final Feature factoryFeature, final Notification msg) throws NoNameFeatureMappingException {
+		final Value value = getNewValue(factoryFeature, msg);
+		// do NOT just: factoryFeature.setValue(value); // @see http://koehnlein.blogspot.ch/2010/06/semantic-model-access-in-xtext.html
 		final String uriFragment = factoryFeature.eResource().getURIFragment(factoryFeature);
 		writeAccessProvider.get().modify(new IUnitOfWork.Void<XtextResource>() {
 			@Override
 			public void process(XtextResource resource) throws Exception {
 				final Feature localFactoryFeature = (Feature) resource.getEObject(uriFragment);
-				localFactoryFeature.setValue(newEFValue);
+				localFactoryFeature.setValue(value);
 			}
 		});
 	}
-	
+
+	protected Value getNewValue(final Feature factoryFeature, final Notification msg) {
+		final EFactoryResource resource = getEFactoryResource(msg);
+		final IFactoryBuilder factoryBuilder = new FactoryBuilder2(resource);
+		final EStructuralFeature eFeature = factoryFeature.getEFeature();
+		final Value value = FeatureBuilderFactory.createValue(eFeature, factoryBuilder, msg.getNewValue());
+		return value;
+	}
+
+	protected void addValue(Feature factoryFeature, Notification msg) {
+		final Value value = getNewValue(factoryFeature, msg);
+		final String uriFragment = factoryFeature.eResource().getURIFragment(factoryFeature);
+		writeAccessProvider.get().modify(new IUnitOfWork.Void<XtextResource>() {
+			@Override
+			public void process(XtextResource resource) throws Exception {
+				final Feature localFactoryFeature = (Feature) resource.getEObject(uriFragment);
+				final MultiValue multiValue = (MultiValue) localFactoryFeature.getValue();
+				multiValue.getValues().add(value);
+			}
+		});
+	}
+
 	protected void removeValue(Feature factoryFeature, Notification msg) {
+		// TODO MUST USE writeAccessProvider! ...
 		NewObject newObject = (NewObject) factoryFeature.eContainer();
 		EList<Feature> newObjectFeatures = newObject.getFeatures();
 		newObjectFeatures.remove(factoryFeature);
@@ -174,6 +198,10 @@ public class EFactoryAdapter extends EContentAdapter {
 		final EStructuralFeature changedEFeature = (EStructuralFeature) msg.getFeature();
 		newFeature.setEFeature(changedEFeature);
 		newObject.getFeatures().add(newFeature);
+		if (changedEFeature.isMany()) {
+			MultiValue multiValue = EFactoryFactory.eINSTANCE.createMultiValue();
+			newFeature.setValue(multiValue);
+		}
 		return newFeature;
 	}
 

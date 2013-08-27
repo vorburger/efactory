@@ -10,11 +10,8 @@
  ******************************************************************************/
 package com.googlecode.efactory.serialization;
 
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EStructuralFeature;
 
-import com.googlecode.efactory.eFactory.EFactoryFactory;
-import com.googlecode.efactory.eFactory.MultiValue;
 import com.googlecode.efactory.eFactory.Value;
 
 /**
@@ -40,13 +37,7 @@ class MultiValueBuilder extends FeatureBuilder {
 	
 	@Override
 	protected Value createValue() {
-		MultiValue multiValue = EFactoryFactory.eINSTANCE.createMultiValue();
-		@SuppressWarnings("unchecked") EList<Object> eList = (EList<Object>) value;
-		for (Object listItem: eList) {
-			Value createdListValue = FeatureBuilderFactory.createValue(isManyFeature, factoryBuilder, listItem);
-			multiValue.getValues().add(createdListValue);
-		}
-		return multiValue;
+		return FeatureBuilderFactory.createValue(isManyFeature, factoryBuilder, value);
 	}
 
 	@Override

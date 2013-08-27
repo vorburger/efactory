@@ -28,6 +28,9 @@ class FeatureBuilderFactory {
 
 	static FeatureBuilder newFeatureBuilder(EStructuralFeature eFeature, IFactoryBuilder factoryBuilder, Object value) {
 		FeatureBuilder builder;
+//		if (eFeature.isMany()) {
+//			builder = MultiValueBuilder.multiValue(eFeature, factoryBuilder).value(value);
+//		} else 
 		if (eFeature instanceof EAttribute) {
 			final EAttribute eAttribute = (EAttribute) eFeature;
 			builder = AttributeBuilder.attribute(eAttribute, factoryBuilder).value(value);
