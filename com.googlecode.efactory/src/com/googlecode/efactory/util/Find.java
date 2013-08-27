@@ -35,6 +35,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.xtext.util.SimpleAttributeResolver;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterators;
@@ -51,9 +52,8 @@ public final class Find {
 
 					public boolean apply(EObject input) {
 						return candidateClass.isInstance(input)
-								&& candidateName
-										.equals(org.eclipse.xtext.util.SimpleAttributeResolver.NAME_RESOLVER
-												.apply(input));
+								&& (candidateName == null 
+									|| candidateName.equals(SimpleAttributeResolver.NAME_RESOLVER.apply(input)));
 					}
 				});
 		return candidateClass.cast(result);

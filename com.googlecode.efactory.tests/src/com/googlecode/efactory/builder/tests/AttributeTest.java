@@ -22,7 +22,7 @@ import testmodel.SampleEnum;
 
 public class AttributeTest extends AbstractModelBuilderTest {
 
-	private static final String TEST_NAME = "test";
+	private static final String TEST_NAME = null; // TODO "test"; -- once named NewObject is again possibly inside MultiValue
 	private SimpleDateFormat dateFormat = new SimpleDateFormat("MM.dd.yyyy");
 
 	@Override
@@ -31,72 +31,63 @@ public class AttributeTest extends AbstractModelBuilderTest {
 	}
 
 	public void testAttribute_OneBool() throws Exception {
-		AttributeTestContainer fixture = find(AttributeTestContainer.class,
-				TEST_NAME);
+		AttributeTestContainer fixture = find(AttributeTestContainer.class, TEST_NAME);
 		boolean actual = fixture.isOneBool();
 		boolean expected = true;
 		assertEquals(expected, actual);
 	}
 
 	public void testAttribute_OneInt() throws Exception {
-		AttributeTestContainer fixture = find(AttributeTestContainer.class,
-				TEST_NAME);
+		AttributeTestContainer fixture = find(AttributeTestContainer.class, TEST_NAME);
 		int actual = fixture.getOneInt();
 		int expected = 1;
 		assertEquals(expected, actual);
 	}
 
 	public void testAttribute_OneInteger() throws Exception {
-		AttributeTestContainer fixture = find(AttributeTestContainer.class,
-				TEST_NAME);
+		AttributeTestContainer fixture = find(AttributeTestContainer.class, TEST_NAME);
 		Integer actual = fixture.getOneInteger();
 		Integer expected = 1;
 		assertEquals(expected, actual);
 	}
 	
 	public void testAttribute_OneDouble() throws Exception {
-		AttributeTestContainer fixture = find(AttributeTestContainer.class,
-				TEST_NAME);
+		AttributeTestContainer fixture = find(AttributeTestContainer.class, TEST_NAME);
 		double actual = fixture.getOneDouble();
 		double expected = 1.1;
 		assertEquals(expected, actual);
 	}
 
 	public void testAttribute_OneEnum() throws Exception {
-		AttributeTestContainer fixture = find(AttributeTestContainer.class,
-				TEST_NAME);
+		AttributeTestContainer fixture = find(AttributeTestContainer.class, TEST_NAME);
 		SampleEnum actual = fixture.getOneEnum();
 		SampleEnum expected = SampleEnum.SAMPLE2;
 		assertEquals(expected, actual);
 	}
 
 	public void testAttribute_OneDate() throws Exception {
-		AttributeTestContainer fixture = find(AttributeTestContainer.class,
-				TEST_NAME);
+		AttributeTestContainer fixture = find(AttributeTestContainer.class, TEST_NAME);
 		Date actual = fixture.getOneDate();
 		Date expected = dateFormat.parse("09.11.1979");
 		assertEquals(expected, actual);
 	}
 
 	public void testAttribute_OneBigDecimal() throws Exception {
-		AttributeTestContainer fixture = find(AttributeTestContainer.class,
-				TEST_NAME);
+		AttributeTestContainer fixture = find(AttributeTestContainer.class, TEST_NAME);
 		BigDecimal actual = fixture.getOneBigDecimal();
 		BigDecimal expected = new BigDecimal("1.0"); // TODO "123798234.223940293480923842");
 		assertEquals(expected, actual);
 	}
 	
 	public void testAttribute_OneBigInteger() throws Exception {
-		AttributeTestContainer fixture = find(AttributeTestContainer.class,
-				TEST_NAME);
+		AttributeTestContainer fixture = find(AttributeTestContainer.class, TEST_NAME);
 		BigInteger actual = fixture.getOneBigInteger();
 		BigInteger expected = new BigInteger("1"); // TODO "1230820834928349283498234");
 		assertEquals(expected, actual);
 	}
 	
 	public void testAttribute_ManyBool() throws Exception {
-		AttributeTestContainer fixture = find(AttributeTestContainer.class,
-				TEST_NAME);
+		AttributeTestContainer fixture = find(AttributeTestContainer.class, TEST_NAME);
 		EList<? extends Object> actualValues = fixture.getManyBool();
 
 		Object[] expectedValues = new Object[] { true, true };
@@ -104,8 +95,7 @@ public class AttributeTest extends AbstractModelBuilderTest {
 	}
 
 	public void testAttribute_ManyInt() throws Exception {
-		AttributeTestContainer fixture = find(AttributeTestContainer.class,
-				TEST_NAME);
+		AttributeTestContainer fixture = find(AttributeTestContainer.class, TEST_NAME);
 		EList<? extends Object> actualValues = fixture.getManyInt();
 
 		Object[] expectedValues = new Object[] { 1, 2, 3 };
@@ -113,8 +103,7 @@ public class AttributeTest extends AbstractModelBuilderTest {
 	}
 
 	public void testAttribute_ManyDouble() throws Exception {
-		AttributeTestContainer fixture = find(AttributeTestContainer.class,
-				TEST_NAME);
+		AttributeTestContainer fixture = find(AttributeTestContainer.class, TEST_NAME);
 		EList<? extends Object> actualValues = fixture.getManyDouble();
 
 		Object[] expectedValues = new Object[] { 1.1, 2.2, 3.3 };
@@ -122,8 +111,7 @@ public class AttributeTest extends AbstractModelBuilderTest {
 	}
 
 	public void testAttribute_ManyEnums() throws Exception {
-		AttributeTestContainer fixture = find(AttributeTestContainer.class,
-				TEST_NAME);
+		AttributeTestContainer fixture = find(AttributeTestContainer.class, TEST_NAME);
 		EList<? extends Object> actualValues = fixture.getManyEnums();
 
 		Object[] expectedValues = new Object[] { SampleEnum.SAMPLE,
@@ -132,8 +120,7 @@ public class AttributeTest extends AbstractModelBuilderTest {
 	}
 
 	public void testAttribute_ManyDates() throws Exception {
-		AttributeTestContainer fixture = find(AttributeTestContainer.class,
-				TEST_NAME);
+		AttributeTestContainer fixture = find(AttributeTestContainer.class, TEST_NAME);
 		EList<? extends Object> actualValues = fixture.getManyDates();
 
 		Object[] expectedValues = new Object[] {
