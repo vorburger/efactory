@@ -22,6 +22,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EStructuralFeature;
 
 import com.googlecode.efactory.building.NameAccessor;
 import com.googlecode.efactory.building.NoNameFeatureMappingException;
@@ -58,84 +59,61 @@ class NewObjectBuilder {
 		addAttributes(newObject, input);
 		addContainments(newObject, input);
 		addReferences(newObject, input);
+		addIsManyStructuralFeatures(newObject, input);
 		return newObject;
 	}
 
 	private void addContainments(NewObject newObject, EObject input) {
-		EList<Feature> features = newObject.getFeatures();
+		final EList<Feature> features = newObject.getFeatures();
 		for (EReference containment : input.eClass().getEAllContainments()) {
-			Object containmentValue = input.eGet(containment);
-
-			if (containment.isMany()) {
-				List<?> containmentValues = (List<?>) containmentValue;
-				for (Object value : containmentValues) {
-					features.add(createContainment(containment, value));
-				}
-			} else {
+			if (!containment.isMany()) { // isMany are handled by addIsManyStructuralFeatures
+				Object containmentValue = input.eGet(containment);
 				if (containmentValue != null) {
-					features.add(createContainment(containment,
-							containmentValue));
+					features.add(createContainment(containment, containmentValue));
 				}
 			}
 		}
 	}
 
-	private Feature createContainment(EReference containment,
-			Object containmentValue) {
+	private Feature createContainment(EReference containment, Object containmentValue) {
 		return ContainmentBuilder.containment(containment, factoryBuilder).factory(context)
 				.value(containmentValue).build();
 	}
 	
 	private void addReferences(NewObject newObject, EObject input) {
-		EList<Feature> features = newObject.getFeatures();
+		final EList<Feature> features = newObject.getFeatures();
 		for (EReference eReference : input.eClass().getEAllReferences()) {
-			if (!eReference.isContainment()) {
-				Object referenceValue = input.eGet(eReference);
-				if (eReference.isMany()) {
-					List<?> references = (List<?>) referenceValue;
-					for (Object referencedElement : references) {
-						createReference(features, eReference, referencedElement);
-					}
-				} else {
+			if (!eReference.isContainment()) { // isContainment are handled by addContainments
+				if (!eReference.isMany()) {    // isMany are handled by addIsManyStructuralFeatures
+					Object referenceValue = input.eGet(eReference);
 					if (referenceValue != null) {
-						createReference(features, eReference, referenceValue);
+						features.add(createReference(eReference, referenceValue));
 					}
 				}
 			}
 		}
 	}
 
-	private void createReference(EList<Feature> features,
-			EReference eReference, Object referencedElement) {
-		features.add(ReferenceBuilder.reference(eReference, factoryBuilder)
-				.value(referencedElement).build());
+	private Feature createReference(EReference eReference, Object referencedElement) {
+		return ReferenceBuilder.reference(eReference, factoryBuilder).value(referencedElement).build();
 	}
 
 	private void addAttributes(NewObject newObject, EObject input) {
-		EList<Feature> features = newObject.getFeatures();
-
+		final EList<Feature> features = newObject.getFeatures();
 		for (EAttribute attribute : input.eClass().getEAllAttributes()) {
 			if (attribute != nameEAttribute) {
-				Object attributeValue = input.eGet(attribute);
-
-				if (attribute.isMany()) {
-					List<?> containmentValues = (List<?>) attributeValue;
-					for (Object value : containmentValues) {
-						createAttribute(features, attribute, value);
-					}
-				} else {
+				if (!attribute.isMany()) {    // isMany are handled by addIsManyStructuralFeatures
+					Object attributeValue = input.eGet(attribute);
 					if (attributeValue != null) {
-						createAttribute(features, attribute, attributeValue);
+						features.add(createAttribute(attribute, attributeValue));
 					}
 				}
 			}
 		}
 	}
 
-	private void createAttribute(EList<Feature> features, EAttribute attribute,
-			Object value) {
-		features.add(AttributeBuilder.attribute(attribute, factoryBuilder)
-				.value(value).build());
+	private Feature createAttribute(EAttribute attribute, Object value) {
+		return AttributeBuilder.attribute(attribute, factoryBuilder).value(value).build();
 	}
 
 	private String getName(EObject input) throws NoNameFeatureMappingException {
@@ -143,4 +121,19 @@ class NewObjectBuilder {
 		return (String) input.eGet(nameEAttribute);
 	}
 
+	private void addIsManyStructuralFeatures(NewObject newObject, EObject input) {
+		final EList<Feature> features = newObject.getFeatures();
+		for (EStructuralFeature eFeature : input.eClass().getEAllStructuralFeatures()) {
+			if (eFeature.isMany()) {
+				List<?> listValues = (List<?>) input.eGet(eFeature);
+				for (Object value : listValues) {
+					features.add(createMultiValue(eFeature, value));
+				}
+			}
+		}
+	}
+
+	private Feature createMultiValue(EStructuralFeature feature, Object value) {
+		return MultiValueBuilder.multiValue(feature, factoryBuilder).value(value).build();
+	}
 }

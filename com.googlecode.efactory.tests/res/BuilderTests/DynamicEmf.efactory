@@ -1,16 +1,18 @@
 import "Entity.efactory"
 
 entity.Model {         
-	elements += entity.SimpleType String { }
-	elements += entity.SimpleType MyInteger { }
-	
-	elements += entity.Entity Person {         
-		properties += entity.Property name {
-			type = String
-		}  
-		
-		properties += entity.Property age {         
-			type = MyInteger  
-		}
-	}
+	elements = [ entity.SimpleType String { }
+	             entity.SimpleType MyInteger { }
+                 entity.Entity Person {         
+					properties = [ 
+						entity.Property name {
+							type = String
+						}  
+					
+						entity.Property age {
+							type = MyInteger  
+						}
+					]
+				}
+			]
 }

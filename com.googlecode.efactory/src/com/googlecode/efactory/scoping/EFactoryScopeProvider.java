@@ -26,10 +26,12 @@ import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider;
 import org.eclipse.xtext.scoping.impl.SimpleScope;
 
 import com.google.inject.Inject;
+import com.googlecode.efactory.eFactory.Attribute;
 import com.googlecode.efactory.eFactory.CustomNameMapping;
 import com.googlecode.efactory.eFactory.EnumAttribute;
 import com.googlecode.efactory.eFactory.Factory;
 import com.googlecode.efactory.eFactory.Feature;
+import com.googlecode.efactory.eFactory.MultiValue;
 import com.googlecode.efactory.eFactory.NewObject;
 import com.googlecode.efactory.eFactory.PackageImport;
 import com.googlecode.efactory.eFactory.Reference;
@@ -53,13 +55,11 @@ public class EFactoryScopeProvider extends AbstractDeclarativeScopeProvider {
 		return ePackageScopeProvider.createEClassScope(factory.eResource(), parent);
 	}
 
-	public IScope scope_EnumAttribute_value(EnumAttribute attribute,
-			EReference reference) {
-		Feature feature = (Feature) attribute.eContainer();
+	public IScope scope_EnumAttribute_value(EnumAttribute attribute, EReference reference) {
+		Feature feature = getFeature(attribute);
 		if (feature.getEFeature().getEType() instanceof EEnum) {
 			EEnum enumType = (EEnum) feature.getEFeature().getEType();
-			Iterable<IEObjectDescription> elements = Scopes
-					.scopedElementsFor(enumType.getELiterals());
+			Iterable<IEObjectDescription> elements = Scopes.scopedElementsFor(enumType.getELiterals());
 			return new SimpleScope(elements);
 		}
 		return IScope.NULLSCOPE;
@@ -74,8 +74,7 @@ public class EFactoryScopeProvider extends AbstractDeclarativeScopeProvider {
 	public IScope scope_Feature_eFeature(Feature feature, EReference reference) {
 		NewObject newObject = (NewObject) feature.eContainer();
 		EClass eClass = newObject.getEClass();
-		Iterable<? extends EObject> assignableFeature = EcoreUtil3
-				.getAssignableFeatures(eClass);
+		Iterable<? extends EObject> assignableFeature = EcoreUtil3.getAssignableFeatures(eClass);
 		return new SimpleScope(Scopes.scopedElementsFor(assignableFeature));
 	}
 
@@ -124,4 +123,12 @@ public class EFactoryScopeProvider extends AbstractDeclarativeScopeProvider {
 		return IScope.NULLSCOPE;
 	}
 
+	protected Feature getFeature(Attribute attribute) {
+		 EObject container = attribute.eContainer();
+		 if (container instanceof MultiValue) {
+			 // MultiValue mv = (MultiValue) container;
+			 container = container.eContainer();
+		 }
+		 return (Feature) container; 
+	}
 }

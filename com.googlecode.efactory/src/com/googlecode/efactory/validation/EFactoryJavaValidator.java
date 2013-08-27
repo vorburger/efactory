@@ -38,9 +38,11 @@ import com.googlecode.efactory.eFactory.EnumAttribute;
 import com.googlecode.efactory.eFactory.Factory;
 import com.googlecode.efactory.eFactory.Feature;
 import com.googlecode.efactory.eFactory.IntegerAttribute;
+import com.googlecode.efactory.eFactory.MultiValue;
 import com.googlecode.efactory.eFactory.NewObject;
 import com.googlecode.efactory.eFactory.Reference;
 import com.googlecode.efactory.eFactory.StringAttribute;
+import com.googlecode.efactory.eFactory.Value;
 import com.googlecode.efactory.eFactory.util.EFactorySwitch;
 import com.googlecode.efactory.resource.EFactoryResource;
 import com.googlecode.efactory.util.ContainerResolver;
@@ -93,6 +95,18 @@ public class EFactoryJavaValidator extends AbstractEFactoryJavaValidator {
 		public Boolean validate(Feature feature, Attribute attribute) {
 			this.feature = feature;
 			return doSwitch(attribute);
+		}
+
+		@Override
+		public Boolean caseMultiValue(MultiValue multiValue) {
+			boolean multiValueValidation = true; 
+			for (Value value : multiValue.getValues()) {
+				if (value instanceof Attribute) {
+					if (!this.doSwitch(value))
+						multiValueValidation = false;
+				}
+			}
+			return multiValueValidation;
 		}
 
 		@Override
@@ -245,19 +259,19 @@ public class EFactoryJavaValidator extends AbstractEFactoryJavaValidator {
 	}
 
 	private void checkCardinality(Feature feature) {
-		if (feature.getEFeature().isMany()) {
+		final boolean hasMany = feature.getEFeature().isMany();
+		final Value value = feature.getValue();
+		if (value == null)
+			return;
+		if (value instanceof MultiValue) {
 			assertTrue(
-					"Cannot assign a single element to a feature with cardinality >1",
-					EFactoryPackage.Literals.FEATURE__VALUE, hasMany(feature));
+					"Cannot assign multiple elements to a feature with cardinality 1 (remove [...])",
+					EFactoryPackage.Literals.FEATURE__VALUE, hasMany);
 		} else {
 			assertFalse(
-					"Cannot assign multiple elements to a feature with cardinality 1",
-					EFactoryPackage.Literals.FEATURE__VALUE, hasMany(feature));
+					"Cannot assign a single element to a feature with cardinality >1 (use [...])",
+					EFactoryPackage.Literals.FEATURE__VALUE, hasMany);
 		}
-	}
-
-	private boolean hasMany(Feature feature) {
-		return feature.isIsMany();
 	}
 
 	@Check

@@ -14,7 +14,6 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EContentAdapter;
@@ -71,8 +70,6 @@ public class EFactoryAdapter extends EContentAdapter {
 			throw new IllegalArgumentException("Huh, Notification without notifier?! " + msg.toString());
 		
 		final NewObject newObject = getChangedNewObject(eNotifier);
-		if (newObject == null) // TODO once auto-creation is implemented, this should never be null anymore
-			return;
 		
 		Feature factoryFeature = getChangedFactoryFeature(msg, newObject);
 		if (factoryFeature == null) {
@@ -141,22 +138,8 @@ public class EFactoryAdapter extends EContentAdapter {
 	protected void setOrAddValue(final Feature factoryFeature, final Notification msg) throws NoNameFeatureMappingException {
 		final EFactoryResource resource = getEFactoryResource(msg);
 		final IFactoryBuilder factoryBuilder = new FactoryBuilder2(resource);
-		FeatureBuilder builder;
 		final EStructuralFeature eFeature = factoryFeature.getEFeature();
-		if (eFeature instanceof EAttribute) {
-			final EAttribute eAttribute = (EAttribute) eFeature;
-			builder = AttributeBuilder.attribute(eAttribute, factoryBuilder).value(msg.getNewValue());
-		} else if (eFeature instanceof EReference) {
-			final EReference eReference = (EReference) eFeature;
-			if (eReference.isContainment()) {
-				builder = ContainmentBuilder.containment(eReference, factoryBuilder).value(msg.getNewValue());
-			} else {
-				builder = ReferenceBuilder.reference(eReference, factoryBuilder).value(msg.getNewValue());
-			}
-		} else {
-			throw new IllegalArgumentException("Huh, WTF is an EStructuralFeature that is neither an EAttribute nor an EReference?! " + eFeature.toString());
-		}
-		final Value newEFValue = builder.createValue(); // OR: builder.build(); // if the Features doesn't exist yet..
+		final Value newEFValue = FeatureBuilderFactory.createValue(eFeature, factoryBuilder, msg.getNewValue());
 		
 		// do NOT just: factoryFeature.setValue(newEFValue); // @see http://koehnlein.blogspot.ch/2010/06/semantic-model-access-in-xtext.html
 		final String uriFragment = factoryFeature.eResource().getURIFragment(factoryFeature);
@@ -190,15 +173,12 @@ public class EFactoryAdapter extends EContentAdapter {
 		final Feature newFeature = EFactoryFactory.eINSTANCE.createFeature();
 		final EStructuralFeature changedEFeature = (EStructuralFeature) msg.getFeature();
 		newFeature.setEFeature(changedEFeature);
-		newFeature.setIsMany(changedEFeature.isMany());
 		newObject.getFeatures().add(newFeature);
 		return newFeature;
 	}
 
-	// TODO this is wrong actually - later it has to work for EObject which are not yet in the Factory, too.. so create them on the fly, if needed @see com.googlecode.efactory.builder.resync.tests.BuilderResyncTest.testSetNewFeature()
-	// TODO @NonNull
-	protected @Nullable NewObject getChangedNewObject(EObject eNotifier) {
-		return getEFactoryResource(eNotifier).getEFactoryNewObject(eNotifier);
+	protected @NonNull NewObject getChangedNewObject(EObject eNotifier) {
+		return getEFactoryResource(eNotifier).getExistingEFactoryNewObject(eNotifier);
 	}
 
 	protected @NonNull EFactoryResource getEFactoryResource(Notification msg) {

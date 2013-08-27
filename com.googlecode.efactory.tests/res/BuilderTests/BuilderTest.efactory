@@ -6,18 +6,14 @@ TestModel test {
 	attributeSample = AttributeSample{
 		//bigDecimal = 3
 		double = 1.2
-		listIntRequired += 1
+		listIntRequired = [ 1 ]
 	}
 	
-	children += Child child1{
-
-	}
-	children += Child child2{
-
-	}
+	children = [ Child {} Child {} ]
+	
 	singleRequired =  SingleRequired SingleRequired {
-		parentReference  =  test      
-		nestedElements += NestedElements nested {}
+		parentReference =  test      
+		nestedElements = [ NestedElements {} ]
 	}
 	
 }

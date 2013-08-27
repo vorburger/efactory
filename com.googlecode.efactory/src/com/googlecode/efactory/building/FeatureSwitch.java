@@ -13,11 +13,13 @@ package com.googlecode.efactory.building;
 import com.googlecode.efactory.eFactory.Attribute;
 import com.googlecode.efactory.eFactory.Containment;
 import com.googlecode.efactory.eFactory.Feature;
+import com.googlecode.efactory.eFactory.MultiValue;
 import com.googlecode.efactory.eFactory.Reference;
 import com.googlecode.efactory.eFactory.Value;
 import com.googlecode.efactory.eFactory.util.EFactorySwitch;
 
 public class FeatureSwitch extends EFactorySwitch<FeatureBuilder> {
+	
 	@Override
 	public FeatureBuilder caseContainment(Containment object) {
 		if (object.getValue() != null)
@@ -39,6 +41,11 @@ public class FeatureSwitch extends EFactorySwitch<FeatureBuilder> {
 	@Override
 	public FeatureBuilder caseAttribute(Attribute object) {
 		return new AttributeBuilder(object);
+	}
+
+	@Override
+	public FeatureBuilder caseMultiValue(MultiValue object) {
+		return new MultiValueBuilder(object);
 	}
 
 	@Override

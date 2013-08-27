@@ -36,7 +36,6 @@ abstract class FeatureBuilder {
 	protected Feature createFeature(EStructuralFeature eFeature) {
 		Feature feature = EFactoryFactory.eINSTANCE.createFeature();
 		feature.setEFeature(eFeature);
-		feature.setIsMany(eFeature.isMany());
 		feature.setValue(createValue());
 		return feature;
 	}

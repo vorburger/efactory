@@ -199,6 +199,21 @@ public class EFactoryProposalProvider extends AbstractEFactoryProposalProvider {
 		}
 	}
 
+/*	
+	@Override
+	public void completeFeature_Value(EObject model, Assignment assignment,
+			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		// TODO Auto-generated method stub
+		super.completeFeature_Value(model, assignment, context, acceptor);
+	}
+
+	@Override
+	public void complete_Feature(EObject model, RuleCall ruleCall,
+			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		// TODO Auto-generated method stub
+		super.complete_Feature(model, ruleCall, context, acceptor);
+	}
+
 	@Override
 	public void completeFeature_IsMany(EObject model, Assignment assignment,
 			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
@@ -211,7 +226,7 @@ public class EFactoryProposalProvider extends AbstractEFactoryProposalProvider {
 			}
 		}
 	}
-
+*/
 	private boolean isValid(final NewObject model, EStructuralFeature eFeature) {
 		return isFeature(model, eFeature) && isNoDuplicate(model, eFeature)
 				&& eFeature.isChangeable();

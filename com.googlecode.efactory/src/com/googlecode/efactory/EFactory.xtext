@@ -40,7 +40,7 @@ CustomNameMapping:
 ;
 	
 Feature:
-	eFeature=[ecore::EStructuralFeature] (isMany?="+=" | "=") value=Value
+	eFeature=[ecore::EStructuralFeature] "=" value=Value
 ;
 	
 NewObject:
@@ -49,7 +49,11 @@ NewObject:
 	"}";
 	
 Value:
-	Attribute | Reference | Containment
+	MultiValue | Attribute | Reference | Containment
+;
+
+MultiValue:
+	{MultiValue} "[" (values += Value)* "]"  
 ;
 
 Reference:

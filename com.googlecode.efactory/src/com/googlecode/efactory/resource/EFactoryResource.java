@@ -35,7 +35,7 @@ public class EFactoryResource extends DerivedStateAwareResource {
 		return getBuilder().isBuilt();
 	}
 	
-	@Nullable public NewObject getEFactoryNewObject(EObject eObject) {
+	public @Nullable NewObject getEFactoryNewObject(EObject eObject) {
 		if (builder == null) {
 			return null;
 		}
@@ -48,7 +48,15 @@ public class EFactoryResource extends DerivedStateAwareResource {
 		}
 	}
 
-	@NonNull public EObject getEFactoryEObject(NewObject nObject) throws ModelBuilderException {
+	public @NonNull NewObject getExistingEFactoryNewObject(EObject eObject) {
+		NewObject newObject = getEFactoryNewObject(eObject);
+		if (newObject == null) {
+			throw new IllegalArgumentException(eObject.toString());
+		}
+		return newObject ;
+	}
+	
+	public @NonNull EObject getEFactoryEObject(NewObject nObject) throws ModelBuilderException {
 		return getBuilder().getBuilt(nObject);
 	}
 
@@ -108,5 +116,5 @@ public class EFactoryResource extends DerivedStateAwareResource {
 	public void putEObjectNewObjectPair(EObject eObject, NewObject newObject) {
 		builder.putEObjectNewObjectPair(eObject, newObject);
 	}
-	
+
 }

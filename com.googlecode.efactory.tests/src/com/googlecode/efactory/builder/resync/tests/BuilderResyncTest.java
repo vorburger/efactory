@@ -44,6 +44,7 @@ import com.googlecode.efactory.eFactory.EnumAttribute;
 import com.googlecode.efactory.eFactory.Factory;
 import com.googlecode.efactory.eFactory.Feature;
 import com.googlecode.efactory.eFactory.IntegerAttribute;
+import com.googlecode.efactory.eFactory.MultiValue;
 import com.googlecode.efactory.eFactory.NewObject;
 import com.googlecode.efactory.eFactory.StringAttribute;
 import com.googlecode.efactory.eFactory.Value;
@@ -217,7 +218,7 @@ public class BuilderResyncTest {
 
 	protected void checkListFeature(Factory eFactory, int featureIndex, int expectedInt) {
 		Feature newFeature = eFactory.getRoot().getFeatures().get(featureIndex);
-		assertTrue(newFeature.isIsMany());
+		assertTrue(newFeature.getValue().eClass().toString(), newFeature.getValue() instanceof MultiValue);
 		Containment efContainmentValue = (Containment) newFeature.getValue();
 		NewObject newObject = efContainmentValue.getValue();
 		assertEquals(TestmodelPackage.Literals.ATTRIBUTE_TEST_CONTAINER, newObject.getEClass());
@@ -241,7 +242,7 @@ public class BuilderResyncTest {
 		// Check the EFactory model
 		Factory eFactory = (Factory) resourceContents.get(0);
 		final Feature newFeature = eFactory.getRoot().getFeatures().get(2);
-		assertTrue(newFeature.isIsMany());
+		assertTrue(newFeature.getValue() instanceof MultiValue);
 		Value newFeatureValue = newFeature.getValue();
 		Containment efContainmentValue = (Containment) newFeatureValue;
 		final NewObject newObject = efContainmentValue.getValue();

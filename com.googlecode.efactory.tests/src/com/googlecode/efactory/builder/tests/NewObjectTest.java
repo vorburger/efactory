@@ -10,18 +10,14 @@
  ******************************************************************************/
 package com.googlecode.efactory.builder.tests;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EStructuralFeature;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.googlecode.efactory.eFactory.Attribute;
 import com.googlecode.efactory.eFactory.Feature;
+import com.googlecode.efactory.eFactory.MultiValue;
 import com.googlecode.efactory.eFactory.NewObject;
 import com.googlecode.efactory.util.ValueResolver;
 
@@ -34,14 +30,12 @@ public class NewObjectTest extends AbstractModelBuilderTest {
 		
 		NewObject newObject = factory.getRoot();
 		checkFeatures(newObject, testModel);
-		checkListFeatures(newObject, testModel);
 		checkAttributeValues(newObject, testModel);
 	}
 
 	private void checkAttributeValues(NewObject newObject, EObject eObject) {
 		for (Feature feature : Iterables.filter(newObject.getFeatures(),
 				new Predicate<Feature>() {
-
 					public boolean apply(Feature input) {
 						return (input.getValue() instanceof Attribute);
 					}
@@ -56,44 +50,15 @@ public class NewObjectTest extends AbstractModelBuilderTest {
 		assertEquals(expectedValue, actualValue);
 	}
 
-	private void checkListFeatures(NewObject newObject, EObject eObject) {
-		Map<EStructuralFeature, Integer> featureValueCount = new HashMap<EStructuralFeature, Integer>();
-		for (Feature feature : newObject.getFeatures()) {
-			if (feature.isIsMany()) {
-				increaseValueCount(featureValueCount, feature);
-			}
-		}
-		checkFeatureValueCount(featureValueCount, eObject);
-	}
-
-	private void checkFeatureValueCount(
-			Map<EStructuralFeature, Integer> featureValueCount, EObject eObject) {
-		for (Entry<EStructuralFeature, Integer> entry : featureValueCount
-				.entrySet()) {
-			EStructuralFeature eFeature = entry.getKey();
-			EList<?> featureList = (EList<?>) eObject.eGet(eFeature);
-			Integer valueCount = entry.getValue();
-			assertEquals(valueCount.intValue(), featureList.size());
-		}
-	}
-
 	private void checkFeatures(NewObject newObject, EObject eObject) {
 		for (Feature feature : newObject.getFeatures()) {
-			if (!feature.isIsMany()) {
-				assertNotNull(eObject.eGet(feature.getEFeature()));
+			assertNotNull(eObject.eGet(feature.getEFeature()));
+			if (feature.getEFeature().isMany()) {
+				MultiValue multiValue = (MultiValue) feature.getValue();
+				EList<?> eList = (EList<?>) eObject.eGet(feature.getEFeature());
+				assertEquals(multiValue.getValues().size(), eList.size());
 			}
 		}
-	}
-
-	private void increaseValueCount(
-			Map<EStructuralFeature, Integer> featureValueCount, Feature feature) {
-		Integer count = featureValueCount.get(feature.getEFeature());
-		if (count == null) {
-			count = Integer.valueOf(1);
-		} else {
-			count = Integer.valueOf(count.intValue() + 1);
-		}
-		featureValueCount.put(feature.getEFeature(), count);
 	}
 
 	@Override
