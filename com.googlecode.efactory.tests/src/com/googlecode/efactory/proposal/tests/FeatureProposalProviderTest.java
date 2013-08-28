@@ -8,7 +8,7 @@ public class FeatureProposalProviderTest extends
 
 	private static final String body = "use testmodel.* "
 			+ "TestModel testModelName {\n"
-			+ "referenceTestContainer +=ReferenceTestContainer test1 {\n";
+			+ "referenceTestContainer = [ ReferenceTestContainer test1 {\n";
 
 	@Test
 	public void testCompleteFeatures_All() throws Exception {
@@ -20,7 +20,7 @@ public class FeatureProposalProviderTest extends
 	@Test
 	public void testCompleteBooleanAttribute_Value_One() throws Exception {
 		newBuilder().append(
-				body + "containments += ReferenceTarget target1 {}\n")
+				body + "containments = [ ReferenceTarget target1 {}\n")
 				.assertText("containments", "referenceToOne",
 						"referenceToMany", "name", "containment",
 						"oneAttribute", "manyAttributes", "}");
@@ -29,7 +29,7 @@ public class FeatureProposalProviderTest extends
 	@Test
 	public void testCompleteBooleanAttribute_Value_Many() throws Exception {
 		newBuilder().append(
-				body + "containment += ReferenceTarget target1 {}\n")
+				body + "containment = [ ReferenceTarget target1 {}\n")
 				.assertText("containments", "referenceToOne",
 						"referenceToMany", "name", "oneAttribute",
 						"manyAttributes", "}");

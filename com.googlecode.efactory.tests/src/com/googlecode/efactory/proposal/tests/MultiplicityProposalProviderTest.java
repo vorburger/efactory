@@ -18,7 +18,7 @@ public class MultiplicityProposalProviderTest extends
 
 	private static final String body = "use testmodel.* "
 			+ "TestModel testModelName {\n"
-			+ "referenceTestContainer +=ReferenceTestContainer test1 {\n";
+			+ "referenceTestContainer = [ ReferenceTestContainer test1 {\n";
 
 	@Test
 	public void testMultiplicityAttribute_One() throws Exception {
@@ -27,7 +27,7 @@ public class MultiplicityProposalProviderTest extends
 
 	@Test
 	public void testMultiplicityAttribute_Many() throws Exception {
-		newBuilder().append(body + "manyAttributes ").assertText("+=");
+		newBuilder().append(body + "manyAttributes ").assertText("=");
 	}
 
 	@Test
@@ -37,7 +37,7 @@ public class MultiplicityProposalProviderTest extends
 
 	@Test
 	public void testMultiplicityContainment_Many() throws Exception {
-		newBuilder().append(body + "containments ").assertText("+=");
+		newBuilder().append(body + "containments ").assertText("=");
 	}
 
 	@Test
@@ -47,7 +47,7 @@ public class MultiplicityProposalProviderTest extends
 
 	@Test
 	public void testMultiplicityReference_Many() throws Exception {
-		newBuilder().append(body + "referenceToMany ").assertText("+=");
+		newBuilder().append(body + "referenceToMany ").assertText("=");
 	}
 
 }

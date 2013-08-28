@@ -27,7 +27,6 @@ import com.googlecode.efactory.eFactory.EFactoryPackage;
 public class GenericLineBreakFormatter {
 
 	private static final String EQUALS = "="; //$NON-NLS-1$
-	private static final String PLUS_EQUALS = "+="; //$NON-NLS-1$
 	private static final String COLON = "."; //$NON-NLS-1$
 
 	public void apply(FormattingConfig c, List<ParserRule> parserRules) {
@@ -66,9 +65,7 @@ public class GenericLineBreakFormatter {
 
 	private boolean canGenericRuleBeApplied(Keyword keyword) {
 		return keyword != null && !COLON.equals(keyword.getValue())
-				&& !EQUALS.equals(keyword.getValue())
-				&& !"new".equals(keyword.getValue())
-				&& !PLUS_EQUALS.equals(keyword.getValue());
+				&& !EQUALS.equals(keyword.getValue());
 		// && !"true".equals(keyword.getValue())
 		// && !"false".equals(keyword.getValue());
 	}

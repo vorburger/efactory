@@ -33,10 +33,6 @@ import com.googlecode.efactory.eFactory.Feature;
 import com.googlecode.efactory.eFactory.NewObject;
 import com.googlecode.efactory.util.EcoreUtil3;
 
-/**
- * see http://wiki.eclipse.org/Xtext/Documentation#Content_Assist on how to
- * customize content assistant
- */
 public class EFactoryProposalProvider extends AbstractEFactoryProposalProvider {
 
 	private static final String L_BRACE = "{";
@@ -199,34 +195,6 @@ public class EFactoryProposalProvider extends AbstractEFactoryProposalProvider {
 		}
 	}
 
-/*	
-	@Override
-	public void completeFeature_Value(EObject model, Assignment assignment,
-			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-		// TODO Auto-generated method stub
-		super.completeFeature_Value(model, assignment, context, acceptor);
-	}
-
-	@Override
-	public void complete_Feature(EObject model, RuleCall ruleCall,
-			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-		// TODO Auto-generated method stub
-		super.complete_Feature(model, ruleCall, context, acceptor);
-	}
-
-	@Override
-	public void completeFeature_IsMany(EObject model, Assignment assignment,
-			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-		if (model instanceof Feature) {
-			Feature feature = (Feature) model;
-			if (feature.getEFeature().isMany()) {
-				acceptor.accept(createCompletionProposal(model, "+=", context));
-			} else {
-				acceptor.accept(createCompletionProposal(model, "=", context));
-			}
-		}
-	}
-*/
 	private boolean isValid(final NewObject model, EStructuralFeature eFeature) {
 		return isFeature(model, eFeature) && isNoDuplicate(model, eFeature)
 				&& eFeature.isChangeable();

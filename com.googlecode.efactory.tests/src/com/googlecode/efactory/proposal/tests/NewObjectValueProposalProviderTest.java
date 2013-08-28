@@ -18,11 +18,11 @@ public class NewObjectValueProposalProviderTest extends
 
 	private static final String body = "use testmodel.* "
 			+ "TestModel testModelName {\n"
-			+ "referenceTestContainer +=ReferenceTestContainer test1 {\n";
+			+ "referenceTestContainer = [ ReferenceTestContainer test1 {\n";
 
 	@Test
 	public void testMultiplicityContainment_One() throws Exception {
-		newBuilder().append(body + "containments += ").assertText(
+		newBuilder().append(body + "containments = ").assertText(
 				"ReferenceTarget", "ReferenceTargetSubclass");
 	}
 

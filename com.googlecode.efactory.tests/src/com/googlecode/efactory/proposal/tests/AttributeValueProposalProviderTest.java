@@ -18,7 +18,7 @@ public class AttributeValueProposalProviderTest extends
 
 	private static final String body = "use testmodel.* "
 			+ "TestModel testModelName {\n"
-			+ "attributeTest += AttributeTestContainer test {\n";
+			+ "attributeTest = [ AttributeTestContainer test {\n";
 
 	@Test
 	public void testCompleteBooleanAttribute_Value() throws Exception {
