@@ -49,15 +49,16 @@ NewObject:
 	"}";
 	
 Value:
-	MultiValue | Attribute | Reference | Containment
+	// The two (!) Syntactic Predicates => are needed here to solve "Decision can match input such as "RULE_ID '.' RULE_ID {RULE_STRING..RULE_DATE, '}', '['..'false'}" using multiple alternatives: 3, 4"
+	MultiValue | Attribute | =>Containment | =>Reference 
 ;
 
 MultiValue:
-	{MultiValue} "[" (values += Value)* "]"  
+	({MultiValue} "[") (values += Value)* "]"
 ;
 
 Reference:
-	value = [ecore::EObject] // NOT [NewObject]
+	value = [ecore::EObject|QualifiedName] // NOT [NewObject]
 ;
 	
 Containment:
@@ -69,7 +70,7 @@ Attribute:
 ;
 
 EnumAttribute:
-	 ":" value = [ecore::EEnumLiteral]
+	":" value = [ecore::EEnumLiteral]
 ;
 
 
@@ -78,21 +79,20 @@ StringAttribute :
 ;
 
 IntegerAttribute:
-	 value=LONG
+	value=LONG
 ;
 	
 DoubleAttribute:
-	 value=DOUBLE
+	value=DOUBLE
 ;
 
 DateAttribute:
-	 value=DATE
+	value=DATE
 ;
 
 NullAttribute:
 	value = "NULL"
 ;
-
 	
 BooleanAttribute:
 	 value?="true" |  "false" {BooleanAttribute}

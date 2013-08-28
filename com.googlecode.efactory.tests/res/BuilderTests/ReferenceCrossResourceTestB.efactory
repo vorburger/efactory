@@ -5,20 +5,16 @@ use testmodel.*
  
 TestModel testModelNameB {
 	
-	referenceTestContainer +=ReferenceTestContainer test1 {
-		referenceToOne = target1
-		referenceToMany += target1
-		referenceToMany += target2		
-		referenceToMany += target3		
-	
-	}
-	
-	referenceTestContainer += ReferenceTestContainer test2 {
-		referenceToOne = target23
-		referenceToMany += target21
-		referenceToMany += target22		
-		referenceToMany += target23		
-	}
+	referenceTestContainer = [
+		ReferenceTestContainer test1 {
+			referenceToOne = target1
+			referenceToMany = [ target1 target2 target3 ]		
+		}
+		ReferenceTestContainer test2 {
+			referenceToOne = target23
+			referenceToMany = [ target21 target22 target23 ]		
+		}
+	]
 
 	singleRequired = SingleRequired {
 		parentReference = testModelNameA     

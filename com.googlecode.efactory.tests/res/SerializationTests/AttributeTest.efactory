@@ -2,37 +2,36 @@
 use testmodel.*
 
 TestModel testModelName {
+
+	// For the SerializationTest.testReferenceTest() the order of things
+	// listed here matters very much; it HAS to be Attributes/Containment/References/isMany,
+	// because that's the order in which NewObjectBuilder.build(EObject) rebuilds
+	// it.  Property order cannot not be "preserved", the way the SerializationTest
+	// works (intentionally) - from Factory to EObject and back to Factory, to compare.
+
   singleRequired = SingleRequired { parentAttribute = false }	
-  attributeTest += AttributeTestContainer test {
+  attributeTest = [ AttributeTestContainer test {
     oneInt = 1
     oneInteger = 1
-    manyInt += 1
-    manyInt += 2
-    manyInt += 3
     oneBool = true
-    manyBool += true
-    manyBool += true
-    manyBool += false
     oneDouble = 1.1
-    manyDouble += 1.1
-    manyDouble += 2.2
-    manyDouble += 3.3
 //    oneBigDecimal = 123798234.223940293480923842
     oneBigDecimal = 1.0
-    manyBigDecimal += 1.1
     oneBigInteger = 1
-//    manyBigInteger += 1230820834928349283498234
-	manyBigInteger += 1
-    manyBigInteger += 2
     oneEnum = :Sample2
-    manyEnums += :Sample
-    manyEnums += :Sample2
     oneShort = 4
-    manyShorts += 1
-    manyShorts += 2
     oneDate = 09.11.1979
-    manyDates += 09.11.1979
-    manyDates += 08.10.0868
-  }
+    
+    manyInt = [ 1 2 3 ]
+    manyBool = [ true false ]
+    manyDouble = [ 1.1 2.2 3.3 ]
+    manyBigDecimal = [ 1.1 ] 
+//    manyBigInteger = [ 1230820834928349283498234 ]
+	manyBigInteger = [ 1 2 ]
+    manyEnums = [ :Sample :Sample2 ]
+    manyShorts = [ 1 2 ]
+    manyDates = [ 09.11.1979 08.10.0868 ]
+    
+  } ]
 
 }

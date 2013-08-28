@@ -29,7 +29,9 @@ import com.googlecode.efactory.building.NoNameFeatureMappingException;
 import com.googlecode.efactory.eFactory.EFactoryFactory;
 import com.googlecode.efactory.eFactory.Factory;
 import com.googlecode.efactory.eFactory.Feature;
+import com.googlecode.efactory.eFactory.MultiValue;
 import com.googlecode.efactory.eFactory.NewObject;
+import com.googlecode.efactory.eFactory.Value;
 
 // intentionally a package local class, the entry point to this package is FactoryBuilder, only
 class NewObjectBuilder {
@@ -125,15 +127,22 @@ class NewObjectBuilder {
 		final EList<Feature> features = newObject.getFeatures();
 		for (EStructuralFeature eFeature : input.eClass().getEAllStructuralFeatures()) {
 			if (eFeature.isMany()) {
-				List<?> listValues = (List<?>) input.eGet(eFeature);
-				for (Object value : listValues) {
-					features.add(createMultiValue(eFeature, value));
+				List<?> eListValues = (List<?>) input.eGet(eFeature);
+				if (eListValues.isEmpty())
+					continue;
+				
+				final Feature newFeature = EFactoryFactory.eINSTANCE.createFeature();
+				newFeature.setEFeature(eFeature);
+				features.add(newFeature);
+				MultiValue multiValue = EFactoryFactory.eINSTANCE.createMultiValue();
+				newFeature.setValue(multiValue);
+				EList<Value> values = multiValue.getValues();
+				
+				for (Object value : eListValues) {
+					Value multiValueItem = MultiValueBuilder.multiValue(eFeature, factoryBuilder).value(value).createValue();
+					values.add(multiValueItem);
 				}
 			}
 		}
-	}
-
-	private Feature createMultiValue(EStructuralFeature feature, Object value) {
-		return MultiValueBuilder.multiValue(feature, factoryBuilder).value(value).build();
 	}
 }
