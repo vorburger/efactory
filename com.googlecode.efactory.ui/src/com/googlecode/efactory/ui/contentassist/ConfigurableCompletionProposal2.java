@@ -1,0 +1,52 @@
+/*******************************************************************************
+ * Copyright (c) 2013 Michael Vorburger.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *     Michael Vorburger - initial API and implementation
+ ******************************************************************************/
+package com.googlecode.efactory.ui.contentassist;
+
+import org.eclipse.jface.text.contentassist.IContextInformation;
+import org.eclipse.jface.viewers.StyledString;
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.xtext.ui.editor.contentassist.ConfigurableCompletionProposal;
+
+/**
+ * ConfigurableCompletionProposal which exposes its
+ * additionalProposalInfo as Object instead of String.
+ * 
+ * @author Michael Vorburger
+ */
+public class ConfigurableCompletionProposal2 extends ConfigurableCompletionProposal {
+
+	private Object additionalTypedProposalInfo;
+
+	public ConfigurableCompletionProposal2(String replacementString,
+			int replacementOffset, int replacementLength, int cursorPosition,
+			Image image, StyledString displayString,
+			IContextInformation contextInformation,
+			String additionalProposalInfo) {
+		super(replacementString, replacementOffset, replacementLength, cursorPosition,
+				image, displayString, contextInformation, additionalProposalInfo);
+	}
+
+	public ConfigurableCompletionProposal2(String replacementString,
+			int replacementOffset, int replacementLength, int cursorPosition) {
+		super(replacementString, replacementOffset, replacementLength, cursorPosition);
+	}
+
+	@Override
+	public void setAdditionalProposalInfo(Object additionalTypedProposalInfo) {
+		super.setAdditionalProposalInfo(additionalTypedProposalInfo);
+		this.additionalTypedProposalInfo = additionalTypedProposalInfo;
+	}	
+	
+	public Object getAdditionalTypedProposalObject() {
+		return additionalTypedProposalInfo;
+	}
+	
+}
