@@ -41,6 +41,7 @@ import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.resource.EObjectDescription;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.scoping.IScope;
+import org.eclipse.xtext.scoping.impl.SimpleScope;
 import org.eclipse.xtext.util.SimpleAttributeResolver;
 
 import com.google.inject.Inject;
@@ -57,7 +58,7 @@ public class EReferenceScopeProvider {
 
 	public IScope get(Resource resource, EClass type) {
 		Factory factory = Resources.getRoot(resource, Factory.class);
-		return new EFactoryScope(factory, initElements(factory, resource, type));
+		return new SimpleScope(initElements(factory, resource, type));
 	}
 
 	private List<IEObjectDescription> initElements(Factory factory,
