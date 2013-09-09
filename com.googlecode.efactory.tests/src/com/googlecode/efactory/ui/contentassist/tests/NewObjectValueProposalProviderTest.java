@@ -8,12 +8,12 @@
  * Contributors:
  *     Sebastian Benz - initial API and implementation
  ******************************************************************************/
-package com.googlecode.efactory.proposal.tests;
+package com.googlecode.efactory.ui.contentassist.tests;
 
 import org.junit.Test;
 
 @SuppressWarnings("restriction")
-public class MultiplicityProposalProviderTest extends
+public class NewObjectValueProposalProviderTest extends
 		AbstractEFactoryContentAssistProcessorTest {
 
 	private static final String body = "use testmodel.* "
@@ -21,33 +21,9 @@ public class MultiplicityProposalProviderTest extends
 			+ "referenceTestContainer = [ ReferenceTestContainer test1 {\n";
 
 	@Test
-	public void testMultiplicityAttribute_One() throws Exception {
-		newBuilder().append(body + "oneAttribute ").assertText("=");
-	}
-
-	@Test
-	public void testMultiplicityAttribute_Many() throws Exception {
-		newBuilder().append(body + "manyAttributes ").assertText("=");
-	}
-
-	@Test
 	public void testMultiplicityContainment_One() throws Exception {
-		newBuilder().append(body + "containment ").assertText("=");
-	}
-
-	@Test
-	public void testMultiplicityContainment_Many() throws Exception {
-		newBuilder().append(body + "containments ").assertText("=");
-	}
-
-	@Test
-	public void testMultiplicityReference_One() throws Exception {
-		newBuilder().append(body + "referenceToOne ").assertText("=");
-	}
-
-	@Test
-	public void testMultiplicityReference_Many() throws Exception {
-		newBuilder().append(body + "referenceToMany ").assertText("=");
+		newBuilder().append(body + "containments = ").assertText(
+				"ReferenceTarget", "ReferenceTargetSubclass");
 	}
 
 }

@@ -8,7 +8,7 @@
  * Contributors:
  *     Sebastian Benz - initial API and implementation
  ******************************************************************************/
-package com.googlecode.efactory.proposal.tests;
+package com.googlecode.efactory.ui.contentassist.tests;
 
 import org.junit.Test;
 

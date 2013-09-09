@@ -2,6 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: com.googlecode.efactory.tests;singleton:=true
+Fragment-Host: com.googlecode.efactory.ui
 Bundle-Version: 0.9.0.qualifier
 Bundle-ClassPath: .
 Bundle-Vendor: Sebastian Benz & Michael Vorburger
@@ -9,7 +10,8 @@ Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Export-Package: com.googlecode.efactory.builder.tests,
  com.googlecode.efactory.imports.tests,
- com.googlecode.efactory.proposal.tests,
+ com.googlecode.efactory.ui.contentassist,
+ com.googlecode.efactory.ui.contentassist.tests,
  com.googlecode.efactory.tests.util,
  com.googlecode.efactory.util.tests,
  testmodel,
@@ -17,12 +19,10 @@ Export-Package: com.googlecode.efactory.builder.tests,
  testmodel.util,
  com.googlecode.efactory
 Require-Bundle: org.junit,
- com.googlecode.efactory;visibility:=reexport,
  org.eclipse.ui.editors;bundle-version="3.5.0",
  org.eclipse.ui.ide;bundle-version="3.5.0",
  org.eclipse.ui,
  org.antlr.runtime,
- com.googlecode.efactory.ui;bundle-version="0.7.0",
  org.eclipse.xtext;bundle-version="1.0.0",
  org.eclipse.core.runtime;bundle-version="3.5.0",
  org.eclipse.emf.ecore;visibility:=reexport,
@@ -38,7 +38,8 @@ Require-Bundle: org.junit,
  org.eclipse.xtext.xbase.lib;bundle-version="2.3.1",
  org.eclipse.xtext.ecore;bundle-version="2.3.1",
  org.eclipse.emf.codegen;bundle-version="2.8.0",
- org.eclipse.emf.codegen.ecore;bundle-version="2.8.2"
+ org.eclipse.emf.codegen.ecore;bundle-version="2.8.2",
+ com.googlecode.efactory
 Bundle-ActivationPolicy: lazy
 Import-Package: org.hamcrest.core,
  org.junit.runner;version="4.5.0",
