@@ -11,6 +11,7 @@
 package com.googlecode.efactory.validation;
 
 import java.util.HashSet;
+import java.util.NoSuchElementException;
 import java.util.Set;
 
 import org.eclipse.emf.common.util.Diagnostic;
@@ -45,7 +46,6 @@ import com.googlecode.efactory.eFactory.StringAttribute;
 import com.googlecode.efactory.eFactory.Value;
 import com.googlecode.efactory.eFactory.util.EFactorySwitch;
 import com.googlecode.efactory.resource.EFactoryResource;
-import com.googlecode.efactory.util.ContainerResolver;
 import com.googlecode.efactory.util.EcoreUtil3;
 
 public class EFactoryJavaValidator extends AbstractEFactoryJavaValidator {
@@ -172,7 +172,6 @@ public class EFactoryJavaValidator extends AbstractEFactoryJavaValidator {
 		}
 	}
 
-	private ContainerResolver containerResolver = new ContainerResolver();
 	private AttributeValidator attributeValidator = new AttributeValidator();
 
 	@Check
@@ -378,10 +377,16 @@ public class EFactoryJavaValidator extends AbstractEFactoryJavaValidator {
 	}
 	
 	private Feature getFeature(Value value) {
-		return containerResolver.resolve(Feature.class, value);
+		Feature feature = EcoreUtil2.getContainerOfType(value, Feature.class);
+		if (feature == null)
+			throw new NoSuchElementException("EFactory Value " + value.toString() + " is not contained in a Feature?!");
+		return feature;
 	}
 
 	private NewObject getNewObject(Feature feature) {
-		return containerResolver.resolve(NewObject.class, feature);
+		NewObject newObject = EcoreUtil2.getContainerOfType(feature, NewObject.class);
+		if (newObject == null)
+			throw new NoSuchElementException("EFactory Feature " + feature.getEFeature().getName() + " is not contained in a NewObject?!");
+		return newObject;
 	}
 }
