@@ -7,6 +7,8 @@ package com.googlecode.efactory;
  */
 public class EFactoryStandaloneSetup extends EFactoryStandaloneSetupGenerated{
 
+	// TODO move this helper class into new TBD *.standalone project
+	
 	public static void doSetup() {
 		new EFactoryStandaloneSetup().createInjectorAndDoEMFRegistration();
 	}

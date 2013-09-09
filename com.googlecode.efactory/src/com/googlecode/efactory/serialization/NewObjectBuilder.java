@@ -136,12 +136,13 @@ class NewObjectBuilder {
 				features.add(newFeature);
 				MultiValue multiValue = EFactoryFactory.eINSTANCE.createMultiValue();
 				newFeature.setValue(multiValue);
-				EList<Value> values = multiValue.getValues();
 				
+				EList<Value> values = multiValue.getValues();
 				for (Object value : eListValues) {
-					Value multiValueItem = MultiValueBuilder.multiValue(eFeature, factoryBuilder).value(value).createValue();
+					Value multiValueItem = (Value) MultiValueBuilder.multiValue(eFeature, factoryBuilder).value(value).createValue();
 					values.add(multiValueItem);
 				}
+
 			}
 		}
 	}

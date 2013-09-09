@@ -184,8 +184,11 @@ public class ModelBuilder {
 		Iterator<ReferenceBuilder> it = deferredLinkingFeatureBuilder.iterator();
 		while (it.hasNext()) {
 			ReferenceBuilder fb = it.next();
-			fb.link();
-			it.remove();
+			try {
+				fb.link();
+			} finally {
+				it.remove();
+			}
 		}
 	}
 	

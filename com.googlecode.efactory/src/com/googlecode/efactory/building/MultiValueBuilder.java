@@ -34,13 +34,11 @@ public class MultiValueBuilder extends FeatureBuilder {
 		final EStructuralFeature eFeature = getFeature().getEFeature();
 		if (eFeature.eIsProxy())
 			return;
-//		@SuppressWarnings("unchecked") EList<Object> eList = (EList<Object>) getContainer().eGet(eFeature);
 		
 		for (Value listValue : multiValue.getValues()) {
 			FeatureBuilder itemFeatureBuilder = featureSwitch.doSwitch(listValue);
-			itemFeatureBuilder.modelBuilder(getModelBuilder()).container(getContainer()).feature(getFeature()).build();
-//			Object listObject = 
-//			eList.add(listObject);
+			if (itemFeatureBuilder != null)
+				itemFeatureBuilder.modelBuilder(getModelBuilder()).container(getContainer()).feature(getFeature()).build();
 		}
 	}
 

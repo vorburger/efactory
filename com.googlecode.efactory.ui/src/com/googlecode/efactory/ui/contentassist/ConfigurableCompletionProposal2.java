@@ -19,11 +19,13 @@ import org.eclipse.xtext.ui.editor.contentassist.ConfigurableCompletionProposal;
  * ConfigurableCompletionProposal which exposes its
  * additionalProposalInfo as Object instead of String.
  * 
+ * @see https://bugs.eclipse.org/bugs/show_bug.cgi?id=359548
+ * 
  * @author Michael Vorburger
  */
 public class ConfigurableCompletionProposal2 extends ConfigurableCompletionProposal {
 
-	private Object additionalTypedProposalInfo;
+	private Object additionalProposalInfoAsObject;
 
 	public ConfigurableCompletionProposal2(String replacementString,
 			int replacementOffset, int replacementLength, int cursorPosition,
@@ -42,11 +44,11 @@ public class ConfigurableCompletionProposal2 extends ConfigurableCompletionPropo
 	@Override
 	public void setAdditionalProposalInfo(Object additionalTypedProposalInfo) {
 		super.setAdditionalProposalInfo(additionalTypedProposalInfo);
-		this.additionalTypedProposalInfo = additionalTypedProposalInfo;
+		this.additionalProposalInfoAsObject = additionalTypedProposalInfo;
 	}	
 	
 	public Object getAdditionalTypedProposalObject() {
-		return additionalTypedProposalInfo;
+		return additionalProposalInfoAsObject;
 	}
 	
 }

@@ -228,10 +228,8 @@ public class EFactoryJavaValidator extends AbstractEFactoryJavaValidator {
 		Set<EStructuralFeature> existingFeatures = new HashSet<EStructuralFeature>();
 		for (Feature feature : newObject.getFeatures()) {
 			EStructuralFeature eFeature = feature.getEFeature();
-			boolean hasDuplicate = EcoreUtil3.isDuplicate(existingFeatures,
-					eFeature);
-			assertFalse("Duplicate feature '" + eFeature.getName() + "'", null,
-					hasDuplicate);
+			boolean hasDuplicate = existingFeatures.contains(eFeature);
+			assertFalse("Duplicate feature '" + eFeature.getName() + "'", null, hasDuplicate);
 			existingFeatures.add(eFeature);
 		}
 	}
@@ -244,6 +242,12 @@ public class EFactoryJavaValidator extends AbstractEFactoryJavaValidator {
 		}
 		checkCardinality(feature);
 		checkIsFeature(feature);
+		checkMissingFeatureValue(feature);
+	}
+
+	private void checkMissingFeatureValue(Feature feature) {
+		EStructuralFeature eFeature = feature.getEFeature();
+		assertTrue("Feature missing value: " + eFeature.getName(), EFactoryPackage.Literals.FEATURE__VALUE, feature.getValue() != null);
 	}
 
 	private void checkIsFeature(Feature feature) {
@@ -349,8 +353,7 @@ public class EFactoryJavaValidator extends AbstractEFactoryJavaValidator {
 				isContainment(eFeature));
 	}
 
-	private void assertTrue(String message, EStructuralFeature feature,
-			boolean value) {
+	private void assertTrue(String message, EStructuralFeature feature, boolean value) {
 		if (!value) {
 			error(message, feature);
 		}
@@ -374,11 +377,11 @@ public class EFactoryJavaValidator extends AbstractEFactoryJavaValidator {
 		attributeValidator.validate(feature, attribute);
 	}
 	
-	private Feature getFeature(EObject eObject) {
-		return containerResolver.resolve(Feature.class, eObject);
+	private Feature getFeature(Value value) {
+		return containerResolver.resolve(Feature.class, value);
 	}
 
-	private NewObject getNewObject(EObject eObject) {
-		return containerResolver.resolve(NewObject.class, eObject);
+	private NewObject getNewObject(Feature feature) {
+		return containerResolver.resolve(NewObject.class, feature);
 	}
 }
