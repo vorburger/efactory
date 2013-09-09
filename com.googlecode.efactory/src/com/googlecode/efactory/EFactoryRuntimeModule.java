@@ -18,7 +18,6 @@ import java.text.SimpleDateFormat;
 import org.apache.log4j.Logger;
 import org.eclipse.xtext.parser.antlr.IReferableElementsUnloader;
 import org.eclipse.xtext.parser.antlr.IReferableElementsUnloader.GenericUnloader;
-import org.eclipse.xtext.parsetree.reconstr.ITransientValueService;
 import org.eclipse.xtext.resource.IDerivedStateComputer;
 import org.eclipse.xtext.resource.ILocationInFileProvider;
 import org.eclipse.xtext.resource.IResourceFactory;
@@ -38,7 +37,6 @@ import com.googlecode.efactory.scoping.EFactoryImportedNamespaceAwareScopeProvid
 import com.googlecode.efactory.scoping.EPackageScopeProvider;
 import com.googlecode.efactory.scoping.IEPackageScopeProvider;
 import com.googlecode.efactory.scoping.WarningErrorHandlerWithoutNoSuchMethodException;
-import com.googlecode.efactory.serialization.EFactoryTransientValueService;
 
 /**
  * Use this class to register components to be used within the IDE.
@@ -64,11 +62,6 @@ public class EFactoryRuntimeModule
 	@Override
 	public Class<? extends IResourceFactory> bindIResourceFactory() {
 		return EFactoryStandaloneResourceFactory.class;
-	}
-
-	@Override
-	public Class<? extends ITransientValueService> bindITransientValueService() {
-		return EFactoryTransientValueService.class;
 	}
 	
 	@Override

@@ -62,9 +62,7 @@ class ValueSwitch extends AbstractValueSwitch<Value> {
 	protected Value caseBoolean(Boolean value) {
 		BooleanAttribute attribute = EFactoryFactory.eINSTANCE
 				.createBooleanAttribute();
-		if (value) {
-			attribute.setValue(value);
-		}
+		attribute.setValue(value);
 		return attribute;
 	}
 

@@ -28,7 +28,6 @@ package com.googlecode.efactory.util;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Collection;
 import java.util.Date;
 
 import org.eclipse.emf.common.util.EList;
@@ -103,28 +102,21 @@ public final class EcoreUtil3 {
 		return false;
 	}
 
-	public static boolean isIntegerAttribute(EStructuralFeature eFeature) {
-		if (eFeature.getEType() instanceof EDataType) {
-			EDataType dataType = (EDataType) eFeature.getEType();
-			Class<?> instanceClass = dataType.getInstanceClass();
-			return instanceClass == int.class || instanceClass == short.class
-					|| instanceClass == long.class
-					|| instanceClass == BigInteger.class;
-		}
-		return false;
+	public static boolean isIntegerAttribute(EDataType dataType) {
+		Class<?> instanceClass = dataType.getInstanceClass();
+		return instanceClass == int.class || instanceClass == short.class
+				|| instanceClass == long.class
+				|| instanceClass == Integer.class
+				|| instanceClass == BigInteger.class;
 	}
 
-	public static boolean isBooleanAttribute(EStructuralFeature eFeature) {
-		if (eFeature.getEType() instanceof EDataType) {
-			EDataType dataType = (EDataType) eFeature.getEType();
-			return dataType.getInstanceClass() == boolean.class;
-		}
-		return false;
+	public static boolean isBooleanAttribute(EDataType dataType) {
+		return dataType.getInstanceClass() == boolean.class;
 	}
 
-	public static boolean hasFeature(EClass eClass, EStructuralFeature eFeature) {
-		return eClass.getEAllStructuralFeatures().contains(eFeature);
-	}
+//	public static boolean hasFeature(EClass eClass, EStructuralFeature eFeature) {
+//		return eClass.getEAllStructuralFeatures().contains(eFeature);
+//	}
 
 	@SuppressWarnings("unchecked")
 	public static void setOrAddValue(EObject eObject, EStructuralFeature eFeature, Object newValue) {
@@ -140,19 +132,17 @@ public final class EcoreUtil3 {
 					EcoreUtil.resolve(newEValue, eObject);
 				}
 			}
+			if (newValue == null && eFeature.getEType().getInstanceClass().isPrimitive())
+				throw new IllegalArgumentException("EFeature of type primitive instance class cannot be set to null: " + eFeature);
 			eObject.eSet(eFeature, newValue);
 		}
 
 	}
 
-	public static boolean isDoubleAttribute(EStructuralFeature eFeature) {
-		if (eFeature.getEType() instanceof EDataType) {
-			EDataType dataType = (EDataType) eFeature.getEType();
-			Class<?> instanceClass = dataType.getInstanceClass();
-			return instanceClass == double.class
-					|| instanceClass == BigDecimal.class;
-		}
-		return false;
+	public static boolean isDoubleAttribute(EDataType dataType) {
+		Class<?> instanceClass = dataType.getInstanceClass();
+		return instanceClass == double.class
+				|| instanceClass == BigDecimal.class;
 	}
 
 	public static Iterable<EAttribute> getAllAttributes(EClass eClass,
@@ -170,12 +160,8 @@ public final class EcoreUtil3 {
 				});
 	}
 
-	public static boolean isDateAttribute(EStructuralFeature eFeature) {
-		if (eFeature.getEType() instanceof EDataType) {
-			EDataType dataTyp = (EDataType) eFeature.getEType();
-			return dataTyp.getInstanceClass() == Date.class;
-		}
-		return false;
+	public static boolean isDateAttribute(EDataType dataTyp) {
+		return dataTyp.getInstanceClass() == Date.class;
 	}
 
 	public static boolean isEnum(EClassifier eType) {
@@ -204,17 +190,7 @@ public final class EcoreUtil3 {
 				});
 	}
 
-	public static boolean isDuplicate(
-			Collection<EStructuralFeature> existingFeatures,
-			EStructuralFeature eFeature) {
-		return !eFeature.isMany() && existingFeatures.contains(eFeature);
-	}
-
-	public static boolean isDuplicate(EList<Feature> existingFeatures,
-			EStructuralFeature featureToCheck) {
-		if (featureToCheck.isMany()) {
-			return false;
-		}
+	public static boolean isDuplicate(EList<Feature> existingFeatures, EStructuralFeature featureToCheck) {
 		for (Feature feature : existingFeatures) {
 			if (feature.getEFeature() == featureToCheck) {
 				return true;

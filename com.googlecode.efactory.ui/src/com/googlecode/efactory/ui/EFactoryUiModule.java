@@ -23,6 +23,8 @@ import org.eclipse.xtext.ui.editor.model.XtextDocument;
 import com.google.inject.Binder;
 import com.google.inject.name.Names;
 import com.googlecode.efactory.ui.contentassist.EFactoryContentAssistantFactory;
+import com.googlecode.efactory.ui.contentassist.IEAttributeStringProposalProvider;
+import com.googlecode.efactory.ui.contentassist.TerminalsEAttributeStringProposalProvider;
 import com.googlecode.efactory.ui.editor.EFactoryFoldingRegionProvider;
 import com.googlecode.efactory.ui.editor.EFactoryXtextDocument;
 import com.googlecode.efactory.ui.resource.EFactoryResourceFactory;
@@ -59,6 +61,10 @@ public class EFactoryUiModule extends com.googlecode.efactory.ui.AbstractEFactor
 
 	public Class<? extends IFoldingRegionProvider> bindIFoldingRegionProvider() {
 		return EFactoryFoldingRegionProvider.class;
+	}
+	
+	public Class<? extends IEAttributeStringProposalProvider> bindIEAttributeProposalProvider() {
+		return TerminalsEAttributeStringProposalProvider.class;
 	}
 
 // @see http://www.eclipse.org/forums/index.php/m/1095119/

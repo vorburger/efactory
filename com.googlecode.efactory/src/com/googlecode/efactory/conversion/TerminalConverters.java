@@ -43,4 +43,11 @@ public class TerminalConverters extends DefaultTerminalConverters {
 	public IValueConverter<Date> DATE() {
 		return dateValueConverter;
 	}
+	
+	@Inject BOOLEANValueConverter booleanValueConverter;
+	
+	@ValueConverter(rule = "BOOLEAN")
+	public IValueConverter<Boolean> BOOLEAN() {
+		return booleanValueConverter;
+	}
 }
