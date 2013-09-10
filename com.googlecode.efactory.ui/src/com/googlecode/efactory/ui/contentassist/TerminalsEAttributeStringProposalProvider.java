@@ -41,6 +41,9 @@ public class TerminalsEAttributeStringProposalProvider implements IEAttributeStr
 	public String[] getProposals(EAttribute eAttribute) {
 		// TODO better use com.googlecode.efactory.validation.EFactoryJavaValidator.AttributeValidator.equals(EClassifier, EDataType) here too? (and move it to EcoreUtils3)
 		EDataType dataType = eAttribute.getEAttributeType();
+		if (dataType == null)
+			return new String[] { };
+		
 		if (EcorePackage.Literals.ESTRING.equals(dataType)) {
 			return proposals(grammarAccess.getSTRINGRule(), getStringProposal());
 
@@ -84,7 +87,7 @@ public class TerminalsEAttributeStringProposalProvider implements IEAttributeStr
 		final EList<EEnumLiteral> literals = eEnum.getELiterals();
 		List<String> proposals = new ArrayList<String>(literals.size());
 		for (EEnumLiteral literal : literals) {
-			proposals.add(literal.getName());
+			proposals.add(":" + literal.getName());
 		}
 		return proposals.toArray(new String[0]);
 	}

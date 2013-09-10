@@ -12,18 +12,16 @@ package com.googlecode.efactory.ui.contentassist.tests;
 
 import org.junit.Test;
 
-@SuppressWarnings("restriction")
-public class NewObjectValueProposalProviderTest extends
-		AbstractEFactoryContentAssistProcessorTest {
+public class NewObjectValueProposalProviderTest extends	AbstractEFactoryContentAssistProcessorTest {
 
 	private static final String body = "use testmodel.* "
 			+ "TestModel testModelName {\n"
-			+ "referenceTestContainer = [ ReferenceTestContainer test1 {\n";
+			+ "referenceTestContainer = [ ReferenceTestContainer test1 {  } ] }";
 
 	@Test
 	public void testMultiplicityContainment_One() throws Exception {
-		newBuilder().append(body + "containments = ").assertText(
-				"ReferenceTarget", "ReferenceTargetSubclass");
+		newBuilder().append(body).cursorBack(6).insert("containments = [  ]")
+			.cursorBack(2).assertText("ReferenceTarget", "ReferenceTargetSubclass");
 	}
 
 }

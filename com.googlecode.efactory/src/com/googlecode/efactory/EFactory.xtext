@@ -49,7 +49,7 @@ Value:
 	MultiValue | Attribute | =>Containment | =>Reference;
 
 MultiValue:
-	({MultiValue} "[") (values += Value)* "]" ;
+	{MultiValue} "[" (values += Value)* "]" ;
 
 Reference:
 	value = [ecore::EObject|QualifiedName]; // NOT [NewObject]

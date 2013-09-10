@@ -73,7 +73,7 @@ public class TerminalsAttributeProposalProviderTest {
 
 	@Test
 	public void testEnumProposal() {
-		assertArrayEquals(new String[] { "Sample", "Sample2" },
+		assertArrayEquals(new String[] { ":Sample", ":Sample2" },
 				attributeProposalProvider.getProposals(TestmodelPackage.Literals.ATTRIBUTE_TEST_CONTAINER__ONE_ENUM));
 	}
 

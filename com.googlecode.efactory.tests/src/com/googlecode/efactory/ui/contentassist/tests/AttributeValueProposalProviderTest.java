@@ -19,8 +19,6 @@ public class AttributeValueProposalProviderTest extends AbstractEFactoryContentA
 			+ "TestModel testModelName {\n"
 			+ "attributeTest = [ AttributeTestContainer test {  } ] }";
 	
-	// TODO assertText("manyBigDecimal", ....) .. or is that covered somewhere else already?!
-		
 	@Test
 	public void testCompleteBooleanAttribute_Value() throws Exception {
 		newBuilder().append(body).cursorBack(6).insert("oneBool = ").assertText("true", "false");
@@ -28,7 +26,7 @@ public class AttributeValueProposalProviderTest extends AbstractEFactoryContentA
 
 	@Test
 	public void testCompleteStringAttribute_Value() throws Exception {
-		newBuilder().append(body).cursorBack(6).insert("oneString = ").assertText("\"Value\"");
+		newBuilder().append(body).cursorBack(6).insert("oneString = ").assertText("\"String\"");
 	}
 
 	@Test
@@ -38,7 +36,7 @@ public class AttributeValueProposalProviderTest extends AbstractEFactoryContentA
 
 	@Test
 	public void testCompleteDateAttribute_Attribute() throws Exception {
-		newBuilder().append(body).cursorBack(6).insert("oneDate = ").assertText("12.31.2008");
+		newBuilder().append(body).cursorBack(6).insert("oneDate = ").assertText("09.07.2013");
 	}
 
 	@Test
@@ -53,7 +51,7 @@ public class AttributeValueProposalProviderTest extends AbstractEFactoryContentA
 
 	@Test
 	public void testCompleteBigDecimalAttribute_Attribute() throws Exception {
-		newBuilder().append(body).cursorBack(6).insert("oneBigDecimal = ").assertText("0.0");
+		newBuilder().append(body).cursorBack(6).insert("oneBigDecimal = ").assertText("1.2");
 	}
 
 	@Test
@@ -63,7 +61,7 @@ public class AttributeValueProposalProviderTest extends AbstractEFactoryContentA
 
 	@Test
 	public void testCompleteDoubleAttribute_Attribute() throws Exception {
-		newBuilder().append(body).cursorBack(6).insert("oneDouble = ").assertText("0.0");
+		newBuilder().append(body).cursorBack(6).insert("oneDouble = ").assertText("1.2");
 	}
 	
 }

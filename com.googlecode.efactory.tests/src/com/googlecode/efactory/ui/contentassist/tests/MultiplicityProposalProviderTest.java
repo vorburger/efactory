@@ -12,9 +12,7 @@ package com.googlecode.efactory.ui.contentassist.tests;
 
 import org.junit.Test;
 
-@SuppressWarnings("restriction")
-public class MultiplicityProposalProviderTest extends
-		AbstractEFactoryContentAssistProcessorTest {
+public class MultiplicityProposalProviderTest extends AbstractEFactoryContentAssistProcessorTest {
 
 	private static final String body = "use testmodel.* "
 			+ "TestModel testModelName {\n"

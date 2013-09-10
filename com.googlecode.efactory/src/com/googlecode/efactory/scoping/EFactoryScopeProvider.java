@@ -68,14 +68,23 @@ public class EFactoryScopeProvider extends AbstractDeclarativeScopeProvider {
 	// Feature == Containment here, always, is it?
 	public IScope scope_NewObject_eClass(Feature feature, EReference eReference) {
 		final IScope parent = delegateGetScope(feature, eReference);
-		return ePackageScopeProvider.createEClassScope(feature.eResource(), (EClass) feature.getEFeature().getEType(), parent);
+		if (feature.getEFeature() instanceof EReference)
+			return ePackageScopeProvider.createEClassScope(feature.eResource(), (EClass) feature.getEFeature().getEType(), parent);
+		else
+			return IScope.NULLSCOPE;
+			
 	}
 
-	public IScope scope_Feature_eFeature(Feature feature, EReference reference) {
-		NewObject newObject = (NewObject) feature.eContainer();
+	// This may look a bit strange, but is required for 
+	// com.googlecode.efactory.ui.contentassist.EFactoryProposalProvider.completeFeature_EFeature()
+	public IScope scope_Feature_eFeature(NewObject newObject, EReference reference) {
 		EClass eClass = newObject.getEClass();
 		Iterable<? extends EObject> assignableFeature = EcoreUtil3.getAssignableFeatures(eClass);
 		return new SimpleScope(Scopes.scopedElementsFor(assignableFeature));
+	}
+	public IScope scope_Feature_eFeature(Feature feature, EReference reference) {
+		NewObject newObject = (NewObject) feature.eContainer();
+		return scope_Feature_eFeature(newObject, reference);
 	}
 
 	public IScope scope_Feature_reference(NewObject newObject, EReference reference) {
