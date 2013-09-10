@@ -7,63 +7,63 @@
  * 
  * Contributors:
  *     Sebastian Benz - initial API and implementation
+ *     Michael Vorburger - completely valid text, and use of cursorBack()
  ******************************************************************************/
 package com.googlecode.efactory.ui.contentassist.tests;
 
 import org.junit.Test;
 
-@SuppressWarnings("restriction")
-public class AttributeValueProposalProviderTest extends
-		AbstractEFactoryContentAssistProcessorTest {
+public class AttributeValueProposalProviderTest extends AbstractEFactoryContentAssistProcessorTest {
 
 	private static final String body = "use testmodel.* "
 			+ "TestModel testModelName {\n"
-			+ "attributeTest = [ AttributeTestContainer test {\n";
-
+			+ "attributeTest = [ AttributeTestContainer test {  } ] }";
+	
+	// TODO assertText("manyBigDecimal", ....) .. or is that covered somewhere else already?!
+		
 	@Test
 	public void testCompleteBooleanAttribute_Value() throws Exception {
-		newBuilder().append(body + "oneBool = ").assertText("true", "false");
+		newBuilder().append(body).cursorBack(6).insert("oneBool = ").assertText("true", "false");
 	}
 
 	@Test
 	public void testCompleteStringAttribute_Value() throws Exception {
-		newBuilder().append(body + "oneString = ").assertText("\"Value\"");
+		newBuilder().append(body).cursorBack(6).insert("oneString = ").assertText("\"Value\"");
 	}
 
 	@Test
 	public void testCompleteIntegerAttribute_Attribute() throws Exception {
-		newBuilder().append(body + "oneInt = ").assertText("1");
+		newBuilder().append(body).cursorBack(6).insert("oneInt = ").assertText("1");
 	}
 
 	@Test
 	public void testCompleteDateAttribute_Attribute() throws Exception {
-		newBuilder().append(body + "oneDate = ").assertText("12.31.2008");
+		newBuilder().append(body).cursorBack(6).insert("oneDate = ").assertText("12.31.2008");
 	}
 
 	@Test
 	public void testCompleteBigIntegerAttribute_Attribute() throws Exception {
-		newBuilder().append(body + "oneBigInteger = ").assertText("1");
+		newBuilder().append(body).cursorBack(6).insert("oneBigInteger = ").assertText("1");
 	}
 
 	@Test
 	public void testCompleteShortAttribute_Attribute() throws Exception {
-		newBuilder().append(body + "oneShort = ").assertText("1");
+		newBuilder().append(body).cursorBack(6).insert("oneShort = ").assertText("1");
 	}
 
 	@Test
 	public void testCompleteBigDecimalAttribute_Attribute() throws Exception {
-		newBuilder().append(body + "oneBigDecimal = ").assertText("0.0");
+		newBuilder().append(body).cursorBack(6).insert("oneBigDecimal = ").assertText("0.0");
 	}
 
 	@Test
 	public void testCompleteEnumAttribute_Attribute() throws Exception {
-		newBuilder().append(body + "oneEnum = ").assertText(":Sample",
-				":Sample2");
+		newBuilder().append(body).cursorBack(6).insert("oneEnum = ").assertText(":Sample", ":Sample2");
 	}
 
 	@Test
 	public void testCompleteDoubleAttribute_Attribute() throws Exception {
-		newBuilder().append(body + "oneDouble = ").assertText("0.0");
+		newBuilder().append(body).cursorBack(6).insert("oneDouble = ").assertText("0.0");
 	}
 	
 }

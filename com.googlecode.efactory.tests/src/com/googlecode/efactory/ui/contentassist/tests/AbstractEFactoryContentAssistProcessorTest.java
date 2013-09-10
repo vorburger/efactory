@@ -14,7 +14,6 @@ import org.eclipse.xtext.ISetup;
 import org.eclipse.xtext.junit4.ui.AbstractContentAssistProcessorTest;
 
 import com.google.inject.Injector;
-import com.googlecode.efactory.EFactoryStandaloneSetup;
 import com.googlecode.efactory.EFactoryUiInjectorProvider;
 
 @SuppressWarnings("restriction")
@@ -22,12 +21,24 @@ public abstract class AbstractEFactoryContentAssistProcessorTest extends Abstrac
 
 	@Override
 	protected ISetup doGetSetup() {
-		return new EFactoryStandaloneSetup() {
-			@Override
-			public Injector createInjector() {
+		return new ISetup() {
+			public Injector createInjectorAndDoEMFRegistration() {
 				return new EFactoryUiInjectorProvider().getInjector();
 			}
+			@SuppressWarnings("unused")
+			public void register(Injector injector) {
+				// do nothing
+			}
 		};
+	}
+
+	protected ContentAssistProcessorTestBuilder2 newBuilder() throws Exception {
+		return newBuilder(getSetup());
+	}
+	
+	@Override
+	protected ContentAssistProcessorTestBuilder2 newBuilder(ISetup setup) throws Exception {
+		return new ContentAssistProcessorTestBuilder2(setup, this);
 	}
 
 }
