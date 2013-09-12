@@ -10,6 +10,7 @@
  ******************************************************************************/
 package com.googlecode.efactory.serialization;
 
+import org.apache.log4j.Logger;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAttribute;
@@ -48,7 +49,7 @@ import com.googlecode.efactory.resource.EFactoryResource;
  * @author Michael Vorburger
  */
 public class EFactoryAdapter extends EContentAdapter {
-	// private static Logger logger = Logger.getLogger(EFactoryAdapter.class);
+	private static Logger logger = Logger.getLogger(EFactoryAdapter.class);
 	
 	// Provider<> is used to keep this lazy - at the time this is constructed, it might not be available, yet
 	protected final Provider<IWriteAccess<XtextResource>> writeAccessProvider;
@@ -93,6 +94,11 @@ public class EFactoryAdapter extends EContentAdapter {
 				case Notification.REMOVE :
 					removeListValue(factoryFeature, msg);
 					break;
+				case Notification.MOVE :
+					moveListValue(factoryFeature, msg);
+					break;
+				default:
+					logger.error("EFactoryAdapter did not (know how to) handle notification: " + msg.toString());
 			}
 		} catch (NoNameFeatureMappingException e) {
 			// ignore (TODO rework later? shouldn't be throw exception at all, instead use is..() check method pattern)
@@ -193,6 +199,20 @@ public class EFactoryAdapter extends EContentAdapter {
 				final MultiValue multiValue = (MultiValue) localFactoryFeature.getValue();
 				final int index = msg.getPosition();
 				multiValue.getValues().remove(index);
+			}
+		});
+	}
+	
+	protected void moveListValue(Feature factoryFeature, final Notification msg) {
+		final String uriFragment = factoryFeature.eResource().getURIFragment(factoryFeature);
+		writeAccessProvider.get().modify(new IUnitOfWork.Void<XtextResource>() {
+			@Override
+			public void process(XtextResource resource) throws Exception {
+				final Feature localFactoryFeature = (Feature) resource.getEObject(uriFragment);
+				final MultiValue multiValue = (MultiValue) localFactoryFeature.getValue();
+				final int oldPosition = (Integer) msg.getOldValue(); // NOT getOldIntValue();
+				final int newPosition = msg.getPosition();
+				multiValue.getValues().move(newPosition, oldPosition);
 			}
 		});
 	}

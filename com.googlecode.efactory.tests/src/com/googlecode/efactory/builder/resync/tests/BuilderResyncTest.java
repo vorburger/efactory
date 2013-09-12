@@ -207,12 +207,16 @@ public class BuilderResyncTest {
 		checkListFeature(eFactory, 2, 0, 9876);
 		// check second element just added
 		checkListFeature(eFactory, 2, 1, 5432);
+
+		// move elements
+		testModel.getAttributeTest().move(1, 0);
+		checkListFeature(eFactory, 2, 0, 5432);
+		checkListFeature(eFactory, 2, 1, 9876);
 		
 		// remove the first element from list
 		testModel.getAttributeTest().remove(0);
-		checkListFeature(eFactory, 2, 0, 5432);
+		checkListFeature(eFactory, 2, 0, 9876);
 		
-		// TODO move elements..
 		// TODO add many (two) new elements element to list
 		// TODO remove many (e.g. middle two?) elements from list
 	}
