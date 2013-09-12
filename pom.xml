@@ -2,35 +2,18 @@
 <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
 	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
+	
 	<groupId>com.googlecode.efactory</groupId>
 	<artifactId>efactory</artifactId>
 	<version>0.9.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
+	
 	<properties>
 		<tycho-version>0.18.1</tycho-version>
 		<!-- <xtext-version>2.3.1</xtext-version> -->
 		<fornax-version>3.4.0</fornax-version>
 	</properties>
   
-<!-- Not necessary as we build using a target platform
-  <repositories>
-    <repository>
-      <id>eclipse38</id>
-      <layout>p2</layout>
-      <url>http://download.eclipse.org/eclipse/updates/3.8</url>
-    </repository>
-    <repository>
-      <id>xtext</id>
-      <layout>p2</layout>
-      <url>http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/</url>
-    </repository>
-    <repository>
-      <id>emf.compare</id>
-      <layout>p2</layout>
-      <url>http://download.eclipse.org/modeling/emf/compare/updates/releases/</url>
-    </repository>
-  </repositories>
--->
 	<pluginRepositories>
 		<!-- Repository to resolve fornax-oaw-m2-plugin -->
 		<pluginRepository>
@@ -53,6 +36,7 @@
 		<module>com.googlecode.efactory.help</module>
 		<module>com.googlecode.efactory.repository</module>
 	</modules>
+	
 	<build>
 		<plugins>
 			<plugin>
