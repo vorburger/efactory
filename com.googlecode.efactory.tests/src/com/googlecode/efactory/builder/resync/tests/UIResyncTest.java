@@ -31,7 +31,7 @@ import com.googlecode.efactory.EFactoryUiInjectorProvider;
  * the source EFactory model at the UI (XtextEditor) integration level. This is
  * similar to the more lower level BuilderResyncTest, but works at the
  * XtextDocument level, so this one makes sure that the IWriteAccess stuff & Co.
- * we have to use work as they should.
+ * we have to use work as they should in EFactoryAdapter.
  * 
  * @see BuilderResyncTest
  * @see org.eclipse.xtext.util.concurrent.IWriteAccess

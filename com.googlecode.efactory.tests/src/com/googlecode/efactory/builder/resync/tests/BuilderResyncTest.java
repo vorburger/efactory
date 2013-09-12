@@ -199,17 +199,15 @@ public class BuilderResyncTest {
 		Factory eFactory = (Factory) resourceContents.get(0);
 		checkListFeature(eFactory, 2, 0, 9876);
 
-/*
-   TODO change multi syntax... and fix this: 
-   		
 		// add another element to existing list
 		AttributeTestContainer secondAttributeTestContainer = TestmodelFactory.eINSTANCE.createAttributeTestContainer();
 		secondAttributeTestContainer.setOneInt(5432);
 		testModel.getAttributeTest().add(secondAttributeTestContainer);
+		// check again just to make sure first (above) is still there
+		checkListFeature(eFactory, 2, 0, 9876);
 		// check second element just added
-		checkListFeature(eFactory, 2, 5432); // TODO REMOVE THIS - it's just here to illustrate the current problem...
-		checkListFeature(eFactory, 3, 5432);
-*/		
+		checkListFeature(eFactory, 2, 1, 5432);
+		
 		// TODO remove the first element from list
 		// TODO move elements..
 		// TODO add many (two) new elements element to list
