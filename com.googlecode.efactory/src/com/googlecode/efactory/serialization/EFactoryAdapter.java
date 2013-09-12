@@ -35,7 +35,7 @@ import com.googlecode.efactory.eFactory.Value;
 import com.googlecode.efactory.resource.EFactoryResource;
 
 /**
- * EMF Adapter (Observer) which get notified by the observed derived "real"
+ * EMF Adapter (Observer) which gets notified by the observed derived "real"
  * EObjects so that it can "re-sychronize" changes made to them to the source
  * EFactory model.
  * 
@@ -85,10 +85,13 @@ public class EFactoryAdapter extends EContentAdapter {
 		try {
 			switch (msg.getEventType()) {
 				case Notification.SET :
-					setOrRemoveValue(factoryFeature, msg);
+					setOrRemoveSingleValue(factoryFeature, msg);
 					break;
 				case Notification.ADD :
-					addValue(factoryFeature, msg);
+					addListValue(factoryFeature, msg);
+					break;
+				case Notification.REMOVE :
+					removeListValue(factoryFeature, msg);
 					break;
 			}
 		} catch (NoNameFeatureMappingException e) {
@@ -114,14 +117,14 @@ public class EFactoryAdapter extends EContentAdapter {
 		}
 	}
 
-	protected void setOrRemoveValue(final Feature factoryFeature, final Notification msg) throws NoNameFeatureMappingException {
+	protected void setOrRemoveSingleValue(final Feature factoryFeature, final Notification msg) throws NoNameFeatureMappingException {
 		if (factoryFeature.getEFeature().isMany())
-			// Notification.SET should never happen for isMany
+			// Notification.SET should never happen for lists
 			throw new IllegalArgumentException(); 
 		if (msg.getNewValue() != null)
-			setValue(factoryFeature, msg);
+			setSingleValue(factoryFeature, msg);
 		else
-			removeValue(factoryFeature, msg);
+			removeSingleValueFeature(factoryFeature, msg);
 	}
 	
 	public void setRootNewObject(final EObject eObject) {
@@ -141,13 +144,13 @@ public class EFactoryAdapter extends EContentAdapter {
 		});
 	}
 	
-	protected void setValue(final Feature factoryFeature, final Notification msg) throws NoNameFeatureMappingException {
-		final Value value = getNewValue(factoryFeature, msg);
+	protected void setSingleValue(final Feature factoryFeature, final Notification msg) throws NoNameFeatureMappingException {
 		// do NOT just: factoryFeature.setValue(value); // @see http://koehnlein.blogspot.ch/2010/06/semantic-model-access-in-xtext.html
 		final String uriFragment = factoryFeature.eResource().getURIFragment(factoryFeature);
 		writeAccessProvider.get().modify(new IUnitOfWork.Void<XtextResource>() {
 			@Override
 			public void process(XtextResource resource) throws Exception {
+				final Value value = getNewValue(factoryFeature, msg);
 				final Feature localFactoryFeature = (Feature) resource.getEObject(uriFragment);
 				localFactoryFeature.setValue(value);
 			}
@@ -162,12 +165,12 @@ public class EFactoryAdapter extends EContentAdapter {
 		return value;
 	}
 
-	protected void addValue(Feature factoryFeature, Notification msg) {
-		final Value value = getNewValue(factoryFeature, msg);
+	protected void addListValue(final Feature factoryFeature, final Notification msg) {
 		final String uriFragment = factoryFeature.eResource().getURIFragment(factoryFeature);
 		writeAccessProvider.get().modify(new IUnitOfWork.Void<XtextResource>() {
 			@Override
 			public void process(XtextResource resource) throws Exception {
+				final Value value = getNewValue(factoryFeature, msg);
 				final Feature localFactoryFeature = (Feature) resource.getEObject(uriFragment);
 				final MultiValue multiValue = (MultiValue) localFactoryFeature.getValue();
 				multiValue.getValues().add(value);
@@ -175,11 +178,30 @@ public class EFactoryAdapter extends EContentAdapter {
 		});
 	}
 
-	protected void removeValue(Feature factoryFeature, Notification msg) {
-		// TODO MUST USE writeAccessProvider! ...
-		NewObject newObject = (NewObject) factoryFeature.eContainer();
-		EList<Feature> newObjectFeatures = newObject.getFeatures();
-		newObjectFeatures.remove(factoryFeature);
+	protected void removeListValue(Feature factoryFeature, final Notification msg) {
+		final String uriFragment = factoryFeature.eResource().getURIFragment(factoryFeature);
+		writeAccessProvider.get().modify(new IUnitOfWork.Void<XtextResource>() {
+			@Override
+			public void process(XtextResource resource) throws Exception {
+				final Feature localFactoryFeature = (Feature) resource.getEObject(uriFragment);
+				final MultiValue multiValue = (MultiValue) localFactoryFeature.getValue();
+				final int index = msg.getPosition();
+				multiValue.getValues().remove(index);
+			}
+		});
+	}
+	
+	protected void removeSingleValueFeature(final Feature factoryFeature, final Notification msg) {
+		final String uriFragment = factoryFeature.eResource().getURIFragment(factoryFeature);
+		writeAccessProvider.get().modify(new IUnitOfWork.Void<XtextResource>() {
+			@Override
+			public void process(XtextResource resource) throws Exception {
+				final Feature localFactoryFeature = (Feature) resource.getEObject(uriFragment);
+				NewObject newObject = (NewObject) localFactoryFeature.eContainer();
+				EList<Feature> newObjectFeatures = newObject.getFeatures();
+				newObjectFeatures.remove(localFactoryFeature);
+			}
+		});
 	}
 		
 	protected @Nullable Feature getChangedFactoryFeature(final Notification msg, final NewObject newObject) {

@@ -185,7 +185,7 @@ public class BuilderResyncTest {
 	}
 	
 	@Test
-	public void testAddToList() throws Exception {
+	public void testAddRemoveMoveListElements() throws Exception {
 		// add (nested) stuff.. add element to list before (no change tracker attached yet) and after attaching it to resource
 		EList<EObject> resourceContents = rp.get().load("res/BuilderResyncTests/1TestModelWithNameProperty.efactory", true);
 
@@ -208,7 +208,10 @@ public class BuilderResyncTest {
 		// check second element just added
 		checkListFeature(eFactory, 2, 1, 5432);
 		
-		// TODO remove the first element from list
+		// remove the first element from list
+		testModel.getAttributeTest().remove(0);
+		checkListFeature(eFactory, 2, 0, 5432);
+		
 		// TODO move elements..
 		// TODO add many (two) new elements element to list
 		// TODO remove many (e.g. middle two?) elements from list
