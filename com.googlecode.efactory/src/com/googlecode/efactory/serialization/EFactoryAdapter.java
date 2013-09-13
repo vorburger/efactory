@@ -97,6 +97,12 @@ public class EFactoryAdapter extends EContentAdapter {
 				case Notification.MOVE :
 					moveListValue(factoryFeature, msg);
 					break;
+				case Notification.ADD_MANY :
+					addManyListValues(factoryFeature, msg);
+					break;
+				case Notification.REMOVE_MANY :
+					removeManyListValues(factoryFeature, msg);
+					break;
 				default:
 					logger.error("EFactoryAdapter did not (know how to) handle notification: " + msg.toString());
 			}
@@ -163,17 +169,17 @@ public class EFactoryAdapter extends EContentAdapter {
 			@Override
 			public void process(XtextResource resource) throws Exception {
 				final Feature localFactoryFeature = (Feature) resource.getEObject(uriFragment);
-				final Value value = getNewValue(localFactoryFeature, msg);
+				final Value value = getNewValue(localFactoryFeature, msg, msg.getNewValue());
 				localFactoryFeature.setValue(value);
 			}
 		});
 	}
 
-	protected Value getNewValue(Feature factoryFeature, final Notification msg) {
+	protected Value getNewValue(Feature factoryFeature, Notification msg, Object newValue) {
 		final EFactoryResource resource = getEFactoryResource(msg);
 		final IFactoryBuilder factoryBuilder = new FactoryBuilder2(resource);
 		final EStructuralFeature eFeature = factoryFeature.getEFeature();
-		final Value value = FeatureBuilderFactory.createValue(eFeature, factoryBuilder, msg.getNewValue());
+		final Value value = FeatureBuilderFactory.createValue(eFeature, factoryBuilder, newValue);
 		return value;
 	}
 
@@ -183,9 +189,25 @@ public class EFactoryAdapter extends EContentAdapter {
 			@Override
 			public void process(XtextResource resource) throws Exception {
 				final Feature localFactoryFeature = (Feature) resource.getEObject(uriFragment);
-				final Value value = getNewValue(localFactoryFeature, msg);
+				final Value value = getNewValue(localFactoryFeature, msg, msg.getNewValue());
 				final MultiValue multiValue = (MultiValue) localFactoryFeature.getValue();
 				multiValue.getValues().add(value);
+			}
+		});
+	}
+
+	protected void addManyListValues(Feature factoryFeature, final Notification msg) {
+		final String uriFragment = factoryFeature.eResource().getURIFragment(factoryFeature);
+		writeAccessProvider.get().modify(new IUnitOfWork.Void<XtextResource>() {
+			@Override
+			public void process(XtextResource resource) throws Exception {
+				final Feature localFactoryFeature = (Feature) resource.getEObject(uriFragment);
+				final MultiValue multiValue = (MultiValue) localFactoryFeature.getValue();
+				Iterable<?> newValues = (Iterable<?>) msg.getNewValue();
+				for (Object newValue : newValues) {
+					final Value value = getNewValue(localFactoryFeature, msg, newValue);
+					multiValue.getValues().add(value);
+				}
 			}
 		});
 	}
@@ -201,6 +223,22 @@ public class EFactoryAdapter extends EContentAdapter {
 				multiValue.getValues().remove(index);
 			}
 		});
+	}
+
+	protected void removeManyListValues(Feature factoryFeature, final Notification msg) {
+		throw new IllegalArgumentException(); // TODO
+/*		
+		final String uriFragment = factoryFeature.eResource().getURIFragment(factoryFeature);
+		writeAccessProvider.get().modify(new IUnitOfWork.Void<XtextResource>() {
+			@Override
+			public void process(XtextResource resource) throws Exception {
+				final Feature localFactoryFeature = (Feature) resource.getEObject(uriFragment);
+				final MultiValue multiValue = (MultiValue) localFactoryFeature.getValue();
+				final int index = msg.getPosition();
+				multiValue.getValues().remove(index);
+			}
+		});
+*/		
 	}
 	
 	protected void moveListValue(Feature factoryFeature, final Notification msg) {
@@ -229,7 +267,7 @@ public class EFactoryAdapter extends EContentAdapter {
 			}
 		});
 	}
-		
+
 	protected @Nullable Feature getChangedFactoryFeature(Notification msg, NewObject newObject) {
 		final EStructuralFeature changedEFeature = (EStructuralFeature) msg.getFeature();
 		final EList<Feature> newObjectAllFeatures = newObject.getFeatures();

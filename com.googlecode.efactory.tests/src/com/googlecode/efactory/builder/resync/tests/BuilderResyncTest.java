@@ -16,6 +16,8 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.inject.Inject;
 
@@ -216,9 +218,22 @@ public class BuilderResyncTest {
 		// remove the first element from list
 		testModel.getAttributeTest().remove(0);
 		checkListFeature(eFactory, 2, 0, 9876);
+
+		// add many (two) new elements element to list
+		Collection<AttributeTestContainer> moreAttributeTestContainers = new ArrayList<AttributeTestContainer>(2);
+		AttributeTestContainer thirdAttributeTestContainer = TestmodelFactory.eINSTANCE.createAttributeTestContainer();
+		thirdAttributeTestContainer.setOneInt(3487);
+		moreAttributeTestContainers.add(thirdAttributeTestContainer);
+		AttributeTestContainer forthAttributeTestContainer = TestmodelFactory.eINSTANCE.createAttributeTestContainer();
+		forthAttributeTestContainer.setOneInt(1273);
+		moreAttributeTestContainers.add(forthAttributeTestContainer);
+		testModel.getAttributeTest().addAll(moreAttributeTestContainers );
+		checkListFeature(eFactory, 2, 1, 3487);
+		checkListFeature(eFactory, 2, 2, 1273);
 		
-		// TODO add many (two) new elements element to list
-		// TODO remove many (e.g. middle two?) elements from list
+		// remove many (e.g. middle two?) elements from list
+		// TODO....
+		testModel.getAttributeTest().removeAll(moreAttributeTestContainers);
 	}
 
 	protected void checkListFeature(Factory eFactory, int featureIndex, int multiValueIndex, int expectedInt) {
