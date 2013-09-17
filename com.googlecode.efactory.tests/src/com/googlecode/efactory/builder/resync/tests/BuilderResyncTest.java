@@ -27,7 +27,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.junit4.InjectWith;
 import org.eclipse.xtext.junit4.XtextRunner;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -267,6 +266,10 @@ public class BuilderResyncTest {
 
 	protected EList<Value> getMultiValueValues(Factory eFactory, int featureIndex) {
 		Feature newFeature = eFactory.getRoot().getFeatures().get(featureIndex);
+		return getMultiValueValues(newFeature);
+	}
+
+	protected EList<Value> getMultiValueValues(Feature newFeature) {
 		final Value value = newFeature.getValue();
 		assertTrue(value.eClass().toString(), value instanceof MultiValue);
 		MultiValue multiValue = (MultiValue) value;
@@ -275,7 +278,6 @@ public class BuilderResyncTest {
 	}
 
 	@Test
-	@Ignore // TODO testEnum
 	public void testEnum() throws Exception {
 		// add (nested) stuff.. add element to list before (no change tracker attached yet) and after attaching it to resource
 		EList<EObject> resourceContents = rp.get().load("res/BuilderResyncTests/1TestModelWithNameProperty.efactory", true);
@@ -290,16 +292,23 @@ public class BuilderResyncTest {
 		// Check the EFactory model
 		Factory eFactory = (Factory) resourceContents.get(0);
 		NewObject newObject = checkNewObjectAttributeTestContainer(eFactory, 2, 0);
-		EnumAttribute oneEnum = (EnumAttribute)newObject.getFeatures().get(0).getValue();
+		EnumAttribute oneEnum = (EnumAttribute)newObject.getFeatures().get(3).getValue();
 		assertEquals(SampleEnum.SAMPLE2.getName(), oneEnum.getValue().getName());
-		EnumAttribute manyEnums = (EnumAttribute)newObject.getFeatures().get(1).getValue();
-		assertEquals(SampleEnum.SAMPLE.getName(), manyEnums.getValue().getName());
 		
-		// more: change TestModel by adding one more enum to list
+		EList<Value> manyEnums = getMultiValueValues(newObject.getFeatures().get(5));
+		assertEquals(1, manyEnums.size());
+		EnumAttribute firstOfManyEnums = (EnumAttribute)manyEnums.get(0);
+		assertEquals(SampleEnum.SAMPLE.getName(), firstOfManyEnums.getValue().getName());
+		
+		// change TestModel by adding one more enum to list
 		attributeTestContainer.getManyEnums().add(SampleEnum.SAMPLE2);
-		// more: check it again
-		manyEnums = (EnumAttribute)newObject.getFeatures().get(2).getValue();
-		assertEquals(SampleEnum.SAMPLE2.getName(), manyEnums.getValue().getName());
+		// check it again
+		manyEnums = getMultiValueValues(newObject.getFeatures().get(5));
+		assertEquals(2, manyEnums.size());
+		EnumAttribute secondOfManyEnums = (EnumAttribute)manyEnums.get(1);
+		assertEquals(SampleEnum.SAMPLE2.getName(), secondOfManyEnums.getValue().getName());
+		firstOfManyEnums = (EnumAttribute)manyEnums.get(0);
+		assertEquals(SampleEnum.SAMPLE.getName(), firstOfManyEnums.getValue().getName());
 	}
 }
 
