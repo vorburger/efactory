@@ -200,6 +200,7 @@ public class BuilderResyncTest {
 		// Check the EFactory model
 		Factory eFactory = (Factory) resourceContents.get(0);
 		checkListFeature(eFactory, 2, 0, 9876);
+		assertEquals(1, getMultiValueValues(eFactory, 2).size());
 
 		// add another element to existing list
 		AttributeTestContainer secondAttributeTestContainer = TestmodelFactory.eINSTANCE.createAttributeTestContainer();
@@ -209,17 +210,20 @@ public class BuilderResyncTest {
 		checkListFeature(eFactory, 2, 0, 9876);
 		// check second element just added
 		checkListFeature(eFactory, 2, 1, 5432);
+		assertEquals(2, getMultiValueValues(eFactory, 2).size());
 
 		// move elements
 		testModel.getAttributeTest().move(1, 0);
 		checkListFeature(eFactory, 2, 0, 5432);
 		checkListFeature(eFactory, 2, 1, 9876);
-		
+		assertEquals(2, getMultiValueValues(eFactory, 2).size());
+
 		// remove the first element from list
 		testModel.getAttributeTest().remove(0);
 		checkListFeature(eFactory, 2, 0, 9876);
+		assertEquals(1, getMultiValueValues(eFactory, 2).size());
 
-		// add many (two) new elements element to list
+		// addAll two new elements element to list
 		Collection<AttributeTestContainer> moreAttributeTestContainers = new ArrayList<AttributeTestContainer>(2);
 		AttributeTestContainer thirdAttributeTestContainer = TestmodelFactory.eINSTANCE.createAttributeTestContainer();
 		thirdAttributeTestContainer.setOneInt(3487);
@@ -227,13 +231,22 @@ public class BuilderResyncTest {
 		AttributeTestContainer forthAttributeTestContainer = TestmodelFactory.eINSTANCE.createAttributeTestContainer();
 		forthAttributeTestContainer.setOneInt(1273);
 		moreAttributeTestContainers.add(forthAttributeTestContainer);
-		testModel.getAttributeTest().addAll(moreAttributeTestContainers );
+		testModel.getAttributeTest().addAll(moreAttributeTestContainers);
+		checkListFeature(eFactory, 2, 0, 9876);
 		checkListFeature(eFactory, 2, 1, 3487);
 		checkListFeature(eFactory, 2, 2, 1273);
+		assertEquals(3, getMultiValueValues(eFactory, 2).size());
 		
-		// remove many (e.g. middle two?) elements from list
-		// TODO....
+		// removeAll an elements from middle of list
+		moreAttributeTestContainers.clear();
+		// Note: need to add() two - because if it's only one, there is actually
+		// an internal optimization somewhere in EMF which turns it into a
+		// Notification.REMOVE (sufficient), but won't test REMOVE_MANY. 
+		moreAttributeTestContainers.add(firstAttributeTestContainer);
+		moreAttributeTestContainers.add(forthAttributeTestContainer);
 		testModel.getAttributeTest().removeAll(moreAttributeTestContainers);
+		assertEquals(1, getMultiValueValues(eFactory, 2).size());
+		checkListFeature(eFactory, 2, 0, 3487);
 	}
 
 	protected void checkListFeature(Factory eFactory, int featureIndex, int multiValueIndex, int expectedInt) {
@@ -243,16 +256,22 @@ public class BuilderResyncTest {
 	}
 
 	protected NewObject checkNewObjectAttributeTestContainer(Factory eFactory, int featureIndex, int multiValueIndex) {
-		Feature newFeature = eFactory.getRoot().getFeatures().get(featureIndex);
-		final Value value = newFeature.getValue();
-		assertTrue(value.eClass().toString(), value instanceof MultiValue);
-		MultiValue multiValue = (MultiValue) value;
-		Value listItemValue = multiValue.getValues().get(multiValueIndex);
+		final EList<Value> values = getMultiValueValues(eFactory, featureIndex);
+		Value listItemValue = values.get(multiValueIndex);
 		assertTrue(listItemValue.eClass().toString(), listItemValue instanceof Containment);
 		Containment efContainmentValue = (Containment) listItemValue;
 		NewObject newObject = efContainmentValue.getValue();
 		assertEquals(TestmodelPackage.Literals.ATTRIBUTE_TEST_CONTAINER, newObject.getEClass());
 		return newObject;
+	}
+
+	protected EList<Value> getMultiValueValues(Factory eFactory, int featureIndex) {
+		Feature newFeature = eFactory.getRoot().getFeatures().get(featureIndex);
+		final Value value = newFeature.getValue();
+		assertTrue(value.eClass().toString(), value instanceof MultiValue);
+		MultiValue multiValue = (MultiValue) value;
+		final EList<Value> values = multiValue.getValues();
+		return values;
 	}
 
 	@Test

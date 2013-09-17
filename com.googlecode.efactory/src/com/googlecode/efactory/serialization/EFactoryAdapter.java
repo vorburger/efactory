@@ -10,6 +10,9 @@
  ******************************************************************************/
 package com.googlecode.efactory.serialization;
 
+import java.util.Collections;
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.EList;
@@ -24,6 +27,7 @@ import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import org.eclipse.xtext.util.concurrent.IWriteAccess;
 
+import com.google.common.primitives.Ints;
 import com.google.inject.Provider;
 import com.googlecode.efactory.building.NameAccessor;
 import com.googlecode.efactory.building.NoNameFeatureMappingException;
@@ -219,26 +223,37 @@ public class EFactoryAdapter extends EContentAdapter {
 			public void process(XtextResource resource) throws Exception {
 				final Feature localFactoryFeature = (Feature) resource.getEObject(uriFragment);
 				final MultiValue multiValue = (MultiValue) localFactoryFeature.getValue();
-				final int index = msg.getPosition();
-				multiValue.getValues().remove(index);
+				final int indexToRemove = msg.getPosition();
+				multiValue.getValues().remove(indexToRemove);
 			}
 		});
 	}
 
 	protected void removeManyListValues(Feature factoryFeature, final Notification msg) {
-		throw new IllegalArgumentException(); // TODO
-/*		
 		final String uriFragment = factoryFeature.eResource().getURIFragment(factoryFeature);
 		writeAccessProvider.get().modify(new IUnitOfWork.Void<XtextResource>() {
 			@Override
 			public void process(XtextResource resource) throws Exception {
 				final Feature localFactoryFeature = (Feature) resource.getEObject(uriFragment);
 				final MultiValue multiValue = (MultiValue) localFactoryFeature.getValue();
-				final int index = msg.getPosition();
-				multiValue.getValues().remove(index);
+				int[] indexesToRemove = (int[]) msg.getNewValue();
+				final EList<Value> values = multiValue.getValues();
+				listRemoveIndexes(values, indexesToRemove);
 			}
 		});
-*/		
+	}
+
+	/**
+	 * Removes all elements listed indexesToRemove from list.
+	 * We cannot use a for loop directly, because they indices change.. 
+	 * @see http://stackoverflow.com/questions/4950678/remove-multiple-elements-from-arraylist
+	 */
+	private void listRemoveIndexes(List<?> list, int[] indexesToRemove) {
+		List<Integer> integersList = Ints.asList(indexesToRemove);
+		Collections.sort(integersList, Collections.reverseOrder());
+		for (int index : indexesToRemove) {
+			list.remove(index);
+		}
 	}
 	
 	protected void moveListValue(Feature factoryFeature, final Notification msg) {
