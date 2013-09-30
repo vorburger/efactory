@@ -1,0 +1,34 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: com.googlecode.efactory.tests.xtextintegration
+Bundle-Vendor: My Company
+Bundle-Version: 1.0.0.qualifier
+Bundle-SymbolicName: com.googlecode.efactory.tests.xtextintegration; singleton:=true
+Bundle-ActivationPolicy: lazy
+Require-Bundle: org.eclipse.xtext;visibility:=reexport,
+ org.eclipse.xtext.xbase;resolution:=optional;visibility:=reexport,
+ org.eclipse.xtext.generator;resolution:=optional,
+ org.apache.commons.logging;bundle-version="1.0.4";resolution:=optional,
+ org.eclipse.emf.codegen.ecore;resolution:=optional,
+ org.eclipse.emf.mwe.utils;resolution:=optional,
+ org.eclipse.emf.mwe2.launch;resolution:=optional,
+ org.eclipse.xtext.util,
+ org.eclipse.emf.ecore,
+ org.eclipse.emf.common,
+ org.antlr.runtime,
+ org.eclipse.xtext.common.types
+Import-Package: org.apache.log4j,
+ org.eclipse.xtext.xbase.lib
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Export-Package: com.googlecode.efactory.xtextintegration,
+ com.googlecode.efactory.xtextintegration.services,
+ com.googlecode.efactory.xtextintegration.myDsl,
+ com.googlecode.efactory.xtextintegration.myDsl.impl,
+ com.googlecode.efactory.xtextintegration.myDsl.util,
+ com.googlecode.efactory.xtextintegration.serializer,
+ com.googlecode.efactory.xtextintegration.parser.antlr,
+ com.googlecode.efactory.xtextintegration.parser.antlr.internal,
+ com.googlecode.efactory.xtextintegration.scoping,
+ com.googlecode.efactory.xtextintegration.generator,
+ com.googlecode.efactory.xtextintegration.formatting
+

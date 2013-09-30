@@ -1,0 +1,10 @@
+grammar com.googlecode.efactory.xtextintegration.MyDsl with org.eclipse.xtext.common.Terminals
+
+generate myDsl "http://www.googlecode.com/efactory/xtextintegration/MyDsl"
+
+Model:
+	'Greetings' name=ID
+	greetings+=Greeting*;
+	
+Greeting:
+	'Hello' name=ID '!';
