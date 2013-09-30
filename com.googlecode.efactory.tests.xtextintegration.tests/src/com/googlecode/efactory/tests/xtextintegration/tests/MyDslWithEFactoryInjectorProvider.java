@@ -24,7 +24,6 @@ public class MyDslWithEFactoryInjectorProvider implements IInjectorProvider, IRe
 		GlobalRegistries.initializeDefaults();
 	}
 
-	@Override
 	public Injector getInjector() {
 		if (myDslInjector == null) {
 			if (!Platform.isRunning()) {
@@ -39,13 +38,11 @@ public class MyDslWithEFactoryInjectorProvider implements IInjectorProvider, IRe
 		return myDslInjector;
 	}
 
-	@Override
 	public void setupRegistry() {
 		getInjector();
 		stateAfterInjectorCreation.restoreGlobalState();
 	}
 
-	@Override
 	public void restoreRegistry() {
 		stateBeforeInjectorCreation.restoreGlobalState();
 	}

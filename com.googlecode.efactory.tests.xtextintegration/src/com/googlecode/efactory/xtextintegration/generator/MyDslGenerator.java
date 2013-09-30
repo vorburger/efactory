@@ -6,10 +6,7 @@ import org.eclipse.xtext.generator.IGenerator;
 
 public class MyDslGenerator implements IGenerator {
 
-	@Override
 	public void doGenerate(Resource input, IFileSystemAccess fsa) {
-		// TODO Auto-generated method stub
-
 	}
 
 }

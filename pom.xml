@@ -32,6 +32,11 @@
 		<module>com.googlecode.efactory.ui</module>
 		<module>com.googlecode.efactory.ui.feature</module>
 		<module>com.googlecode.efactory.tests</module>
+
+		<module>com.googlecode.efactory.tests.xtextintegration</module>
+		<module>com.googlecode.efactory.tests.xtextintegration.tests</module>
+		<module>com.googlecode.efactory.tests.xtextintegration.ui</module>
+
 		<module>com.googlecode.efactory.tests.feature</module>
 		<module>com.googlecode.efactory.help</module>
 		<module>com.googlecode.efactory.repository</module>
