@@ -3,16 +3,18 @@ Bundle-ManifestVersion: 2
 Bundle-Name: com.googlecode.efactory.tests.xtextintegration
 Bundle-Vendor: My Company
 Bundle-Version: 1.0.0.qualifier
-Bundle-SymbolicName: com.googlecode.efactory.tests.xtextintegration; singleton:=true
+Bundle-ClassPath: .
+Bundle-SymbolicName: com.googlecode.efactory.tests.xtextintegration;singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.xtext;visibility:=reexport,
  org.eclipse.xtext.xbase;resolution:=optional;visibility:=reexport,
  org.eclipse.xtext.generator;resolution:=optional,
- org.apache.commons.logging;bundle-version="1.0.4";resolution:=optional,
+ org.apache.commons.logging;resolution:=optional;bundle-version="1.0.4",
  org.eclipse.emf.codegen.ecore;resolution:=optional,
  org.eclipse.emf.mwe.utils;resolution:=optional,
  org.eclipse.emf.mwe2.launch;resolution:=optional,
  org.eclipse.xtext.util,
+ org.eclipse.core.runtime,
  org.eclipse.emf.ecore,
  org.eclipse.emf.common,
  org.antlr.runtime,
@@ -30,5 +32,8 @@ Export-Package: com.googlecode.efactory.xtextintegration,
  com.googlecode.efactory.xtextintegration.parser.antlr.internal,
  com.googlecode.efactory.xtextintegration.scoping,
  com.googlecode.efactory.xtextintegration.generator,
- com.googlecode.efactory.xtextintegration.formatting
+ com.googlecode.efactory.xtextintegration.formatting,
+ testModelWithXtextReference,
+ testModelWithXtextReference.impl,
+ testModelWithXtextReference.util
 
