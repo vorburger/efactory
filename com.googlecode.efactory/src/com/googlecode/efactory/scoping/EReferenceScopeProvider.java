@@ -41,9 +41,9 @@ public class EReferenceScopeProvider {
 	@Inject
 	private NameAccessor nameAccessor;
 
-	public IScope get(Resource resource, EClass type) {
+	public IScope get(IScope parent, Resource resource, EClass type) {
 		Factory factory = Resources.getRoot(resource, Factory.class);
-		return new SimpleScope(initElements(factory, resource, type));
+		return new SimpleScope(parent, initElements(factory, resource, type));
 	}
 
 	private List<IEObjectDescription> initElements(Factory factory,	Resource resource, EClass type) {
