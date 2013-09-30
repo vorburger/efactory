@@ -8,22 +8,7 @@
  * Contributors:
  *     Sebastian Benz - initial API and implementation
  ******************************************************************************/
-/**
- * <copyright>
- *
- * Copyright (c) 2002-2006 Sebastian Benz and others.
- * All rights reserved.   This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- * 
- * Contributors: 
- *   Sebastian Benz - Initial API and implementation
- *
- * </copyright>
- *
- * 
- */
+
 package com.googlecode.efactory.scoping;
 
 import java.util.ArrayList;
@@ -61,14 +46,10 @@ public class EReferenceScopeProvider {
 		return new SimpleScope(initElements(factory, resource, type));
 	}
 
-	private List<IEObjectDescription> initElements(Factory factory,
-			Resource resource, EClass type) {
-
+	private List<IEObjectDescription> initElements(Factory factory,	Resource resource, EClass type) {
 		Resource context = factory.eResource();
-		List<IEObjectDescription> elementList = getNewObjects(type,
-				factory.eResource());
+		List<IEObjectDescription> elementList = getNewObjects(type,	factory.eResource());
 		elementList.addAll(getImports(factory, context, type));
-
 		return elementList;
 	}
 	
@@ -104,17 +85,14 @@ public class EReferenceScopeProvider {
 
 				if (eObject instanceof NewObject) {
 					NewObject newObject = (NewObject) eObject;
-					if (isAssignable(type, newObject)
-							&& newObject.getName() != null) {
-						elementList.add(EObjectDescription.create(
-								newObject.getName(), eObject));
+					if (isAssignable(type, newObject) && newObject.getName() != null) {
+						elementList.add(EObjectDescription.create(newObject.getName(), eObject));
 					}
 				} else if (EcoreUtil2.isAssignableFrom(type, eObject.eClass())) {
 					try {
 						String name = nameAccessor.getName(factory, eObject);
 						if (name != null) {
-							elementList.add(EObjectDescription.create(name,
-									eObject));
+							elementList.add(EObjectDescription.create(name,	eObject));
 						}
 					} catch (Exception e) {
 						// skip element
@@ -129,20 +107,16 @@ public class EReferenceScopeProvider {
 		return EcoreUtil2.getResource(context, uri);
 	}
 	
-	private List<IEObjectDescription> getNewObjects(EClass type,
-			Resource resource) {
+	private List<IEObjectDescription> getNewObjects(EClass type, Resource resource) {
 		List<IEObjectDescription> elementList = new ArrayList<IEObjectDescription>();
-		for (Iterator<EObject> iterator = resource.getAllContents(); iterator
-				.hasNext();) {
+		for (Iterator<EObject> iterator = resource.getAllContents(); iterator.hasNext();) {
 			EObject element = iterator.next();
 			if (element instanceof NewObject) {
 				NewObject newObject = (NewObject) element;
 				if (isAssignable(type, newObject)) {
-					String name = SimpleAttributeResolver.NAME_RESOLVER
-							.apply(element);
+					String name = SimpleAttributeResolver.NAME_RESOLVER.apply(element);
 					if (name != null) {
-						elementList.add(EObjectDescription
-								.create(name, element));
+						elementList.add(EObjectDescription.create(name, element));
 					}
 				}
 			}
