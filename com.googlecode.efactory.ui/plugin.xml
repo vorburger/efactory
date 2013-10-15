@@ -11,9 +11,10 @@
             default="true"
             extensions="efactory"
             id="com.googlecode.efactory.EFactory"
-            name="EFactory Editor">
+            name="EFactory Text (DSL) Editor">
         </editor>
     </extension>
+
     <extension
         point="org.eclipse.ui.handlers">
         <handler
@@ -288,5 +289,15 @@
             extensions="efactory">
     </provider>
   </extension>
+
+  <extension point="org.eclipse.ui.editors">
+      <editor
+            id="com.googlecode.efactory.ui.EFactoryEcoreEditorID"
+            name="EFactory Ecore Editor"
+            class="com.googlecode.efactory.ui.EFactoryExecutableExtensionFactory:com.googlecode.efactory.ui.ecoreedit.EFactoryEcoreEditor"
+            contributorClass="org.eclipse.emf.ecore.presentation.EcoreActionBarContributor"
+            default="false"
+            extensions="efactory"/>
+   </extension>
 
 </plugin>

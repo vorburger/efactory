@@ -23,11 +23,13 @@ Require-Bundle: com.googlecode.efactory;visibility:=reexport,
  org.antlr.runtime,
  org.eclipse.core.runtime,
  org.eclipse.core.resources,
- org.eclipse.ui.workbench.texteditor
+ org.eclipse.ui.workbench.texteditor,
+ org.eclipse.emf.ecore.editor;bundle-version="2.9.0"
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Export-Package: com.googlecode.efactory.ui,
  com.googlecode.efactory.ui.contentassist,
  com.googlecode.efactory.ui.contentassist.antlr,
+ com.googlecode.efactory.ui.ecoreedit,
  com.googlecode.efactory.ui.internal,
  com.googlecode.efactory.ui.labeling,
  com.googlecode.efactory.ui.outline,
