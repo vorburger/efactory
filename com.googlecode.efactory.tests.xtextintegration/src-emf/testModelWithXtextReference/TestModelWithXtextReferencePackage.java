@@ -2,6 +2,7 @@
  */
 package testModelWithXtextReference;
 
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
@@ -75,13 +76,22 @@ public interface TestModelWithXtextReferencePackage extends EPackage {
 	int TEST_MODEL_WITH_XTEXT_REFERENCE__MODEL = 0;
 
 	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TEST_MODEL_WITH_XTEXT_REFERENCE__NAME = 1;
+
+	/**
 	 * The number of structural features of the '<em>Test Model With Xtext Reference</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TEST_MODEL_WITH_XTEXT_REFERENCE_FEATURE_COUNT = 1;
+	int TEST_MODEL_WITH_XTEXT_REFERENCE_FEATURE_COUNT = 2;
 
 	/**
 	 * The number of operations of the '<em>Test Model With Xtext Reference</em>' class.
@@ -113,6 +123,17 @@ public interface TestModelWithXtextReferencePackage extends EPackage {
 	 * @generated
 	 */
 	EReference getTestModelWithXtextReference_Model();
+
+	/**
+	 * Returns the meta object for the attribute '{@link testModelWithXtextReference.TestModelWithXtextReference#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see testModelWithXtextReference.TestModelWithXtextReference#getName()
+	 * @see #getTestModelWithXtextReference()
+	 * @generated
+	 */
+	EAttribute getTestModelWithXtextReference_Name();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -154,6 +175,14 @@ public interface TestModelWithXtextReferencePackage extends EPackage {
 		 * @generated
 		 */
 		EReference TEST_MODEL_WITH_XTEXT_REFERENCE__MODEL = eINSTANCE.getTestModelWithXtextReference_Model();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TEST_MODEL_WITH_XTEXT_REFERENCE__NAME = eINSTANCE.getTestModelWithXtextReference_Name();
 
 	}
 

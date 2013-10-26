@@ -4,6 +4,7 @@ package testModelWithXtextReference.impl;
 
 import com.googlecode.efactory.xtextintegration.myDsl.MyDslPackage;
 
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
@@ -115,6 +116,15 @@ public class TestModelWithXtextReferencePackageImpl extends EPackageImpl impleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getTestModelWithXtextReference_Name() {
+		return (EAttribute)testModelWithXtextReferenceEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public TestModelWithXtextReferenceFactory getTestModelWithXtextReferenceFactory() {
 		return (TestModelWithXtextReferenceFactory)getEFactoryInstance();
 	}
@@ -140,6 +150,7 @@ public class TestModelWithXtextReferencePackageImpl extends EPackageImpl impleme
 		// Create classes and their features
 		testModelWithXtextReferenceEClass = createEClass(TEST_MODEL_WITH_XTEXT_REFERENCE);
 		createEReference(testModelWithXtextReferenceEClass, TEST_MODEL_WITH_XTEXT_REFERENCE__MODEL);
+		createEAttribute(testModelWithXtextReferenceEClass, TEST_MODEL_WITH_XTEXT_REFERENCE__NAME);
 	}
 
 	/**
@@ -177,6 +188,7 @@ public class TestModelWithXtextReferencePackageImpl extends EPackageImpl impleme
 		// Initialize classes, features, and operations; add parameters
 		initEClass(testModelWithXtextReferenceEClass, TestModelWithXtextReference.class, "TestModelWithXtextReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getTestModelWithXtextReference_Model(), theMyDslPackage.getModel(), null, "model", null, 0, 1, TestModelWithXtextReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTestModelWithXtextReference_Name(), ecorePackage.getEString(), "name", null, 0, 1, TestModelWithXtextReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

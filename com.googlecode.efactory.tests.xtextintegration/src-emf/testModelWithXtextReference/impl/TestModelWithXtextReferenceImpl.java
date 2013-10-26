@@ -23,6 +23,7 @@ import testModelWithXtextReference.TestModelWithXtextReferencePackage;
  * The following features are implemented:
  * <ul>
  *   <li>{@link testModelWithXtextReference.impl.TestModelWithXtextReferenceImpl#getModel <em>Model</em>}</li>
+ *   <li>{@link testModelWithXtextReference.impl.TestModelWithXtextReferenceImpl#getName <em>Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -38,6 +39,25 @@ public class TestModelWithXtextReferenceImpl extends MinimalEObjectImpl.Containe
 	 * @ordered
 	 */
 	protected Model model;
+
+	/**
+	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String NAME_EDEFAULT = null;
+	/**
+	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String name = NAME_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -101,12 +121,35 @@ public class TestModelWithXtextReferenceImpl extends MinimalEObjectImpl.Containe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setName(String newName) {
+		String oldName = name;
+		name = newName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, TestModelWithXtextReferencePackage.TEST_MODEL_WITH_XTEXT_REFERENCE__NAME, oldName, name));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case TestModelWithXtextReferencePackage.TEST_MODEL_WITH_XTEXT_REFERENCE__MODEL:
 				if (resolve) return getModel();
 				return basicGetModel();
+			case TestModelWithXtextReferencePackage.TEST_MODEL_WITH_XTEXT_REFERENCE__NAME:
+				return getName();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -121,6 +164,9 @@ public class TestModelWithXtextReferenceImpl extends MinimalEObjectImpl.Containe
 		switch (featureID) {
 			case TestModelWithXtextReferencePackage.TEST_MODEL_WITH_XTEXT_REFERENCE__MODEL:
 				setModel((Model)newValue);
+				return;
+			case TestModelWithXtextReferencePackage.TEST_MODEL_WITH_XTEXT_REFERENCE__NAME:
+				setName((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -137,6 +183,9 @@ public class TestModelWithXtextReferenceImpl extends MinimalEObjectImpl.Containe
 			case TestModelWithXtextReferencePackage.TEST_MODEL_WITH_XTEXT_REFERENCE__MODEL:
 				setModel((Model)null);
 				return;
+			case TestModelWithXtextReferencePackage.TEST_MODEL_WITH_XTEXT_REFERENCE__NAME:
+				setName(NAME_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -151,8 +200,26 @@ public class TestModelWithXtextReferenceImpl extends MinimalEObjectImpl.Containe
 		switch (featureID) {
 			case TestModelWithXtextReferencePackage.TEST_MODEL_WITH_XTEXT_REFERENCE__MODEL:
 				return model != null;
+			case TestModelWithXtextReferencePackage.TEST_MODEL_WITH_XTEXT_REFERENCE__NAME:
+				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (name: ");
+		result.append(name);
+		result.append(')');
+		return result.toString();
 	}
 
 } //TestModelWithXtextReferenceImpl
