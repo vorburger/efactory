@@ -34,6 +34,7 @@ import com.googlecode.efactory.resource.EFactoryDerivedStateComputer;
 import com.googlecode.efactory.resource.EFactoryLocationInFileProvider;
 import com.googlecode.efactory.resource.EFactoryStandaloneResourceFactory;
 import com.googlecode.efactory.scoping.EFactoryImportedNamespaceAwareScopeProvider;
+import com.googlecode.efactory.scoping.EFactoryResourceDescriptionManager;
 import com.googlecode.efactory.scoping.EPackageScopeProvider;
 import com.googlecode.efactory.scoping.IEPackageScopeProvider;
 import com.googlecode.efactory.scoping.WarningErrorHandlerWithoutNoSuchMethodException;
@@ -92,6 +93,11 @@ public class EFactoryRuntimeModule
 	
 	public Class<? extends IEPackageScopeProvider> bindIEPackageScopeProvider() {
 		return EPackageScopeProvider.class;
+	}
+
+	public Class<? extends org.eclipse.xtext.resource.IResourceDescription.Manager> bindIResourceDescription$Manager() {
+		// return org.eclipse.xtext.resource.DerivedStateAwareResourceDescriptionManager.class;
+		return EFactoryResourceDescriptionManager.class;
 	}
 	
 //	@SuppressWarnings("restriction")
