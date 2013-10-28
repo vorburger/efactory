@@ -36,18 +36,17 @@ import org.eclipse.ui.views.properties.IPropertySheetPage;
 import org.eclipse.ui.views.properties.IPropertySource;
 import org.eclipse.ui.views.properties.PropertySheetPage;
 import org.eclipse.xtext.resource.IEObjectDescription;
-import org.eclipse.xtext.scoping.IGlobalScopeProvider;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.IScopeProvider;
 
 public class EFactoryEcoreEditor extends EcoreEditor {
 
-	// TODO we'll need an integration test for this..
+	// TODO we'll need an integration test for this.. how-to??
 	
-	// TODO instead of a drop-down, we'll need to have a pop-up.. try re-using the Xtext "Open Model Element" (with EClass pre-set) ?
+	// TODO instead of a drop-down, we'll need to have a pop-up.. we really should be re-using the Xtext "Open Model Element" (with EClass pre-set)
 	
 	private @Inject IScopeProvider scopeProvider;
-	private @Inject IGlobalScopeProvider globalScopeProvider; 
+	// private @Inject IGlobalScopeProvider globalScopeProvider; 
 	
 //	private @Inject	IResourceDescriptions resourceDescriptions;
 
@@ -55,7 +54,7 @@ public class EFactoryEcoreEditor extends EcoreEditor {
 	
 	//private @Inject IQualifiedNameConverter qualifiedNameConverter;
 
-	// TODO using this lower-level API seems wrong - why not just use IScope, which behind the scenes should do this? 
+	// TODO using this lower-level API seems wrong - why not just use IScope, which behind the scenes should do this, agreed A? 
 //	private List<IResourceDescription> listVisibleResources(Resource myResource) {
 //		List<IResourceDescription> visibleResources = new ArrayList<IResourceDescription>();
 //		URI uri = myResource.getURI();
@@ -75,17 +74,17 @@ public class EFactoryEcoreEditor extends EcoreEditor {
 		PropertySheetPage propertySheetPage = (PropertySheetPage) super.getPropertySheetPage();
 		propertySheetPage.setPropertySourceProvider(new AdapterFactoryContentProvider(adapterFactory) {
 					@Override
-					protected IPropertySource createPropertySource(Object object,IItemPropertySource itemPropertySource) {
+					protected IPropertySource createPropertySource(Object object, IItemPropertySource itemPropertySource) {
 						return new PropertySource(object, itemPropertySource) {
 							@Override
 							protected IPropertyDescriptor createPropertyDescriptor(IItemPropertyDescriptor itemPropertyDescriptor) {
-								return new PropertyDescriptor(object,itemPropertyDescriptor) {
+								return new PropertyDescriptor(object, itemPropertyDescriptor) {
 
-									List<IEObjectDescription> choiceOfValues = new ArrayList<IEObjectDescription>();
+									List<IEObjectDescription> choicesAsIEObjectDescriptions = new ArrayList<IEObjectDescription>();
 
 									// TODO probably move this method up/out.. and make it return List<IEObjectDescription> ?
 									private void buildChoiceOfValues() {
-										choiceOfValues = new ArrayList<IEObjectDescription>();
+										choicesAsIEObjectDescriptions = new ArrayList<IEObjectDescription>();
 										Object genericFeature = itemPropertyDescriptor.getFeature(this.object);
 										if (genericFeature instanceof EReference) {
 											EReference eReference = (EReference) genericFeature;
@@ -96,7 +95,7 @@ public class EFactoryEcoreEditor extends EcoreEditor {
 											//IScope scope = globalScopeProvider.getScope(eObject.eResource(), eReference, filter);
 											for (IEObjectDescription objectDescription : scope.getAllElements()) {
 //											for (IEObjectDescription objectDescription : scope.getElements(eObject)) {
-												choiceOfValues.add(objectDescription);
+												choicesAsIEObjectDescriptions.add(objectDescription);
 											}
 											
 //											EClassifier eType = eReference.getEType();
@@ -114,9 +113,9 @@ public class EFactoryEcoreEditor extends EcoreEditor {
 
 									private IEObjectDescription lookupEObjectDescription(EObject eObject) {
 										URI uri = EcoreUtil.getURI(eObject);
-										if (choiceOfValues.isEmpty())
+										if (choicesAsIEObjectDescriptions.isEmpty())
 											buildChoiceOfValues();
-										for (IEObjectDescription objectDescription : choiceOfValues) {
+										for (IEObjectDescription objectDescription : choicesAsIEObjectDescriptions) {
 											if (uri.equals(objectDescription.getEObjectURI())) {
 												return objectDescription;
 											}
@@ -162,15 +161,17 @@ public class EFactoryEcoreEditor extends EcoreEditor {
 											CellEditor result = null;
 											Object genericFeature = itemPropertyDescriptor.getFeature(this.object);
 											if (genericFeature instanceof EStructuralFeature) {
-
 												final EStructuralFeature feature = (EStructuralFeature) genericFeature;
 												final EClassifier eType = feature.getEType();
 												buildChoiceOfValues();
 												
-												if (!choiceOfValues.isEmpty()) {
+												if (!choicesAsIEObjectDescriptions.isEmpty()) {
 													if (itemPropertyDescriptor.isMany(object)) {
 														boolean valid = true;
-														for (Object choice : choiceOfValues) {
+														for (IEObjectDescription choice : choicesAsIEObjectDescriptions) {
+															// TODO this test (and outer loop incl. valid) makes no sense at all to me..
+															// ... the IEObjectDescription choice can never be an instance of eType 
+															// ... check with A what that was all about, and probably remove.
 															if (!eType.isInstance(choice)) {
 																valid = false;
 																break;
@@ -178,12 +179,9 @@ public class EFactoryEcoreEditor extends EcoreEditor {
 														}
 														if (valid) {
 															final ILabelProvider editLabelProvider = getEditLabelProvider();
-															result = new ExtendedDialogCellEditor(
-																	composite,
-																	editLabelProvider) {
+															result = new ExtendedDialogCellEditor(composite, editLabelProvider) {
 																@Override
-																protected Object openDialogBox(
-																		Control cellEditorWindow) {
+																protected Object openDialogBox(Control cellEditorWindow) {
 																	FeatureEditorDialog dialog = new FeatureEditorDialog(
 																			cellEditorWindow.getShell(),
 																			editLabelProvider,
@@ -191,7 +189,8 @@ public class EFactoryEcoreEditor extends EcoreEditor {
 																			feature.getEType(),
 																			(List<?>) doGetValue(),
 																			getDisplayName(),
-																			new ArrayList<Object>(choiceOfValues),
+																			// TODO Q A, why is the choiceOfValues List wrapped in another List?! 
+																			new ArrayList<Object>(choicesAsIEObjectDescriptions),
 																			false,
 																			itemPropertyDescriptor.isSortChoices(object),
 																			feature.isUnique());
@@ -202,17 +201,18 @@ public class EFactoryEcoreEditor extends EcoreEditor {
 														}
 													}
 													if (result == null) {
-														List<Object> choices = new ArrayList<Object>();
-														for (IEObjectDescription description : choiceOfValues) {
-															choices.add(description.getEObjectOrProxy());
+														List<EObject> choicesAsEObjects = new ArrayList<EObject>();
+														for (IEObjectDescription description : choicesAsIEObjectDescriptions) {
+															choicesAsEObjects.add(description.getEObjectOrProxy());
 														}
 														result = new ExtendedComboBoxCellEditor(
 																composite,
-																choices,
+																choicesAsEObjects,
 																getLabelProvider(),
 																itemPropertyDescriptor.isSortChoices(object));
 													}
 												} else if (eType instanceof EDataType) {
+													// TODO Q A what's this for, what's the UC scenario here?? Or is this just copy/paste from super() - couldn't we just delegate elsewhere instead of having this here??
 													EDataType eDataType = (EDataType) eType;
 													if (eDataType.isSerializable()) {
 														if (itemPropertyDescriptor.isMany(object)) {
