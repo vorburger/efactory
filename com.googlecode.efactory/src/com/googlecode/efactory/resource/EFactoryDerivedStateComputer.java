@@ -45,53 +45,69 @@ public class EFactoryDerivedStateComputer implements IDerivedStateComputer {
 	
 	// implementation inspired by XcoreModelAssociator (more than JvmModelAssociator) 
 	public void installDerivedState(DerivedStateAwareResource resource, boolean preLinkingPhase) {
+		Factory model = getFactory(resource);
+		if (model == null)
+			return;
+    	if (model.getRoot() != null && model.getRoot().getEClass() == null) {
+    		// Special handling for common use case of completely empty *.efactory.
+    		// It would work without this as well, but this avoids the Exception & log below.
+    		return;
+    	}
+    	if (model.getRoot() != null && model.getRoot().getEClass() != null && model.getRoot().getEClass().eIsProxy()) {
+    		// If linking to the used eClass is not available yet,
+    		// then just give up (as it will come back and retry)
+    		return;
+    	}
+    	
+    	EFactoryResource efResource = (EFactoryResource) resource;
+		ModelBuilder builder = efResource.getBuilder();
+		try {
+			EObject eModel = builder.buildWithoutLinking(model);
+			if (!preLinkingPhase) {
+				builder.link();
+			}
+			// Do add() only AFTER the buildWithoutLinking() + link(),
+			// because we don't want/need to get the notifications from our
+			// ModelBuilder - only from external clients (e.g. Generic Ecore
+			// editor UI, etc.)
+			//
+			// Note that our EFactoryAdapter change notification listener
+			// gets added by com.googlecode.efactory.resource.EFactoryResource.attached(EObject)
+			resource.getContents().add(eModel);
+		} catch (ModelBuilderException e) {
+			builder.clear();
+			// TODO make this a logger.debug() again.. it's only logger.error() so that I can see this better while developing..
+			logger.error(resource.getURI() + " could not be transformed by ModelBuilder (this may be normal if incomplete while editing; this Log is a DEBUG, not a WARN/ERROR)", e);
+			// No need for something like this:
+			// resource.getErrors().add(new ExceptionDiagnostic(e));
+			// that would only lead to duplicate errors - the resource
+			// will (most likely, should) already have error markers if
+			// not, it's better to write new specific validation rules.
+		}
+		resource.getCache().clear(resource);
+	}
+
+	protected Factory getFactory(DerivedStateAwareResource resource) {
+		EObject rootEObject = null;
 	    final IParseResult parseResult = resource.getParseResult();
 		if (parseResult != null && parseResult.getRootASTElement() != null)
 	    {
-			final EObject rootASTElement = parseResult.getRootASTElement();
-			if (!(rootASTElement instanceof Factory))
-				return;
-	    	Factory model = (Factory)rootASTElement;
-	    	if (model != null && model.getRoot() != null && model.getRoot().getEClass() == null) {
-	    		// Special handling for common use case of completely empty *.efactory.
-	    		// It would work without this as well, but this avoids the Exception & log below.
-	    		return;
-	    	}
-	    	if (model != null && model.getRoot() != null && model.getRoot().getEClass() != null && model.getRoot().getEClass().eIsProxy()) {
-	    		// If linking to the used eClass is not available yet,
-	    		// then just give up (as it will come back and retry)
-	    		return;
-	    	}
-	    	
-	    	EFactoryResource efResource = (EFactoryResource) resource;
-			ModelBuilder builder = efResource.getBuilder();
-			try {
-				EObject eModel = builder.buildWithoutLinking(model);
-				if (!preLinkingPhase) {
-					builder.link();
-				}
-				// Do add() only AFTER the buildWithoutLinking() + link(),
-				// because we don't want/need to get the notifications from our
-				// ModelBuilder - only from external clients (e.g. Generic Ecore
-				// editor UI, etc.)
-				//
-				// Note that our EFactoryAdapter change notification listener
-				// gets added by com.googlecode.efactory.resource.EFactoryResource.attached(EObject)
-				resource.getContents().add(eModel);
-			} catch (ModelBuilderException e) {
-				builder.clear();
-				// TODO make this a logger.debug() again.. it's only logger.error() so that I can see this better while developping..
-				logger.error(resource.getURI() + " could not be transformed by ModelBuilder (this may be normal if incomplete while editing; this Log is a DEBUG, not a WARN/ERROR)", e);
-				// No need for something like this:
-				// resource.getErrors().add(new ExceptionDiagnostic(e));
-				// that would only lead to duplicate errors - the resource
-				// will (most likely, should) already have error markers if
-				// not, it's better to write new specific validation rules.
-			}
-			resource.getCache().clear(resource);
+			rootEObject = parseResult.getRootASTElement();
+	    } else if (resource.getContents().size() == 1) {
+	    	// This can happen from tests which programmatically add Factory
+	    	rootEObject = resource.getContents().get(0);
 	    }
+		if (rootEObject != null) {
+			if (!(rootEObject instanceof Factory)) {
+				logger.warn("Resource's parseResult rootASTElement was not an instanceof Factory, but " + rootEObject + ": " + resource.getURI());
+				return null;
+			}
+	    	Factory model = (Factory)rootEObject;
+	    	return model;
+		}
+		return null;
 	}
-
+	
 	// implementation again inspired by XcoreModelAssociator and JvmModelAssociator 
 	public void discardDerivedState(DerivedStateAwareResource resource) {
 		EFactoryResource efResource = (EFactoryResource) resource;

@@ -48,19 +48,6 @@ public class ResourceProvider {
 		this(new ResourceSetImpl(), pluginId);
 	}
 
-	private <T> T get(EList<EObject> contents, int i, Class<T> clazz) {
-		EObject object = contents.get(i);
-		if (object == null)
-			throw new IllegalArgumentException("Element in is null?!");
-		if (!clazz.isInstance(object)) {
-			throw new IllegalArgumentException("Element in resource '"
-					+ object.eResource().getURI() + "' is of type '"
-					+ object.getClass().getName() + "' and not '"
-					+ clazz.getName() + "'");
-		}
-		return clazz.cast(object);
-	}
-
 	public URI getUri(String plugInRootRelativePath) {
 		URI uri;
 		if (Platform.isRunning()) {
@@ -123,7 +110,8 @@ public class ResourceProvider {
 		if (contents.size() == 1)
 			throw new IOException("Could load, but found no EObject in content, other than EFactory (so the EFactoryDerivedStateComputer failed; see log!) in resource: " + plugInRootRelativePath);		
 		// get(1) because 0 is the root EFactory NewObject, 1 is the EObject from it
-		return get(contents, 1, clazz);
+		EObject eObject = contents.get(1);
+		return clazz.cast(eObject);
 	}
 
 	public <T> T loadModel(String plugInRootRelativePath, Class<T> clazz) throws IOException, DiagnosticException {

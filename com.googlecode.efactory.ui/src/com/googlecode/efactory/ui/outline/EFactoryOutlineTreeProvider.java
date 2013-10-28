@@ -16,7 +16,6 @@ import org.eclipse.xtext.ui.editor.outline.IOutlineNode;
 import org.eclipse.xtext.ui.editor.outline.impl.DefaultOutlineTreeProvider;
 import org.eclipse.xtext.ui.editor.outline.impl.DocumentRootNode;
 
-import com.googlecode.efactory.building.ModelBuilderException;
 import com.googlecode.efactory.eFactory.Factory;
 import com.googlecode.efactory.eFactory.NewObject;
 import com.googlecode.efactory.resource.EFactoryResource;
@@ -48,11 +47,10 @@ public class EFactoryOutlineTreeProvider extends DefaultOutlineTreeProvider {
 	/** Note, this has it's "inverse" in com.googlecode.efactory.resource.EFactoryLocationInFileProvider.findNodeFor(EObject) */
 	protected void createNewObjectNode(IOutlineNode parentNode, NewObject nObject) {
 		Resource resource = nObject.eResource();
-		EFactoryResource efResource = (EFactoryResource) resource;
-		try {
-			final EObject eObject = efResource.getEFactoryEObject(nObject);
+		EObject eObject = EFactoryResource.getEFactoryEObject(resource);
+		if (eObject != null) {
 			this.createNode(parentNode, eObject);
-		} catch (ModelBuilderException e) {
+		} else {
 			// if we cannot get the built EObject (ModelBuilder), 
 			// we could e.g. just show the source in the Outline instead?
 			// but this doesn't work, leads to StackOverflowError.. TODO needs more thought.

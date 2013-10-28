@@ -11,7 +11,9 @@
  ******************************************************************************/
 package com.googlecode.efactory.resource;
 
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.xtext.resource.DerivedStateAwareResource;
@@ -117,4 +119,31 @@ public class EFactoryResource extends DerivedStateAwareResource {
 		builder.putEObjectNewObjectPair(eObject, newObject);
 	}
 
+	public static @Nullable EObject getEFactoryEObject(Resource r) {
+		final EFactoryResource eFactoryResource = (EFactoryResource) r;
+		if (!eFactoryResource.isBuilt())
+			return null;
+		com.googlecode.efactory.eFactory.Factory factory = eFactoryResource.getEFactoryFactory();
+		if (factory == null)
+			return null;
+		try {
+			return eFactoryResource.getEFactoryEObject(factory.getRoot());
+		} catch (ModelBuilderException e) {
+			return null;
+		}
+	}
+
+	public static @Nullable <T> T getEFactoryEObject(Resource r, Class<T> clazz) {
+		EObject object = getEFactoryEObject(r);
+		if (object == null)
+			return null;
+		if (!clazz.isInstance(object)) {
+			final URI rURI = object.eResource().getURI();
+			throw new IllegalArgumentException("EObject built by EFactory in resource '"
+					+ rURI + "' is of type '"
+					+ object.getClass().getName() + "' and not '"
+					+ clazz.getName() + "'");
+		}
+		return clazz.cast(object);
+	}
 }

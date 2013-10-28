@@ -23,8 +23,10 @@ import org.junit.runner.RunWith;
 
 import testmodel.TestModel;
 
+import com.google.common.base.Preconditions;
 import com.google.inject.Injector;
 import com.googlecode.efactory.EFactoryUiInjectorProvider;
+import com.googlecode.efactory.resource.EFactoryResource;
 
 /**
  * Tests the "re-sychronization" of changes to the derived "real" EObjects to
@@ -65,7 +67,9 @@ public class UIResyncTest extends AbstractXtextTests {
 		
 		assertEquals("use testmodel.* \n\nTestModel {\n	name = \"test\"\n	singleRequired = SingleRequired { }\n}\n", document.get());
 
-		TestModel testModel = (TestModel) resource.getContents().get(1);
+		TestModel testModel = EFactoryResource.getEFactoryEObject(resource, TestModel.class);
+		assertNotNull(testModel);
+		Preconditions.checkNotNull(testModel);
 		assertEquals("test", testModel.getName());
 
 		testModel.setName("tested");
