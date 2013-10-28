@@ -15,7 +15,6 @@ import javax.inject.Inject;
 import org.eclipse.xtext.junit4.InjectWith;
 import org.eclipse.xtext.junit4.XtextRunner;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -31,7 +30,6 @@ public class ReferenceCrossResourceTest {
 
 	@Inject ResourceProvider provider;
 
-	@Ignore // not currently working, unresolved proxy...
 	@Test public void testCrossResourceReference() throws Exception {
 		TestSetup.INSTANCE.doSetup();
 		/*TestModel aModel =*/ provider.loadModel("res/BuilderTests/ReferenceCrossResourceTestA.efactory", TestModel.class);

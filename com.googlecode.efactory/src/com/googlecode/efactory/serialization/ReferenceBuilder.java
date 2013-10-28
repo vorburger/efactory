@@ -21,7 +21,6 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 
 import com.googlecode.efactory.eFactory.EFactoryFactory;
-import com.googlecode.efactory.eFactory.NewObject;
 import com.googlecode.efactory.eFactory.Reference;
 import com.googlecode.efactory.eFactory.Value;
 
@@ -38,8 +37,7 @@ class ReferenceBuilder extends FeatureBuilder {
 	@Override
 	protected Value createValue() {
 		Reference reference = EFactoryFactory.eINSTANCE.createReference();
-		NewObject newObject = factoryBuilder.getOrBuildNewObject((EObject) value);
-		reference.setValue(newObject);
+		reference.setValue((EObject) value);
 		return reference;
 	}
 

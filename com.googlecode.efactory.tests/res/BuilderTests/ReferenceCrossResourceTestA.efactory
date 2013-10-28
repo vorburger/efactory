@@ -14,10 +14,13 @@ TestModel testModelNameA {
 			containments = [
 				ReferenceTarget target21 {}
 				ReferenceTarget target22 {}
-				ReferenceTargetSubclass target23 {}	
+				ReferenceTargetSubclass target23 {}
+			]
 		}
+		
+		
 	]
-
+	
 	singleRequired = SingleRequired { }
 } 
 

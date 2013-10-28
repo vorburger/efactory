@@ -1,12 +1,19 @@
+/*******************************************************************************
+ * Copyright (c) 2013 Michael Vorburger (http://www.vorburger.ch).
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *******************************************************************************/
 package com.googlecode.efactory.serialization.tests;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.MappedByteBuffer;
-import java.nio.channels.FileChannel;
-import java.nio.charset.Charset;
 import java.util.Iterator;
+
+import javax.inject.Inject;
+
+import junit.framework.Assert;
 
 import org.eclipse.emf.common.util.DiagnosticException;
 import org.eclipse.emf.common.util.EList;
@@ -17,50 +24,35 @@ import org.eclipse.emf.compare.EMFCompare;
 import org.eclipse.emf.compare.scope.IComparisonScope;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.xtext.resource.IEObjectDescription;
+import org.eclipse.xtext.resource.IResourceDescription;
 import org.eclipse.xtext.resource.XtextResourceSet;
-import org.eclipse.xtext.serializer.ISerializer;
 
-import com.google.inject.Inject;
 import com.googlecode.efactory.eFactory.Factory;
 import com.googlecode.efactory.resource.EFactoryResource;
 import com.googlecode.efactory.serialization.FactoryBuilder;
-import com.googlecode.efactory.tests.util.AbstractEFactoryTest;
+import com.googlecode.efactory.tests.util.ResourceProvider;
 
-public abstract class AbstractSerializationTest extends AbstractEFactoryTest {
-
-	public AbstractSerializationTest() {
-		super();
-		getInjector().injectMembers(this);
-	}
-
-	public AbstractSerializationTest(String name) {
-		super(name);
-		getInjector().injectMembers(this);
-	}
+public abstract class AbstractSerializationTest {
 
 	private File temp;
 	static final String ROOT_FOLDER = "res/SerializationTests/";
 
-	@Inject
-	private ISerializer serializer;
+	@Inject protected ResourceProvider resourceProvider; // = new ResourceProvider(TestConstants.PLUGIN_ID);
+	
+//	@Inject
+//	private ISerializer serializer;
 
-	protected void printActual() throws IOException {
-		System.out.println(readFile(temp));
-	}
-
-	private static String readFile(File file) throws IOException {
-		FileInputStream stream = new FileInputStream(file);
-		try {
-			FileChannel fc = stream.getChannel();
-			MappedByteBuffer bb = fc.map(FileChannel.MapMode.READ_ONLY, 0,
-					fc.size());
-			/* Instead of using default, pass in a decoder. */
-			return Charset.defaultCharset().decode(bb).toString();
-		} finally {
-			stream.close();
+	@Inject IResourceDescription.Manager resourceDescriptionManager;
+	
+	protected void printExportedObjects(Resource r) {
+		System.out.println(r.getURI());
+		Iterable<IEObjectDescription> eods = resourceDescriptionManager.getResourceDescription(r).getExportedObjects();
+		for (IEObjectDescription eod : eods) {
+			System.out.println("\t" + eod.getQualifiedName() + " - " + eod.getEClass().getName());
 		}
 	}
-
+	
 	protected URI createTempUri() throws IOException {
 		temp = File.createTempFile("testModel", ".efactory");
 		temp.deleteOnExit();
@@ -91,11 +83,7 @@ public abstract class AbstractSerializationTest extends AbstractEFactoryTest {
 		// Matching model elements
 		EList<Diff> differences = comparison.getDifferences();
 		// TODO not sure if differences.toString() is useful?
-		assertTrue("Models differ: " + differences.toString(), differences.isEmpty());
-	}
-
-	private String toString(Factory object) {
-		return serializer.serialize(object);
+		Assert.assertTrue("Models differ: " + differences.toString(), differences.isEmpty());
 	}
 
 	protected void performSerializationTest(String name) throws Exception {
@@ -109,14 +97,27 @@ public abstract class AbstractSerializationTest extends AbstractEFactoryTest {
 	}
 
 	private void assertModelsEquals(Factory expected, Factory actual) throws InterruptedException, IOException {
+		printExportedObjects(expected.eResource());
+		// System.out.println(toString(expected));
+		
 		XtextResourceSet rs = new XtextResourceSet();
 		Resource r = rs.createResource(createTempUri());
-		r.getContents().add(actual);
-		System.out.println(toString(actual));
+		r.getContents().add(actual);		
+		// !!!!!!!!!!
+/*		
+		DerivedStateAwareResource dR = (DerivedStateAwareResource) r;
+		dR.discardDerivedState();
+		dR.installDerivedState(true);
+		dR.installDerivedState(false);
+*/		
+		r.getContents().get(1);
+		printExportedObjects(r);
+		// TODO careful.. just using serializer.serialize without going through Resource will not trigger derived state calculation and IResourceDescription.Manager invocation!
+		System.out.println(SerializationUtils.toString(actual.eResource()));
 		compare(expected, actual);
 	}
 
-	private EObject loadTestModel(String name) throws IOException, DiagnosticException {
+	protected EObject loadTestModel(String name) throws IOException, DiagnosticException {
 		String path = ROOT_FOLDER + name;
 		EObject model = resourceProvider.loadModel(path);
 		removeAdapters(model);

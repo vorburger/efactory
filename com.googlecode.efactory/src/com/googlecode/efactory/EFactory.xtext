@@ -52,7 +52,11 @@ MultiValue:
 	{MultiValue} "[" (values += Value)* "]" ;
 
 Reference:
-	value = [ecore::EObject|QualifiedName]; // NOT [NewObject]
+	// NOTE we ref. an EObject, and not an [NewObject].. this EObject is always the
+	// respective "real" EObject, in the derived state if its a reference to something
+	// in an EFactory resource, or a reference to an existing non-EFactory EObject, 
+	// e.g. in an integration scenario with other Xtext grammars.
+	value = [ecore::EObject|QualifiedName];
 	
 Containment:
 	value = NewObject;
