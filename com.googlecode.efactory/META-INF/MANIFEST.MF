@@ -17,7 +17,7 @@ Require-Bundle: org.eclipse.xtext;bundle-version="2.1.0";visibility:=reexport,
  org.eclipse.emf.common,
  org.antlr.runtime,
  org.eclipse.xtext.common.types,
- org.eclipse.jdt.annotation;bundle-version="1.0.1";visibility:=reexport
+ org.eclipse.jdt.annotation;bundle-version="1.0.1";resolution:=optional
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Export-Package: com.googlecode.efactory,
  com.googlecode.efactory.building,
