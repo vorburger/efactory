@@ -12,6 +12,7 @@
 package com.googlecode.efactory.building;
 
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.xtext.EcoreUtil2;
 
 import com.googlecode.efactory.eFactory.Attribute;
@@ -82,8 +83,10 @@ public class FeatureSwitch extends EFactorySwitch<FeatureBuilder> {
 		return doSwitch(value);
 	}
 	
-	private EStructuralFeature getEFeature(Value value) {
+	private @Nullable EStructuralFeature getEFeature(Value value) {
 		final Feature containingFeature = EcoreUtil2.getContainerOfType(value, Feature.class);
-		return containingFeature.getEFeature();
+		if ( containingFeature != null )
+			return containingFeature.getEFeature();
+		return null;
 	}
 }
