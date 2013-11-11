@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2009 Sebastian Benz.
+ * Copyright (c) 2009 Sebastian Benz, and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,7 +7,8 @@
  * 
  * Contributors:
  *     Sebastian Benz - initial API and implementation
- *     Michael Vorburger - fixed OutOfMemoryError
+ *     Michael Vorburger - attempted fixing OutOfMemoryError :-( + more colors :)
+ *     Anton Kosyakov - actually fixed the OutOfMemoryError ;-) 
  ******************************************************************************/
 package com.googlecode.efactory.ui.highlighting;
 
@@ -16,21 +17,23 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.ILeafNode;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
-import org.eclipse.xtext.parser.IParseResult;
 import org.eclipse.xtext.resource.XtextResource;
-import org.eclipse.xtext.ui.editor.syntaxcoloring.DefaultHighlightingConfiguration;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightedPositionAcceptor;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.ISemanticHighlightingCalculator;
 
 import com.googlecode.efactory.eFactory.Annotation;
 import com.googlecode.efactory.eFactory.EFactoryPackage;
+import com.googlecode.efactory.eFactory.Factory;
 import com.googlecode.efactory.eFactory.Feature;
 import com.googlecode.efactory.eFactory.NewObject;
+import com.googlecode.efactory.eFactory.Reference;
+import com.googlecode.efactory.resource.EFactoryResource;
 
 /**
  * Highlight Annotation with SemanticHighlightingConfiguration.ANNOTATION_ID,
@@ -42,29 +45,44 @@ public class EFactoryHighlightingCalculator implements ISemanticHighlightingCalc
 	public void provideHighlightingFor(XtextResource resource, final IHighlightedPositionAcceptor acceptor) {
 		if (resource == null)
 			return;
-
-		final IParseResult parseResult = resource.getParseResult();
-		if (parseResult == null)
-			return;
-
-		Iterator<EObject> iter = EcoreUtil.getAllContents(resource, true);
+		
+		Iterator<EObject> iter = getContentIterator(resource);
 		while (iter.hasNext()) {
-			EObject current = iter.next();
-			if (current instanceof Annotation) {
-				ICompositeNode node = NodeModelUtils.findActualNodeFor(current);
-				highlightNode(node, SemanticHighlightingConfiguration.ANNOTATION_ID, acceptor);
-			} else if (current instanceof NewObject) {
-				EReference expectedFeature = EFactoryPackage.eINSTANCE.getNewObject_EClass();
-				highlightLeafnode(acceptor, current, expectedFeature, DefaultHighlightingConfiguration.KEYWORD_ID);
-			} else if (current instanceof Feature) {
+			EObject semanticObject = iter.next();
+			if (semanticObject instanceof Annotation) {
+				// highlight Annotation
+				ICompositeNode node = NodeModelUtils.findActualNodeFor(semanticObject);
+				highlightNode(node, EFactorySemanticHighlightingConfiguration.ANNOTATION_ID, acceptor);
+			} else if (semanticObject instanceof NewObject) {
+				// highlight NewObject's eClass
+				EStructuralFeature expectedFeature = EFactoryPackage.eINSTANCE.getNewObject_EClass();
+				highlightLeafNode(semanticObject, expectedFeature, EFactorySemanticHighlightingConfiguration.ECLASS_ID, acceptor);
+				// highlight NewObject's name
+				expectedFeature = EFactoryPackage.eINSTANCE.getNewObject_Name();
+				highlightLeafNode(semanticObject, expectedFeature, EFactorySemanticHighlightingConfiguration.NAME_ID, acceptor);
+			} else if (semanticObject instanceof Feature) {
+				// highlight Feature's eFeature
 				EReference expectedFeature = EFactoryPackage.eINSTANCE.getFeature_EFeature();
-				highlightLeafnode(acceptor, current, expectedFeature, DefaultHighlightingConfiguration.KEYWORD_ID);
+				highlightLeafNode(semanticObject, expectedFeature, EFactorySemanticHighlightingConfiguration.EFEATURE_ID, acceptor);
+			} else if (semanticObject instanceof Reference) {
+				// highlight Reference's value
+				EReference expectedFeature = EFactoryPackage.eINSTANCE.getReference_Value();
+				highlightLeafNode(semanticObject, expectedFeature, EFactorySemanticHighlightingConfiguration.CROSSREF_ID, acceptor);
 			}
 		}
 	}
 
-	private void highlightLeafnode(final IHighlightedPositionAcceptor acceptor, final EObject semanticElement, EReference expectedFeature,
-			String id) {
+	protected Iterator<EObject> getContentIterator(XtextResource resource) {
+		EFactoryResource efResource = (EFactoryResource) resource;
+		Factory factory = efResource.getEFactoryFactory();
+		// It's probably safe (and faster) to use false to not resolve proxies here
+		Iterator<EObject> iter = EcoreUtil.getAllContents(factory, false);
+		// We do NOT need the complete resource, this would unnecessarily iterator over all the derrived "real" EObjects:
+		// Iterator<EObject> iter = EcoreUtil.getAllContents(resource, false);
+		return iter;
+	}
+
+	protected void highlightLeafNode(final EObject semanticElement, EStructuralFeature expectedFeature, String id, final IHighlightedPositionAcceptor acceptor) {
 		List<INode> nodes = NodeModelUtils.findNodesForFeature(semanticElement, expectedFeature);
 		for (INode node : nodes) {
 			highlightNode(node, id, acceptor);
@@ -72,13 +90,10 @@ public class EFactoryHighlightingCalculator implements ISemanticHighlightingCalc
 	};
 
 	/**
-	 * Highlights the non-hidden parts of {@code node} with the style that is
-	 * associated with {@code id}.
+	 * Highlights the non-hidden parts of {@code node} with the style that is associated with {@code id}.
 	 * 
 	 * This method is shamelessly copy/pasted from
-	 * org.eclipse.xtext.ui.codetemplates
-	 * .ui.highlighting.SemanticHighlighter.highlightNode(INode, String,
-	 * IHighlightedPositionAcceptor).
+	 * org.eclipse.xtext.ui.codetemplates.ui.highlighting.SemanticHighlighter.highlightNode(INode, String, IHighlightedPositionAcceptor).
 	 */
 	protected void highlightNode(INode node, String id, IHighlightedPositionAcceptor acceptor) {
 		if (node == null)
