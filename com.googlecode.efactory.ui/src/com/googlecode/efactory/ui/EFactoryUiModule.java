@@ -19,6 +19,8 @@ import org.eclipse.xtext.ui.editor.contentassist.IContentAssistantFactory;
 import org.eclipse.xtext.ui.editor.contentassist.XtextContentAssistProcessor;
 import org.eclipse.xtext.ui.editor.folding.IFoldingRegionProvider;
 import org.eclipse.xtext.ui.editor.model.XtextDocument;
+import org.eclipse.xtext.ui.editor.syntaxcoloring.AbstractAntlrTokenToAttributeIdMapper;
+import org.eclipse.xtext.ui.editor.syntaxcoloring.ISemanticHighlightingCalculator;
 
 import com.google.inject.Binder;
 import com.google.inject.name.Names;
@@ -27,6 +29,9 @@ import com.googlecode.efactory.ui.contentassist.IEAttributeStringProposalProvide
 import com.googlecode.efactory.ui.contentassist.TerminalsEAttributeStringProposalProvider;
 import com.googlecode.efactory.ui.editor.EFactoryFoldingRegionProvider;
 import com.googlecode.efactory.ui.editor.EFactoryXtextDocument;
+import com.googlecode.efactory.ui.highlighting.EFactoryHighlightingCalculator;
+import com.googlecode.efactory.ui.highlighting.EFactorySemanticHighlightingConfiguration;
+import com.googlecode.efactory.ui.highlighting.EFactoryTokenTypeToStringMapper;
 import com.googlecode.efactory.ui.resource.EFactoryResourceFactory;
 
 /**
@@ -67,13 +72,16 @@ public class EFactoryUiModule extends com.googlecode.efactory.ui.AbstractEFactor
 		return TerminalsEAttributeStringProposalProvider.class;
 	}
 
-// @see http://www.eclipse.org/forums/index.php/m/1095119/
-//	
-//	public Class<? extends org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightingConfiguration> bindIHighlightingConfiguration() {
-//		return SemanticHighlightingConfiguration.class;
-//	}
-//	
-//	public Class<? extends ISemanticHighlightingCalculator> bindISemanticHighlightingCalculator() {
-//		return EFactoryHighlightingCalculator.class;
-//	}
+	public Class<? extends org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightingConfiguration> bindIHighlightingConfiguration() {
+		return EFactorySemanticHighlightingConfiguration.class;
+	}
+	
+	public Class<? extends ISemanticHighlightingCalculator> bindISemanticHighlightingCalculator() {
+		return EFactoryHighlightingCalculator.class;
+	}
+	
+	public Class<? extends AbstractAntlrTokenToAttributeIdMapper> bindAbstractAntlrTokenToAttributeIdMapper() {
+		return EFactoryTokenTypeToStringMapper.class;
+	}
+
 }
