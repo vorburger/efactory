@@ -25,3 +25,7 @@ Continuous Integration
 
 see https://travis-ci.org/vorburger/efactory
 [![Build Status](https://travis-ci.org/vorburger/efactory.png?branch=master)](https://travis-ci.org/vorburger/efactory)
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/vorburger/efactory/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
