@@ -189,6 +189,7 @@
     </extension>
 
 	<!-- Quick Outline -->
+<!-- Intentionally de-activated for now, @see comment in EFactoryOutlineTreeProvider... 	
 	<extension
 		point="org.eclipse.ui.handlers">
 		<handler 
@@ -221,6 +222,8 @@
 			</command>
 		</menuContribution>
 	</extension>
+-->
+	
     <!-- quickfix marker resolution generator for com.googlecode.efactory.EFactory -->
     <extension
             point="org.eclipse.ui.ide.markerResolution">

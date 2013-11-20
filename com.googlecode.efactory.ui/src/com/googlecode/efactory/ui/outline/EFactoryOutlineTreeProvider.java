@@ -10,51 +10,50 @@
  ******************************************************************************/
 package com.googlecode.efactory.ui.outline;
 
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.xtext.ui.editor.outline.IOutlineNode;
 import org.eclipse.xtext.ui.editor.outline.impl.DefaultOutlineTreeProvider;
 import org.eclipse.xtext.ui.editor.outline.impl.DocumentRootNode;
 
 import com.googlecode.efactory.eFactory.Factory;
-import com.googlecode.efactory.eFactory.NewObject;
-import com.googlecode.efactory.resource.EFactoryResource;
 
 /**
  * Outline.
  * @author Michael Vorburger
  */
 public class EFactoryOutlineTreeProvider extends DefaultOutlineTreeProvider {
+
+	// This Outline is currently intentionally deactivated, because it doesn't really work (labels were wrong etc.)
+	// The new full split DSL/Tree view editor, with working right-click Add.. kind of replaces the Outline.
 	
 	/** For the Factory, jump straight to the Node - skip Factory, import, and use. */
 	protected void _createChildren(DocumentRootNode parentNode, Factory factory) {
-		createNode(parentNode, factory.getRoot());
+		// createNode(parentNode, factory.getRoot());
 	}
 	
 	/** Needed for technical reasons; remove it, and other _createNode won't be hit anymore (Xtext PolymorphicDispatcher bug?) */
-	protected void _createNode(DocumentRootNode parentNode, EObject modelElement) {
-		if (modelElement instanceof NewObject)
-			createNewObjectNode(parentNode, (NewObject) modelElement);
-		else
-			super._createNode(parentNode, modelElement);
-	}
+//	protected void _createNode(DocumentRootNode parentNode, EObject modelElement) {
+//		if (modelElement instanceof NewObject)
+//			createNewObjectNode(parentNode, (NewObject) modelElement);
+//		else
+//			super._createNode(parentNode, modelElement);
+//	}
 	
 	/** For each NewObject, don't actually show the Outline of the NewObject, but of the EObject we created from it. */
-	protected void _createNode(IOutlineNode parentNode, NewObject nObject) {
-		createNewObjectNode(parentNode, nObject);
-	}
+//	protected void _createNode(IOutlineNode parentNode, NewObject nObject) {
+//		createNewObjectNode(parentNode, nObject);
+//	}
 	
 	/** Note, this has it's "inverse" in com.googlecode.efactory.resource.EFactoryLocationInFileProvider.findNodeFor(EObject) */
-	protected void createNewObjectNode(IOutlineNode parentNode, NewObject nObject) {
-		Resource resource = nObject.eResource();
-		EObject eObject = EFactoryResource.getEFactoryEObject(resource);
-		if (eObject != null) {
-			this.createNode(parentNode, eObject);
-		} else {
-			// if we cannot get the built EObject (ModelBuilder), 
-			// we could e.g. just show the source in the Outline instead?
-			// but this doesn't work, leads to StackOverflowError.. TODO needs more thought.
-			// this.createNode(parentNode, nObject);
-		}
-	}
+//	protected void createNewObjectNode(IOutlineNode parentNode, NewObject nObject) {
+//		Resource resource = nObject.eResource();
+//		EObject eObject = EFactoryResource.getEFactoryEObject(resource);
+//		if (eObject != null) {
+//			this.createNode(parentNode, eObject);
+//		} else {
+//			// if we cannot get the built EObject (ModelBuilder), 
+//			// we could e.g. just show the source in the Outline instead?
+//			// but this doesn't work, leads to StackOverflowError.. TODO needs more thought.
+//			// this.createNode(parentNode, nObject);
+//		}
+//	}
+
 }
