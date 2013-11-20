@@ -2,29 +2,29 @@ use testmodel.*
  
 TestModel testModelName {
 	
-	referenceTestContainer = [ 
+	referenceTestContainer: [ 
 		ReferenceTestContainer test1 {
-			containments = [ 
+			containments: [ 
 				ReferenceTarget target1 {}
 				ReferenceTarget target2 {}
 				ReferenceTarget target3 {}
 			]
-			referenceToOne = target1
-			referenceToMany = [ target1 target2 target3 ]		
+			referenceToOne: target1
+			referenceToMany: [ target1 target2 target3 ]		
 		}
 		ReferenceTestContainer test2 {
-			referenceToOne = target23
-			referenceToMany = [ target21 target22 target23 ]		
+			referenceToOne: target23
+			referenceToMany: [ target21 target22 target23 ]		
 	
-			containments = [
+			containments: [
 				ReferenceTarget target21 {}
 				ReferenceTarget target22 {}
 				ReferenceTargetSubclass target23 {}
 			]	
 		}
 	]
-	singleRequired = SingleRequired {
-		parentReference =  testModelName     
+	singleRequired: SingleRequired {
+		parentReference:  testModelName     
 	} 
 } 
 

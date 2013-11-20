@@ -1,5 +1,5 @@
 use testmodel.* 
 
 TestModel ImportedTestModel {
-	singleRequired = SingleRequired { }	
+	singleRequired: SingleRequired { }	
 }

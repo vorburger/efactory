@@ -2,17 +2,17 @@ use testmodel.*
 
 TestModel test {
 	
-	attributeSample = AttributeSample {
-		//bigDecimal = 3
-		double = 1.2
-		listIntRequired = [ 1 ]
+	attributeSample: AttributeSample {
+		//bigDecimal: 3
+		double: 1.2
+		listIntRequired: [ 1 ]
 	}
 	
-	children = [ Child {} Child {} ]
+	children: [ Child {} Child {} ]
 	
-	singleRequired = SingleRequired {
-		parentReference = test      
-		nestedElements = [ NestedElements {} ]
+	singleRequired: SingleRequired {
+		parentReference: test      
+		nestedElements: [ NestedElements {} ]
 	}
 	
 }

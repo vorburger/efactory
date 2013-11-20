@@ -5,18 +5,18 @@ use testmodel.*
  
 TestModel testModelNameB {
 	
-	referenceTestContainer = [
+	referenceTestContainer: [
 		ReferenceTestContainer test1 {
-			referenceToOne = testModelNameA.test1.target1
-			referenceToMany = [ 
+			referenceToOne: testModelNameA.test1.target1
+			referenceToMany: [ 
 				testModelNameA.test1.target1 
 				testModelNameA.test1.target2 
 				testModelNameA.test1.target3
 			]		
 		}
 		ReferenceTestContainer test2 {
-			referenceToOne = testModelNameA.test2.target23
-			referenceToMany = [ 
+			referenceToOne: testModelNameA.test2.target23
+			referenceToMany: [ 
 				testModelNameA.test2.target21
 				testModelNameA.test2.target22
 				testModelNameA.test2.target23
@@ -24,9 +24,9 @@ TestModel testModelNameB {
 		}
 	]
 
-	singleRequired = SingleRequired {
+	singleRequired: SingleRequired {
 		// TODO why are root elements not indexed?!
-		// parentReference = testModelNameA
+		// parentReference: testModelNameA
 	} 
 } 
 

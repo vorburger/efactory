@@ -1,1 +1,1 @@
-testmodel2.Thing { age = 99 }
+testmodel2.Thing { age: 99 }

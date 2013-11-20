@@ -16,36 +16,36 @@ public class MultiplicityProposalProviderTest extends AbstractEFactoryContentAss
 
 	private static final String body = "use testmodel.* "
 			+ "TestModel testModelName {\n"
-			+ "referenceTestContainer = [ ReferenceTestContainer test1 {\n";
+			+ "referenceTestContainer: [ ReferenceTestContainer test1 {\n";
 
 	@Test
 	public void testMultiplicityAttribute_One() throws Exception {
-		newBuilder().append(body + "oneAttribute ").assertText("=");
+		newBuilder().append(body + "oneAttribute ").assertText(":");
 	}
 
 	@Test
 	public void testMultiplicityAttribute_Many() throws Exception {
-		newBuilder().append(body + "manyAttributes ").assertText("=");
+		newBuilder().append(body + "manyAttributes ").assertText(":");
 	}
 
 	@Test
 	public void testMultiplicityContainment_One() throws Exception {
-		newBuilder().append(body + "containment ").assertText("=");
+		newBuilder().append(body + "containment ").assertText(":");
 	}
 
 	@Test
 	public void testMultiplicityContainment_Many() throws Exception {
-		newBuilder().append(body + "containments ").assertText("=");
+		newBuilder().append(body + "containments ").assertText(":");
 	}
 
 	@Test
 	public void testMultiplicityReference_One() throws Exception {
-		newBuilder().append(body + "referenceToOne ").assertText("=");
+		newBuilder().append(body + "referenceToOne ").assertText(":");
 	}
 
 	@Test
 	public void testMultiplicityReference_Many() throws Exception {
-		newBuilder().append(body + "referenceToMany ").assertText("=");
+		newBuilder().append(body + "referenceToMany ").assertText(":");
 	}
 
 }

@@ -2,16 +2,16 @@ use testmodel.*
  
 TestModel testModelNameA {
 	
-	referenceTestContainer = [ 
+	referenceTestContainer: [ 
 		ReferenceTestContainer test1 {
-			containments = [
+			containments: [
 				ReferenceTarget target1 {}
 				ReferenceTarget target2 {}
 				ReferenceTarget target3 {}
 			]
 		}
 		ReferenceTestContainer test2 {
-			containments = [
+			containments: [
 				ReferenceTarget target21 {}
 				ReferenceTarget target22 {}
 				ReferenceTargetSubclass target23 {}
@@ -21,7 +21,7 @@ TestModel testModelNameA {
 		
 	]
 	
-	singleRequired = SingleRequired { }
+	singleRequired: SingleRequired { }
 } 
 
  

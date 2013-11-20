@@ -1,50 +1,50 @@
 use ecore.*
 
  EPackage entity {
- 	nsURI = "http://com/googlecode/efactory/examples/entity"
- 	nsPrefix = "entity"
+ 	nsURI: "http://com/googlecode/efactory/examples/entity"
+ 	nsPrefix: "entity"
  	
- 	eClassifiers = [ 
+ 	eClassifiers: [ 
  		EClass Type {
-	 		abstract = true
+	 		abstract: true
 	 		
-	 	    eStructuralFeatures = [ EAttribute name {         
-	 			eType = EString
+	 	    eStructuralFeatures : [ EAttribute name {         
+	 			eType : EString
 	 		} ]
 	 	}    
 		EClass Model {
-	 		eStructuralFeatures = [ EReference elements {
-	 	     	containment = true
-	 	     	upperBound = -1
-	 	     	eType = Type
+	 		eStructuralFeatures : [ EReference elements {
+	 	     	containment : true
+	 	     	upperBound : -1
+	 	     	eType : Type
 	 	     } ]
  		}  
 	  	EClass SimpleType {
- 	    	eSuperTypes = [ Type ]
+ 	    	eSuperTypes : [ Type ]
 	 	}  
  		EClass Property {
- 			eStructuralFeatures = [ 
+ 			eStructuralFeatures : [ 
  				EReference type {         
- 					eType = Type
+ 					eType : Type
 		 		}
 				EAttribute name {         
- 					eType = EString
+ 					eType : EString
  				}
 				EAttribute many {         
- 					eType = EBoolean
+ 					eType : EBoolean
  				}
  		}    
  	 	EClass Entity {
- 			eSuperTypes = [ Type ]
- 			eStructuralFeatures = [
+ 			eSuperTypes : [ Type ]
+ 			eStructuralFeatures : [
  				EReference extends {           
-		 			eType = Entity
-		 			upperBound = -1
+		 			eType : Entity
+		 			upperBound : -1
 		 		} 
 		 		EReference properties {         
-		 			eType = Property
-		 			containment = true     
-		 	     	upperBound = -1
+		 			eType : Property
+		 			containment : true     
+		 	     	upperBound : -1
 		 		}
 		 	] 
  	}   

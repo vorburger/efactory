@@ -16,11 +16,11 @@ public class NewObjectValueProposalProviderTest extends	AbstractEFactoryContentA
 
 	private static final String body = "use testmodel.* "
 			+ "TestModel testModelName {\n"
-			+ "referenceTestContainer = [ ReferenceTestContainer test1 {  } ] }";
+			+ "referenceTestContainer: [ ReferenceTestContainer test1 {  } ] }";
 
 	@Test
 	public void testMultiplicityContainment_One() throws Exception {
-		newBuilder().append(body).cursorBack(6).insert("containments = [  ]")
+		newBuilder().append(body).cursorBack(6).insert("containments: [  ]")
 			.cursorBack(2).assertText("ReferenceTarget", "ReferenceTargetSubclass");
 	}
 

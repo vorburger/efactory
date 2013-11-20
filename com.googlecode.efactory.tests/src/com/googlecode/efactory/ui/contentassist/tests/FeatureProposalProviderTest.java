@@ -17,7 +17,7 @@ public class FeatureProposalProviderTest extends AbstractEFactoryContentAssistPr
 
 	private static final String body = "use testmodel.* "
 			+ "TestModel testModelName {\n"
-			+ "referenceTestContainer = [ ReferenceTestContainer test1 {  } ] }";
+			+ "referenceTestContainer: [ ReferenceTestContainer test1 {  } ] }";
 
 	@Test
 	public void testCompleteFeatures_All() throws Exception {
@@ -29,7 +29,7 @@ public class FeatureProposalProviderTest extends AbstractEFactoryContentAssistPr
 	@Test
 	public void testCompleteFeaturesWithSingleContainmentAlreadyUsed() throws Exception {
 		newBuilder().append(body).cursorBack(6)
-				.insert("containment = ReferenceTarget target1 {  }\n")
+				.insert("containment: ReferenceTarget target1 {  }\n")
 				.assertText("containments", "referenceToOne",
 						"referenceToMany", "name",
 						"oneAttribute", "manyAttributes");
@@ -39,7 +39,7 @@ public class FeatureProposalProviderTest extends AbstractEFactoryContentAssistPr
 	@Test
 	public void testCompleteFeaturesWithMultiValueContainmentAlreadyUsed() throws Exception {
 		newBuilder().append(body).cursorBack(6)
-				.insert("containments = [ ReferenceTarget target1 { } ]\n")
+				.insert("containments: [ ReferenceTarget target1 { } ]\n")
 				.assertText("containment", "referenceToOne",
 						"referenceToMany", "name", "oneAttribute",
 						"manyAttributes");

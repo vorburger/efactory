@@ -4,7 +4,7 @@ import "Imported.testmodel"
  
 TestModel ImportTest {
 
-	singleRequired = SingleRequired test {
-		parentReference = ImportedTestModel 
+	singleRequired: SingleRequired test {
+		parentReference: ImportedTestModel 
 	}
 }         

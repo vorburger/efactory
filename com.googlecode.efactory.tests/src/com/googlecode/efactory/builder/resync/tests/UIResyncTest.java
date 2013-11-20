@@ -65,7 +65,7 @@ public class UIResyncTest extends AbstractXtextTests {
 		partitioner.connect(document);
 		document.setDocumentPartitioner(partitioner);
 		
-		assertEquals("use testmodel.* \n\nTestModel {\n	name = \"test\"\n	singleRequired = SingleRequired { }\n}\n", document.get());
+		assertEquals("use testmodel.* \n\nTestModel {\n	name: \"test\"\n	singleRequired: SingleRequired { }\n}\n", document.get());
 
 		TestModel testModel = EFactoryResource.getEFactoryEObject(resource, TestModel.class);
 		assertNotNull(testModel);
@@ -73,6 +73,6 @@ public class UIResyncTest extends AbstractXtextTests {
 		assertEquals("test", testModel.getName());
 
 		testModel.setName("tested");
-		assertEquals("use testmodel.* \n\nTestModel {\n	name = \"tested\"\n	singleRequired = SingleRequired { }\n}\n", document.get());
+		assertEquals("use testmodel.* \n\nTestModel {\n	name:\"tested\"\n	singleRequired: SingleRequired { }\n}\n", document.get());
 	}
 }

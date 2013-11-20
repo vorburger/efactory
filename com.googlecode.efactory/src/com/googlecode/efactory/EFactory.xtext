@@ -33,7 +33,7 @@ CustomNameMapping:
 	"@Name" "{" eClass=[ecore::EClass|QualifiedName] "=" nameFeature=[ecore::EAttribute] "}" ;
 	
 Feature:
-	eFeature=[ecore::EStructuralFeature] "=" (value=Value)? ;
+	eFeature=[ecore::EStructuralFeature] ":" (value=Value)? ;
 	// value isn't really optional semantically of course
 	// but because it may be missing while typing, this works out much better in practice like this
 	// the EFactoryJavaValidator flags it up if it's really missing
