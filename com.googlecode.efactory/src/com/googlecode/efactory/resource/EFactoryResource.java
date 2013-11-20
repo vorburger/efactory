@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2009 Sebastian Benz.
+ * Copyright (c) 2009 Sebastian Benz and others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -30,6 +30,7 @@ import com.googlecode.efactory.serialization.EFactoryAdapter;
 public class EFactoryResource extends DerivedStateAwareResource {
 
 	@Inject private ModelBuilder builder;
+	@Inject private Provider<EFactoryAdapter> eFactoryAdapterProvider;
 	
 	protected IWriteAccess<XtextResource> documentWriteAccess;
 	
@@ -107,7 +108,8 @@ public class EFactoryResource extends DerivedStateAwareResource {
 	public void attached(EObject eObject) {
 		super.attached(eObject);
 		if (contents.size() > 1 && contents.get(1).equals(eObject)) {
-			EFactoryAdapter adapter = new EFactoryAdapter(getWriteAccessProvider());
+			EFactoryAdapter adapter = eFactoryAdapterProvider.get();
+			adapter.setWriteAccessProvider(getWriteAccessProvider());
 			if (getEFactoryNewObject(eObject) == null) {
 				adapter.setRootNewObject(eObject);
 			}

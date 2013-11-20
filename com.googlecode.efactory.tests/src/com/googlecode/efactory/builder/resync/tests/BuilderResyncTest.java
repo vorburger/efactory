@@ -26,12 +26,16 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.junit4.InjectWith;
 import org.eclipse.xtext.junit4.XtextRunner;
+import org.eclipse.xtext.resource.SaveOptions;
+import org.eclipse.xtext.serializer.ISerializer;
+import org.eclipse.xtext.util.ReplaceRegion;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import testmodel.AttributeSample;
 import testmodel.AttributeTestContainer;
+import testmodel.NameAttributeContainer;
 import testmodel.SampleEnum;
 import testmodel.SingleRequired;
 import testmodel.TestModel;
@@ -66,6 +70,8 @@ public class BuilderResyncTest {
 	// using a Provider because we want each test to get a fresh ResourceProvider 
 	@Inject Provider<ResourceProvider> rp;
 
+	@Inject ISerializer serializer;
+	
 	@BeforeClass
 	public static void beforeTest() {
 		TestSetup.INSTANCE.doSetup();
@@ -132,7 +138,7 @@ public class BuilderResyncTest {
 		EList<EObject> resourceContents = rp.get().load("res/BuilderResyncTests/1TestModelWithNameProperty.efactory", true);
 
 		// Change the TestModel
-		TestModel testModel = (TestModel) resourceContents.get(1);
+		TestModel testModel = (TestModel) resourceContents.get(1);		
 		AttributeSample attributeSample = TestmodelFactory.eINSTANCE.createAttributeSample();
 		attributeSample.setSingleIntOptional(123);
 		testModel.setAttributeSample(attributeSample);
@@ -147,6 +153,43 @@ public class BuilderResyncTest {
 		assertEquals(123, singleIntOptional.getValue());
 	}
 
+	/**
+	 * Tests the NodeFixer stuff.
+	 * This is required for the new synchronizing new split DSL/Tree Editor.
+	 */
+	@Test
+	public void testAddNewContainerFeature() throws Exception {
+		EList<EObject> resourceContents = rp.get().load("res/BuilderResyncTests/1TestModelWithNameProperty.efactory", true);
+
+		// Change the TestModel
+		TestModel testModel = (TestModel) resourceContents.get(1);
+		
+		NameAttributeContainer nameAttributeContainer = TestmodelFactory.eINSTANCE.createNameAttributeContainer();
+		// nameAttributeContainer.set...
+		testModel.getNameAttributeTest().add(nameAttributeContainer);
+		
+		// Check the EFactory model
+		Factory eFactory = (Factory) resourceContents.get(0);
+		Value efValue = eFactory.getRoot().getFeatures().get(2).getValue();
+		MultiValue multiValue = (MultiValue) efValue;
+		Value firstValue = multiValue.getValues().get(0);
+		
+		Containment efContainmentValue = (Containment) firstValue;
+		final NewObject newObject = efContainmentValue.getValue();
+		assertEquals(TestmodelPackage.Literals.NAME_ATTRIBUTE_CONTAINER, newObject.getEClass());
+
+		// Check if we can serialize the complete thing
+		@SuppressWarnings("unused")
+		String dsl = serializer.serialize(eFactory);
+		// System.out.println(dsl);
+		
+		// Check now if we can serializeReplacement the change..
+		// This was the original problem during the development of the new split DSL/Tree Editor.. 
+		EObject modification = multiValue;
+		ReplaceRegion replaceRegion = serializer.serializeReplacement(modification, SaveOptions.defaultOptions());
+		assertEquals("[NameAttributeContainer\n{\n}]", replaceRegion.getText());
+	}
+	
 	/**
 	 * New objects, with an empty resource. Note: For technical implementation
 	 * reasons, this MUST be done by starting with loading an empty resource,
@@ -311,7 +354,6 @@ public class BuilderResyncTest {
 		assertEquals(SampleEnum.SAMPLE.getName(), firstOfManyEnums.getValue().getName());
 	}
 }
-
 
 
 

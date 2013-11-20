@@ -30,7 +30,6 @@ Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Export-Package: com.googlecode.efactory.ui,
  com.googlecode.efactory.ui.contentassist,
  com.googlecode.efactory.ui.contentassist.antlr,
- com.googlecode.efactory.ui.ecoreedit,
  com.googlecode.efactory.ui.internal,
  com.googlecode.efactory.ui.labeling,
  com.googlecode.efactory.ui.outline,

@@ -13,6 +13,8 @@ package com.googlecode.efactory.serialization;
 import java.util.Collections;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.EList;
@@ -56,14 +58,15 @@ public class EFactoryAdapter extends EContentAdapter {
 	private static Logger logger = Logger.getLogger(EFactoryAdapter.class);
 	
 	// Provider<> is used to keep this lazy - at the time this is constructed, it might not be available, yet
-	protected final Provider<IWriteAccess<XtextResource>> writeAccessProvider;
+	protected Provider<IWriteAccess<XtextResource>> writeAccessProvider;
 
 	protected NameAccessor nameAccessor = new NameAccessor();
+	protected @Inject NodeFixer nodeFixer;
 	
-	public EFactoryAdapter(Provider<IWriteAccess<XtextResource>> writeAccessProvider) {
+	public void setWriteAccessProvider(Provider<IWriteAccess<XtextResource>> writeAccessProvider) {
 		this.writeAccessProvider = writeAccessProvider;
 	}
-
+	
 	@Override
 	public void notifyChanged(Notification msg) {
 		super.notifyChanged(msg); // MUST do first
@@ -162,6 +165,7 @@ public class EFactoryAdapter extends EContentAdapter {
 				NewObjectBuilder builder = NewObjectBuilder.context(factory, factoryBuilder);
 				NewObject newObject = builder.build(eObject);
 				factory.setRoot(newObject);
+				nodeFixer.addMissingNodes(newObject);
 			}
 		});
 	}
@@ -175,6 +179,7 @@ public class EFactoryAdapter extends EContentAdapter {
 				final Feature localFactoryFeature = (Feature) resource.getEObject(uriFragment);
 				final Value value = getNewValue(localFactoryFeature, msg, msg.getNewValue());
 				localFactoryFeature.setValue(value);
+				nodeFixer.addMissingNodes(value);
 			}
 		});
 	}
@@ -194,8 +199,17 @@ public class EFactoryAdapter extends EContentAdapter {
 			public void process(XtextResource resource) throws Exception {
 				final Feature localFactoryFeature = (Feature) resource.getEObject(uriFragment);
 				final Value value = getNewValue(localFactoryFeature, msg, msg.getNewValue());
-				final MultiValue multiValue = (MultiValue) localFactoryFeature.getValue();
-				multiValue.getValues().add(value);
+				MultiValue multiValue = (MultiValue) localFactoryFeature.getValue();
+				if(multiValue == null){
+					multiValue = EFactoryFactory.eINSTANCE.createMultiValue();
+					localFactoryFeature.setValue(multiValue);
+					nodeFixer.addMissingNodes(multiValue);
+					multiValue.getValues().add(value);
+				}
+				else{
+					multiValue.getValues().add(value);
+					nodeFixer.addMissingNodes(value);
+				}
 			}
 		});
 	}
@@ -206,11 +220,17 @@ public class EFactoryAdapter extends EContentAdapter {
 			@Override
 			public void process(XtextResource resource) throws Exception {
 				final Feature localFactoryFeature = (Feature) resource.getEObject(uriFragment);
-				final MultiValue multiValue = (MultiValue) localFactoryFeature.getValue();
+				MultiValue multiValue = (MultiValue) localFactoryFeature.getValue();
+				if(multiValue == null){
+					multiValue = EFactoryFactory.eINSTANCE.createMultiValue();
+					localFactoryFeature.setValue(multiValue);
+					nodeFixer.addMissingNodes(multiValue);
+				}
 				Iterable<?> newValues = (Iterable<?>) msg.getNewValue();
 				for (Object newValue : newValues) {
 					final Value value = getNewValue(localFactoryFeature, msg, newValue);
 					multiValue.getValues().add(value);
+					nodeFixer.addMissingNodes(value);
 				}
 			}
 		});
@@ -299,10 +319,7 @@ public class EFactoryAdapter extends EContentAdapter {
 		final EStructuralFeature changedEFeature = (EStructuralFeature) msg.getFeature();
 		newFeature.setEFeature(changedEFeature);
 		newObject.getFeatures().add(newFeature);
-		if (changedEFeature.isMany()) {
-			MultiValue multiValue = EFactoryFactory.eINSTANCE.createMultiValue();
-			newFeature.setValue(multiValue);
-		}
+		
 		return newFeature;
 	}
 
@@ -320,5 +337,5 @@ public class EFactoryAdapter extends EContentAdapter {
 		final Resource eNotifierResource = eNotifier.eResource();
 		return (EFactoryResource) eNotifierResource;
 	}
-	
+
 }

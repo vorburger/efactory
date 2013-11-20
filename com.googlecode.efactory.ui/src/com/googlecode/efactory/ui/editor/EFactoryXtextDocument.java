@@ -20,7 +20,7 @@ import com.google.inject.Inject;
 import com.googlecode.efactory.resource.EFactoryResource;
 
 /**
- * XtextDocument with overriden method to give the XtextResource its document.
+ * XtextDocument with overridden method to give the XtextResource its document.
  * 
  * @author Michael Vorburger
  */
