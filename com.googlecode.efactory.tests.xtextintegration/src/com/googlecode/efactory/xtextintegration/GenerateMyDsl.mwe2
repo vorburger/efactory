@@ -85,7 +85,7 @@ Workflow {
     		fragment = builder.BuilderIntegrationFragment auto-inject {}
     
     		// generator API
-    		fragment = generator.GeneratorFragment auto-inject {}
+    		// NOPE! fragment = generator.GeneratorFragment auto-inject {}
     
     		// formatter API
     		fragment = formatting.FormatterFragment auto-inject {}
