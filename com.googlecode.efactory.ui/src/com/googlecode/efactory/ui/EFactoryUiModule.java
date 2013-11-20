@@ -46,10 +46,12 @@ public class EFactoryUiModule extends com.googlecode.efactory.ui.AbstractEFactor
 	@Override
 	public void configure(Binder binder) {
 		super.configure(binder);
+		
+		// @see http://christiandietrich.wordpress.com/2011/09/19/xtext-content-assist-auto-activation/
 		binder.bind(String.class)
 				.annotatedWith(
 						Names.named(XtextContentAssistProcessor.COMPLETION_AUTO_ACTIVATION_CHARS))
-				.toInstance("="); //$NON-NLS-1$
+				.toInstance(":{"); //$NON-NLS-1$
 
 		binder.bind(IResourceFactory.class).to(EFactoryResourceFactory.class);
 		
