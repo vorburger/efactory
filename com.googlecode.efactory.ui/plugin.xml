@@ -9,7 +9,7 @@
             class="com.googlecode.efactory.ui.EFactoryExecutableExtensionFactory:org.eclipse.xtext.ui.editor.XtextEditor"
             contributorClass="org.eclipse.ui.editors.text.TextEditorActionContributor"
             default="true"
-            extensions="efactory"
+            extensions="efactory,eson"
             id="com.googlecode.efactory.EFactory"
             name="EFactory Text (DSL) Editor">
         </editor>
@@ -135,8 +135,8 @@
         </handler>
     </extension>   
 
-<!-- adding resource factories -->
-
+	<!-- adding resource factories -->
+	<!-- *.efactory -->
 	<extension
 		point="org.eclipse.emf.ecore.extension_parser">
 		<parser
@@ -150,7 +150,20 @@
             uriExtension="efactory">
         </resourceServiceProvider>
     </extension>
-
+    <!-- *.eson -->
+	<extension
+		point="org.eclipse.emf.ecore.extension_parser">
+		<parser
+			class="com.googlecode.efactory.ui.EFactoryExecutableExtensionFactory:org.eclipse.xtext.resource.IResourceFactory"
+			type="eson">
+		</parser>
+	</extension>
+	<extension point="org.eclipse.xtext.extension_resourceServiceProvider">
+        <resourceServiceProvider
+            class="com.googlecode.efactory.ui.EFactoryExecutableExtensionFactory:org.eclipse.xtext.ui.resource.IResourceUIServiceProvider"
+            uriExtension="eson">
+        </resourceServiceProvider>
+    </extension>
 
     <!-- marker definitions for com.googlecode.efactory.EFactory -->
     <extension
@@ -274,7 +287,7 @@
   <extension point="org.eclipse.compare.contentViewers">
     <viewer id="com.googlecode.efactory.EFactory.compare.contentViewers"
             class="com.googlecode.efactory.ui.EFactoryExecutableExtensionFactory:org.eclipse.xtext.ui.compare.InjectableViewerCreator"
-            extensions="efactory">
+            extensions="efactory,eson">
     </viewer>
   </extension>
   <extension point="org.eclipse.compare.contentMergeViewers">
@@ -286,7 +299,7 @@
   <extension point="org.eclipse.ui.editors.documentProviders">
     <provider id="com.googlecode.efactory.EFactory.editors.documentProviders"
             class="com.googlecode.efactory.ui.EFactoryExecutableExtensionFactory:org.eclipse.xtext.ui.editor.model.XtextDocumentProvider"
-            extensions="efactory">
+            extensions="efactory,eson">
     </provider>
   </extension>
 
@@ -297,7 +310,7 @@
             class="com.googlecode.efactory.ui.EFactoryExecutableExtensionFactory:com.googlecode.efactory.ui.ecoreedit.EFactoryEcoreEditor"
             contributorClass="org.eclipse.emf.ecore.presentation.EcoreActionBarContributor"
             default="false"
-            extensions="efactory"/>
+            extensions="efactory,eson"/>
    </extension>
 
 </plugin>
