@@ -13,21 +13,22 @@ package com.googlecode.efactory.formatting;
 
 import org.eclipse.xtext.Keyword;
 import org.eclipse.xtext.formatting.impl.FormattingConfig;
+import org.eclipse.xtext.xbase.lib.Procedures.Procedure2;
 
 public class SimpleKeywordFormatter implements KeywordFormatter {
 
 	private String keyword;
-	private Function<FormattingConfig, Keyword> function;
+	private Procedure2<FormattingConfig, Keyword> function;
 
 	private SimpleKeywordFormatter(String keyword,
-			Function<FormattingConfig, Keyword> function) {
+			Procedure2<FormattingConfig, Keyword> function) {
 		super();
 		this.keyword = keyword;
 		this.function = function;
 	}
 
 	public static SimpleKeywordFormatter create(String keyword,
-			Function<FormattingConfig, Keyword> function) {
+			Procedure2<FormattingConfig, Keyword> function) {
 		return new SimpleKeywordFormatter(keyword, function);
 	}
 

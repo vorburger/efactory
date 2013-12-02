@@ -21,6 +21,7 @@ import org.eclipse.xtext.Keyword;
 import org.eclipse.xtext.ParserRule;
 import org.eclipse.xtext.formatting.impl.AbstractDeclarativeFormatter;
 import org.eclipse.xtext.formatting.impl.FormattingConfig;
+import org.eclipse.xtext.xbase.lib.Procedures.Procedure2;
 
 import com.googlecode.efactory.services.EFactoryGrammarAccess;
 
@@ -73,49 +74,49 @@ public class EFactoryFormatter extends AbstractDeclarativeFormatter {
 	private void addKeywords(FormattingConfig c, Iterable<Keyword> keywords) {
 
 		SimpleKeywordFormatter.create(L_PAREN,
-				new Function<FormattingConfig, Keyword>() {
+				new Procedure2<FormattingConfig, Keyword>() {
 					public void apply(FormattingConfig config, Keyword keyword) {
 						config.setNoSpace().around(keyword);
 					}
 				}).apply(c, keywords);
 
 		SimpleKeywordFormatter.create(L_BRACKET,
-				new Function<FormattingConfig, Keyword>() {
+				new Procedure2<FormattingConfig, Keyword>() {
 					public void apply(FormattingConfig config, Keyword keyword) {
 						config.setNoSpace().around(keyword);
 					}
 				}).apply(c, keywords);
 
 		SimpleKeywordFormatter.create(R_PAREN,
-				new Function<FormattingConfig, Keyword>() {
+				new Procedure2<FormattingConfig, Keyword>() {
 					public void apply(FormattingConfig config, Keyword keyword) {
 						config.setNoSpace().around(keyword);
 					}
 				}).apply(c, keywords);
 
 		SimpleKeywordFormatter.create(R_BRACKET,
-				new Function<FormattingConfig, Keyword>() {
+				new Procedure2<FormattingConfig, Keyword>() {
 					public void apply(FormattingConfig config, Keyword keyword) {
 						config.setNoSpace().before(keyword);
 					}
 				}).apply(c, keywords);
 
 		SimpleKeywordFormatter.create(DOT,
-				new Function<FormattingConfig, Keyword>() {
+				new Procedure2<FormattingConfig, Keyword>() {
 					public void apply(FormattingConfig config, Keyword keyword) {
 						config.setNoSpace().around(keyword);
 					}
 				}).apply(c, keywords);
 
 		SimpleKeywordFormatter.create(COLON,
-				new Function<FormattingConfig, Keyword>() {
+				new Procedure2<FormattingConfig, Keyword>() {
 					public void apply(FormattingConfig config, Keyword keyword) {
 						config.setNoSpace().after(keyword);
 					}
 				}).apply(c, keywords);
 
 		SimpleKeywordFormatter.create(COMMA,
-				new Function<FormattingConfig, Keyword>() {
+				new Procedure2<FormattingConfig, Keyword>() {
 					public void apply(FormattingConfig config, Keyword keyword) {
 						config.setNoSpace().before(keyword);
 						config.setLinewrap().after(keyword);
