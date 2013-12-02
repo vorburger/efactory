@@ -16,13 +16,6 @@ public class IntendationFormatter implements KeywordFormatter {
 		this.stopKeyword = stopKeyword;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.googlecode.efactory.formatting.KeywordFormatter#apply(org.eclipse
-	 * .xtext.formatting.impl.FormattingConfig, java.lang.Iterable)
-	 */
 	public void apply(FormattingConfig c, Iterable<Keyword> keywords) {
 		openBraceStack = new Stack<Keyword>();
 		for (Keyword currentKeyword : keywords) {
@@ -54,14 +47,12 @@ public class IntendationFormatter implements KeywordFormatter {
 		return startKeyword.equals(currentKeyword.getValue());
 	}
 
-	private void applyRightBraceFormatting(FormattingConfig c,
-			Keyword currentKeyword) {
+	private void applyRightBraceFormatting(FormattingConfig c, Keyword currentKeyword) {
 		c.setLinewrap(2).after(currentKeyword);
 		c.setLinewrap().before(currentKeyword);
 	}
 
-	private void applyLeftBraceFormatting(FormattingConfig c,
-			Keyword currentKeyword) {
+	private void applyLeftBraceFormatting(FormattingConfig c, Keyword currentKeyword) {
 		c.setLinewrap().after(currentKeyword);
 	}
 

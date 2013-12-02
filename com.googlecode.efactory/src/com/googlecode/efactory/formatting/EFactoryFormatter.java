@@ -25,50 +25,36 @@ import org.eclipse.xtext.xbase.lib.Procedures.Procedure2;
 
 import com.googlecode.efactory.services.EFactoryGrammarAccess;
 
-/**
- * This class contains custom formatting description.
- * 
- * see : http://wiki.eclipse.org/Xtext/Documentation#Formatting on how and when
- * to use it
- * 
- * Also see {@link org.eclipse.xtext.xtext.XtextFormattingTokenSerializer} as an
- * example
- */
 public class EFactoryFormatter extends AbstractDeclarativeFormatter {
 
-	private static final String COLON = ":";
-	private static final String R_BRACE = "}"; //$NON-NLS-1$
-	private static final String L_BRACE = "{"; //$NON-NLS-1$
-	private static final String L_PAREN = "("; //$NON-NLS-1$
+	private static final String COLON = ":";     //$NON-NLS-1$
+	private static final String R_BRACE = "}";   //$NON-NLS-1$
+	private static final String L_BRACE = "{";   //$NON-NLS-1$
+	private static final String L_PAREN = "(";   //$NON-NLS-1$
 	private static final String L_BRACKET = "["; //$NON-NLS-1$
-	private static final String R_PAREN = ")"; //$NON-NLS-1$
+	private static final String R_PAREN = ")";   //$NON-NLS-1$
 	private static final String R_BRACKET = "]"; //$NON-NLS-1$
-	private static final String DOT = "."; //$NON-NLS-1$
-
-	private static final String COMMA = ","; //$NON-NLS-1$
+	private static final String DOT = ".";       //$NON-NLS-1$
+	private static final String COMMA = ",";     //$NON-NLS-1$
 
 	@Override
 	protected void configureFormatting(FormattingConfig c) {
-		com.googlecode.efactory.services.EFactoryGrammarAccess f = (com.googlecode.efactory.services.EFactoryGrammarAccess) getGrammarAccess();
-		Iterable<Keyword> keywords = GrammarUtil.containedKeywords(f
-				.getGrammar());
-		List<ParserRule> parserRules = GrammarUtil.allParserRules(f
-				.getGrammar());
+		EFactoryGrammarAccess f = (EFactoryGrammarAccess) getGrammarAccess();
+		Iterable<Keyword> keywords = GrammarUtil.containedKeywords(f.getGrammar());
+		List<ParserRule> parserRules = GrammarUtil.allParserRules(f.getGrammar());
 		addKeywords(c, keywords);
 		new IntendationFormatter(L_BRACE, R_BRACE).apply(c, keywords);
 		new GenericLineBreakFormatter().apply(c, parserRules);
 		addSpecificFormattingRules(c, f);
 	}
 
-	private void addSpecificFormattingRules(FormattingConfig c,
-			EFactoryGrammarAccess f) {
+	private void addSpecificFormattingRules(FormattingConfig c,	EFactoryGrammarAccess f) {
 		c.setLinewrap().before(
 				f.getFeatureAccess()
 						.getEFeatureEStructuralFeatureCrossReference_0_0());
 		c.setLinewrap(2).after(
 				f.getPackageImportAccess()
 						.getEPackageEPackageQualifiedNameParserRuleCall_1_0_1());
-
 	}
 
 	private void addKeywords(FormattingConfig c, Iterable<Keyword> keywords) {

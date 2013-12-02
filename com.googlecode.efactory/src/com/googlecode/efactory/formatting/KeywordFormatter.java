@@ -16,6 +16,6 @@ import org.eclipse.xtext.formatting.impl.FormattingConfig;
 
 public interface KeywordFormatter {
 
-	public abstract void apply(FormattingConfig c, Iterable<Keyword> keywords);
+	void apply(FormattingConfig c, Iterable<Keyword> keywords);
 
 }
