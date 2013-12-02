@@ -187,7 +187,7 @@ public class BuilderResyncTest {
 		// This was the original problem during the development of the new split DSL/Tree Editor.. 
 		EObject modification = multiValue;
 		ReplaceRegion replaceRegion = serializer.serializeReplacement(modification, SaveOptions.defaultOptions());
-		assertEquals("[NameAttributeContainer\n{\n}]", replaceRegion.getText());
+		assertEquals("[\n\tNameAttributeContainer {\n\t}\n]", replaceRegion.getText());
 	}
 	
 	/**

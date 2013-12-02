@@ -23,7 +23,6 @@ import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.parser.IParseResult;
 import org.eclipse.xtext.resource.XtextResource;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -55,7 +54,6 @@ public class FormatterTest {
 
 	
 	@Test
-	@Ignore
 	public void testFormatting() throws Exception {
 		URI uri = resourceProvider.getUri("res/FormatterTests/FormatterTest.efactory");
 		String text = resourceProvider.loadAsStringFromURI(uri);
