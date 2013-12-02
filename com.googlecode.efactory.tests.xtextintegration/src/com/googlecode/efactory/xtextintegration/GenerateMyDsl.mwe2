@@ -85,7 +85,10 @@ Workflow {
     		fragment = builder.BuilderIntegrationFragment auto-inject {}
     
     		// generator API
-    		// NOPE! fragment = generator.GeneratorFragment auto-inject {}
+    		//    Because we don't want to generate a MyDslGenerator.xtend (just to slightly simplify the build by not using to avoid using Xtend at all),
+    		//    or any IGenerator at all really for this test model.  Therefore, this is commented out, but note that in this case the
+    		//    respective 3x extensions in the plugin.xml have been removed as well. 
+    		// fragment = generator.GeneratorFragment auto-inject {}
     
     		// formatter API
     		fragment = formatting.FormatterFragment auto-inject {}

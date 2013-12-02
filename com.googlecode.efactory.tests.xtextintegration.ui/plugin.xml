@@ -150,38 +150,6 @@
         </resourceServiceProvider>
     </extension>
 
-
-   <extension
-         point="org.eclipse.xtext.builder.participant">
-      <participant
-            class="com.googlecode.efactory.xtextintegration.ui.MyDslExecutableExtensionFactory:org.eclipse.xtext.builder.IXtextBuilderParticipant">
-      </participant>
-   </extension>
-   <extension
-            point="org.eclipse.ui.preferencePages">
-        <page
-            category="com.googlecode.efactory.xtextintegration.MyDsl"
-            class="com.googlecode.efactory.xtextintegration.ui.MyDslExecutableExtensionFactory:org.eclipse.xtext.builder.preferences.BuilderPreferencePage"
-            id="com.googlecode.efactory.xtextintegration.MyDsl.compiler.preferencePage"
-            name="Compiler">
-            <keywordReference id="com.googlecode.efactory.xtextintegration.ui.keyword_MyDsl"/>
-        </page>
-    </extension>
-    <extension
-            point="org.eclipse.ui.propertyPages">
-        <page
-            category="com.googlecode.efactory.xtextintegration.MyDsl"
-            class="com.googlecode.efactory.xtextintegration.ui.MyDslExecutableExtensionFactory:org.eclipse.xtext.builder.preferences.BuilderPreferencePage"
-            id="com.googlecode.efactory.xtextintegration.MyDsl.compiler.propertyPage"
-            name="Compiler">
-            <keywordReference id="com.googlecode.efactory.xtextintegration.ui.keyword_MyDsl"/>
-            <enabledWhen>
-	            <adapt type="org.eclipse.core.resources.IProject"/>
-			</enabledWhen>
-	        <filter name="projectNature" value="org.eclipse.xtext.ui.shared.xtextNature"/>
-        </page>
-    </extension>
-
 	<!-- Quick Outline -->
 	<extension
 		point="org.eclipse.ui.handlers">
