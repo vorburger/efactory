@@ -64,7 +64,31 @@ public class FormatterTest {
         Assert.assertNotNull(parseResult);
 		ICompositeNode rootNode = parseResult.getRootNode();
 		String formattedText = formatter.format(rootNode, 0, text.length()).getFormattedText();
+		formattedText = fixLineEndings(formattedText);
 		Assert.assertEquals(text, formattedText);
 	}
 
+
+	/**
+	 * Not 100% sure when this is needed,
+	 * but https://code.google.com/a/eclipselabs.org/p/spray/source/browse/tests/org.eclipselabs.spray.xtext.tests/src/org/eclipselabs/spray/xtext/tests/SprayFormatterTest.java
+	 * is doing this, so might as well be safe rather than sorry.. ;-)
+	 */
+	private String fixLineEndings(String formatted) {
+		if (isWindowsEnding()) {
+			formatted = formatted.replace("\r\n", "\n");
+		}
+		formatted = formatted.replace("\r\b", "\n");
+		formatted = formatted + getEnding();
+		return formatted;
+	}
+
+	private String getEnding() {
+		return isWindowsEnding() ? "" : /* "\r" */"";
+	}
+
+	private boolean isWindowsEnding() {
+		String ls = System.getProperty("line.separator");
+		return "\r\n".equals(ls);
+	}
 }
