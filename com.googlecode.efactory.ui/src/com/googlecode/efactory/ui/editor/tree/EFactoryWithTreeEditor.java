@@ -100,6 +100,7 @@ import org.eclipse.xtext.ui.label.GlobalDescriptionLabelProvider;
 import org.eclipse.xtext.ui.search.IXtextEObjectSearch;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 
+import com.googlecode.efactory.building.ModelBuilderException;
 import com.googlecode.efactory.eFactory.Attribute;
 import com.googlecode.efactory.eFactory.BooleanAttribute;
 import com.googlecode.efactory.eFactory.DoubleAttribute;
@@ -112,10 +113,6 @@ import com.googlecode.efactory.eFactory.Reference;
 import com.googlecode.efactory.eFactory.StringAttribute;
 import com.googlecode.efactory.eFactory.impl.FactoryImpl;
 import com.googlecode.efactory.resource.EFactoryResource;
-import com.googlecode.efactory.ui.editor.tree.EFactoryWithTreeEditor.EFactoryPropertyDescriptor;
-import com.googlecode.efactory.ui.editor.tree.EFactoryWithTreeEditor.EFactoryPropertyDescriptor.EFactoryEDataTypeCellEditor;
-import com.googlecode.efactory.ui.editor.tree.EFactoryWithTreeEditor.EFactoryPropertyDescriptor.EFactoryEDataTypeValueHandler;
-import com.googlecode.efactory.ui.editor.tree.EFactoryWithTreeEditor.EditingDomainProvider;
 
 public class EFactoryWithTreeEditor extends XtextEditor implements IEditingDomainProvider,IMenuListener,ISelectionProvider{
 	private final static Logger LOGGER = Logger.getLogger(EFactoryWithTreeEditor.class);
@@ -275,6 +272,9 @@ public class EFactoryWithTreeEditor extends XtextEditor implements IEditingDomai
 	          public void run() {
 	            // Try to select the items in the tree viewer of the editor
 	            if (selectionViewer != null) {
+	            	if(selectionViewer.getTree().getItems().length <= 0){
+	            		selectionViewer.setInput(getInputForSelectionViewer(editingDomain));
+	            	}
 	            	EObject treeRootEObject = (EObject) selectionViewer.getTree().getItem(0).getData();
             		EObject objectToFocus = (EObject) theSelection.iterator().next(); 
             		if (objectToFocus.eIsProxy()) {
@@ -422,7 +422,7 @@ public class EFactoryWithTreeEditor extends XtextEditor implements IEditingDomai
 	 * This makes sure that one content viewer, either for the current page or the outline view, if it has focus,
 	 * is the current one.
 	 */
-	public void setCurrentViewer(Viewer viewer) {
+	protected void setCurrentViewer(Viewer viewer) {
 		// If it is changing...
 		//
 		if (currentViewer != viewer) {
@@ -457,20 +457,17 @@ public class EFactoryWithTreeEditor extends XtextEditor implements IEditingDomai
 	}
 		
 	
-		private ISelectionChangedListener createPropertiesViewUpdater() {
+	private ISelectionChangedListener createPropertiesViewUpdater() {
 			return new ISelectionChangedListener() {
 
 				public void selectionChanged(SelectionChangedEvent event) {
 					try {
 						ISelection selection = event.getSelection();
 						if (selection.isEmpty()) return;
-						
 						if (selection instanceof ITextSelection) {
 							final ITextSelection textSelection = (ITextSelection) selection;
-
 							getDocument().readOnly(new IUnitOfWork.Void<XtextResource>() {
 								public void process(XtextResource xtextResource) throws Exception {
-									EObject selectedObject = null;
 									IParseResult parseResult = xtextResource.getParseResult();
 									if (parseResult != null) {
 										final EFactoryResource eFactoryResource = (EFactoryResource) xtextResource;
@@ -483,39 +480,22 @@ public class EFactoryWithTreeEditor extends XtextEditor implements IEditingDomai
 										} else if (semanticObject instanceof Attribute) {
 											semanticObject = ((Attribute)semanticObject).eContainer();
 										}
-										if (semanticObject instanceof Feature) {
-											Feature feature = (Feature)semanticObject;
-											if (feature.getEFeature() instanceof EAttribute) {
-												// get the container of the feature so we can update properly the properties view
-												EObject container = feature.eContainer();
-												if (container instanceof NewObject) {
-													selectedObject = eFactoryResource.getEFactoryEObject((NewObject)container);
-												}
-											}
-											else if (feature.getEFeature() instanceof EReference) {
-												EReference reference = (EReference)feature.getEFeature();
-												// consider only single reference 
-												if (!reference.isMany()) {
-													// get the container of the feature so we can update properly the properties view
-													EObject container = feature.eContainer();
-													if (container instanceof NewObject) {
-														selectedObject = eFactoryResource.getEFactoryEObject((NewObject)container);
-													}
-												}
-											}
-										} else if (semanticObject instanceof NewObject) {
-											selectedObject = eFactoryResource.getEFactoryEObject((NewObject)semanticObject);
+										
+										EObject selectedObject = getSelectedRealObject(eFactoryResource, semanticObject);
+										// For those text selection offset which does not give proper object (currently giving empty object), find a suitable less-useless fallback
+										if(selectedObject == null) {
+											// This, as implemented today, actually causes more harm than use...
+											//    ... e.g. if you click into a /* commented out */ section at the end of the document,
+											//    not visible in the first scroll page, then it causes a jumping effect that is clearly wrong.
+											// selectedObject = getFallbackSelectedRealObject(eFactoryResource, semanticObject);
 										}
-
-										// synchronized the treeViewer/properties view
-										updatePropertiesView(buildStructuredSelection(selectedObject));
-
-										// this code will change the position of the caret in the XTextDocument
-										setSelectionToViewer(selectedObject != null ? Arrays.asList(selectedObject) : Collections.emptyList()); 
-
+										if (selectedObject != null) {
+											// synchronized the treeViewer/properties view
+											updatePropertiesView(buildStructuredSelection(selectedObject));
+											// this code will change the position of the caret in the XTextDocument
+											setSelectionToViewer(selectedObject != null ? Arrays.asList(selectedObject) : Collections.emptyList()); 
+										}
 									}
-									
-
 								}
 							});
 						
@@ -552,10 +532,7 @@ public class EFactoryWithTreeEditor extends XtextEditor implements IEditingDomai
 					} catch (Exception e) {
 						LOGGER.error("selectionChanged() failed", e);
 					}
-
 				}
-
-
 			};
 		}
 		
@@ -627,12 +604,50 @@ public class EFactoryWithTreeEditor extends XtextEditor implements IEditingDomai
 										}
 									};
 								}
-								
 							}};
 				}
 			};
 		}
 		
+		/**
+		 * Finds the "real" (derived) current EObject, given the currently selected semantic object (e.g. EFactory/NewObject/Feature etc.)
+		 */
+		protected EObject getSelectedRealObject(EFactoryResource eFactoryResource, EObject semanticObject) throws ModelBuilderException {
+			EObject selectedObject = null;
+			if (semanticObject instanceof Feature) {
+				Feature feature = (Feature)semanticObject;
+				// Feature are contained in NewObject (see grammar), so this type cast is safe:
+				NewObject container = (NewObject) feature.eContainer();
+				if (feature.getEFeature() instanceof EAttribute) {
+					// get the container of the feature so we can update properly the properties view
+					selectedObject = eFactoryResource.getEFactoryEObject(container);
+				}
+				else if (feature.getEFeature() instanceof EReference) {
+					EReference reference = (EReference)feature.getEFeature();
+					// for now, consider only single references 
+					if (!reference.isMany()) {
+						selectedObject = eFactoryResource.getEFactoryEObject(container);
+					}
+				}
+			} else if (semanticObject instanceof NewObject) {
+				if (eFactoryResource.isBuilt())
+					selectedObject = eFactoryResource.getEFactoryEObject((NewObject)semanticObject);
+			}
+			return selectedObject;
+		}
+
+		/**
+		 * Called if getSelectedRealObject() couldn't find an appropriate "real" current EObject, and returns some functionally least-worst alternative.
+		 * The current implementation of this fall back just returns the root NewObject of our model as selectedObject.
+		 */
+		protected EObject getFallbackSelectedRealObject(EFactoryResource eFactoryResource, EObject semanticObject) throws ModelBuilderException {
+			Factory eFactoryFactory = eFactoryResource.getEFactoryFactory();
+			if (eFactoryFactory == null)
+				return null;
+			NewObject rootNewObject = eFactoryFactory.getRoot();
+			return eFactoryResource.getEFactoryEObject(rootNewObject);
+		}
+
 		public class EFactoryPropertyDescriptor extends PropertyDescriptor {
 			
 			public class EFactoryEDataTypeCellEditor extends PropertyDescriptor.EDataTypeCellEditor {
