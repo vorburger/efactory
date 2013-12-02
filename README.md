@@ -2,9 +2,12 @@ efactory
 ========
 
 EFactory, clone of https://code.google.com/a/eclipselabs.org/p/efactory/.
-More background e.g. on first blog http://blog2.vorburger.ch/2013/06/efactory-ii-xobjects-ehutn.html,
-the slides I made for Modeling Symposium EclipseCon Europe 2013 at https://docs.google.com/presentation/d/1pHLD9p1NSa6fuToCAZkk9GnCcriXco8RdmrwyoOxYds/
-or the introductory screen cast http://www.youtube.com/watch?v=ToUWqIRHkHY.
+More background e.g. on:
+
+* first blog http://blog2.vorburger.ch/2013/06/efactory-ii-xobjects-ehutn.html (incl. the introductory screen cast http://www.youtube.com/watch?v=ToUWqIRHkHY)
+* second blog http://blog2.vorburger.ch/2013/12/efactory-ii-eson-201311-update.html (and it's screencast at http://www.youtube.com/watch?v=fSq_zes4kv8)
+* slides from the Modeling Symposium during EclipseCon Europe 2013 at https://docs.google.com/presentation/d/1pHLD9p1NSa6fuToCAZkk9GnCcriXco8RdmrwyoOxYds/
+
 
 How to Install?
 ---------------
