@@ -13,6 +13,7 @@ package com.googlecode.efactory.formatting;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.formatting.impl.AbstractDeclarativeFormatter;
 import org.eclipse.xtext.formatting.impl.FormattingConfig;
+import org.eclipse.xtext.formatting.impl.FormattingConfig.LinewrapLocator;
 
 import com.googlecode.efactory.services.EFactoryGrammarAccess;
 
@@ -28,7 +29,9 @@ public class EFactoryFormatter extends AbstractDeclarativeFormatter {
 		
 		// NO c.setAutoLinewrap(...);
 		
-		c.setLinewrap(2).after(f.getPackageImportRule());
+		// NOTE: Please use our setPreservingLinewrap() instead of just setLinewrap(...)
+		
+		setPreservingLinewraps(c, 2).after(f.getPackageImportRule());
 		c.setNoSpace().after(f.getPackageImportAccess().getEPackageAssignment_1());
 		
 		setIndentationIncrementAndDecrementAndLinewrapAfter(c,
@@ -36,22 +39,29 @@ public class EFactoryFormatter extends AbstractDeclarativeFormatter {
 				f.getNewObjectAccess().getRightCurlyBracketKeyword_4());
 		
 		c.setNoSpace().after(f.getFeatureAccess().getEFeatureAssignment_0());
-		c.setLinewrap().after(f.getFeatureRule()); // or better? c.setLinewrap().before(f.getFeatureAccess().getEFeatureEStructuralFeatureCrossReference_0_0());
+		setPreservingLinewrap(c).after(f.getFeatureRule()); // or better? setPreservingLinewrap(c).before(f.getFeatureAccess().getEFeatureEStructuralFeatureCrossReference_0_0());
 		
 		setIndentationIncrementAndDecrementAndLinewrapAfter(c,
 				f.getMultiValueAccess().getLeftSquareBracketKeyword_1(),
 				f.getMultiValueAccess().getRightSquareBracketKeyword_3());
-		c.setLinewrap().after(f.getMultiValueAccess().getValuesAssignment_2());
+		setPreservingLinewrap(c).after(f.getMultiValueAccess().getValuesAssignment_2());
 		
 		c.setNoSpace().after(f.getEnumAttributeAccess().getColonKeyword_0());
 	}
 
 	protected void setIndentationIncrementAndDecrementAndLinewrapAfter(FormattingConfig c, EObject increment, EObject decrement) {
 		c.setIndentationIncrement().after(increment);
-		c.setLinewrap().after(increment);
+		setPreservingLinewrap(c).after(increment);
 		
 		c.setIndentationDecrement().before(decrement);
-		c.setLinewrap().after(decrement);
+		setPreservingLinewrap(c).after(decrement);
+	}
+
+	protected LinewrapLocator setPreservingLinewraps(FormattingConfig c, int lines) {
+		return c.setLinewrap(lines, lines, Integer.MAX_VALUE);
+	}
+	protected LinewrapLocator setPreservingLinewrap(FormattingConfig c) {
+		return setPreservingLinewraps(c, 1);
 	}
 	
 }

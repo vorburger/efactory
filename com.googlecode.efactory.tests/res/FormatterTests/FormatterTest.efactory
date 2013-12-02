@@ -3,6 +3,7 @@ use testmodel.*
 TestModel testModelName {
 	singleRequired: SingleRequired {
 	}
+
 	attributeTest: [
 		AttributeTestContainer {
 			oneBool: true
@@ -49,6 +50,9 @@ TestModel testModelName {
 			]
 		}
 	]
+
+
+
 	referenceTestContainer: [
 		ReferenceTestContainer test1 {
 			oneAttribute: false
