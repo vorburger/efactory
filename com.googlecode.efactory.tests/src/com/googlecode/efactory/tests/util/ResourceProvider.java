@@ -13,6 +13,8 @@ package com.googlecode.efactory.tests.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 import javax.inject.Inject;
 
@@ -25,8 +27,13 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.Diagnostician;
+
+import com.google.common.base.Charsets;
+import com.google.common.io.CharStreams;
+import com.google.common.io.Closeables;
 
 public class ResourceProvider {
 	public ResourceSet rs;
@@ -120,6 +127,14 @@ public class ResourceProvider {
 	
 	public EObject loadModel(String plugInRootRelativePath) throws IOException, DiagnosticException {
 		return loadModel(plugInRootRelativePath, EObject.class);
+	}
+	
+	public String loadAsStringFromURI(URI uri) throws IOException {
+		URIConverter uriConverter = rs.getURIConverter();
+		InputStream is = uriConverter.createInputStream(uri);
+		String content = CharStreams.toString(new InputStreamReader(is, Charsets.UTF_8));
+		Closeables.closeQuietly(is);
+		return content;
 	}
 	
 	private void logResourceDiagnostics(Resource resource) {
