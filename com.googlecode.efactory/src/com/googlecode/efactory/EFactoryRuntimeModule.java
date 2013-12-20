@@ -31,7 +31,6 @@ import com.google.inject.Binder;
 import com.google.inject.TypeLiteral;
 import com.google.inject.name.Names;
 import com.googlecode.efactory.conversion.DATEValueConverter;
-import com.googlecode.efactory.conversion.TerminalConverters;
 import com.googlecode.efactory.resource.EFactoryDerivedStateComputer;
 import com.googlecode.efactory.resource.EFactoryLocationInFileProvider;
 import com.googlecode.efactory.resource.EFactoryStandaloneResourceFactory;
@@ -58,11 +57,6 @@ public class EFactoryRuntimeModule
 		binder.bind(IReferableElementsUnloader.class).to(GenericUnloader.class);
 	}
 	
-	@Override
-	public Class<? extends org.eclipse.xtext.conversion.IValueConverterService> bindIValueConverterService() {
-		return TerminalConverters.class;
-	}
-
 	@Override
 	public Class<? extends IResourceFactory> bindIResourceFactory() {
 		return EFactoryStandaloneResourceFactory.class;
