@@ -22,6 +22,17 @@ How to Develop?
 * import all projects in this repository into Eclipse 
 * Window > Preferences > Plug-In Development > Target Platform: Switch to EFactory as active target definition (from com.googlecode.efactory.target/com.googlecode.efactory.target.target) 
 
+The Target Platform is known to be a PITA, so if you have problems with above,
+you might instead want to simply use your "Running Platform" as TP.. you'll most likely
+just have to add the "EMF Compare Core SDK" (e.g. v2.2.0-20131217 as available in Luna; 
+that includes the org.eclipse.emf.compare;bundle-version="3.0.0" we use, just for tests).
+
+Alternatively, please help by manually fixing the *.target and sending a PR for it! ;-)
+
+Note that com.googlecode.efactory.target.target intentionally uses non-latest versions of Eclipse Platform and Xtext,
+because EFactory is used in a closed source product currently still stuck at those older versions, and we want the build
+to catch any unintentional use of newer APIs.  (Thus, ideally, you'd want to use the same TP for build and IDE...)
+
 
 Continuous Integration
 ----------------------
