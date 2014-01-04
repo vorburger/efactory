@@ -116,7 +116,12 @@ public class EPackageResolver {
 		Iterable<String> packageUrisWithoutAnyNulls = Iterables.filter(packageUris, Predicates.notNull());
 		Iterable<EPackage> packagesMaybeWithNull = Iterables.transform(packageUrisWithoutAnyNulls,
 				new Function<String, EPackage>() {
-					public EPackage apply(@NonNull String uri) {
+					// @since Luna (Eclipse 4.4), @NonNull here leads to:
+					// "Illegal redefinition of parameter uri, inherited method from Function<String,EPackage> does not constrain this parameter"
+					// so we have to make this handstand here instead:
+					public EPackage apply(@Nullable String uri) {
+						if (uri == null)
+							throw new IllegalArgumentException();
 						return getPackageFromRegistry(uri);
 					}
 				});
