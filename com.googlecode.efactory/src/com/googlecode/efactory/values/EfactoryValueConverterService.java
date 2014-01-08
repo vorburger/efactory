@@ -34,7 +34,7 @@ public class EfactoryValueConverterService
 private static final Pattern ID_PATTERN = Pattern.compile("\\p{Alpha}\\w*");
 
 	@ValueConverter(rule = "StringId")
-	public IValueConverter<String> NewID() {
+	public IValueConverter<String> StringId() {
 		return new IValueConverter<String>() {
 
 			public String toValue(String string, INode node) throws ValueConverterException {
@@ -44,12 +44,14 @@ private static final Pattern ID_PATTERN = Pattern.compile("\\p{Alpha}\\w*");
 				return ID().toValue(string, node);
 			}
 
-			public String toString(String value) throws ValueConverterException {if(ID_PATTERN.matcher(value).matches()) {
-				return ID().toString(value);
-			} else {
-				value = STRING().toString(value);
-				return "\'"+value.substring(1, value.length()-1)+"\'";
-			}}
+			public String toString(String value) throws ValueConverterException {
+				if (ID_PATTERN.matcher(value).matches()) {
+					return ID().toString(value);
+				} else {
+					value = STRING().toString(value);
+					return "\'" + value.substring(1, value.length() - 1) + "\'";
+				}
+			}
 			
 		};
 	}
