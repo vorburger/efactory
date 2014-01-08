@@ -16,6 +16,7 @@ package com.googlecode.efactory;
 import java.text.SimpleDateFormat;
 
 import org.apache.log4j.Logger;
+import org.eclipse.xtext.conversion.IValueConverterService;
 import org.eclipse.xtext.parser.antlr.IReferableElementsUnloader;
 import org.eclipse.xtext.parser.antlr.IReferableElementsUnloader.GenericUnloader;
 import org.eclipse.xtext.resource.IDerivedStateComputer;
@@ -23,13 +24,13 @@ import org.eclipse.xtext.resource.ILocationInFileProvider;
 import org.eclipse.xtext.resource.IResourceFactory;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider;
+import org.eclipse.xtext.service.SingletonBinding;
 import org.eclipse.xtext.util.PolymorphicDispatcher;
 
 import com.google.inject.Binder;
 import com.google.inject.TypeLiteral;
 import com.google.inject.name.Names;
 import com.googlecode.efactory.conversion.DATEValueConverter;
-import com.googlecode.efactory.conversion.TerminalConverters;
 import com.googlecode.efactory.resource.EFactoryDerivedStateComputer;
 import com.googlecode.efactory.resource.EFactoryLocationInFileProvider;
 import com.googlecode.efactory.resource.EFactoryStandaloneResourceFactory;
@@ -38,6 +39,7 @@ import com.googlecode.efactory.scoping.EFactoryResourceDescriptionManager;
 import com.googlecode.efactory.scoping.EPackageScopeProvider;
 import com.googlecode.efactory.scoping.IEPackageScopeProvider;
 import com.googlecode.efactory.scoping.WarningErrorHandlerWithoutNoSuchMethodException;
+import com.googlecode.efactory.values.EfactoryValueConverterService;
 
 /**
  * Use this class to register components to be used within the IDE.
@@ -55,11 +57,6 @@ public class EFactoryRuntimeModule
 		binder.bind(IReferableElementsUnloader.class).to(GenericUnloader.class);
 	}
 	
-	@Override
-	public Class<? extends org.eclipse.xtext.conversion.IValueConverterService> bindIValueConverterService() {
-		return TerminalConverters.class;
-	}
-
 	@Override
 	public Class<? extends IResourceFactory> bindIResourceFactory() {
 		return EFactoryStandaloneResourceFactory.class;
@@ -99,7 +96,12 @@ public class EFactoryRuntimeModule
 		// return org.eclipse.xtext.resource.DerivedStateAwareResourceDescriptionManager.class;
 		return EFactoryResourceDescriptionManager.class;
 	}
-	
+
+	@Override
+	@SingletonBinding
+	public Class<? extends IValueConverterService> bindIValueConverterService() {
+		return EfactoryValueConverterService.class;
+	}
 //	@SuppressWarnings("restriction")
 //	public Class<? extends IResourceValidator> bindIResourceValidator() {
 //		return org.eclipse.xtext.xbase.annotations.validation.DerivedStateAwareResourceValidator.class;

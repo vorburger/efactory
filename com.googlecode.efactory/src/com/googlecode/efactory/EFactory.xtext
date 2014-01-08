@@ -40,7 +40,7 @@ Feature:
 	// without this, there are confusing parsing errors, the proposal provider doesn't work as it should, etc.
 	
 NewObject:
-	eClass=[ecore::EClass|QualifiedName] (name=ID)? "{"
+	eClass=[ecore::EClass|QualifiedName] (name=StringId)? "{"
 		(features += Feature)*
 	"}";
 
@@ -83,6 +83,8 @@ BooleanAttribute: value = BOOLEAN;
 QualifiedName: ValidID (=>'.' ValidID)*;
   
 ValidID: ID;
+
+StringId: ID |STRING;
 
 terminal BOOLEAN returns ecore::EBoolean : "true" | "false";
 terminal LONG returns ecore::ELong : ('-')?  ('0'..'9')+;

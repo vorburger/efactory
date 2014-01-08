@@ -17,7 +17,7 @@ public class SerializationUtils {
 	private SerializationUtils() {
 	}
 
-	protected static String toString(Resource eResource) throws IOException {
+	public static String toString(Resource eResource) throws IOException {
 		OutputStream outputStream = new ByteArrayOutputStream();
 		eResource.save(outputStream, null);
 		return outputStream.toString();
