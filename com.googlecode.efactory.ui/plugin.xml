@@ -330,4 +330,35 @@
             extensions="efactory,eson"/>
    </extension>
 
+   <!-- Builder here is hand-written, not from plug.xml_gen
+        Normally this is autoamtically available (from.. where?) and just works OOB - I had to add it - maybe because EFactory isn't Xbase derrived?!
+        Never mind what the cause - it works now (it needed this, plus registring the EFactoryGenerator in the EFactoryRuntimeModule) 
+   -->
+   <extension point="org.eclipse.xtext.builder.participant">
+        <participant class="com.googlecode.efactory.ui.EFactoryExecutableExtensionFactory:org.eclipse.xtext.builder.IXtextBuilderParticipant">
+        </participant>
+   </extension>
+   <extension point="org.eclipse.ui.preferencePages">
+        <page
+            category="com.googlecode.efactory.EFactory"
+            class="com.googlecode.efactory.ui.EFactoryExecutableExtensionFactory:org.eclipse.xtext.builder.preferences.BuilderPreferencePage"
+            id="com.googlecode.efactory.EFactory.compiler.preferencePage"
+            name="Compiler">
+            <keywordReference id="com.googlecode.efactory.ui.keyword_EFactory"/>
+        </page>
+    </extension>
+    <extension point="org.eclipse.ui.propertyPages">
+        <page
+            category="com.googlecode.efactory.EFactory"
+            class="com.googlecode.efactory.ui.EFactoryExecutableExtensionFactory:org.eclipse.xtext.builder.preferences.BuilderPreferencePage"
+            id="com.googlecode.efactory.EFactory.compiler.propertyPage"
+            name="Compiler">
+            <keywordReference id="com.googlecode.efactory.ui.keyword_EFactory"/>
+            <enabledWhen>
+	            <adapt type="org.eclipse.core.resources.IProject"/>
+			</enabledWhen>
+	        <filter name="projectNature" value="org.eclipse.xtext.ui.shared.xtextNature"/>
+        </page>
+    </extension>
+
 </plugin>
