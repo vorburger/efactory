@@ -28,7 +28,7 @@ import com.google.inject.TypeLiteral;
 import com.google.inject.name.Names;
 import com.googlecode.efactory.conversion.DATEValueConverter;
 import com.googlecode.efactory.conversion.TerminalConverters;
-import com.googlecode.efactory.generator.EFactoryGenerator;
+import com.googlecode.efactory.generator.EFactoryJSONGenerator;
 import com.googlecode.efactory.resource.EFactoryDerivedStateComputer;
 import com.googlecode.efactory.resource.EFactoryLocationInFileProvider;
 import com.googlecode.efactory.resource.EFactoryStandaloneResourceFactory;
@@ -104,7 +104,7 @@ public class EFactoryRuntimeModule extends com.googlecode.efactory.AbstractEFact
 	
 	// NO @Override
 	public Class<? extends IGenerator> bindIGenerator() {
-		return EFactoryGenerator.class;
+		return EFactoryJSONGenerator.class;
 	}
 
 }
