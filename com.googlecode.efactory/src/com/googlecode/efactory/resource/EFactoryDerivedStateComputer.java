@@ -76,8 +76,8 @@ public class EFactoryDerivedStateComputer implements IDerivedStateComputer {
 			resource.getContents().add(eModel);
 		} catch (ModelBuilderException e) {
 			builder.clear();
-			// TODO make this a logger.debug() again.. it's only logger.error() so that I can see this better while developing..
-			logger.error(resource.getURI() + " could not be transformed by ModelBuilder (this may be normal if incomplete while editing; this Log is a DEBUG, not a WARN/ERROR)", e);
+			// TODO make this a logger.debug() again LATER.. it's only logger.error() so that we can conveniently see this one better while developing..
+			logger.error(resource.getURI() + " could not be transformed by ModelBuilder (this may be normal if incomplete while editing)", e);
 			// No need for something like this:
 			// resource.getErrors().add(new ExceptionDiagnostic(e));
 			// that would only lead to duplicate errors - the resource

@@ -45,7 +45,7 @@ public abstract class AbstractValueSwitch<T> {
 
 	protected abstract T caseDate(Date value);
 
-	public T doSwitch(Class<?> clazz, Object value) {
+	public T doSwitch(Class<?> clazz, Object value) throws IllegalArgumentException {
 		if (clazz == long.class || clazz == Long.class) {
 			return caseLong(Long.valueOf(value.toString()));
 		}
@@ -79,8 +79,7 @@ public abstract class AbstractValueSwitch<T> {
 		if (clazz == Date.class) {
 			return caseDate((Date) value);
 		}
-		throw new UnsupportedOperationException("Unsupported attribute type "
-				+ clazz.getName());
+		throw new IllegalArgumentException("Unsupported attribute type: " + clazz.getName() + " for value: " + value.toString());
 	}
 
 	protected abstract T caseEnum(Enumerator value);

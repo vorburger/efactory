@@ -27,6 +27,7 @@
 package com.googlecode.efactory.building;
 
 import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EStructuralFeature;
 
 import com.googlecode.efactory.eFactory.Attribute;
 import com.googlecode.efactory.util.EcoreUtil3;
@@ -42,19 +43,24 @@ public class AttributeBuilder extends FeatureBuilder {
 	}
 
 	@Override
-	public void build() {
-		if (!(getFeature().getEFeature() instanceof EAttribute))
+	public void build() throws ModelBuilderException {
+		EStructuralFeature eFeature = getFeature().getEFeature();
+		if (!(eFeature instanceof EAttribute))
 			return;
-		EAttribute targetFeature = (EAttribute) getFeature().getEFeature();
-		if (targetFeature.eIsProxy())
+		EAttribute eAttribute = (EAttribute) eFeature;
+		if (eAttribute.eIsProxy())
 			return;
-		Class<?> clazz = targetFeature.getEAttributeType().getInstanceClass();
+		Class<?> clazz = eAttribute.getEAttributeType().getInstanceClass();
 		Object newValue = valueResolver.apply(attribute);
-		newValue = convertToTargetType(clazz, newValue);
-		EcoreUtil3.setOrAddValue(getContainer(), targetFeature, newValue);
+		try {
+			newValue = convertToTargetType(clazz, newValue);
+		} catch (RuntimeException e) {
+			throw new ModelBuilderException("convertToTargetType() failed for feature: " + eAttribute.toString(), e);
+		}
+		EcoreUtil3.setOrAddValue(getContainer(), eAttribute, newValue);
 	}
 
-	private Object convertToTargetType(Class<?> clazz, Object newValue) {
+	private Object convertToTargetType(Class<?> clazz, Object newValue) throws IllegalArgumentException {
 		return new ValueSwitch().doSwitch(clazz, newValue);
 	}
 }
