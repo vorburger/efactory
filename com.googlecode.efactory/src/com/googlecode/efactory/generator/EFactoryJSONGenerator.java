@@ -10,7 +10,6 @@
  ******************************************************************************/
 package com.googlecode.efactory.generator;
 
-import org.apache.commons.io.FilenameUtils;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.generator.IFileSystemAccess;
@@ -138,7 +137,10 @@ public class EFactoryJSONGenerator implements IGenerator {
 	}
 	
 	protected String getJSONFileName(URI uri) {
-		return FilenameUtils.removeExtension(getProjectRelativeFileName(uri)) + ".json";
+		String relFileName = getProjectRelativeFileName(uri);
+		// return FilenameUtils.removeExtension(relFileName) + ".json";
+		int extensionPos = relFileName.lastIndexOf('.');
+		return relFileName.substring(0, extensionPos) + ".json";
 	}
 	
 	protected String getProjectRelativeFileName(URI uri) {
