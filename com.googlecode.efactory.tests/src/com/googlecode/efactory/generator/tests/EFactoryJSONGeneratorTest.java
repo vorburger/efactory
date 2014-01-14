@@ -58,7 +58,8 @@ public class EFactoryJSONGeneratorTest {
 				return TEST_JSON;
 			};
 		}.doGenerate(resource, fsa);
-		String jsonText = fsa.getTextFiles().get(IFileSystemAccess.DEFAULT_OUTPUT + TEST_JSON).toString();
+		// TODO switch @deprecated getFiles() to getTextFiles() when switching to newer Xtext version (currently still on 2.3, due to in-house reasons) 
+		String jsonText = fsa.getFiles().get(IFileSystemAccess.DEFAULT_OUTPUT + TEST_JSON).toString();
 		//System.out.println(EFactoryJSONGeneratorTest.class.getName() + ":\n" + jsonText);
 		JSONObject json = new JSONObject(jsonText);
 		String[] names = JSONObject.getNames(json);
