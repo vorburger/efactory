@@ -18,6 +18,8 @@ How to Install?
 How to Develop?
 ---------------
 
+Get on the [eclipse-emf-eson-dev Google Group](https://groups.google.com/forum/#!forum/eclipse-emf-eson-dev) and start yapping...
+
 * get an Eclipse Dev IDE with PDE & modeling (Xtext) 
 * import all projects in this repository into Eclipse 
 * Window > Preferences > Plug-In Development > Target Platform: Switch to EFactory as active target definition (from com.googlecode.efactory.target/com.googlecode.efactory.target.target) 
