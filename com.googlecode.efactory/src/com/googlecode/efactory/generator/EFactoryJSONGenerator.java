@@ -54,7 +54,7 @@ public class EFactoryJSONGenerator implements IGenerator {
 				NewObject rootNewObject = factory.getRoot();
 				if (rootNewObject == null)
 					return;
-				String jsonFileName = getJSONFileName(resource.getURI());
+				String jsonFileName = getJSONFileName(resource.getURI() /* , fsa */);
 				StringBuilder sb = new StringBuilder();
 				generateJSON(sb, rootNewObject);
 				fsa.generateFile(jsonFileName, sb);
@@ -136,20 +136,25 @@ public class EFactoryJSONGenerator implements IGenerator {
 		sb.append('\"');
 	}
 	
-	protected String getJSONFileName(URI uri) {
-		String relFileName = getProjectRelativeFileName(uri);
+	protected String getJSONFileName(URI uri /*, IFileSystemAccess fsa */) {
+		String relFileName = getProjectRelativeFileName(uri /*, fsa */);
 		// return FilenameUtils.removeExtension(relFileName) + ".json";
 		int extensionPos = relFileName.lastIndexOf('.');
 		return relFileName.substring(0, extensionPos) + ".json";
 	}
 	
-	protected String getProjectRelativeFileName(URI uri) {
-		// TODO This is a hack, how to do this right? @see http://www.eclipse.org/forums/index.php/m/1230878/#msg_1230878
-		if (!uri.isPlatformResource())
-			throw new IllegalArgumentException("Not a Platform Resource URI: " + uri.toString());
-		String sURI = uri.toPlatformString(true);
+	protected String getProjectRelativeFileName(URI resourceURI /*, IFileSystemAccess fsa */) {
+		// @see http://www.eclipse.org/forums/index.php/m/1230878/#msg_1230878
+		if (!resourceURI.isPlatformResource())
+			throw new IllegalArgumentException("Not a Platform Resource URI: " + resourceURI.toString());
+		// This is  bit of a hack, but it works...
+		String sURI = resourceURI.toPlatformString(true);
 		String withoutProject = sURI.substring(sURI.indexOf('/', 1) + 1);
 		return withoutProject;
+		// Something like this may be a better use of the API, but is much more difficult to unit test in EFactoryJSONGeneratorTest, so not pursued: 
+		// URI projectRootURI = ((IFileSystemAccessExtension2)fsa).getURI(".");
+		// URI resourceWithoutProjectURI = resourceURI.deresolve(projectRootURI);
+		// return resourceWithoutProjectURI.toString();
 	}
 
 	protected EFactoryResource getEFactoryResource(Resource resource) {

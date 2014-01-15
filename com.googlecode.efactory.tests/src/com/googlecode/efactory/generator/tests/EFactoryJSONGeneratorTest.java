@@ -51,10 +51,10 @@ public class EFactoryJSONGeneratorTest {
 		Resource resource = rp.loadModel("res/BuilderTests/AttributeTest.efactory").eResource();
 		InMemoryFileSystemAccess fsa = new InMemoryFileSystemAccess();
 		new EFactoryJSONGenerator() { // sub class for test to be able to access protected methods 
-			protected boolean isJSONGenerationActive() { 
+			@Override protected boolean isJSONGenerationActive() { 
 				return true; 
 			};
-			protected String getProjectRelativeFileName(URI uri) {
+			@Override protected String getProjectRelativeFileName(URI uri) {
 				return TEST_JSON;
 			};
 		}.doGenerate(resource, fsa);
