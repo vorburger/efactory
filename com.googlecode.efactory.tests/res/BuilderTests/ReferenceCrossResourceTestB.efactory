@@ -7,9 +7,9 @@ TestModel testModelNameB {
 	
 	referenceTestContainer: [
 		ReferenceTestContainer test1 {
-			referenceToOne: testModelNameA.test1.target1
+			referenceToOne: testModelNameA.test1.target,1
 			referenceToMany: [ 
-				testModelNameA.test1.target1 
+				testModelNameA.test1.target,1
 				testModelNameA.test1.target2 
 				testModelNameA.test1.target3
 			]		

@@ -5,7 +5,7 @@ TestModel testModelNameA {
 	referenceTestContainer: [ 
 		ReferenceTestContainer test1 {
 			containments: [
-				ReferenceTarget target1 {}
+				ReferenceTarget target,1 {}
 				ReferenceTarget target2 {}
 				ReferenceTarget target3 {}
 			]
