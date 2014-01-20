@@ -31,7 +31,6 @@ import java.util.Iterator;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.xtext.EcoreUtil2;
 
 import com.google.common.collect.Iterators;
@@ -73,7 +72,7 @@ public class NameAccessor {
 		eObject.eSet(nameAttribute, name);
 	}
 
-	public @NonNull EAttribute getNameAttribute(EObject context, EObject eObject) throws NoNameFeatureMappingException {
+	public EAttribute getNameAttribute(EObject context, EObject eObject) throws NoNameFeatureMappingException {
 		Iterator<CustomNameMapping> customMappings = getCustomNameMappings(context);
 		while (customMappings.hasNext()) {
 			CustomNameMapping mapping = customMappings.next();

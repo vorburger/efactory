@@ -33,8 +33,6 @@ import org.eclipse.emf.common.util.WrappedException;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.jdt.annotation.NonNull;
-import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.util.Pair;
 import org.eclipse.xtext.util.SimpleCache;
@@ -68,12 +66,12 @@ public class EPackageResolver {
 	 * @param packageUri an EMF Package URI
 	 * @return EPackage, or null if the resource does not contain an EPackage
 	 */
-	public @Nullable EPackage resolve(@NonNull Resource resource, @NonNull String packageUri) {
+	public EPackage resolve(Resource resource, String packageUri) {
 		Pair<Resource, String> pair = Tuples.create(resource, packageUri);
 		return cache.get(pair);
 	}
 
-	protected @Nullable EPackage loadPackageAsResource(@NonNull Resource context, @NonNull String packageUri) {
+	protected EPackage loadPackageAsResource(Resource context, String packageUri) {
 		final Resource resource = EcoreUtil2.getResource(context, packageUri);
 		if (resource == null)
 			return null;
@@ -87,7 +85,7 @@ public class EPackageResolver {
 	 * 
 	 * @return EPackage for nsURI, or null if there was a lookup problem.
 	 */
-	protected @Nullable EPackage getPackageFromRegistry(@NonNull String nsURI) {
+	protected EPackage getPackageFromRegistry(String nsURI) {
 		try {
 			return EPackage.Registry.INSTANCE.getEPackage(nsURI);
 		} catch (WrappedException e) {
@@ -95,7 +93,7 @@ public class EPackageResolver {
 		}
 	}
 
-	private @Nullable EPackage getEPackage(@NonNull Resource resource) {
+	private EPackage getEPackage( Resource resource) {
 		// This will (has to, see DynamicEmfTest) find
 		// an EPackage created dynamically in an EFactory as well
 		EList<EObject> contents = resource.getContents();
@@ -119,7 +117,7 @@ public class EPackageResolver {
 					// @since Luna (Eclipse 4.4), @NonNull here leads to:
 					// "Illegal redefinition of parameter uri, inherited method from Function<String,EPackage> does not constrain this parameter"
 					// so we have to make this handstand here instead:
-					public EPackage apply(@Nullable String uri) {
+					public EPackage apply(String uri) {
 						if (uri == null)
 							throw new IllegalArgumentException();
 						return getPackageFromRegistry(uri);
