@@ -183,6 +183,8 @@ public class ModelBuilder {
 			ReferenceBuilder fb = it.next();
 			try {
 				fb.link();
+			} catch (Throwable t) {
+				logger.error("link() failed", t);
 			} finally {
 				it.remove();
 			}
