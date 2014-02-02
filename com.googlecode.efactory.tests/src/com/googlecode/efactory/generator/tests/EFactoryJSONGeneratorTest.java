@@ -12,6 +12,8 @@ package com.googlecode.efactory.generator.tests;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.eclipse.emf.common.util.URI;
@@ -26,7 +28,7 @@ import org.junit.runner.RunWith;
 
 import com.googlecode.efactory.EFactoryInjectorProvider;
 import com.googlecode.efactory.generator.EFactoryJSONGenerator;
-import com.googlecode.efactory.generator.tests.douglascrockford.JSONObject;
+import com.googlecode.efactory.generator.tests.eclipsesource_json.JsonObject;
 import com.googlecode.efactory.tests.util.ResourceProvider;
 import com.googlecode.efactory.tests.util.TestSetup;
 
@@ -61,9 +63,9 @@ public class EFactoryJSONGeneratorTest {
 		// TODO switch @deprecated getFiles() to getTextFiles() when switching to newer Xtext version (currently still on 2.3, due to in-house reasons) 
 		String jsonText = fsa.getFiles().get(IFileSystemAccess.DEFAULT_OUTPUT + TEST_JSON).toString();
 		//System.out.println(EFactoryJSONGeneratorTest.class.getName() + ":\n" + jsonText);
-		JSONObject json = new JSONObject(jsonText);
-		String[] names = JSONObject.getNames(json);
-		assertEquals(2, names.length);
+		JsonObject jsonObject = JsonObject.readFrom(jsonText);
+		List<String> names = jsonObject.names();
+		assertEquals(2, names.size());
 	}
 	
 	@Test public void testGetProjectRelativeFileName() {

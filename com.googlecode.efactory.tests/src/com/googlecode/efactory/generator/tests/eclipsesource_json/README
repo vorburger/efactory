@@ -1,0 +1,8 @@
+This is from https://github.com/ralfstx/minimal-json/
+(as of Git rev. 61223004a97ef350073c63b245dc0a2e979ad787)
+
+Copy/pasted here just to avoid an external build dependency.
+It's exactly as on Git, except that package name was refactored.
+
+This is instead of the earlier use of http://www.json.org/java/index.html
+which was replaced by this based on the discussion in https://bugs.eclipse.org/bugs/show_bug.cgi?id=425671
