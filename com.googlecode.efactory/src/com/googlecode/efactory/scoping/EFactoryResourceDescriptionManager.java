@@ -113,7 +113,11 @@ public class EFactoryResourceDescriptionManager	extends	DerivedStateAwareResourc
 				// return EcoreUtil.getAllProperContents(resource, false);
 				EObject realRootEObject = EFactoryResource.getEFactoryEObject(resource);
 				if (realRootEObject != null) {
-					return EcoreUtil.getAllProperContents(realRootEObject, false);
+					// Careful, we don't want only what's "under" (within) the realRootEObject,
+					// but we do want the realRootEObject itself as well, so we have to do this handstand:
+					// (There is probably a better way to do this? if you change it, please retest.. no test written yet for this fix)
+					TreeIterator<EObject> contentIterator = EcoreUtil.getAllProperContents(realRootEObject, false);
+					return new ConcatIterator(realRootEObject, contentIterator);
 				} else {
 					return EMPTY_EOBJECT_TREE_ITERATOR;
 				}
@@ -123,6 +127,46 @@ public class EFactoryResourceDescriptionManager	extends	DerivedStateAwareResourc
 
 	}
 	
+	// like com.google.common.collect.Iterators.concat() - but for the EMF TreeIterator
+	// this is a simplistic dumbed down quick implementation just for here, not a fully fledged generally useable helper
+	private static class ConcatIterator implements TreeIterator<EObject> {
+
+		private EObject first;
+		private TreeIterator<EObject> remaining;
+
+		public ConcatIterator(EObject realRootEObject, TreeIterator<EObject> contentIterator) {
+			this.first = realRootEObject;
+			this.remaining = contentIterator;
+		}
+
+		public boolean hasNext() {
+			return first != null || remaining.hasNext();
+		}
+
+		public EObject next() {
+			if (first != null) {
+				EObject first = this.first; 
+				this.first = null;
+				return first;
+			} else {
+				return remaining.next();
+			}
+		}
+
+		public void remove() {
+			throw new IllegalStateException("remove() not implemented on this ConcatIterator");
+		}
+
+		public void prune() {
+			if (first != null) {
+				throw new IllegalStateException("prune() not implemented for first");
+			} else {
+				remaining.prune();
+			}
+		}
+	}
+	
+	// like com.google.common.collect.Iterators.emptyIterator() - but for the EMF TreeIterator
 	private static TreeIterator<EObject> EMPTY_EOBJECT_TREE_ITERATOR = new EmptyTreeIterator<EObject>();
 	private static class EmptyTreeIterator<E> implements TreeIterator<E> {
 
