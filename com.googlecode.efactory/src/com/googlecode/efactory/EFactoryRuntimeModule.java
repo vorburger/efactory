@@ -19,6 +19,7 @@ import org.eclipse.xtext.parser.antlr.IReferableElementsUnloader.GenericUnloader
 import org.eclipse.xtext.resource.IDerivedStateComputer;
 import org.eclipse.xtext.resource.ILocationInFileProvider;
 import org.eclipse.xtext.resource.IResourceFactory;
+import org.eclipse.xtext.resource.IResourceServiceProvider;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider;
 import org.eclipse.xtext.util.PolymorphicDispatcher;
@@ -31,6 +32,7 @@ import com.googlecode.efactory.conversion.TerminalConverters;
 import com.googlecode.efactory.generator.EFactoryJSONGenerator;
 import com.googlecode.efactory.resource.EFactoryDerivedStateComputer;
 import com.googlecode.efactory.resource.EFactoryLocationInFileProvider;
+import com.googlecode.efactory.resource.EFactoryResourceServiceProvider;
 import com.googlecode.efactory.resource.EFactoryStandaloneResourceFactory;
 import com.googlecode.efactory.scoping.EFactoryImportedNamespaceAwareScopeProvider;
 import com.googlecode.efactory.scoping.EFactoryResourceDescriptionManager;
@@ -107,4 +109,8 @@ public class EFactoryRuntimeModule extends com.googlecode.efactory.AbstractEFact
 		return EFactoryJSONGenerator.class;
 	}
 
+	public Class<? extends IResourceServiceProvider> bindIResourceServiceProvider() {
+		return EFactoryResourceServiceProvider.class;
+	}
+	
 }
