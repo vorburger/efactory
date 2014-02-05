@@ -5,12 +5,11 @@
 
   <extension point="org.eclipse.emf.ecore.generated_package">
     <package 
-       uri = "http://www.googlecode.com/efactory/EFactory" 
+       uri = "http://www.eclipse.org/emf/eson/EFactory" 
        class = "org.eclipse.emf.eson.eFactory.EFactoryPackage"
-       genModel = "com/googlecode/efactory/EFactory.genmodel" /> 
+       genModel = "org/eclipse/emf/eson/EFactory.genmodel" /> 
 	
   </extension>
-
 
 
 
