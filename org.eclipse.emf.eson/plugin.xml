@@ -6,7 +6,7 @@
   <extension point="org.eclipse.emf.ecore.generated_package">
     <package 
        uri = "http://www.googlecode.com/efactory/EFactory" 
-       class = "com.googlecode.efactory.eFactory.EFactoryPackage"
+       class = "org.eclipse.emf.eson.eFactory.EFactoryPackage"
        genModel = "com/googlecode/efactory/EFactory.genmodel" /> 
 	
   </extension>

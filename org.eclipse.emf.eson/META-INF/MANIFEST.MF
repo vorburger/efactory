@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: com.googlecode.efactory
+Bundle-Name: Eclipse.org EMF ESON
 Bundle-Version: 0.10.0.qualifier
 Bundle-SymbolicName: org.eclipse.emf.eson;singleton:=true
 Eclipse-RegisterBuddy: org.eclipse.xtext.log4j
@@ -19,15 +19,30 @@ Require-Bundle: org.eclipse.xtext;bundle-version="2.1.0";visibility:=reexport,
  org.eclipse.xtext.common.types,
  org.eclipse.jdt.annotation;bundle-version="1.0.1";resolution:=optional
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Export-Package: com.googlecode.efactory,com.googlecode.efactory.buildi
- ng,com.googlecode.efactory.conversion,com.googlecode.efactory.eFactor
- y,com.googlecode.efactory.eFactory.impl,com.googlecode.efactory.eFact
- ory.util,com.googlecode.efactory.parser.antlr,com.googlecode.efactory
- .resource,com.googlecode.efactory.scoping,com.googlecode.efactory.ser
- ialization,com.googlecode.efactory.services,com.googlecode.efactory.u
- til,com.googlecode.efactory.validation,com.googlecode.efactory.parser
- .antlr.internal,com.googlecode.efactory.serializer,com.googlecode.efa
- ctory.generator,com.googlecode.efactory.formatting
+Export-Package: org.eclipse.emf.eson.eFactory,
+ org.eclipse.emf.eson.eFactory.impl,
+ org.eclipse.emf.eson.eFactory.util,
+ org.eclipse.emf.eson.parser.antlr,
+ org.eclipse.emf.eson.parser.antlr.internal,
+ org.eclipse.emf.eson.serializer,
+ org.eclipse.emf.eson.services,
+ org.eclipse.emf.eson,
+ org.eclipse.emf.eson.building,
+ org.eclipse.emf.eson.conversion,
+ org.eclipse.emf.eson.formatting,
+ org.eclipse.emf.eson.generator,
+ org.eclipse.emf.eson.resource,
+ org.eclipse.emf.eson.scoping,
+ org.eclipse.emf.eson.serialization,
+ org.eclipse.emf.eson.util,
+ org.eclipse.emf.eson.validation,
+ org.eclipse.emf.eson.services,
+ org.eclipse.emf.eson.eFactory,
+ org.eclipse.emf.eson.eFactory.impl,
+ org.eclipse.emf.eson.eFactory.util,
+ org.eclipse.emf.eson.serializer,
+ org.eclipse.emf.eson.parser.antlr,
+ org.eclipse.emf.eson.parser.antlr.internal
 Import-Package: org.apache.log4j,
  org.eclipse.xtend2.lib
 Bundle-Vendor: Sebastian Benz & Michael Vorburger

@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: com.googlecode.efactory.ui
+Bundle-Name: org.eclipse.emf.eson.ui
 Bundle-Vendor: Sebastian Benz & Michael Vorburger
 Bundle-Version: 0.10.0.qualifier
 Bundle-SymbolicName: org.eclipse.emf.eson.ui;singleton:=true
@@ -27,9 +27,12 @@ Require-Bundle: org.eclipse.emf.eson;visibility:=reexport,
  org.eclipse.emf.ecore.editor;bundle-version="2.9.0",
  org.eclipse.jdt.annotation;bundle-version="1.0.1";resolution:=optional
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Export-Package: com.googlecode.efactory.ui,com.googlecode.efactory.ui.
- contentassist,com.googlecode.efactory.ui.contentassist.antlr,com.goog
- lecode.efactory.ui.internal,com.googlecode.efactory.ui.labeling,com.g
- ooglecode.efactory.ui.outline,com.googlecode.efactory.ui.quickfix
-Bundle-Activator: com.googlecode.efactory.ui.internal.EFactoryActivator
+Export-Package: org.eclipse.emf.eson.ui,
+ org.eclipse.emf.eson.ui.contentassist,
+ org.eclipse.emf.eson.ui.contentassist.antlr,
+ org.eclipse.emf.eson.ui.internal,
+ org.eclipse.emf.eson.ui.labeling,
+ org.eclipse.emf.eson.ui.outline,
+ org.eclipse.emf.eson.ui.quickfix
+Bundle-Activator: org.eclipse.emf.eson.ui.internal.EFactoryActivator
 Import-Package: org.apache.log4j

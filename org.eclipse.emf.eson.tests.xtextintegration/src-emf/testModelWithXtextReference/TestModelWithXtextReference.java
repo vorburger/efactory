@@ -2,9 +2,8 @@
  */
 package testModelWithXtextReference;
 
-import com.googlecode.efactory.xtextintegration.myDsl.Model;
-
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.eson.xtextintegration.myDsl.Model;
 
 /**
  * <!-- begin-user-doc -->

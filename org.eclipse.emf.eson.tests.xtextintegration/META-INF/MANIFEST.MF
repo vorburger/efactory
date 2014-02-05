@@ -1,7 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: com.googlecode.efactory.tests.xtextintegration
-Bundle-Vendor: My Company
+Bundle-Name: %pluginName
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
 Bundle-Version: 0.10.0.qualifier
 Bundle-ClassPath: .
 Bundle-SymbolicName: org.eclipse.emf.eson.tests.xtextintegration;singleton:=true
@@ -16,19 +17,32 @@ Require-Bundle: org.eclipse.xtext;visibility:=reexport,
  org.eclipse.xtext.util,
  org.eclipse.core.runtime,
  org.eclipse.emf.ecore,
+ org.eclipse.emf.eson.tests.xtextintegration;visibility:=reexport,
  org.eclipse.emf.common,
  org.antlr.runtime,
  org.eclipse.xtext.common.types
 Import-Package: org.apache.log4j,
  org.eclipse.xtext.xbase.lib
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Export-Package: com.googlecode.efactory.xtextintegration,com.googlecod
- e.efactory.xtextintegration.services,com.googlecode.efactory.xtextint
- egration.myDsl,com.googlecode.efactory.xtextintegration.myDsl.impl,co
- m.googlecode.efactory.xtextintegration.myDsl.util,com.googlecode.efac
- tory.xtextintegration.serializer,com.googlecode.efactory.xtextintegra
- tion.parser.antlr,com.googlecode.efactory.xtextintegration.parser.ant
- lr.internal,com.googlecode.efactory.xtextintegration.scoping,com.goog
- lecode.efactory.xtextintegration.formatting,testModelWithXtextReferen
- ce,testModelWithXtextReference.impl,testModelWithXtextReference.util
+Export-Package: org.eclipse.emf.eson.xtextintegration,
+ org.eclipse.emf.eson.xtextintegration.myDsl,
+ org.eclipse.emf.eson.xtextintegration.myDsl.impl,
+ org.eclipse.emf.eson.xtextintegration.myDsl.util,
+ org.eclipse.emf.eson.xtextintegration.parser.antlr,
+ org.eclipse.emf.eson.xtextintegration.parser.antlr.internal,
+ org.eclipse.emf.eson.xtextintegration.serializer,
+ org.eclipse.emf.eson.xtextintegration.services,
+ org.eclipse.emf.eson.xtextintegration,
+ org.eclipse.emf.eson.xtextintegration.formatting,
+ org.eclipse.emf.eson.xtextintegration.myDsl,
+ org.eclipse.emf.eson.xtextintegration.myDsl.impl,
+ org.eclipse.emf.eson.xtextintegration.myDsl.util,
+ org.eclipse.emf.eson.xtextintegration.parser.antlr,
+ org.eclipse.emf.eson.xtextintegration.parser.antlr.internal,
+ org.eclipse.emf.eson.xtextintegration.scoping,
+ org.eclipse.emf.eson.xtextintegration.serializer,
+ org.eclipse.emf.eson.xtextintegration.services,
+ testModelWithXtextReference,
+ testModelWithXtextReference.impl,
+ testModelWithXtextReference.util
 

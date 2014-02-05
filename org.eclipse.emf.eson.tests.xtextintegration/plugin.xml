@@ -6,7 +6,7 @@
   <extension point="org.eclipse.emf.ecore.generated_package">
     <package 
        uri = "http://www.googlecode.com/efactory/xtextintegration/MyDsl" 
-       class = "com.googlecode.efactory.xtextintegration.myDsl.MyDslPackage"
+       class = "org.eclipse.emf.eson.xtextintegration.myDsl.MyDslPackage"
        genModel = "com/googlecode/efactory/xtextintegration/MyDsl.genmodel" /> 
 	
   </extension>

@@ -2,16 +2,12 @@
  */
 package testModelWithXtextReference.impl;
 
-import com.googlecode.efactory.xtextintegration.myDsl.Model;
-
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
+import org.eclipse.emf.eson.xtextintegration.myDsl.Model;
 import testModelWithXtextReference.TestModelWithXtextReference;
 import testModelWithXtextReference.TestModelWithXtextReferencePackage;
 

@@ -5,10 +5,10 @@
 	<!-- This is our new Editor, including the (editable! right-click New... + Properties!) tree -->
     <extension point="org.eclipse.ui.editors">
         <editor
-            id="com.googlecode.efactory.ui.editor.tree.EFactoryWithTreeEditor"
+            id="org.eclipse.emf.eson.ui.editor.tree.EFactoryWithTreeEditor"
             name="ESON Editor (with Tree)"
-            class="com.googlecode.efactory.ui.EFactoryExecutableExtensionFactory:com.googlecode.efactory.ui.editor.tree.EFactoryWithTreeEditor"
-            contributorClass="com.googlecode.efactory.ui.editor.tree.ActionBarContributor"
+            class="org.eclipse.emf.eson.ui.EFactoryExecutableExtensionFactory:org.eclipse.emf.eson.ui.editor.tree.EFactoryWithTreeEditor"
+            contributorClass="org.eclipse.emf.eson.ui.editor.tree.ActionBarContributor"
             default="true"
             extensions="efactory,eson">
         </editor>
@@ -17,9 +17,9 @@
    <!-- This is the original Xtext pure DSL (no tree) Editor -->
    <extension point="org.eclipse.ui.editors">
         <editor
-            id="com.googlecode.efactory.EFactory"
+            id="org.eclipse.emf.eson.EFactory"
             name="ESON Editor (just DSL text)"
-            class="com.googlecode.efactory.ui.EFactoryExecutableExtensionFactory:org.eclipse.xtext.ui.editor.XtextEditor"
+            class="org.eclipse.emf.eson.ui.EFactoryExecutableExtensionFactory:org.eclipse.xtext.ui.editor.XtextEditor"
             contributorClass="org.eclipse.ui.editors.text.TextEditorActionContributor"
             default="false"
             extensions="efactory,eson">
@@ -32,31 +32,31 @@
     <extension
         point="org.eclipse.ui.handlers">
         <handler
-            class="com.googlecode.efactory.ui.EFactoryExecutableExtensionFactory:org.eclipse.xtext.ui.editor.hyperlinking.OpenDeclarationHandler"
+            class="org.eclipse.emf.eson.ui.EFactoryExecutableExtensionFactory:org.eclipse.xtext.ui.editor.hyperlinking.OpenDeclarationHandler"
             commandId="org.eclipse.xtext.ui.editor.hyperlinking.OpenDeclaration">
             <activeWhen>
                 <reference
-                    definitionId="com.googlecode.efactory.EFactory.Editor.opened">
+                    definitionId="org.eclipse.emf.eson.EFactory.Editor.opened">
                 </reference>
             </activeWhen>
         </handler>
         <handler
-            class="com.googlecode.efactory.ui.EFactoryExecutableExtensionFactory:org.eclipse.xtext.ui.editor.handler.ValidateActionHandler"
-            commandId="com.googlecode.efactory.EFactory.validate">
+            class="org.eclipse.emf.eson.ui.EFactoryExecutableExtensionFactory:org.eclipse.xtext.ui.editor.handler.ValidateActionHandler"
+            commandId="org.eclipse.emf.eson.EFactory.validate">
          <activeWhen>
             <reference
-                    definitionId="com.googlecode.efactory.EFactory.Editor.opened">
+                    definitionId="org.eclipse.emf.eson.EFactory.Editor.opened">
             </reference>
          </activeWhen>
       </handler>
     </extension>
     <extension point="org.eclipse.core.expressions.definitions">
-        <definition id="com.googlecode.efactory.EFactory.Editor.opened">
+        <definition id="org.eclipse.emf.eson.EFactory.Editor.opened">
             <and>
                 <reference definitionId="isActiveEditorAnInstanceOfXtextEditor"/>
                 <with variable="activeEditor">
                     <test property="org.eclipse.xtext.ui.editor.XtextEditor.languageName" 
-                        value="com.googlecode.efactory.EFactory" 
+                        value="org.eclipse.emf.eson.EFactory" 
                         forcePluginActivation="true"/>
                 </with>        
             </and>
@@ -65,33 +65,33 @@
     <extension
             point="org.eclipse.ui.preferencePages">
         <page
-            class="com.googlecode.efactory.ui.EFactoryExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
-            id="com.googlecode.efactory.EFactory"
+            class="org.eclipse.emf.eson.ui.EFactoryExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
+            id="org.eclipse.emf.eson.EFactory"
             name="EFactory">
-            <keywordReference id="com.googlecode.efactory.ui.keyword_EFactory"/>
+            <keywordReference id="org.eclipse.emf.eson.ui.keyword_EFactory"/>
         </page>
         <page
-            category="com.googlecode.efactory.EFactory"
-            class="com.googlecode.efactory.ui.EFactoryExecutableExtensionFactory:org.eclipse.xtext.ui.editor.syntaxcoloring.SyntaxColoringPreferencePage"
-            id="com.googlecode.efactory.EFactory.coloring"
+            category="org.eclipse.emf.eson.EFactory"
+            class="org.eclipse.emf.eson.ui.EFactoryExecutableExtensionFactory:org.eclipse.xtext.ui.editor.syntaxcoloring.SyntaxColoringPreferencePage"
+            id="org.eclipse.emf.eson.EFactory.coloring"
             name="Syntax Coloring">
-            <keywordReference id="com.googlecode.efactory.ui.keyword_EFactory"/>
+            <keywordReference id="org.eclipse.emf.eson.ui.keyword_EFactory"/>
         </page>
         <page
-            category="com.googlecode.efactory.EFactory"
-            class="com.googlecode.efactory.ui.EFactoryExecutableExtensionFactory:org.eclipse.xtext.ui.editor.templates.XtextTemplatePreferencePage"
-            id="com.googlecode.efactory.EFactory.templates"
+            category="org.eclipse.emf.eson.EFactory"
+            class="org.eclipse.emf.eson.ui.EFactoryExecutableExtensionFactory:org.eclipse.xtext.ui.editor.templates.XtextTemplatePreferencePage"
+            id="org.eclipse.emf.eson.EFactory.templates"
             name="Templates">
-            <keywordReference id="com.googlecode.efactory.ui.keyword_EFactory"/>
+            <keywordReference id="org.eclipse.emf.eson.ui.keyword_EFactory"/>
         </page>
     </extension>
     <extension
             point="org.eclipse.ui.propertyPages">
         <page
-            class="com.googlecode.efactory.ui.EFactoryExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
-            id="com.googlecode.efactory.EFactory"
+            class="org.eclipse.emf.eson.ui.EFactoryExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
+            id="org.eclipse.emf.eson.EFactory"
             name="EFactory">
-            <keywordReference id="com.googlecode.efactory.ui.keyword_EFactory"/>
+            <keywordReference id="org.eclipse.emf.eson.ui.keyword_EFactory"/>
             <enabledWhen>
 	            <adapt type="org.eclipse.core.resources.IProject"/>
 			</enabledWhen>
@@ -101,14 +101,14 @@
     <extension
         point="org.eclipse.ui.keywords">
         <keyword
-            id="com.googlecode.efactory.ui.keyword_EFactory"
+            id="org.eclipse.emf.eson.ui.keyword_EFactory"
             label="EFactory"/>
     </extension>
     <extension
          point="org.eclipse.ui.commands">
       <command
             description="Trigger expensive validation"
-            id="com.googlecode.efactory.EFactory.validate"
+            id="org.eclipse.emf.eson.EFactory.validate"
             name="Validate">
       </command>
     </extension>
@@ -116,12 +116,12 @@
         <menuContribution
             locationURI="popup:#TextEditorContext?after=group.edit">
              <command
-                 commandId="com.googlecode.efactory.EFactory.validate"
+                 commandId="org.eclipse.emf.eson.EFactory.validate"
                  style="push"
                  tooltip="Trigger expensive validation">
             <visibleWhen checkEnabled="false">
                 <reference
-                    definitionId="com.googlecode.efactory.EFactory.Editor.opened">
+                    definitionId="org.eclipse.emf.eson.EFactory.Editor.opened">
                 </reference>
             </visibleWhen>
          </command>  
@@ -131,7 +131,7 @@
 		<menuContribution locationURI="popup:#TextEditorContext?endof=group.find">
 			<command commandId="org.eclipse.xtext.ui.editor.FindReferences">
 				<visibleWhen checkEnabled="false">
-                	<reference definitionId="com.googlecode.efactory.EFactory.Editor.opened">
+                	<reference definitionId="org.eclipse.emf.eson.EFactory.Editor.opened">
                 	</reference>
             	</visibleWhen>
 			</command>
@@ -139,11 +139,11 @@
 	</extension>
 	<extension point="org.eclipse.ui.handlers">
 	    <handler
-            class="com.googlecode.efactory.ui.EFactoryExecutableExtensionFactory:org.eclipse.xtext.ui.editor.findrefs.FindReferencesHandler"
+            class="org.eclipse.emf.eson.ui.EFactoryExecutableExtensionFactory:org.eclipse.xtext.ui.editor.findrefs.FindReferencesHandler"
             commandId="org.eclipse.xtext.ui.editor.FindReferences">
             <activeWhen>
                 <reference
-                    definitionId="com.googlecode.efactory.EFactory.Editor.opened">
+                    definitionId="org.eclipse.emf.eson.EFactory.Editor.opened">
                 </reference>
             </activeWhen>
         </handler>
@@ -154,13 +154,13 @@
 	<extension
 		point="org.eclipse.emf.ecore.extension_parser">
 		<parser
-			class="com.googlecode.efactory.ui.EFactoryExecutableExtensionFactory:org.eclipse.xtext.resource.IResourceFactory"
+			class="org.eclipse.emf.eson.ui.EFactoryExecutableExtensionFactory:org.eclipse.xtext.resource.IResourceFactory"
 			type="efactory">
 		</parser>
 	</extension>
 	<extension point="org.eclipse.xtext.extension_resourceServiceProvider">
         <resourceServiceProvider
-            class="com.googlecode.efactory.ui.EFactoryExecutableExtensionFactory:org.eclipse.xtext.ui.resource.IResourceUIServiceProvider"
+            class="org.eclipse.emf.eson.ui.EFactoryExecutableExtensionFactory:org.eclipse.xtext.ui.resource.IResourceUIServiceProvider"
             uriExtension="efactory">
         </resourceServiceProvider>
     </extension>
@@ -168,18 +168,18 @@
 	<extension
 		point="org.eclipse.emf.ecore.extension_parser">
 		<parser
-			class="com.googlecode.efactory.ui.EFactoryExecutableExtensionFactory:org.eclipse.xtext.resource.IResourceFactory"
+			class="org.eclipse.emf.eson.ui.EFactoryExecutableExtensionFactory:org.eclipse.xtext.resource.IResourceFactory"
 			type="eson">
 		</parser>
 	</extension>
 	<extension point="org.eclipse.xtext.extension_resourceServiceProvider">
         <resourceServiceProvider
-            class="com.googlecode.efactory.ui.EFactoryExecutableExtensionFactory:org.eclipse.xtext.ui.resource.IResourceUIServiceProvider"
+            class="org.eclipse.emf.eson.ui.EFactoryExecutableExtensionFactory:org.eclipse.xtext.ui.resource.IResourceUIServiceProvider"
             uriExtension="eson">
         </resourceServiceProvider>
     </extension>
 
-    <!-- marker definitions for com.googlecode.efactory.EFactory -->
+    <!-- marker definitions for org.eclipse.emf.eson.EFactory -->
     <extension
             id="efactory.check.fast"
             name="EFactory Problem"
@@ -207,11 +207,11 @@
 	<extension
 		point="org.eclipse.ui.handlers">
 		<handler 
-			class="com.googlecode.efactory.ui.EFactoryExecutableExtensionFactory:org.eclipse.xtext.ui.editor.outline.quickoutline.ShowQuickOutlineActionHandler"
+			class="org.eclipse.emf.eson.ui.EFactoryExecutableExtensionFactory:org.eclipse.xtext.ui.editor.outline.quickoutline.ShowQuickOutlineActionHandler"
 			commandId="org.eclipse.xtext.ui.editor.outline.QuickOutline">
 			<activeWhen>
 				<reference
-					definitionId="com.googlecode.efactory.EFactory.Editor.opened">
+					definitionId="org.eclipse.emf.eson.EFactory.Editor.opened">
 				</reference>
 			</activeWhen>
 		</handler>
@@ -231,35 +231,35 @@
 				style="push"
 				tooltip="Open Quick Outline">
 				<visibleWhen checkEnabled="false">
-					<reference definitionId="com.googlecode.efactory.EFactory.Editor.opened"/>
+					<reference definitionId="org.eclipse.emf.eson.EFactory.Editor.opened"/>
 				</visibleWhen>
 			</command>
 		</menuContribution>
 	</extension>
 -->
 	
-    <!-- quickfix marker resolution generator for com.googlecode.efactory.EFactory -->
+    <!-- quickfix marker resolution generator for org.eclipse.emf.eson.EFactory -->
     <extension
             point="org.eclipse.ui.ide.markerResolution">
         <markerResolutionGenerator
-            class="com.googlecode.efactory.ui.EFactoryExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator"
-            markerType="com.googlecode.efactory.ui.efactory.check.fast">
+            class="org.eclipse.emf.eson.ui.EFactoryExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator"
+            markerType="org.eclipse.emf.eson.ui.efactory.check.fast">
             <attribute
                 name="FIXABLE_KEY"
                 value="true">
             </attribute>
         </markerResolutionGenerator>
         <markerResolutionGenerator
-            class="com.googlecode.efactory.ui.EFactoryExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator"
-            markerType="com.googlecode.efactory.ui.efactory.check.normal">
+            class="org.eclipse.emf.eson.ui.EFactoryExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator"
+            markerType="org.eclipse.emf.eson.ui.efactory.check.normal">
             <attribute
                 name="FIXABLE_KEY"
                 value="true">
             </attribute>
         </markerResolutionGenerator>
         <markerResolutionGenerator
-            class="com.googlecode.efactory.ui.EFactoryExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator"
-            markerType="com.googlecode.efactory.ui.efactory.check.expensive">
+            class="org.eclipse.emf.eson.ui.EFactoryExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator"
+            markerType="org.eclipse.emf.eson.ui.efactory.check.expensive">
             <attribute
                 name="FIXABLE_KEY"
                 value="true">
@@ -269,11 +269,11 @@
    	<!-- Rename Refactoring -->
 	<extension point="org.eclipse.ui.handlers">
 		<handler 
-			class="com.googlecode.efactory.ui.EFactoryExecutableExtensionFactory:org.eclipse.xtext.ui.refactoring.ui.IRenameElementHandler"
+			class="org.eclipse.emf.eson.ui.EFactoryExecutableExtensionFactory:org.eclipse.xtext.ui.refactoring.ui.IRenameElementHandler"
 			commandId="org.eclipse.xtext.ui.refactoring.RenameElement">
 			<activeWhen>
 				<reference
-					definitionId="com.googlecode.efactory.EFactory.Editor.opened">
+					definitionId="org.eclipse.emf.eson.EFactory.Editor.opened">
 				</reference>
 			</activeWhen>
 		</handler>
@@ -285,7 +285,7 @@
                style="push">
             <visibleWhen checkEnabled="false">
                <reference
-                     definitionId="com.googlecode.efactory.EFactory.Editor.opened">
+                     definitionId="org.eclipse.emf.eson.EFactory.Editor.opened">
                </reference>
             </visibleWhen>
          </command>
@@ -293,38 +293,38 @@
    </extension>
    <extension point="org.eclipse.ui.preferencePages">
 	    <page
-	        category="com.googlecode.efactory.EFactory"
-	        class="com.googlecode.efactory.ui.EFactoryExecutableExtensionFactory:org.eclipse.xtext.ui.refactoring.ui.RefactoringPreferencePage"
-	        id="com.googlecode.efactory.EFactory.refactoring"
+	        category="org.eclipse.emf.eson.EFactory"
+	        class="org.eclipse.emf.eson.ui.EFactoryExecutableExtensionFactory:org.eclipse.xtext.ui.refactoring.ui.RefactoringPreferencePage"
+	        id="org.eclipse.emf.eson.EFactory.refactoring"
 	        name="Refactoring">
-	        <keywordReference id="com.googlecode.efactory.ui.keyword_EFactory"/>
+	        <keywordReference id="org.eclipse.emf.eson.ui.keyword_EFactory"/>
 	    </page>
 	</extension>
 
   <extension point="org.eclipse.compare.contentViewers">
-    <viewer id="com.googlecode.efactory.EFactory.compare.contentViewers"
-            class="com.googlecode.efactory.ui.EFactoryExecutableExtensionFactory:org.eclipse.xtext.ui.compare.InjectableViewerCreator"
+    <viewer id="org.eclipse.emf.eson.EFactory.compare.contentViewers"
+            class="org.eclipse.emf.eson.ui.EFactoryExecutableExtensionFactory:org.eclipse.xtext.ui.compare.InjectableViewerCreator"
             extensions="efactory,eson">
     </viewer>
   </extension>
   <extension point="org.eclipse.compare.contentMergeViewers">
-    <viewer id="com.googlecode.efactory.EFactory.compare.contentMergeViewers"
-            class="com.googlecode.efactory.ui.EFactoryExecutableExtensionFactory:org.eclipse.xtext.ui.compare.InjectableViewerCreator"
+    <viewer id="org.eclipse.emf.eson.EFactory.compare.contentMergeViewers"
+            class="org.eclipse.emf.eson.ui.EFactoryExecutableExtensionFactory:org.eclipse.xtext.ui.compare.InjectableViewerCreator"
             extensions="efactory" label="EFactory Compare">
      </viewer>
   </extension>
   <extension point="org.eclipse.ui.editors.documentProviders">
-    <provider id="com.googlecode.efactory.EFactory.editors.documentProviders"
-            class="com.googlecode.efactory.ui.EFactoryExecutableExtensionFactory:org.eclipse.xtext.ui.editor.model.XtextDocumentProvider"
+    <provider id="org.eclipse.emf.eson.EFactory.editors.documentProviders"
+            class="org.eclipse.emf.eson.ui.EFactoryExecutableExtensionFactory:org.eclipse.xtext.ui.editor.model.XtextDocumentProvider"
             extensions="efactory,eson">
     </provider>
   </extension>
 
   <extension point="org.eclipse.ui.editors">
       <editor
-            id="com.googlecode.efactory.ui.EFactoryEcoreEditorID"
+            id="org.eclipse.emf.eson.ui.EFactoryEcoreEditorID"
             name="EFactory Ecore Editor"
-            class="com.googlecode.efactory.ui.EFactoryExecutableExtensionFactory:com.googlecode.efactory.ui.ecoreedit.EFactoryEcoreEditor"
+            class="org.eclipse.emf.eson.ui.EFactoryExecutableExtensionFactory:org.eclipse.emf.eson.ui.ecoreedit.EFactoryEcoreEditor"
             contributorClass="org.eclipse.emf.ecore.presentation.EcoreActionBarContributor"
             default="false"
             extensions="efactory,eson"/>
@@ -335,25 +335,25 @@
         Never mind what the cause - it works now (it needed this, plus registring the EFactoryGenerator in the EFactoryRuntimeModule) 
    -->
    <extension point="org.eclipse.xtext.builder.participant">
-        <participant class="com.googlecode.efactory.ui.EFactoryExecutableExtensionFactory:org.eclipse.xtext.builder.IXtextBuilderParticipant">
+        <participant class="org.eclipse.emf.eson.ui.EFactoryExecutableExtensionFactory:org.eclipse.xtext.builder.IXtextBuilderParticipant">
         </participant>
    </extension>
    <extension point="org.eclipse.ui.preferencePages">
         <page
-            category="com.googlecode.efactory.EFactory"
-            class="com.googlecode.efactory.ui.EFactoryExecutableExtensionFactory:org.eclipse.xtext.builder.preferences.BuilderPreferencePage"
-            id="com.googlecode.efactory.EFactory.compiler.preferencePage"
+            category="org.eclipse.emf.eson.EFactory"
+            class="org.eclipse.emf.eson.ui.EFactoryExecutableExtensionFactory:org.eclipse.xtext.builder.preferences.BuilderPreferencePage"
+            id="org.eclipse.emf.eson.EFactory.compiler.preferencePage"
             name="Compiler">
-            <keywordReference id="com.googlecode.efactory.ui.keyword_EFactory"/>
+            <keywordReference id="org.eclipse.emf.eson.ui.keyword_EFactory"/>
         </page>
     </extension>
     <extension point="org.eclipse.ui.propertyPages">
         <page
-            category="com.googlecode.efactory.EFactory"
-            class="com.googlecode.efactory.ui.EFactoryExecutableExtensionFactory:org.eclipse.xtext.builder.preferences.BuilderPreferencePage"
-            id="com.googlecode.efactory.EFactory.compiler.propertyPage"
+            category="org.eclipse.emf.eson.EFactory"
+            class="org.eclipse.emf.eson.ui.EFactoryExecutableExtensionFactory:org.eclipse.xtext.builder.preferences.BuilderPreferencePage"
+            id="org.eclipse.emf.eson.EFactory.compiler.propertyPage"
             name="Compiler">
-            <keywordReference id="com.googlecode.efactory.ui.keyword_EFactory"/>
+            <keywordReference id="org.eclipse.emf.eson.ui.keyword_EFactory"/>
             <enabledWhen>
 	            <adapt type="org.eclipse.core.resources.IProject"/>
 			</enabledWhen>

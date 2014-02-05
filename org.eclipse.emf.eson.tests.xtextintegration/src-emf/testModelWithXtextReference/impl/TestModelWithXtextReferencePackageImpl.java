@@ -2,15 +2,12 @@
  */
 package testModelWithXtextReference.impl;
 
-import com.googlecode.efactory.xtextintegration.myDsl.MyDslPackage;
-
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-
 import org.eclipse.emf.ecore.impl.EPackageImpl;
-
+import org.eclipse.emf.eson.xtextintegration.myDsl.MyDslPackage;
 import testModelWithXtextReference.TestModelWithXtextReference;
 import testModelWithXtextReference.TestModelWithXtextReferenceFactory;
 import testModelWithXtextReference.TestModelWithXtextReferencePackage;

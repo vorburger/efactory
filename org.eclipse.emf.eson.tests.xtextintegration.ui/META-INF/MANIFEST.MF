@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: com.googlecode.efactory.tests.xtextintegration.ui
-Bundle-Vendor: My Company
+Bundle-Name: ESON xtextintegration Tests UI
+Bundle-Vendor: Eclipse.org
 Bundle-Version: 0.10.0.qualifier
 Bundle-SymbolicName: org.eclipse.emf.eson.tests.xtextintegration.ui;singleton:=true
 Bundle-ActivationPolicy: lazy
@@ -18,7 +18,9 @@ Require-Bundle: org.eclipse.emf.eson.tests.xtextintegration;visibility:=reexport
  org.eclipse.compare
 Import-Package: org.apache.log4j
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Export-Package: com.googlecode.efactory.xtextintegration.ui.contentassist.antlr,
- com.googlecode.efactory.xtextintegration.ui.internal,
- com.googlecode.efactory.xtextintegration.ui.quickfix
-Bundle-Activator: com.googlecode.efactory.xtextintegration.ui.internal.MyDslActivator
+Export-Package: org.eclipse.emf.eson.xtextintegration.ui.contentassist.antlr,
+ org.eclipse.emf.eson.xtextintegration.ui.internal,
+ org.eclipse.emf.eson.xtextintegration.ui.quickfix,
+ org.eclipse.emf.eson.xtextintegration.ui.contentassist.antlr,
+ org.eclipse.emf.eson.xtextintegration.ui.internal
+Bundle-Activator: org.eclipse.emf.eson.xtextintegration.ui.internal.MyDslActivator

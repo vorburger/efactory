@@ -8,16 +8,16 @@ Bundle-ClassPath: .
 Bundle-Vendor: Sebastian Benz & Michael Vorburger
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Export-Package: com.googlecode.efactory.builder.tests,
- com.googlecode.efactory.imports.tests,
- com.googlecode.efactory.ui.contentassist,
- com.googlecode.efactory.ui.contentassist.tests,
- com.googlecode.efactory.tests.util,
- com.googlecode.efactory.util.tests,
+Export-Package: org.eclipse.emf.eson.builder.tests,
+ org.eclipse.emf.eson.imports.tests,
+ org.eclipse.emf.eson.ui.contentassist,
+ org.eclipse.emf.eson.ui.contentassist.tests,
+ org.eclipse.emf.eson.tests.util,
+ org.eclipse.emf.eson.util.tests,
  testmodel,
  testmodel.impl,
  testmodel.util,
- com.googlecode.efactory
+ org.eclipse.emf.eson
 Require-Bundle: org.junit,
  org.eclipse.ui.editors;bundle-version="3.5.0",
  org.eclipse.ui.ide;bundle-version="3.5.0",
