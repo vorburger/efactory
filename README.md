@@ -35,6 +35,10 @@ Note that com.googlecode.efactory.target.target intentionally uses non-latest ve
 because EFactory is used in a closed source product currently still stuck at those older versions, and we want the build
 to catch any unintentional use of newer APIs.  (Thus, ideally, you'd want to use the same TP for build and IDE...)
 
+How to increase the version numbers in pom.xml and MANIFEST.MF and feature.xml files:
+
+   $ mvn -Dtycho.mode=maven org.eclipse.tycho:tycho-versions-plugin:set-version -DnewVersion=X.Y.0-SNAPSHOT
+
 
 Continuous Integration
 ----------------------
