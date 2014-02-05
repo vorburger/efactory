@@ -1,8 +1,5 @@
-efactory
-========
-
-EFactory, clone of https://code.google.com/a/eclipselabs.org/p/efactory/.
-More background e.g. on:
+ESON
+====
 
 * first blog http://blog2.vorburger.ch/2013/06/efactory-ii-xobjects-ehutn.html (incl. the introductory screen cast http://www.youtube.com/watch?v=ToUWqIRHkHY)
 * second blog http://blog2.vorburger.ch/2013/12/efactory-ii-eson-201311-update.html (and it's screencast at http://www.youtube.com/watch?v=fSq_zes4kv8)
@@ -49,3 +46,10 @@ see https://travis-ci.org/vorburger/efactory
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/vorburger/efactory/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
+
+What else?
+----------
+
+ESON was formerly known as EFactory, which originally started out on https://code.google.com/a/eclipselabs.org/p/efactory/.
+
+ESON is also the [Ethnobotanical Society of Nepal](http://www.eson.org.np)! ;)
