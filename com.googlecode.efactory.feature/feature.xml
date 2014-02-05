@@ -2,7 +2,7 @@
 <feature
       id="com.googlecode.efactory.feature"
       label="EFactory Feature"
-      version="0.9.0.qualifier">
+      version="0.10.0.qualifier">
 
    <description url="https://github.com/vorburger/efactory">
       The runtime.
@@ -119,7 +119,7 @@ This Agreement is governed by the laws of the State of New York and the intellec
          id="com.googlecode.efactory"
          download-size="0"
          install-size="0"
-         version="0.9.0.qualifier"
+         version="0.10.0.qualifier"
          unpack="false"/>
 
 </feature>

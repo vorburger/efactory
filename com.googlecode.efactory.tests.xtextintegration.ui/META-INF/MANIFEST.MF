@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: com.googlecode.efactory.tests.xtextintegration.ui
 Bundle-Vendor: My Company
-Bundle-Version: 0.9.0.qualifier
+Bundle-Version: 0.10.0.qualifier
 Bundle-SymbolicName: com.googlecode.efactory.tests.xtextintegration.ui; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: com.googlecode.efactory.tests.xtextintegration;visibility:=reexport,
@@ -18,6 +18,6 @@ Require-Bundle: com.googlecode.efactory.tests.xtextintegration;visibility:=reexp
  org.eclipse.compare
 Import-Package: org.apache.log4j
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Export-Package: com.googlecode.efactory.xtextintegration.ui.contentassist.antlr,
- com.googlecode.efactory.xtextintegration.ui.internal
+Export-Package: com.googlecode.efactory.xtextintegration.ui.contentass
+ ist.antlr,com.googlecode.efactory.xtextintegration.ui.internal
 Bundle-Activator: com.googlecode.efactory.xtextintegration.ui.internal.MyDslActivator
