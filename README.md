@@ -12,7 +12,7 @@ More background e.g. on:
 How to Install?
 ---------------
 
-* Eclipse Help > Install New Software... Add... new Repository Location http://www.vorburger.ch/efactory-repository/
+* Eclipse Help > Install New Software... Add... new Repository Location http://www.vorburger.ch/efactory-repository/  _(Please note that it's normal that this URL 404s if you visit it with a browser - there is no index.html there; it's a p2 site, and nothing much for humans to see... if you install from Eclipse, or depend on it with a Maven Tycho build, it will fetch contents.jar & Co. and work just fine.)_
 
 
 How to Develop?
