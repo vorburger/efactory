@@ -5,6 +5,13 @@ jdk:
 before_install:
 - export DISPLAY=:99.0
 - sh -e /etc/init.d/xvfb start
+#
+# This is required because otherwise any branch is deployed to repo
+# (if I commit; for others, the deploy will fail - shame for PRs)
+# see https://github.com/vorburger/efactory/issues/5
+branches:
+  only:
+    - master
 env:
   global:
     secure: PqtoiyH+wkJDTpyy8B4WfAxOmAN/XTLV1fmZgf8U89u64Kpe+bi17HSk77JGV+sVfGYe+n6nQV6tpx5eH6Ex5l/pSokrlGlpecvE6Xs8DiMPZW6j6dLu1YoNaXPUzTs0xQHmVxJ4M6ioIyMZZ4w2fqDtIOdYNGg2x7NveDb5+wk=
