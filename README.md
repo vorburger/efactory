@@ -19,7 +19,7 @@ Get on the [eclipse-emf-eson-dev Google Group](https://groups.google.com/forum/#
 
 * get an Eclipse Dev IDE with PDE & modeling (Xtext) 
 * import all projects in this repository into Eclipse
-* you should now have no red 'exclamation mark' "The project cannot be built" errors, but will still have normal red 'cross' icons about missing things.  This will get resolve once you run the org.eclipse.emf.eson/src/org/eclipse/emf/eson/GenerateEFactory.mwe2 and then the /org.eclipse.emf.eson.tests.xtextintegration/src/org/eclipse/emf/eson/xtextintegration/GenerateMyDsl.mwe2.
+* you should now have no red 'exclamation mark' "The project cannot be built" errors, but will still have normal red 'cross' icons about missing things.  This will get resolve once you run the org.eclipse.emf.eson/src/org/eclipse/emf/eson/GenerateEFactory.mwe2 and then the /org.eclipse.emf.eson.tests.xtextintegration/src/org/eclipse/emf/eson/xtextintegration/GenerateMyDsl.mwe2.  Ignore the "errors existing in require project(s)" - just run the *.mwe2.  If you hit a FileNotFoundOnClasspathException ...  Couldn't find resource on classpath. URI was 'classpath:*.xtext' then you might need a Clean all project.
 * if needed, Window > Preferences > Plug-In Development > Target Platform: Switch to EFactory as active target definition (from org.eclipse.emf.eson.target/org.eclipse.emf.eson.target.target) 
 
 The Target Platform is known to be a PITA, so if you have problems with above,
