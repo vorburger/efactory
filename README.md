@@ -18,8 +18,9 @@ How to Develop?
 Get on the [eclipse-emf-eson-dev Google Group](https://groups.google.com/forum/#!forum/eclipse-emf-eson-dev) and start yapping...
 
 * get an Eclipse Dev IDE with PDE & modeling (Xtext) 
-* import all projects in this repository into Eclipse 
-* Window > Preferences > Plug-In Development > Target Platform: Switch to EFactory as active target definition (from org.eclipse.emf.eson.target/org.eclipse.emf.eson.target.target) 
+* import all projects in this repository into Eclipse
+* you should now have no red 'exclamation mark' "The project cannot be built" errors, but will still have normal red 'cross' icons about missing things.  This will get resolve once you run the org.eclipse.emf.eson/src/org/eclipse/emf/eson/GenerateEFactory.mwe2 and then the /org.eclipse.emf.eson.tests.xtextintegration/src/org/eclipse/emf/eson/xtextintegration/GenerateMyDsl.mwe2.
+* if needed, Window > Preferences > Plug-In Development > Target Platform: Switch to EFactory as active target definition (from org.eclipse.emf.eson.target/org.eclipse.emf.eson.target.target) 
 
 The Target Platform is known to be a PITA, so if you have problems with above,
 you might instead want to simply use your "Running Platform" as TP.. you'll most likely
