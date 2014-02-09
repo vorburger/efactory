@@ -126,7 +126,8 @@ public class EFactoryJSONGenerator implements IGenerator {
 			}
 			sb.append(']');
 		} else if (value instanceof Reference) {
-			// TODO handle this... ;-)
+			// TODO handle this... ;-) but we have to emmit something, not nothing, else JSON would be broken
+			generateJSON(sb, "TODO");
 		}
 	}
 
