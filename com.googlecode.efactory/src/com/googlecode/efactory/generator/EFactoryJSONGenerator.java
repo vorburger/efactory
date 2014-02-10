@@ -66,22 +66,39 @@ public class EFactoryJSONGenerator implements IGenerator {
 		// see JavaDoc comment above at the top class level re. this impl:
 		sb.append('{');
 		boolean first = true;
-		// TODO handle this: if (newObject.getName() != null)
+		
+		// TODO if(... only generate _type if there sub-types?
+		generateJSONName(sb, "_type");
+		generateJSON(sb, newObject.getEClass().getName() );
+		first = false;
+
+		if (newObject.getName() != null) {
+			if (!first)
+				sb.append(',');
+			else
+				first = false;
+			generateJSONName(sb, "name"); // TODO this is a quick hack, cauz the name may not actually be in an attribute named "name", if you see what I mean.. ;)
+			generateJSON(sb, newObject.getName());
+		}
+		
 		for (Feature feature : newObject.getFeatures()) {
 			if (!first) {
 				sb.append(',');
 			} else {
 				first = false;
 			}
-			String name = feature.getEFeature().getName();
-			generateJSON(sb, name);
-			sb.append(':');
+			generateJSONName(sb, feature.getEFeature().getName());
 			Value value = feature.getValue();
 			generateJSON(sb, value);
 		}
 		sb.append('}');
 	}
 
+	protected void generateJSONName(StringBuilder sb, String name) {
+		generateJSON(sb, name);
+		sb.append(':');
+	}
+		
 	protected void generateJSON(StringBuilder sb, Value value) {
 		if (value instanceof Attribute) {
 			if (value instanceof StringAttribute) {

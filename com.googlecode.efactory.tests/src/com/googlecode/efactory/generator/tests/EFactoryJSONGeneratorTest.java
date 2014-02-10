@@ -11,6 +11,7 @@
 package com.googlecode.efactory.generator.tests;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -65,7 +66,9 @@ public class EFactoryJSONGeneratorTest {
 		//System.out.println(EFactoryJSONGeneratorTest.class.getName() + ":\n" + jsonText);
 		JsonObject jsonObject = JsonObject.readFrom(jsonText);
 		List<String> names = jsonObject.names();
-		assertEquals(2, names.size());
+		assertEquals(4, names.size());
+		assertTrue(jsonText.contains("testModelName"));
+		assertTrue(jsonText.contains("TestModel"));
 	}
 	
 	@Test public void testGetProjectRelativeFileName() {
