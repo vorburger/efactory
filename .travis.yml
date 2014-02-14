@@ -1,5 +1,7 @@
 language: java
-script: mvn -Pdeploy clean install
+# Do NOT deploy (to https://github.com/vorburger/efactory-repository) from this eclipse.org branch
+# script: mvn -Pdeploy clean install
+script: mvn clean install
 jdk:
 - openjdk6
 before_install:
