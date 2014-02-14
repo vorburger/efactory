@@ -5,6 +5,7 @@ jdk:
 before_install:
 - export DISPLAY=:99.0
 - sh -e /etc/init.d/xvfb start
+install: echo 'Skipping useless Travis default mvn install -DskipTests=true -B -V'
 #
 # This is required because otherwise any branch is deployed to repo
 # (if I commit; for others, the deploy will fail - shame for PRs)
