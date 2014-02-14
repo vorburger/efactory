@@ -7,6 +7,7 @@ jdk:
 before_install:
 - export DISPLAY=:99.0
 - sh -e /etc/init.d/xvfb start
+install: echo 'Skipping useless Travis default mvn install -DskipTests=true -B -V'
 env:
   global:
     secure: PqtoiyH+wkJDTpyy8B4WfAxOmAN/XTLV1fmZgf8U89u64Kpe+bi17HSk77JGV+sVfGYe+n6nQV6tpx5eH6Ex5l/pSokrlGlpecvE6Xs8DiMPZW6j6dLu1YoNaXPUzTs0xQHmVxJ4M6ioIyMZZ4w2fqDtIOdYNGg2x7NveDb5+wk=
