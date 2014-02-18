@@ -18,10 +18,10 @@ import testmodel.TestModel;
 
 import com.googlecode.efactory.eFactory.Factory;
 import com.googlecode.efactory.resource.EFactoryResource;
+import com.googlecode.efactory.tests.util.Find;
 import com.googlecode.efactory.tests.util.ResourceProvider;
 import com.googlecode.efactory.tests.util.TestConstants;
 import com.googlecode.efactory.tests.util.TestSetup;
-import com.googlecode.efactory.util.Find;
 
 public abstract class AbstractModelBuilderTest extends TestCase {
 

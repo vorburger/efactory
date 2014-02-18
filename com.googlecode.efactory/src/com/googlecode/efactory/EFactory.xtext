@@ -19,15 +19,10 @@ Import: // @deprecated.. once the index-based approach works & well tested, this
 	);
 
 Annotation:
-	NameMapping;
+	CustomNameMapping;
 
 // TODO further consider if name mapping is best put in-line into objects.. it would have to repeat in every file..
 // logically this rather belongs into an external mapping, like HUTN's Configuration (HutnConfig), or even better directly into an Xcore as annotations 
-NameMapping:
-	GlobalNameMapping | CustomNameMapping;
-
-GlobalNameMapping:
-	"@Name" "{" nameFeature=ID "}" ;
 
 CustomNameMapping:
 	"@Name" "{" eClass=[ecore::EClass|QualifiedName] "=" nameFeature=[ecore::EAttribute] "}" ;

@@ -8,23 +8,7 @@
  * Contributors:
  *     Sebastian Benz - initial API and implementation
  ******************************************************************************/
-/**
- * <copyright>
- *
- * Copyright (c) 2002-2006 Sebastian Benz and others.
- * All rights reserved.   This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- * 
- * Contributors: 
- *   Sebastian Benz - Initial API and implementation
- *
- * </copyright>
- *
- * 
- */
-package com.googlecode.efactory.util;
+package com.googlecode.efactory.tests.util;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -39,6 +23,7 @@ import org.eclipse.xtext.util.SimpleAttributeResolver;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterators;
+import com.googlecode.efactory.util.SingletonIterator;
 
 public final class Find {
 
@@ -59,6 +44,10 @@ public final class Find {
 		return candidateClass.cast(result);
 	}
 
+	/**
+	 * This method is for tests only, as it doesn't scale in non-test (production) code to scan an entire ResourceSet.
+	 */
+	@Deprecated
 	public static <T extends EObject> Iterator<T> allInResourceSet(EObject context, Class<T> type) {
 		Iterator<EObject> contentIterator = getResourceSetIterator(context);
 		return Iterators.filter(contentIterator, type);
@@ -76,6 +65,7 @@ public final class Find {
 		}
 		return result;
 	}
+	
 	private static Iterator<EObject> getResourceSetIterator(ResourceSet resourceSet) {
 		Iterator<EObject> result = Iterators.emptyIterator();
 		for (Resource resource : resourceSet.getResources()) {
@@ -85,14 +75,12 @@ public final class Find {
 	}
 
 	private static Iterator<EObject> getRootObjectIterator(EObject context) {
-
 		EObject rootContainer = EcoreUtil.getRootContainer(context);
 		Iterator<EObject> result = SingletonIterator.create(rootContainer);
 		return Iterators.concat(result, rootContainer.eAllContents());
 	}
 
-	public static <T extends EObject> List<T> allAncestors(EObject root,
-			Class<T> type) {
+	public static <T extends EObject> List<T> allAncestors(EObject root, Class<T> type) {
 		List<T> result = new ArrayList<T>();
 		Iterator<EObject> iterator = root.eAllContents();
 		while (iterator.hasNext()) {

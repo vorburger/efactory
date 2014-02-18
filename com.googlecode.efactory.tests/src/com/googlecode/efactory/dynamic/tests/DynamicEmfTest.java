@@ -12,8 +12,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import com.googlecode.efactory.EFactoryInjectorProvider;
+import com.googlecode.efactory.tests.util.Find;
 import com.googlecode.efactory.tests.util.ResourceProvider;
-import com.googlecode.efactory.util.Find;
 
 @RunWith(XtextRunner.class)
 @InjectWith(EFactoryInjectorProvider.class)
