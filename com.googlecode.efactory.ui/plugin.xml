@@ -360,5 +360,22 @@
 	        <filter name="projectNature" value="org.eclipse.xtext.ui.shared.xtextNature"/>
         </page>
     </extension>
+    <extension
+          point="org.eclipse.ui.bindings">
+       <key
+             commandId="com.odcgroup.workbench.generation.ui.SaveAndGenerate"
+             contextId="com.googlecode.efactory.ui.context"
+             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+             sequence="M1+G">
+       </key>
+    </extension>
+    <extension
+          point="org.eclipse.ui.contexts">
+       <context
+             id="com.googlecode.efactory.ui.context"
+             name="Efactory context"
+             parentId="org.eclipse.ui.contexts.window">
+       </context>
+    </extension>
 
 </plugin>
