@@ -79,12 +79,16 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.ui.IActionBars;
+import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.contexts.IContextService;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
 import org.eclipse.ui.views.properties.PropertySheet;
 import org.eclipse.ui.views.properties.PropertySheetPage;
@@ -116,6 +120,7 @@ import com.googlecode.efactory.resource.EFactoryResource;
 
 public class EFactoryWithTreeEditor extends XtextEditor implements IEditingDomainProvider,IMenuListener,ISelectionProvider{
 	private final static Logger LOGGER = Logger.getLogger(EFactoryWithTreeEditor.class);
+	
 
 	private TreeViewer selectionViewer;
 	private AdapterFactoryEditingDomain editingDomain;
@@ -694,5 +699,14 @@ public class EFactoryWithTreeEditor extends XtextEditor implements IEditingDomai
 			selectionViewer = null;
 			currentViewer = null;
 			super.dispose();
+		}
+		
+		@Override
+		public void init(IEditorSite site, IEditorInput input) throws PartInitException {
+			super.init(site, input);
+			IContextService contextService = (IContextService) getSite().getService(IContextService.class);
+			if (contextService != null) {
+				contextService.activateContext("com.googlecode.efactory.ui.context");
+			}
 		}
 }
