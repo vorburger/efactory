@@ -16,6 +16,12 @@ import javax.inject.Inject;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.eson.eFactory.Containment;
+import org.eclipse.emf.eson.eFactory.Feature;
+import org.eclipse.emf.eson.eFactory.MultiValue;
+import org.eclipse.emf.eson.eFactory.NewObject;
+import org.eclipse.emf.eson.services.EFactoryGrammarAccess;
+import org.eclipse.emf.eson.ui.contentassist.future.FilteringCompletionProposalAcceptor;
 import org.eclipse.emf.eson.util.EcoreUtil3;
 import org.eclipse.jface.text.contentassist.ICompletionProposal;
 import org.eclipse.jface.viewers.StyledString;
@@ -31,12 +37,6 @@ import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext;
 import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor;
 
 import com.google.common.base.Predicate;
-import org.eclipse.emf.eson.eFactory.Containment;
-import org.eclipse.emf.eson.eFactory.Feature;
-import org.eclipse.emf.eson.eFactory.MultiValue;
-import org.eclipse.emf.eson.eFactory.NewObject;
-import org.eclipse.emf.eson.services.EFactoryGrammarAccess;
-import org.eclipse.emf.eson.ui.contentassist.future.FilteringCompletionProposalAcceptor;
 
 /**
  * Restricted ProposalProvider,
@@ -173,6 +173,16 @@ public class EFactoryProposalProvider extends AbstractEFactoryProposalProvider {
 		String[] proposals = attributeProposalProvider.getProposals(eAttribute);
 		for (String proposal : proposals) {
 			acceptor.accept(createCompletionProposal(proposal, context));
+		}
+	}
+	
+	@Override
+	public void complete_EnumAttribute(EObject model, RuleCall ruleCall,
+			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		final EObject container = model.eContainer();
+		if (container instanceof Feature) {
+			final Feature feature = (Feature) container;
+			complete_Attribute(feature, ruleCall, context, acceptor);
 		}
 	}
 	
