@@ -176,6 +176,16 @@ public class EFactoryProposalProvider extends AbstractEFactoryProposalProvider {
 		}
 	}
 	
+	@Override
+	public void complete_EnumAttribute(EObject model, RuleCall ruleCall,
+			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		final EObject container = model.eContainer();
+		if (container instanceof Feature) {
+			final Feature feature = (Feature) container;
+			complete_Attribute(feature, ruleCall, context, acceptor);
+		}
+	}
+	
 /*  TODO write tests for completion with references! is (something like) this needed:
 	 
 	@Override
