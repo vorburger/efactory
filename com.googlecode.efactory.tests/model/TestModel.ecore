@@ -18,6 +18,8 @@
         eType="#//AttributeTestContainer" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="nameAttributeTest" upperBound="-1"
         eType="#//NameAttributeContainer" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="enumListTestContainer"
+        upperBound="-1" eType="#//EnumListTestContainer" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Child">
     <eStructuralFeatures xsi:type="ecore:EReference" name="referenceList" upperBound="-1"
@@ -116,5 +118,9 @@
   <eClassifiers xsi:type="ecore:EEnum" name="SampleEnum">
     <eLiterals name="Sample"/>
     <eLiterals name="Sample2" value="1" literal="Sample2"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EnumListTestContainer">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="sampleLiterals" upperBound="-1"
+        eType="#//SampleEnum"/>
   </eClassifiers>
 </ecore:EPackage>

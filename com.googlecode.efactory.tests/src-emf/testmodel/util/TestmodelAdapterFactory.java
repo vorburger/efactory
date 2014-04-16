@@ -163,6 +163,10 @@ public class TestmodelAdapterFactory extends AdapterFactoryImpl {
 				return createNoNameAdapter();
 			}
 			@Override
+			public Adapter caseEnumListTestContainer(EnumListTestContainer object) {
+				return createEnumListTestContainerAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -426,6 +430,20 @@ public class TestmodelAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createNoNameAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link testmodel.EnumListTestContainer <em>Enum List Test Container</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see testmodel.EnumListTestContainer
+	 * @generated
+	 */
+	public Adapter createEnumListTestContainerAdapter() {
 		return null;
 	}
 

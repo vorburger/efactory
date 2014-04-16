@@ -35,6 +35,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link testmodel.TestModel#getReferenceTestContainer <em>Reference Test Container</em>}</li>
  *   <li>{@link testmodel.TestModel#getAttributeTest <em>Attribute Test</em>}</li>
  *   <li>{@link testmodel.TestModel#getNameAttributeTest <em>Name Attribute Test</em>}</li>
+ *   <li>{@link testmodel.TestModel#getEnumListTestContainer <em>Enum List Test Container</em>}</li>
  * </ul>
  * </p>
  *
@@ -239,5 +240,21 @@ public interface TestModel extends EObject {
 	 * @generated
 	 */
 	EList<NameAttributeContainer> getNameAttributeTest();
+
+	/**
+	 * Returns the value of the '<em><b>Enum List Test Container</b></em>' containment reference list.
+	 * The list contents are of type {@link testmodel.EnumListTestContainer}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Enum List Test Container</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Enum List Test Container</em>' containment reference list.
+	 * @see testmodel.TestmodelPackage#getTestModel_EnumListTestContainer()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<EnumListTestContainer> getEnumListTestContainer();
 
 } // TestModel

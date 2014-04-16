@@ -29,6 +29,7 @@ import testmodel.AttributeTestContainer;
 import testmodel.Child;
 import testmodel.CustomName;
 import testmodel.DefaultName;
+import testmodel.EnumListTestContainer;
 import testmodel.Interface;
 import testmodel.NameAttributeContainer;
 import testmodel.NestedElement;
@@ -152,6 +153,13 @@ public class TestmodelPackageImpl extends EPackageImpl implements
 	 * @generated
 	 */
 	private EClass noNameEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass enumListTestContainerEClass = null;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -300,6 +308,15 @@ public class TestmodelPackageImpl extends EPackageImpl implements
 	 */
 	public EReference getTestModel_NameAttributeTest() {
 		return (EReference)testModelEClass.getEStructuralFeatures().get(8);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getTestModel_EnumListTestContainer() {
+		return (EReference)testModelEClass.getEStructuralFeatures().get(9);
 	}
 
 	/**
@@ -808,6 +825,24 @@ public class TestmodelPackageImpl extends EPackageImpl implements
 	}
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getEnumListTestContainer() {
+		return enumListTestContainerEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getEnumListTestContainer_SampleLiterals() {
+		return (EAttribute)enumListTestContainerEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -851,6 +886,7 @@ public class TestmodelPackageImpl extends EPackageImpl implements
 		createEReference(testModelEClass, TEST_MODEL__REFERENCE_TEST_CONTAINER);
 		createEReference(testModelEClass, TEST_MODEL__ATTRIBUTE_TEST);
 		createEReference(testModelEClass, TEST_MODEL__NAME_ATTRIBUTE_TEST);
+		createEReference(testModelEClass, TEST_MODEL__ENUM_LIST_TEST_CONTAINER);
 
 		childEClass = createEClass(CHILD);
 		createEReference(childEClass, CHILD__REFERENCE_LIST);
@@ -931,6 +967,9 @@ public class TestmodelPackageImpl extends EPackageImpl implements
 
 		noNameEClass = createEClass(NO_NAME);
 
+		enumListTestContainerEClass = createEClass(ENUM_LIST_TEST_CONTAINER);
+		createEAttribute(enumListTestContainerEClass, ENUM_LIST_TEST_CONTAINER__SAMPLE_LITERALS);
+
 		// Create enums
 		sampleEnumEEnum = createEEnum(SAMPLE_ENUM);
 	}
@@ -978,6 +1017,7 @@ public class TestmodelPackageImpl extends EPackageImpl implements
 		initEReference(getTestModel_ReferenceTestContainer(), this.getReferenceTestContainer(), null, "referenceTestContainer", null, 0, -1, TestModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getTestModel_AttributeTest(), this.getAttributeTestContainer(), null, "attributeTest", null, 0, -1, TestModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getTestModel_NameAttributeTest(), this.getNameAttributeContainer(), null, "nameAttributeTest", null, 0, -1, TestModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTestModel_EnumListTestContainer(), this.getEnumListTestContainer(), null, "enumListTestContainer", null, 0, -1, TestModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(childEClass, Child.class, "Child", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getChild_ReferenceList(), this.getSingleRequired(), null, "referenceList", null, 0, -1, Child.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1057,6 +1097,9 @@ public class TestmodelPackageImpl extends EPackageImpl implements
 		initEAttribute(getCustomName_Id(), ecorePackage.getEString(), "id", null, 0, 1, CustomName.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(noNameEClass, NoName.class, "NoName", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(enumListTestContainerEClass, EnumListTestContainer.class, "EnumListTestContainer", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getEnumListTestContainer_SampleLiterals(), this.getSampleEnum(), "sampleLiterals", null, 0, -1, EnumListTestContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(sampleEnumEEnum, SampleEnum.class, "SampleEnum");
