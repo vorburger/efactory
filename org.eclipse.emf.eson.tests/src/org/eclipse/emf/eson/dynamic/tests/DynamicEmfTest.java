@@ -4,6 +4,8 @@ import javax.inject.Inject;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.impl.DynamicEObjectImpl;
+import org.eclipse.emf.eson.EFactoryInjectorProvider;
+import org.eclipse.emf.eson.tests.util.ResourceProvider;
 import org.eclipse.emf.eson.util.Find;
 import org.eclipse.xtext.junit4.InjectWith;
 import org.eclipse.xtext.junit4.XtextRunner;
@@ -11,9 +13,6 @@ import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import org.eclipse.emf.eson.EFactoryInjectorProvider;
-import org.eclipse.emf.eson.tests.util.ResourceProvider;
 
 @RunWith(XtextRunner.class)
 @InjectWith(EFactoryInjectorProvider.class)

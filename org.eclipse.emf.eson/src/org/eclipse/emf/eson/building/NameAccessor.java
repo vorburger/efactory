@@ -26,32 +26,25 @@
  */
 package org.eclipse.emf.eson.building;
 
-import java.util.Iterator;
+import java.util.Collections;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.eson.eFactory.CustomNameMapping;
+import org.eclipse.emf.eson.eFactory.EFactoryPackage;
+import org.eclipse.emf.eson.eFactory.Factory;
+import org.eclipse.emf.eson.resource.EFactoryResource;
 import org.eclipse.emf.eson.util.Check;
-import org.eclipse.emf.eson.util.Find;
-import org.eclipse.emf.eson.util.SingletonIterator;
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.xtext.EcoreUtil2;
 
-import com.google.common.collect.Iterators;
-import org.eclipse.emf.eson.eFactory.CustomNameMapping;
-import org.eclipse.emf.eson.eFactory.EFactoryPackage;
-import org.eclipse.emf.eson.eFactory.GlobalNameMapping;
-import org.eclipse.emf.eson.eFactory.impl.GlobalNameMappingImpl;
+import com.google.common.collect.Iterables;
 
 public class NameAccessor {
 
 	protected static final String DFEAULT_NAME_FEATURE = "name";
-	GlobalNameMapping defaultNameMapping = new GlobalNameMappingImpl() {
-		@Override
-		public String getNameFeature() {
-			return DFEAULT_NAME_FEATURE;
-		};
-	};
 
 	public void setName(EObject context, EObject eObject, String name) throws NoNameFeatureMappingException {
 		Check.hasEPackage(context, EFactoryPackage.eINSTANCE);
@@ -69,14 +62,12 @@ public class NameAccessor {
 		return name.toString();
 	}
 	
-	private void setName(EObject eObject, String name, EAttribute nameAttribute) {
+	protected void setName(EObject eObject, String name, EAttribute nameAttribute) {
 		eObject.eSet(nameAttribute, name);
 	}
 
 	public @NonNull EAttribute getNameAttribute(EObject context, EObject eObject) throws NoNameFeatureMappingException {
-		Iterator<CustomNameMapping> customMappings = getCustomNameMappings(context);
-		while (customMappings.hasNext()) {
-			CustomNameMapping mapping = customMappings.next();
+		for (CustomNameMapping mapping : getCustomNameMappings(context)) {
 			if (EcoreUtil2.isAssignableFrom(mapping.getEClass(), eObject.eClass())) {
 				EAttribute attribute = mapping.getNameFeature();
 				if (attribute != null)
@@ -85,20 +76,12 @@ public class NameAccessor {
 					throw newNoNameFeatureMappingException(eObject);
 			}
 		}
-
-		Iterator<GlobalNameMapping> globalMappings = getGlobalNameMappings(context);
-		if (globalMappings.hasNext()) {
-			GlobalNameMapping mapping = globalMappings.next();
-			if (hasEAttribute(eObject, mapping.getNameFeature())) {
-				EAttribute attribute = getNameAttribute(mapping, eObject);
-				if (attribute != null)
-					return attribute;
-				else
-					throw newNoNameFeatureMappingException(eObject);
-			}
-		}
-
-		throw newNoNameFeatureMappingException(eObject);
+		// If no explicit mapping found, fall back to default:
+		EStructuralFeature defaultNameFeature = eObject.eClass().getEStructuralFeature(DFEAULT_NAME_FEATURE);
+		if (defaultNameFeature != null)
+			return (EAttribute) defaultNameFeature;
+		else
+			throw newNoNameFeatureMappingException(eObject);
 	}
 
 	protected NoNameFeatureMappingException newNoNameFeatureMappingException(EObject eObject) throws NoNameFeatureMappingException {
@@ -107,28 +90,15 @@ public class NameAccessor {
 						+ eObject.eClass().getName() + "'");
 	}
 
-	private boolean hasEAttribute(EObject eObject, String nameFeature) {
-		return getFeature(eObject, nameFeature) != null;
-	}
-
-	private EStructuralFeature getFeature(EObject eObject, String nameFeature) {
-		return eObject.eClass().getEStructuralFeature(nameFeature);
-	}
-
-	private EAttribute getNameAttribute(GlobalNameMapping mapping, EObject eObject) {
-		return (EAttribute) getFeature(eObject, mapping.getNameFeature());
-	}
-	
-	private Iterator<GlobalNameMapping> getGlobalNameMappings(EObject context) {
-		Iterator<GlobalNameMapping> globalMappings = Find.allInResourceSet(
-				context, GlobalNameMapping.class);
-		globalMappings = Iterators.concat(globalMappings, SingletonIterator
-				.create(defaultNameMapping));
-		return globalMappings;
-	}
-
-	private Iterator<CustomNameMapping> getCustomNameMappings(EObject context) {
-		return Find.allInResourceSet(context, CustomNameMapping.class);
+	protected Iterable<CustomNameMapping> getCustomNameMappings(EObject context) {
+		Resource eResource = context.eResource();
+		if (eResource != null) {
+			EFactoryResource eFactoryResource = (EFactoryResource) eResource;
+			Factory factory = eFactoryResource.getEFactoryFactory();
+			if (factory != null)
+				return Iterables.filter(factory.getAnnotations(), CustomNameMapping.class);
+		}
+		return Collections.emptyList();
 	}
 
 }

@@ -13,15 +13,14 @@ package org.eclipse.emf.eson.builder.tests;
 import junit.framework.TestCase;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.eson.resource.EFactoryResource;
-import org.eclipse.emf.eson.util.Find;
-
-import testmodel.TestModel;
-
 import org.eclipse.emf.eson.eFactory.Factory;
+import org.eclipse.emf.eson.resource.EFactoryResource;
 import org.eclipse.emf.eson.tests.util.ResourceProvider;
 import org.eclipse.emf.eson.tests.util.TestConstants;
 import org.eclipse.emf.eson.tests.util.TestSetup;
+import org.eclipse.emf.eson.util.Find;
+
+import testmodel.TestModel;
 
 public abstract class AbstractModelBuilderTest extends TestCase {
 
