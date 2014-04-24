@@ -10,10 +10,28 @@
 	
 	<properties>
 		<tycho-version>0.20.0</tycho-version>
-		<!-- <xtext-version>2.3.1</xtext-version> -->
+		<!-- <xtext-version>2.5.3</xtext-version> -->
 		<fornax-version>3.4.0</fornax-version>
 	</properties>
-  
+ 
+	<repositories>
+		<repository>
+			<id>p2.eclipse.juno</id>
+			<url>http://download.eclipse.org/releases/juno</url>
+			<layout>p2</layout>
+		</repository>
+		<repository>
+			<id>p2.eclipse.xtext</id>
+			<url>http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/</url>
+			<layout>p2</layout>
+		</repository>
+		<repository>
+			<id>p2.eclipse.emf.compare</id>
+			<url>http://download.eclipse.org/modeling/emf/compare/updates/releases/</url>
+			<layout>p2</layout>
+		</repository>
+	</repositories>
+
 	<pluginRepositories>
 		<!-- Repository to resolve fornax-oaw-m2-plugin -->
 		<pluginRepository>
@@ -26,7 +44,6 @@
 	</pluginRepositories>
 	
 	<modules>
-		<module>org.eclipse.emf.eson.target</module>
 		<module>org.eclipse.emf.eson</module>
 		<module>org.eclipse.emf.eson.feature</module>
 		<module>org.eclipse.emf.eson.ui</module>
@@ -101,13 +118,6 @@
 				<artifactId>target-platform-configuration</artifactId>
 				<version>${tycho-version}</version>
 				<configuration>
-					<target>
-						<artifact>
-							<groupId>org.eclipse.emf.eson</groupId>
-							<artifactId>org.eclipse.emf.eson.target</artifactId>
-							<version>${project.version}</version>
-						</artifact>
-					</target>
 					<environments>
 						<environment>
 							<os>linux</os>
