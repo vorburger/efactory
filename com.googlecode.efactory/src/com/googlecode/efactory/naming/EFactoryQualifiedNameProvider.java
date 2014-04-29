@@ -11,8 +11,8 @@
 package com.googlecode.efactory.naming;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider;
 import org.eclipse.xtext.naming.QualifiedName;
-import org.eclipse.xtext.naming.SimpleNameProvider;
 
 import com.googlecode.efactory.eFactory.EFactoryPackage;
 
@@ -28,7 +28,7 @@ import com.googlecode.efactory.eFactory.EFactoryPackage;
  * 
  * @author Michael Vorburger
  */
-public class EFactoryQualifiedNameProvider extends SimpleNameProvider {
+public class EFactoryQualifiedNameProvider extends DefaultDeclarativeQualifiedNameProvider {
 	// TODO make this more pluggable.. the core logic below (skip our own) should be "core", the actual naming resolution itself should be Guice pluggable?
 	
 	@Override
