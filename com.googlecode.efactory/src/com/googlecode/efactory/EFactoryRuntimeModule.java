@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat;
 
 import org.apache.log4j.Logger;
 import org.eclipse.xtext.generator.IGenerator;
+import org.eclipse.xtext.naming.IQualifiedNameProvider;
 import org.eclipse.xtext.parser.antlr.IReferableElementsUnloader;
 import org.eclipse.xtext.parser.antlr.IReferableElementsUnloader.GenericUnloader;
 import org.eclipse.xtext.resource.IDerivedStateComputer;
@@ -30,6 +31,7 @@ import com.google.inject.name.Names;
 import com.googlecode.efactory.conversion.DATEValueConverter;
 import com.googlecode.efactory.conversion.TerminalConverters;
 import com.googlecode.efactory.generator.EFactoryJSONGenerator;
+import com.googlecode.efactory.naming.EFactoryQualifiedNameProvider;
 import com.googlecode.efactory.resource.EFactoryDerivedStateComputer;
 import com.googlecode.efactory.resource.EFactoryLocationInFileProvider;
 import com.googlecode.efactory.resource.EFactoryResourceServiceProvider;
@@ -112,5 +114,9 @@ public class EFactoryRuntimeModule extends com.googlecode.efactory.AbstractEFact
 	public Class<? extends IResourceServiceProvider> bindIResourceServiceProvider() {
 		return EFactoryResourceServiceProvider.class;
 	}
-	
+
+	@Override
+	public Class<? extends IQualifiedNameProvider> bindIQualifiedNameProvider() {
+		return EFactoryQualifiedNameProvider.class;
+	}
 }
