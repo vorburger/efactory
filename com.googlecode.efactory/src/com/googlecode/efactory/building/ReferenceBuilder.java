@@ -26,8 +26,13 @@
  */
 package com.googlecode.efactory.building;
 
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import com.googlecode.efactory.eFactory.NewObject;
 import com.googlecode.efactory.eFactory.Reference;
@@ -55,13 +60,18 @@ public class ReferenceBuilder extends FeatureBuilder {
 		EcoreUtil3.setOrAddValue(getContainer(), eFeature, newValue);
 	}
 	
-	private EObject getReferencedObject() throws ModelBuilderException {
+	protected EObject getReferencedObject() throws ModelBuilderException {
 		// TODO change reference to be ReferenceImpl not Reference, and save cast here
 		EObject referencedObject = ((ReferenceImpl)reference).basicGetValue();
 		if (referencedObject.eIsProxy()) {
-			// TODO Think this over.. if this ends up working, I can get entirely rid of the ReferenceBuilder ..
-			// TODO this is currently an EObjectImpl EMF proxy, but that leads to ClassCastException.. it needs to be made an instance of the right type. How?? 
-			return referencedObject;
+			// TODO Doc subclass problem.. :-(
+			EReference eRef = (EReference) getFeature().getEFeature();
+			EClass refEClass = eRef.getEReferenceType();
+			InternalEObject newProxy = (InternalEObject) EcoreUtil.create(refEClass);
+			URI proxyURI = ((InternalEObject)referencedObject).eProxyURI();
+			newProxy.eSetProxyURI(proxyURI);
+			return newProxy;
+			
 //			// @see Partial2Test.testPartiallyTypedResourceNoExceptions & Partial2Test.efactory
 //			URI uri = ((InternalEObject)referencedObject).eProxyURI(); 
 //			String fragment = uri.fragment();
