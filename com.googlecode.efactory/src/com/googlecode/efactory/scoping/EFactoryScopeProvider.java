@@ -16,12 +16,15 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.Scopes;
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider;
+import org.eclipse.xtext.scoping.impl.FilteringScope;
 import org.eclipse.xtext.scoping.impl.SimpleScope;
 
+import com.google.common.base.Predicate;
 import com.google.inject.Inject;
 import com.googlecode.efactory.eFactory.Attribute;
 import com.googlecode.efactory.eFactory.CustomNameMapping;
@@ -95,18 +98,20 @@ public class EFactoryScopeProvider extends AbstractDeclarativeScopeProvider {
 		return IScope.NULLSCOPE;
 	}
 
-// TODO HACK to move forward - must better understand & clean up.. 
-//	public IScope scope_Reference_value(Feature feature, EReference eReference) {
-//		EStructuralFeature sourceFeature = feature.getEFeature();
-//		if (EcoreUtil3.isEReference(sourceFeature)) {
-//			EReference realEReference = (EReference) sourceFeature;
-//			EObject context = feature.eContainer(); // This isn't correct of course.. it will be the NewObject instead of the real EObject created to mirror it... but as that may not be available yet, and this works, it's good enough.
-//			IScope parentScope = delegateGetScope(context, realEReference);
-//			// TODO double check if there are duplicates now? Then filter them here..
-//			return eReferenceScopeProvider.get(parentScope, feature.eResource(), (EClass) sourceFeature.getEType());
-//		}
-//		return IScope.NULLSCOPE;
-//	}
+	public IScope scope_Reference_value(Feature feature, EReference eReference) {
+		EStructuralFeature sourceFeature = feature.getEFeature();
+		if (EcoreUtil3.isEReference(sourceFeature)) {
+			EReference realEReference = (EReference) sourceFeature;
+			IScope parentScope = delegateGetScope(feature, realEReference);
+			final EClass referenceType = realEReference.getEReferenceType();
+			return new FilteringScope(parentScope, new Predicate<IEObjectDescription>() {
+				public boolean apply(IEObjectDescription desc) {
+					return referenceType.isSuperTypeOf(desc.getEClass());
+				}
+			});
+		}
+		return IScope.NULLSCOPE;
+	}
 
 	public IScope scope_CustomNameMapping_nameFeature(
 			CustomNameMapping mapping, EReference reference) {
