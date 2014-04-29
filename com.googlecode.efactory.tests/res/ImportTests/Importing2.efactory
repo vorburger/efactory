@@ -3,6 +3,6 @@ use testmodel.*
 TestModel ImportTest {
 
 	singleRequired: SingleRequired test {
-		parentReference: ImportedTestModel 
+		parentReference: ImportedTestModel2
 	}
 }         
