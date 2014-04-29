@@ -7,7 +7,7 @@
  * 
  * Contributors:
  *     Sebastian Benz - initial API and implementation
- *     Michael Vorburger - made more robust, handling inconsistent state during editing
+ *     Michael Vorburger - made more robust & lazy, handling inconsistent state during editing
  ******************************************************************************/
 package com.googlecode.efactory.building;
 
@@ -21,6 +21,7 @@ import com.googlecode.efactory.eFactory.Feature;
 import com.googlecode.efactory.eFactory.MultiValue;
 import com.googlecode.efactory.eFactory.Reference;
 import com.googlecode.efactory.eFactory.Value;
+import com.googlecode.efactory.eFactory.impl.ReferenceImpl;
 import com.googlecode.efactory.eFactory.util.EFactorySwitch;
 import com.googlecode.efactory.util.EcoreUtil3;
 
@@ -51,7 +52,8 @@ public class FeatureSwitch extends EFactorySwitch<FeatureBuilder> {
 		if (!EcoreUtil3.isEReference(getEFeature(object)))
 			return null;
 		
-		if (object.getValue() == null)
+		// TODO is there a way to avoid the cost of the type cast here.. how to get Switch to be based on the Impl class instead of EMF gen. interface (which doesn't have the basic*() methods) 
+		if (((ReferenceImpl)object).basicGetValue() == null)
 			return null;
 		
 		return new ReferenceBuilder(object);
