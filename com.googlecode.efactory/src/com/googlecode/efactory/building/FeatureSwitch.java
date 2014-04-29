@@ -52,11 +52,11 @@ public class FeatureSwitch extends EFactorySwitch<FeatureBuilder> {
 		if (!EcoreUtil3.isEReference(getEFeature(object)))
 			return null;
 		
-		// TODO is there a way to avoid the cost of the type cast here.. how to get Switch to be based on the Impl class instead of EMF gen. interface (which doesn't have the basic*() methods) 
-		if (((ReferenceImpl)object).basicGetValue() == null)
+		final ReferenceImpl objectImpl = (ReferenceImpl)object;
+		if (objectImpl.basicGetValue() == null)
 			return null;
 		
-		return new ReferenceBuilder(object);
+		return new ReferenceBuilder(objectImpl);
 	}
 
 	@Override
