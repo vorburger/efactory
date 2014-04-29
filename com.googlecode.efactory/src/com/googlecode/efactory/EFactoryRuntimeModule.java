@@ -37,14 +37,10 @@ import com.googlecode.efactory.resource.EFactoryLocationInFileProvider;
 import com.googlecode.efactory.resource.EFactoryResourceServiceProvider;
 import com.googlecode.efactory.resource.EFactoryStandaloneResourceFactory;
 import com.googlecode.efactory.scoping.EFactoryImportedNamespaceAwareScopeProvider;
-import com.googlecode.efactory.scoping.EFactoryResourceDescriptionManager;
 import com.googlecode.efactory.scoping.EPackageScopeProvider;
 import com.googlecode.efactory.scoping.IEPackageScopeProvider;
 import com.googlecode.efactory.scoping.WarningErrorHandlerWithoutNoSuchMethodException;
 
-/**
- * Use this class to register components to be used within the IDE.
- */
 public class EFactoryRuntimeModule extends com.googlecode.efactory.AbstractEFactoryRuntimeModule {
 
 	@Override
@@ -97,8 +93,7 @@ public class EFactoryRuntimeModule extends com.googlecode.efactory.AbstractEFact
 	}
 
 	public Class<? extends org.eclipse.xtext.resource.IResourceDescription.Manager> bindIResourceDescription$Manager() {
-		// return org.eclipse.xtext.resource.DerivedStateAwareResourceDescriptionManager.class;
-		return EFactoryResourceDescriptionManager.class;
+		return org.eclipse.xtext.resource.DerivedStateAwareResourceDescriptionManager.class;
 	}
 	
 //	@SuppressWarnings("restriction")

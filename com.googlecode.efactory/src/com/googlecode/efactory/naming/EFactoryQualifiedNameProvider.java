@@ -22,9 +22,6 @@ import com.googlecode.efactory.eFactory.EFactoryPackage;
  * The most important thing this does is to NOT expose our own internal EFactory
  * objects.. as we want only the "real" derived objects to be in the index
  * (scope) and referenced.
- *
- * EFactoryResourceDescriptionManager does something similar, but seemed to not suffice.
- * TODO Retest if using this approach we don't need a custom EFactoryResourceDescriptionManager anymore at all?!
  * 
  * @author Michael Vorburger
  */
