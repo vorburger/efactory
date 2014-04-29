@@ -16,7 +16,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.Scopes;
@@ -96,17 +95,18 @@ public class EFactoryScopeProvider extends AbstractDeclarativeScopeProvider {
 		return IScope.NULLSCOPE;
 	}
 
-	public IScope scope_Reference_value(Feature feature, EReference eReference) {
-		EStructuralFeature sourceFeature = feature.getEFeature();
-		if (EcoreUtil3.isEReference(sourceFeature)) {
-			EReference realEReference = (EReference) sourceFeature;
-			EObject context = feature.eContainer(); // This isn't correct of course.. it will be the NewObject instead of the real EObject created to mirror it... but as that may not be available yet, and this works, it's good enough.
-			IScope parentScope = delegateGetScope(context, realEReference);
-			// TODO double check if there are duplicates now? Then filter them here..
-			return eReferenceScopeProvider.get(parentScope, feature.eResource(), (EClass) sourceFeature.getEType());
-		}
-		return IScope.NULLSCOPE;
-	}
+// TODO HACK to move forward - must better understand & clean up.. 
+//	public IScope scope_Reference_value(Feature feature, EReference eReference) {
+//		EStructuralFeature sourceFeature = feature.getEFeature();
+//		if (EcoreUtil3.isEReference(sourceFeature)) {
+//			EReference realEReference = (EReference) sourceFeature;
+//			EObject context = feature.eContainer(); // This isn't correct of course.. it will be the NewObject instead of the real EObject created to mirror it... but as that may not be available yet, and this works, it's good enough.
+//			IScope parentScope = delegateGetScope(context, realEReference);
+//			// TODO double check if there are duplicates now? Then filter them here..
+//			return eReferenceScopeProvider.get(parentScope, feature.eResource(), (EClass) sourceFeature.getEType());
+//		}
+//		return IScope.NULLSCOPE;
+//	}
 
 	public IScope scope_CustomNameMapping_nameFeature(
 			CustomNameMapping mapping, EReference reference) {

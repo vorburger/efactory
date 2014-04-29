@@ -64,7 +64,8 @@ public class ReferenceBuilder extends FeatureBuilder {
 		// TODO change reference to be ReferenceImpl not Reference, and save cast here
 		EObject referencedObject = ((ReferenceImpl)reference).basicGetValue();
 		if (referencedObject.eIsProxy()) {
-			// TODO Doc subclass problem.. :-(
+			// TODO Do I actually still need this, or is it now of correct type??
+			// TODO Doc subclass problem.. :-( @see org.eclipse.xtext.linking.lazy.LazyLinker.findInstantiableCompatible(EClass)
 			EReference eRef = (EReference) getFeature().getEFeature();
 			EClass refEClass = eRef.getEReferenceType();
 			InternalEObject newProxy = (InternalEObject) EcoreUtil.create(refEClass);
