@@ -21,8 +21,10 @@ import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.Scopes;
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider;
+import org.eclipse.xtext.scoping.impl.FilteringScope;
 import org.eclipse.xtext.scoping.impl.SimpleScope;
 
+import com.google.common.base.Predicate;
 import com.google.inject.Inject;
 import com.googlecode.efactory.eFactory.Attribute;
 import com.googlecode.efactory.eFactory.CustomNameMapping;
@@ -36,9 +38,6 @@ import com.googlecode.efactory.eFactory.Reference;
 import com.googlecode.efactory.util.EcoreUtil3;
 
 public class EFactoryScopeProvider extends AbstractDeclarativeScopeProvider {
-
-	@Inject
-	private EReferenceScopeProvider eReferenceScopeProvider;
 
 	@Inject
 	private IEPackageScopeProvider ePackageScopeProvider;
@@ -100,10 +99,13 @@ public class EFactoryScopeProvider extends AbstractDeclarativeScopeProvider {
 		EStructuralFeature sourceFeature = feature.getEFeature();
 		if (EcoreUtil3.isEReference(sourceFeature)) {
 			EReference realEReference = (EReference) sourceFeature;
-			EObject context = feature.eContainer(); // This isn't correct of course.. it will be the NewObject instead of the real EObject created to mirror it... but as that may not be available yet, and this works, it's good enough.
-			IScope parentScope = delegateGetScope(context, realEReference);
-			// TODO double check if there are duplicates now? Then filter them here..
-			return eReferenceScopeProvider.get(parentScope, feature.eResource(), (EClass) sourceFeature.getEType());
+			IScope parentScope = delegateGetScope(feature, realEReference);
+			final EClass referenceType = realEReference.getEReferenceType();
+			return new FilteringScope(parentScope, new Predicate<IEObjectDescription>() {
+				public boolean apply(IEObjectDescription desc) {
+					return referenceType.isSuperTypeOf(desc.getEClass());
+				}
+			});
 		}
 		return IScope.NULLSCOPE;
 	}

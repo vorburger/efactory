@@ -38,6 +38,7 @@ public class ImportsEFactory2Test {
 	@Test
 	public void testImports() throws Exception {
 		resourceProvider.loadModel("res/ImportTests/Imported2.efactory");
+		// TODO HACK UNDO TestModel testModel = (TestModel) resourceProvider.loadModel("res/ImportTests/Importing2.efactory", TestModel.class, false);
 		TestModel testModel = (TestModel) resourceProvider.loadModel("res/ImportTests/Importing2.efactory");
 		TestModel parentReference = testModel.getSingleRequired().getParentReference();
 		Assert.assertNotNull(parentReference);

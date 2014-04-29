@@ -1,7 +1,5 @@
 use testmodel.* 
 
-import "Imported.testmodel"
- 
 TestModel ImportTest {
 
 	singleRequired: SingleRequired test {

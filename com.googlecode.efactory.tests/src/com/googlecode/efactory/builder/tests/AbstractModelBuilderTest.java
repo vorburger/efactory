@@ -41,7 +41,7 @@ public abstract class AbstractModelBuilderTest extends TestCase {
 	protected void setUp() throws Exception {
 		TestSetup.INSTANCE.doSetup();
 		this.resourceProvider = new ResourceProvider(TestConstants.PLUGIN_ID);
-		this.testModel = resourceProvider.loadModel("res/BuilderTests/" + getTestModelName(), TestModel.class);
+		this.testModel = resourceProvider.loadModel("res/BuilderTests/" + getTestModelName(), TestModel.class, /* HACK TODO UNDO */ false);
 		this.factory = ((EFactoryResource) testModel.eResource()).getEFactoryFactory();
 	}
 

@@ -33,14 +33,13 @@ public class ImportsTest extends TestCase {
 		super.setUp();
 		TestSetup.INSTANCE.doSetup();
 		this.resourceProvider = new ResourceProvider(TestConstants.PLUGIN_ID);
-		this.testModel = (TestModel) resourceProvider
-				.loadModel("res/ImportTests/Importing.efactory");
+		resourceProvider.load("res/ImportTests/Imported.xmi", false); // This is an XMI file!
+		this.testModel = (TestModel) resourceProvider.loadModel("res/ImportTests/Importing.efactory");
 
 	}
 
 	public void testImport_FromEfactory() throws Exception {
-		TestModel parentReference = testModel.getSingleRequired()
-				.getParentReference();
+		TestModel parentReference = testModel.getSingleRequired().getParentReference();
 		assertNotNull(parentReference);
 		assertFalse(parentReference.eIsProxy());
 		Assert.assertNotNull(parentReference.eResource());
