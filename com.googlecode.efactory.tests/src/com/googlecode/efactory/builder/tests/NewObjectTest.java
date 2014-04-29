@@ -13,8 +13,6 @@ package com.googlecode.efactory.builder.tests;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
-import testmodel.TestModel;
-
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.googlecode.efactory.eFactory.Attribute;
@@ -28,8 +26,7 @@ public class NewObjectTest extends AbstractModelBuilderTest {
 	private static final String TEST_MODEL_NAME = "test";
 
 	public void testBuild_NewObject() throws Exception {
-		testModel.getSingleRequired().getParentReference(); // just to illustrate current problem
-		// TODO asssert return value (and move to the end?)
+		assertTrue(testModel.getSingleRequired().getParentReference() == testModel);
 		
 		checkName(testModel, TEST_MODEL_NAME);
 		
