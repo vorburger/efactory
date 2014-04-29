@@ -14,13 +14,10 @@ package com.googlecode.efactory.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.resource.Resource;
 
 import com.google.inject.Inject;
 import com.googlecode.efactory.eFactory.Factory;
-import com.googlecode.efactory.eFactory.Import;
 import com.googlecode.efactory.eFactory.PackageImport;
 
 public final class EFactoryUtil {
@@ -40,22 +37,6 @@ public final class EFactoryUtil {
 			EPackage ePackage = packageImport.getEPackage();
 			result.add(ePackage);
 		}
-
-		EList<Import> imports = factory.getImports();
-		for (Import zimport : imports) {
-			String ePackageURI = zimport.getImportURI();
-			try {
-				final Resource eResource = factory.eResource();
-				if (eResource != null && ePackageURI != null) {
-					EPackage ePackage = packageResolver.resolve(eResource, ePackageURI);
-					if (ePackage != null)
-						result.add(ePackage);
-				}
-			} catch (EPackageNotFoundException e) {
-				// user will be informed during validation
-			}
-		}
-		
 		return result;
 	}
 }

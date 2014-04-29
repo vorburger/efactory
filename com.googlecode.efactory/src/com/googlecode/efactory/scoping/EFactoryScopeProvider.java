@@ -40,9 +40,6 @@ import com.googlecode.efactory.util.EcoreUtil3;
 public class EFactoryScopeProvider extends AbstractDeclarativeScopeProvider {
 
 	@Inject
-	private EReferenceScopeProvider eReferenceScopeProvider;
-
-	@Inject
 	private IEPackageScopeProvider ePackageScopeProvider;
 
 	public IScope scope_PackageImport_ePackage(PackageImport packageImport, EReference eReference) {

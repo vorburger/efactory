@@ -6,17 +6,13 @@ generate eFactory "http://www.googlecode.com/efactory/EFactory"
 
 Factory:
 	(epackages+=PackageImport)*
-	(imports+=Import)*
 	(annotations+=Annotation)*
 	root=NewObject;
 	
 PackageImport:
+// TODO maybe we'll rename this 'use' to 'import' later (not short term, as it's in use)
 'use' ePackage = [ecore::EPackage|QualifiedName] '.*';
 	// TODO like the *.Xtext grammar itself does, support namespace and package name based (try the 'import' above!) + maybe support an "as" syntax
-
-Import: // @deprecated.. once the index-based approach works & well tested, this may get removed completely..
-	'import' (importURI=STRING // must be named 'importURI'
-	);
 
 Annotation:
 	CustomNameMapping;
