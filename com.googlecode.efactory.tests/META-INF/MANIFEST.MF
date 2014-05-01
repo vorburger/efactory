@@ -3,21 +3,16 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: com.googlecode.efactory.tests;singleton:=true
 Fragment-Host: com.googlecode.efactory.ui
-Bundle-Version: 0.9.0.qualifier
+Bundle-Version: 0.10.0.qualifier
 Bundle-ClassPath: .
 Bundle-Vendor: Sebastian Benz & Michael Vorburger
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Export-Package: com.googlecode.efactory.builder.tests,
- com.googlecode.efactory.imports.tests,
- com.googlecode.efactory.ui.contentassist,
- com.googlecode.efactory.ui.contentassist.tests,
- com.googlecode.efactory.tests.util,
- com.googlecode.efactory.util.tests,
- testmodel,
- testmodel.impl,
- testmodel.util,
- com.googlecode.efactory
+Export-Package: com.googlecode.efactory.builder.tests,com.googlecode.e
+ factory.imports.tests,com.googlecode.efactory.ui.contentassist,com.go
+ oglecode.efactory.ui.contentassist.tests,com.googlecode.efactory.test
+ s.util,com.googlecode.efactory.util.tests,testmodel,testmodel.impl,te
+ stmodel.util,com.googlecode.efactory
 Require-Bundle: org.junit,
  org.eclipse.ui.editors;bundle-version="3.5.0",
  org.eclipse.ui.ide;bundle-version="3.5.0",

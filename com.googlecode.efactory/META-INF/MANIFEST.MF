@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: com.googlecode.efactory
-Bundle-Version: 0.9.0.qualifier
+Bundle-Version: 0.10.0.qualifier
 Bundle-SymbolicName: com.googlecode.efactory; singleton:=true
 Eclipse-RegisterBuddy: org.eclipse.xtext.log4j
 Bundle-ActivationPolicy: lazy
@@ -19,23 +19,15 @@ Require-Bundle: org.eclipse.xtext;bundle-version="2.1.0";visibility:=reexport,
  org.eclipse.xtext.common.types,
  org.eclipse.jdt.annotation;bundle-version="1.0.1";resolution:=optional
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Export-Package: com.googlecode.efactory,
- com.googlecode.efactory.building,
- com.googlecode.efactory.conversion,
- com.googlecode.efactory.eFactory,
- com.googlecode.efactory.eFactory.impl,
- com.googlecode.efactory.eFactory.util,
- com.googlecode.efactory.parser.antlr,
- com.googlecode.efactory.resource,
- com.googlecode.efactory.scoping,
- com.googlecode.efactory.serialization,
- com.googlecode.efactory.services,
- com.googlecode.efactory.util,
- com.googlecode.efactory.validation,
- com.googlecode.efactory.parser.antlr.internal,
- com.googlecode.efactory.serializer,
- com.googlecode.efactory.generator,
- com.googlecode.efactory.formatting
+Export-Package: com.googlecode.efactory,com.googlecode.efactory.buildi
+ ng,com.googlecode.efactory.conversion,com.googlecode.efactory.eFactor
+ y,com.googlecode.efactory.eFactory.impl,com.googlecode.efactory.eFact
+ ory.util,com.googlecode.efactory.parser.antlr,com.googlecode.efactory
+ .resource,com.googlecode.efactory.scoping,com.googlecode.efactory.ser
+ ialization,com.googlecode.efactory.services,com.googlecode.efactory.u
+ til,com.googlecode.efactory.validation,com.googlecode.efactory.parser
+ .antlr.internal,com.googlecode.efactory.serializer,com.googlecode.efa
+ ctory.generator,com.googlecode.efactory.formatting
 Import-Package: org.apache.log4j,
  org.eclipse.xtend2.lib
 Bundle-Vendor: Sebastian Benz & Michael Vorburger
