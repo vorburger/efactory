@@ -19,7 +19,7 @@ import testmodel.TestmodelPackage;
 
 import com.googlecode.efactory.util.EcoreUtil3;
 
-public class EcoreUtilTest extends TestCase {
+public class EcoreUtil3Test extends TestCase {
 
 	public void testIsInstantiatable_Abstract() throws Exception {
 		EClass abstractEClass = EcoreFactory.eINSTANCE.createEClass();
