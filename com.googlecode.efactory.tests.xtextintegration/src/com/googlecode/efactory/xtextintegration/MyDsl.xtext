@@ -5,7 +5,7 @@ generate myDsl "http://www.googlecode.com/efactory/xtextintegration/MyDsl"
 Model:
 	'Greetings' name=ID
 	('REF' refModel = [Model])?
-	('REFs' (refModels += [Model])+)
+	('REFs' (refModels += [Model])+)?
 	greetings+=Greeting*;
 	
 Greeting:
