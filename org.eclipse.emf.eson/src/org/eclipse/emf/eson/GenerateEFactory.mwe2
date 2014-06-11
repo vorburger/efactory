@@ -4,13 +4,26 @@ import org.eclipse.emf.mwe.utils.*
 import org.eclipse.xtext.generator.*
 import org.eclipse.xtext.ui.generator.*
 
-var grammarURI = "classpath:/org/eclipse/emf/eson/EFactory.xtext"
 var file.extensions = "efactory,eson"
 var projectName = "org.eclipse.emf.eson"
+var grammarURI = "platform:/resource/${projectName}/src/org/eclipse/emf/eson/EFactory.xtext"
 var runtimeProject = "../${projectName}"
 
 Workflow {
     bean = StandaloneSetup {
+	// use an XtextResourceset throughout the process, which is able to resolve classpath:/ URIs.
+    	resourceSet = org.eclipse.xtext.resource.XtextResourceSet:theResourceSet {}
+    	
+    	// add mappings from platform:/resource to classpath:/
+    	uriMap = {
+    		from = "platform:/resource/org.eclipse.xtext.xbase/"
+    		to = "classpath:/"
+    	}
+    	uriMap = {
+    		from = "platform:/resource/org.eclipse.xtext.common.types/"
+    		to = "classpath:/"
+    	}
+
         scanClassPath = true
         platformUri = "${runtimeProject}/.."
     }
@@ -40,6 +53,9 @@ Workflow {
         projectNameRt = projectName
         projectNameUi = "${projectName}.ui"
         language = {
+            // make sure we use the resourceSet created during standalone setup.
+            forcedResourceSet = theResourceSet
+
             uri = grammarURI
             fileExtensions = file.extensions
 

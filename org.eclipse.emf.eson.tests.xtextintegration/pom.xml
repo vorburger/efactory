@@ -22,6 +22,22 @@
 		</resources>
 
 		<plugins>
+		<plugin>
+			<groupId>org.codehaus.mojo</groupId>
+			<artifactId>exec-maven-plugin</artifactId>
+			<configuration>
+				<arguments>
+					<argument>file://${project.basedir}/src/org/eclipse/emf/eson/xtextintegration/GenerateMyDsl.mwe2</argument>
+					<argument>
+						-p
+					</argument>
+					<argument>
+						runtimeProject=/${project.basedir}
+					</argument>
+				</arguments>
+			</configuration>
+		</plugin>
+
 <!--		<plugin>
 				<groupId>org.eclipse.xtend</groupId>
 				<artifactId>xtend-maven-plugin</artifactId>
@@ -91,14 +107,6 @@
 					</filesets>
 				</configuration>
 			</plugin>
-
-			<plugin>
-				<groupId>org.fornax.toolsupport</groupId>
-				<artifactId>fornax-oaw-m2-plugin</artifactId>
-				<configuration>
-					<workflowDescriptor>src/org/eclipse/emf/eson/xtextintegration/GenerateMyDsl.mwe2</workflowDescriptor>
-				</configuration>
-			</plugin>
-		</plugins>
+	</plugins>
 	</build>
 </project>
