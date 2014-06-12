@@ -74,7 +74,7 @@ public class EFactoryResource extends DerivedStateAwareResource {
 		}
 	}
 	
-	@Nullable public org.eclipse.emf.eson.eFactory.Factory getEFactoryFactory() {
+	public @Nullable org.eclipse.emf.eson.eFactory.Factory getEFactoryFactory() {
 		if (getContents().isEmpty()) {
 			return null;
 		}
