@@ -41,6 +41,7 @@
  								<exclude>.gitempty*</exclude>
  							</excludes>
 						</fileset>
+<!--						
 						<fileset>
 							<directory>${basedir}/src-gen</directory>
 							<includes>
@@ -50,7 +51,9 @@
  								<exclude>.gitempty*</exclude>
  							</excludes>
 						</fileset>
-						<!-- clean ui plugin as well -->
+ -->
+ 						<!-- clean ui plugin as well -->
+<!--						
 						<fileset>
 							<directory>${basedir}/../${project.artifactId}.ui/src-gen</directory>
 							<includes>
@@ -60,6 +63,7 @@
  								<exclude>.gitempty*</exclude>
  							</excludes>
 						</fileset>
+ -->
 						<fileset>
 							<directory>${basedir}/../${project.artifactId}.ui/xtend-gen</directory>
 							<includes>
@@ -70,6 +74,7 @@
  							</excludes>
 						</fileset>
 						<!-- clean test fragment as well -->
+<!--						
 						<fileset>
 							<directory>${basedir}/../${project.artifactId}.tests/src-gen</directory>
 							<includes>
@@ -79,6 +84,7 @@
  								<exclude>.gitempty*</exclude>
  							</excludes>
 						</fileset>
+ -->
 						<fileset>
 							<directory>${basedir}/../${project.artifactId}.tests/xtend-gen</directory>
 							<includes>
@@ -89,14 +95,6 @@
  							</excludes>
 						</fileset>
 					</filesets>
-				</configuration>
-			</plugin>
-
-			<plugin>
-				<groupId>org.fornax.toolsupport</groupId>
-				<artifactId>fornax-oaw-m2-plugin</artifactId>
-				<configuration>
-					<workflowDescriptor>src/org/eclipse/emf/eson/GenerateEFactory.mwe2</workflowDescriptor>
 				</configuration>
 			</plugin>
 		</plugins>
