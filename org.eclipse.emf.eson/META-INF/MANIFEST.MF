@@ -17,8 +17,9 @@ Require-Bundle: org.eclipse.xtext;bundle-version="2.5.3";visibility:=reexport,
  org.eclipse.emf.common,
  org.antlr.runtime,
  org.eclipse.xtext.common.types,
- org.eclipse.jdt.annotation;bundle-version="1.0.1";resolution:=optional,
- org.eclipse.xtext.xbase;bundle-version="2.5.3"
+ org.eclipse.jdt.annotation;bundle-version="[1.0.1,2.0.0)";resolution:=optional,
+ org.eclipse.xtext.xbase;bundle-version="2.5.3",
+ org.objectweb.asm;bundle-version="[5.0.1,6.0.0)";resolution:=optional
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Export-Package: org.eclipse.emf.eson.eFactory,
  org.eclipse.emf.eson.eFactory.impl,
@@ -36,14 +37,7 @@ Export-Package: org.eclipse.emf.eson.eFactory,
  org.eclipse.emf.eson.scoping,
  org.eclipse.emf.eson.serialization,
  org.eclipse.emf.eson.util,
- org.eclipse.emf.eson.validation,
- org.eclipse.emf.eson.services,
- org.eclipse.emf.eson.eFactory,
- org.eclipse.emf.eson.eFactory.impl,
- org.eclipse.emf.eson.eFactory.util,
- org.eclipse.emf.eson.serializer,
- org.eclipse.emf.eson.parser.antlr,
- org.eclipse.emf.eson.parser.antlr.internal
+ org.eclipse.emf.eson.validation
 Import-Package: org.apache.log4j,
  org.eclipse.xtend2.lib
 Bundle-Vendor: Sebastian Benz & Michael Vorburger

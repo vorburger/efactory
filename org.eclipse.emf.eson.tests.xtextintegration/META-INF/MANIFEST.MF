@@ -20,7 +20,8 @@ Require-Bundle: org.eclipse.xtext;visibility:=reexport,
  org.eclipse.emf.eson.tests.xtextintegration;visibility:=reexport,
  org.eclipse.emf.common,
  org.antlr.runtime,
- org.eclipse.xtext.common.types
+ org.eclipse.xtext.common.types,
+ org.objectweb.asm;bundle-version="[5.0.1,6.0.0)";resolution:=optional
 Import-Package: org.apache.log4j,
  org.eclipse.xtext.xbase.lib
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
@@ -32,16 +33,8 @@ Export-Package: org.eclipse.emf.eson.xtextintegration,
  org.eclipse.emf.eson.xtextintegration.parser.antlr.internal,
  org.eclipse.emf.eson.xtextintegration.serializer,
  org.eclipse.emf.eson.xtextintegration.services,
- org.eclipse.emf.eson.xtextintegration,
  org.eclipse.emf.eson.xtextintegration.formatting,
- org.eclipse.emf.eson.xtextintegration.myDsl,
- org.eclipse.emf.eson.xtextintegration.myDsl.impl,
- org.eclipse.emf.eson.xtextintegration.myDsl.util,
- org.eclipse.emf.eson.xtextintegration.parser.antlr,
- org.eclipse.emf.eson.xtextintegration.parser.antlr.internal,
  org.eclipse.emf.eson.xtextintegration.scoping,
- org.eclipse.emf.eson.xtextintegration.serializer,
- org.eclipse.emf.eson.xtextintegration.services,
  testModelWithXtextReference,
  testModelWithXtextReference.impl,
  testModelWithXtextReference.util
