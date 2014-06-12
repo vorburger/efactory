@@ -41,7 +41,7 @@ import com.google.inject.Inject;
 
 /**
  * DerivedStateAwareResourceDescriptionManager which only exports
- * a resource's derrived getContent.get(1) and skips the original get(0).
+ * a resource's derived getContent.get(1) and skips the original get(0).
  * 
  * @author Michael Vorburger
  */
