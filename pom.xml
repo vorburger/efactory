@@ -11,7 +11,7 @@
 	<properties>
 		<tycho-version>0.20.0</tycho-version>
 		<!-- <xtext-version>2.5.3</xtext-version> -->
-		<fornax-version>3.4.0</fornax-version>
+		<!-- <fornax-version>3.4.0</fornax-version> -->
 	</properties>
  
 	<repositories>
@@ -32,8 +32,8 @@
 		</repository>
 	</repositories>
 
+	<!-- Repository to resolve fornax-oaw-m2-plugin
 	<pluginRepositories>
-		<!-- Repository to resolve fornax-oaw-m2-plugin -->
 		<pluginRepository>
 			<id>fornax-releases</id>
 			<url>http://fornax.itemis.de/nexus/content/repositories/public/</url>
@@ -41,7 +41,7 @@
 				<enabled>false</enabled>
 			</snapshots>
 		</pluginRepository>
-	</pluginRepositories>
+	</pluginRepositories>  -->
 	
 	<modules>
 		<module>org.eclipse.emf.eson</module>
@@ -171,6 +171,17 @@
 		<pluginManagement>
 			<plugins>
 				<plugin>
+					<groupId>org.eclipse.tycho</groupId>
+					<artifactId>tycho-surefire-plugin</artifactId>
+					<version>${tycho-version}</version>
+					<configuration>
+						<useUIHarness>true</useUIHarness> <!-- https://bugs.eclipse.org/bugs/show_bug.cgi?id=437425 -->
+						<useUIThread>true</useUIThread>   <!-- org.eclipse.swt.SWTException: Invalid thread access -->
+						<argLine>-Xms40m -Xmx512m</argLine>
+					</configuration>
+				</plugin>
+	
+				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-clean-plugin</artifactId>
 					<version>2.5</version>
@@ -196,7 +207,7 @@
 						</execution>
 					</executions>
 				</plugin>
- -->				
+
 				<plugin>
 					<groupId>org.fornax.toolsupport</groupId>
 					<artifactId>fornax-oaw-m2-plugin</artifactId>
@@ -210,6 +221,7 @@
 						</execution>
 					</executions>
 				</plugin>
+ -->				
 				
 				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
 				<plugin>
