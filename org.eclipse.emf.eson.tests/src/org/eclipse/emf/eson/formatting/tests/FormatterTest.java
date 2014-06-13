@@ -12,23 +12,21 @@ package org.eclipse.emf.eson.formatting.tests;
 
 import javax.inject.Inject;
 
-import junit.framework.Assert;
-
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.eson.EFactoryInjectorProvider;
+import org.eclipse.emf.eson.tests.util.ResourceProvider;
+import org.eclipse.emf.eson.tests.util.TestSetup;
 import org.eclipse.xtext.formatting.INodeModelFormatter;
 import org.eclipse.xtext.junit4.InjectWith;
 import org.eclipse.xtext.junit4.XtextRunner;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.parser.IParseResult;
 import org.eclipse.xtext.resource.XtextResource;
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import org.eclipse.emf.eson.EFactoryInjectorProvider;
-import org.eclipse.emf.eson.tests.util.ResourceProvider;
-import org.eclipse.emf.eson.tests.util.TestSetup;
 
 /**
  * Tests Formatting.

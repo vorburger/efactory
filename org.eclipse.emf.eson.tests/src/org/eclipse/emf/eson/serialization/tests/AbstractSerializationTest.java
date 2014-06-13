@@ -13,8 +13,6 @@ import java.util.Iterator;
 
 import javax.inject.Inject;
 
-import junit.framework.Assert;
-
 import org.eclipse.emf.common.util.DiagnosticException;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
@@ -24,14 +22,14 @@ import org.eclipse.emf.compare.EMFCompare;
 import org.eclipse.emf.compare.scope.IComparisonScope;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.eson.eFactory.Factory;
 import org.eclipse.emf.eson.resource.EFactoryResource;
 import org.eclipse.emf.eson.serialization.FactoryBuilder;
+import org.eclipse.emf.eson.tests.util.ResourceProvider;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.resource.IResourceDescription;
 import org.eclipse.xtext.resource.XtextResourceSet;
-
-import org.eclipse.emf.eson.eFactory.Factory;
-import org.eclipse.emf.eson.tests.util.ResourceProvider;
+import org.junit.Assert;
 
 public abstract class AbstractSerializationTest {
 

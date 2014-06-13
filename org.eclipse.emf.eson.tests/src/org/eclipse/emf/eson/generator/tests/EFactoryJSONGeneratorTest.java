@@ -19,7 +19,11 @@ import javax.inject.Inject;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.eson.EFactoryInjectorProvider;
 import org.eclipse.emf.eson.generator.EFactoryJSONGenerator;
+import org.eclipse.emf.eson.generator.tests.eclipsesource_json.JsonObject;
+import org.eclipse.emf.eson.tests.util.ResourceProvider;
+import org.eclipse.emf.eson.tests.util.TestSetup;
 import org.eclipse.xtext.generator.IFileSystemAccess;
 import org.eclipse.xtext.generator.InMemoryFileSystemAccess;
 import org.eclipse.xtext.junit4.InjectWith;
@@ -27,11 +31,6 @@ import org.eclipse.xtext.junit4.XtextRunner;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import org.eclipse.emf.eson.EFactoryInjectorProvider;
-import org.eclipse.emf.eson.generator.tests.eclipsesource_json.JsonObject;
-import org.eclipse.emf.eson.tests.util.ResourceProvider;
-import org.eclipse.emf.eson.tests.util.TestSetup;
 
 /**
  * Tests for EFactoryJSONGenerator.
@@ -62,7 +61,7 @@ public class EFactoryJSONGeneratorTest {
 			};
 		}.doGenerate(resource, fsa);
 		// TODO switch @deprecated getFiles() to getTextFiles() when switching to newer Xtext version (currently still on 2.3, due to in-house reasons) 
-		String jsonText = fsa.getFiles().get(IFileSystemAccess.DEFAULT_OUTPUT + TEST_JSON).toString();
+		String jsonText = fsa.getTextFiles().get(IFileSystemAccess.DEFAULT_OUTPUT + TEST_JSON).toString();
 		//System.out.println(EFactoryJSONGeneratorTest.class.getName() + ":\n" + jsonText);
 		JsonObject jsonObject = JsonObject.readFrom(jsonText);
 		List<String> names = jsonObject.names();

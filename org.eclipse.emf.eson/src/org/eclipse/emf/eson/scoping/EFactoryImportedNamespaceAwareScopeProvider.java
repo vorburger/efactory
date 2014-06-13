@@ -15,14 +15,11 @@ import java.util.Iterator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.xtext.naming.IQualifiedNameConverter;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.resource.ISelectable;
 import org.eclipse.xtext.scoping.Scopes;
 import org.eclipse.xtext.scoping.impl.ImportedNamespaceAwareLocalScopeProvider;
 import org.eclipse.xtext.scoping.impl.MultimapBasedSelectable;
-
-import com.google.inject.Inject;
 
 /**
  * ImportedNamespaceAwareLocalScopeProvider which handles some things differently.
@@ -31,10 +28,10 @@ import com.google.inject.Inject;
  */
 public class EFactoryImportedNamespaceAwareScopeProvider extends ImportedNamespaceAwareLocalScopeProvider {
 
-	@Inject
+	//@Inject
 	// Has to be repeated because it's private in ImportedNamespaceAwareLocalScopeProvider and no getQualifiedNameConverter() :(
 	// @see https://bugs.eclipse.org/bugs/show_bug.cgi?id=409003
-	private IQualifiedNameConverter nameConverter;
+	//private IQualifiedNameConverter nameConverter;
 
 	/**
 	 * Local elements should be referable by their simple name

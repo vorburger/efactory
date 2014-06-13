@@ -14,16 +14,14 @@ package org.eclipse.emf.eson.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
-
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.eson.eFactory.Factory;
 import org.eclipse.emf.eson.eFactory.PackageImport;
 
 public final class EFactoryUtil {
 
-	@Inject
-	private EPackageResolver packageResolver;
+	//@Inject
+	//private EPackageResolver packageResolver;
 
 	/**
 	 * Gets EPackages from the 'use' clause, as well as from the 'import' clause,
