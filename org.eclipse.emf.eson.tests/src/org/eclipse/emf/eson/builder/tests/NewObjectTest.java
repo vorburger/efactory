@@ -26,6 +26,8 @@ public class NewObjectTest extends AbstractModelBuilderTest {
 	private static final String TEST_MODEL_NAME = "test";
 
 	public void testBuild_NewObject() throws Exception {
+		assertTrue(testModel.getSingleRequired().getParentReference() == testModel);
+		
 		checkName(testModel, TEST_MODEL_NAME);
 		
 		NewObject newObject = factory.getRoot();

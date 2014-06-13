@@ -18,7 +18,7 @@ import org.eclipse.emf.eson.util.EcoreUtil3;
 
 import testmodel.TestmodelPackage;
 
-public class EcoreUtilTest extends TestCase {
+public class EcoreUtil3Test extends TestCase {
 
 	public void testIsInstantiatable_Abstract() throws Exception {
 		EClass abstractEClass = EcoreFactory.eINSTANCE.createEClass();

@@ -1,9 +1,11 @@
-grammar org.eclipse.emf.eson.xtextintegration.MyDsl with org.eclipse.xtext.common.Terminals
+grammar com.googlecode.efactory.xtextintegration.MyDsl with org.eclipse.xtext.common.Terminals
 
-generate myDsl "http://www.eclipse.org/emf/eson/xtextintegration/MyDsl"
+generate myDsl "http://www.googlecode.com/efactory/xtextintegration/MyDsl"
 
 Model:
 	'Greetings' name=ID
+	('REF' refModel = [Model])?
+	('REFs' (refModels += [Model])+)?
 	greetings+=Greeting*;
 	
 Greeting:

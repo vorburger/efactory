@@ -7,22 +7,22 @@
  * 
  * Contributors:
  *     Sebastian Benz - initial API and implementation
- *     Michael Vorburger - made more robust, handling inconsistent state during editing
+ *     Michael Vorburger - made more robust & lazy, handling inconsistent state during editing
  ******************************************************************************/
 package org.eclipse.emf.eson.building;
 
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.eson.util.EcoreUtil3;
-import org.eclipse.jdt.annotation.Nullable;
-import org.eclipse.xtext.EcoreUtil2;
-
 import org.eclipse.emf.eson.eFactory.Attribute;
 import org.eclipse.emf.eson.eFactory.Containment;
 import org.eclipse.emf.eson.eFactory.Feature;
 import org.eclipse.emf.eson.eFactory.MultiValue;
 import org.eclipse.emf.eson.eFactory.Reference;
 import org.eclipse.emf.eson.eFactory.Value;
+import org.eclipse.emf.eson.eFactory.impl.ReferenceImpl;
 import org.eclipse.emf.eson.eFactory.util.EFactorySwitch;
+import org.eclipse.emf.eson.util.EcoreUtil3;
+import org.eclipse.jdt.annotation.Nullable;
+import org.eclipse.xtext.EcoreUtil2;
 
 /**
  * Switch creating appropriate FeatureBuilder.
@@ -51,10 +51,11 @@ public class FeatureSwitch extends EFactorySwitch<FeatureBuilder> {
 		if (!EcoreUtil3.isEReference(getEFeature(object)))
 			return null;
 		
-		if (object.getValue() == null)
+		final ReferenceImpl objectImpl = (ReferenceImpl)object;
+		if (objectImpl.basicGetValue() == null)
 			return null;
 		
-		return new ReferenceBuilder(object);
+		return new ReferenceBuilder(objectImpl);
 	}
 
 	@Override

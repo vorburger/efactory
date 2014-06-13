@@ -21,11 +21,11 @@ import org.eclipse.emf.eson.resource.EFactoryLocationInFileProvider;
 import org.eclipse.emf.eson.resource.EFactoryResourceServiceProvider;
 import org.eclipse.emf.eson.resource.EFactoryStandaloneResourceFactory;
 import org.eclipse.emf.eson.scoping.EFactoryImportedNamespaceAwareScopeProvider;
-import org.eclipse.emf.eson.scoping.EFactoryResourceDescriptionManager;
 import org.eclipse.emf.eson.scoping.EPackageScopeProvider;
 import org.eclipse.emf.eson.scoping.IEPackageScopeProvider;
 import org.eclipse.emf.eson.scoping.WarningErrorHandlerWithoutNoSuchMethodException;
 import org.eclipse.xtext.generator.IGenerator;
+import org.eclipse.xtext.naming.IQualifiedNameProvider;
 import org.eclipse.xtext.parser.antlr.IReferableElementsUnloader;
 import org.eclipse.xtext.parser.antlr.IReferableElementsUnloader.GenericUnloader;
 import org.eclipse.xtext.resource.IDerivedStateComputer;
@@ -96,8 +96,7 @@ public class EFactoryRuntimeModule extends AbstractEFactoryRuntimeModule {
 	}
 
 	public Class<? extends org.eclipse.xtext.resource.IResourceDescription.Manager> bindIResourceDescription$Manager() {
-		// return org.eclipse.xtext.resource.DerivedStateAwareResourceDescriptionManager.class;
-		return EFactoryResourceDescriptionManager.class;
+		return org.eclipse.xtext.resource.DerivedStateAwareResourceDescriptionManager.class;
 	}
 	
 	@SuppressWarnings("restriction")
@@ -113,5 +112,9 @@ public class EFactoryRuntimeModule extends AbstractEFactoryRuntimeModule {
 	public Class<? extends IResourceServiceProvider> bindIResourceServiceProvider() {
 		return EFactoryResourceServiceProvider.class;
 	}
-	
+
+	@Override
+	public Class<? extends IQualifiedNameProvider> bindIQualifiedNameProvider() {
+		return EFactoryQualifiedNameProvider.class;
+	}
 }

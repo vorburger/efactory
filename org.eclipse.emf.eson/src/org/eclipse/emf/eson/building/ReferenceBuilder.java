@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2009 Sebastian Benz.
+ * Copyright (c) 2009 Sebastian Benz & others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,41 +7,27 @@
  * 
  * Contributors:
  *     Sebastian Benz - initial API and implementation
+ *     Michael Vorburger - rewritten to use EMF proxies (issue #29)
  ******************************************************************************/
-/**
- * <copyright>
- *
- * Copyright (c) 2002-2006 Sebastian Benz and others.
- * All rights reserved.   This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- * 
- * Contributors: 
- *   Sebastian Benz - Initial API and implementation
- *
- * </copyright>
- *
- * 
- */
+
 package org.eclipse.emf.eson.building;
 
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
-import org.eclipse.emf.eson.resource.EFactoryResource;
-import org.eclipse.emf.eson.util.EcoreUtil3;
-import org.eclipse.xtext.linking.lazy.LazyURIEncoder;
-
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.eson.eFactory.NewObject;
-import org.eclipse.emf.eson.eFactory.Reference;
+import org.eclipse.emf.eson.eFactory.impl.ReferenceImpl;
+import org.eclipse.emf.eson.util.EcoreUtil3;
 
 public class ReferenceBuilder extends FeatureBuilder {
 
-	private Reference reference;
+	private ReferenceImpl reference;
 
-	public ReferenceBuilder(Reference reference) {
+	public ReferenceBuilder(ReferenceImpl reference) {
 		this.reference = reference;
 	}
 
@@ -58,25 +44,19 @@ public class ReferenceBuilder extends FeatureBuilder {
 		EcoreUtil3.setOrAddValue(getContainer(), eFeature, newValue);
 	}
 	
-	private EObject getReferencedObject() throws ModelBuilderException {
-		EObject referencedObject = reference.getValue();
-		if (referencedObject.eIsProxy()) {
-			// @see Partial2Test.testPartiallyTypedResourceNoExceptions & Partial2Test.efactory
-			URI uri = ((InternalEObject)referencedObject).eProxyURI(); 
-			String fragment = uri.fragment();
-			if (new LazyURIEncoder().isCrossLinkFragment(null, fragment))
-				return null;
-		}
+	protected EObject getReferencedObject() throws ModelBuilderException {
+		EObject referencedObject = ((ReferenceImpl)reference).basicGetValue();
 		if (referencedObject instanceof NewObject) {
-			NewObject referencedNewObject = (NewObject) referencedObject;
-			if (referencedNewObject.eResource().equals(reference.eResource())) {
-				return getModelBuilder().getBuilt(referencedNewObject);
-			} else {
-				// the referencedNewObject is in another resource.. so:
-				EFactoryResource referencedResource = (EFactoryResource) referencedNewObject.eResource();
-				// This implementation works, but could be optimized with some sort of Proxy which resolves the NewObject to an EObject lazily later only.. 
-				return referencedResource.getEFactoryEObject(referencedNewObject);
-			}
+			throw new IllegalStateException("We shouldn't have any NewObject here anymore now?!");
+		}
+		if (referencedObject.eIsProxy()) {
+			// TODO subclass problem.. :-( @see org.eclipse.xtext.linking.lazy.LazyLinker.findInstantiableCompatible(EClass)
+			EReference eRef = (EReference) getFeature().getEFeature();
+			EClass refEClass = eRef.getEReferenceType();
+			InternalEObject newProxy = (InternalEObject) EcoreUtil.create(refEClass);
+			URI proxyURI = ((InternalEObject)referencedObject).eProxyURI();
+			newProxy.eSetProxyURI(proxyURI);
+			return newProxy;
 		}
 		return referencedObject;
 	}
