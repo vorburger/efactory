@@ -24,7 +24,7 @@
  *
  * 
  */
-package org.eclipse.emf.eson.util;
+package org.eclipse.emf.eson.tests.util;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -85,9 +85,8 @@ public final class Find {
 	}
 
 	private static Iterator<EObject> getRootObjectIterator(EObject context) {
-
 		EObject rootContainer = EcoreUtil.getRootContainer(context);
-		Iterator<EObject> result = SingletonIterator.create(rootContainer);
+		Iterator<EObject> result = Iterators.singletonIterator(rootContainer);
 		return Iterators.concat(result, rootContainer.eAllContents());
 	}
 

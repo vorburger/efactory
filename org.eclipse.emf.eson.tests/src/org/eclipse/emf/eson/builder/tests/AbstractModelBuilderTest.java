@@ -15,10 +15,10 @@ import junit.framework.TestCase;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.eson.eFactory.Factory;
 import org.eclipse.emf.eson.resource.EFactoryResource;
+import org.eclipse.emf.eson.tests.util.Find;
 import org.eclipse.emf.eson.tests.util.ResourceProvider;
 import org.eclipse.emf.eson.tests.util.TestConstants;
 import org.eclipse.emf.eson.tests.util.TestSetup;
-import org.eclipse.emf.eson.util.Find;
 
 import testmodel.TestModel;
 
