@@ -13,16 +13,18 @@ import java.util.ArrayList;
 @SuppressWarnings("all")
 public class InternalMyDslLexer extends Lexer {
     public static final int RULE_ID=4;
-    public static final int RULE_WS=9;
     public static final int RULE_STRING=6;
-    public static final int RULE_ANY_OTHER=10;
-    public static final int RULE_SL_COMMENT=8;
-    public static final int RULE_INT=5;
-    public static final int T__11=11;
-    public static final int RULE_ML_COMMENT=7;
+    public static final int T__15=15;
     public static final int T__12=12;
+    public static final int T__11=11;
+    public static final int T__14=14;
     public static final int T__13=13;
+    public static final int RULE_ANY_OTHER=10;
+    public static final int RULE_INT=5;
+    public static final int RULE_WS=9;
+    public static final int RULE_SL_COMMENT=8;
     public static final int EOF=-1;
+    public static final int RULE_ML_COMMENT=7;
 
     // delegates
     // delegators
@@ -63,10 +65,10 @@ public class InternalMyDslLexer extends Lexer {
         try {
             int _type = T__12;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:12:7: ( 'Hello' )
-            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:12:9: 'Hello'
+            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:12:7: ( 'REF' )
+            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:12:9: 'REF'
             {
-            match("Hello"); 
+            match("REF"); 
 
 
             }
@@ -84,10 +86,11 @@ public class InternalMyDslLexer extends Lexer {
         try {
             int _type = T__13;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:13:7: ( '!' )
-            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:13:9: '!'
+            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:13:7: ( 'REFs' )
+            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:13:9: 'REFs'
             {
-            match('!'); 
+            match("REFs"); 
+
 
             }
 
@@ -99,15 +102,56 @@ public class InternalMyDslLexer extends Lexer {
     }
     // $ANTLR end "T__13"
 
+    // $ANTLR start "T__14"
+    public final void mT__14() throws RecognitionException {
+        try {
+            int _type = T__14;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:14:7: ( 'Hello' )
+            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:14:9: 'Hello'
+            {
+            match("Hello"); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__14"
+
+    // $ANTLR start "T__15"
+    public final void mT__15() throws RecognitionException {
+        try {
+            int _type = T__15;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:15:7: ( '!' )
+            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:15:9: '!'
+            {
+            match('!'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__15"
+
     // $ANTLR start "RULE_ID"
     public final void mRULE_ID() throws RecognitionException {
         try {
             int _type = RULE_ID;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:174:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
-            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:174:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:208:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
+            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:208:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             {
-            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:174:11: ( '^' )?
+            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:208:11: ( '^' )?
             int alt1=2;
             int LA1_0 = input.LA(1);
 
@@ -116,7 +160,7 @@ public class InternalMyDslLexer extends Lexer {
             }
             switch (alt1) {
                 case 1 :
-                    // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:174:11: '^'
+                    // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:208:11: '^'
                     {
                     match('^'); 
 
@@ -134,7 +178,7 @@ public class InternalMyDslLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:174:40: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:208:40: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             loop2:
             do {
                 int alt2=2;
@@ -183,10 +227,10 @@ public class InternalMyDslLexer extends Lexer {
         try {
             int _type = RULE_INT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:176:10: ( ( '0' .. '9' )+ )
-            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:176:12: ( '0' .. '9' )+
+            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:210:10: ( ( '0' .. '9' )+ )
+            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:210:12: ( '0' .. '9' )+
             {
-            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:176:12: ( '0' .. '9' )+
+            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:210:12: ( '0' .. '9' )+
             int cnt3=0;
             loop3:
             do {
@@ -200,7 +244,7 @@ public class InternalMyDslLexer extends Lexer {
 
                 switch (alt3) {
             	case 1 :
-            	    // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:176:13: '0' .. '9'
+            	    // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:210:13: '0' .. '9'
             	    {
             	    matchRange('0','9'); 
 
@@ -232,10 +276,10 @@ public class InternalMyDslLexer extends Lexer {
         try {
             int _type = RULE_STRING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:178:13: ( ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
-            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:178:15: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:212:13: ( ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
+            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:212:15: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             {
-            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:178:15: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:212:15: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             int alt6=2;
             int LA6_0 = input.LA(1);
 
@@ -253,10 +297,10 @@ public class InternalMyDslLexer extends Lexer {
             }
             switch (alt6) {
                 case 1 :
-                    // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:178:16: '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
+                    // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:212:16: '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
                     {
                     match('\"'); 
-                    // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:178:20: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )*
+                    // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:212:20: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )*
                     loop4:
                     do {
                         int alt4=3;
@@ -272,7 +316,7 @@ public class InternalMyDslLexer extends Lexer {
 
                         switch (alt4) {
                     	case 1 :
-                    	    // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:178:21: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' )
+                    	    // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:212:21: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' )
                     	    {
                     	    match('\\'); 
                     	    if ( input.LA(1)=='\"'||input.LA(1)=='\''||input.LA(1)=='\\'||input.LA(1)=='b'||input.LA(1)=='f'||input.LA(1)=='n'||input.LA(1)=='r'||(input.LA(1)>='t' && input.LA(1)<='u') ) {
@@ -288,7 +332,7 @@ public class InternalMyDslLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:178:66: ~ ( ( '\\\\' | '\"' ) )
+                    	    // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:212:66: ~ ( ( '\\\\' | '\"' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -313,10 +357,10 @@ public class InternalMyDslLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:178:86: '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
+                    // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:212:86: '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
                     {
                     match('\''); 
-                    // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:178:91: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )*
+                    // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:212:91: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )*
                     loop5:
                     do {
                         int alt5=3;
@@ -332,7 +376,7 @@ public class InternalMyDslLexer extends Lexer {
 
                         switch (alt5) {
                     	case 1 :
-                    	    // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:178:92: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' )
+                    	    // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:212:92: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' )
                     	    {
                     	    match('\\'); 
                     	    if ( input.LA(1)=='\"'||input.LA(1)=='\''||input.LA(1)=='\\'||input.LA(1)=='b'||input.LA(1)=='f'||input.LA(1)=='n'||input.LA(1)=='r'||(input.LA(1)>='t' && input.LA(1)<='u') ) {
@@ -348,7 +392,7 @@ public class InternalMyDslLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:178:137: ~ ( ( '\\\\' | '\\'' ) )
+                    	    // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:212:137: ~ ( ( '\\\\' | '\\'' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -391,12 +435,12 @@ public class InternalMyDslLexer extends Lexer {
         try {
             int _type = RULE_ML_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:180:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
-            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:180:19: '/*' ( options {greedy=false; } : . )* '*/'
+            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:214:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
+            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:214:19: '/*' ( options {greedy=false; } : . )* '*/'
             {
             match("/*"); 
 
-            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:180:24: ( options {greedy=false; } : . )*
+            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:214:24: ( options {greedy=false; } : . )*
             loop7:
             do {
                 int alt7=2;
@@ -421,7 +465,7 @@ public class InternalMyDslLexer extends Lexer {
 
                 switch (alt7) {
             	case 1 :
-            	    // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:180:52: .
+            	    // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:214:52: .
             	    {
             	    matchAny(); 
 
@@ -451,12 +495,12 @@ public class InternalMyDslLexer extends Lexer {
         try {
             int _type = RULE_SL_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:182:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
-            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:182:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
+            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:216:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
+            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:216:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
             {
             match("//"); 
 
-            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:182:24: (~ ( ( '\\n' | '\\r' ) ) )*
+            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:216:24: (~ ( ( '\\n' | '\\r' ) ) )*
             loop8:
             do {
                 int alt8=2;
@@ -469,7 +513,7 @@ public class InternalMyDslLexer extends Lexer {
 
                 switch (alt8) {
             	case 1 :
-            	    // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:182:24: ~ ( ( '\\n' | '\\r' ) )
+            	    // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:216:24: ~ ( ( '\\n' | '\\r' ) )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -489,7 +533,7 @@ public class InternalMyDslLexer extends Lexer {
                 }
             } while (true);
 
-            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:182:40: ( ( '\\r' )? '\\n' )?
+            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:216:40: ( ( '\\r' )? '\\n' )?
             int alt10=2;
             int LA10_0 = input.LA(1);
 
@@ -498,9 +542,9 @@ public class InternalMyDslLexer extends Lexer {
             }
             switch (alt10) {
                 case 1 :
-                    // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:182:41: ( '\\r' )? '\\n'
+                    // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:216:41: ( '\\r' )? '\\n'
                     {
-                    // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:182:41: ( '\\r' )?
+                    // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:216:41: ( '\\r' )?
                     int alt9=2;
                     int LA9_0 = input.LA(1);
 
@@ -509,7 +553,7 @@ public class InternalMyDslLexer extends Lexer {
                     }
                     switch (alt9) {
                         case 1 :
-                            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:182:41: '\\r'
+                            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:216:41: '\\r'
                             {
                             match('\r'); 
 
@@ -541,10 +585,10 @@ public class InternalMyDslLexer extends Lexer {
         try {
             int _type = RULE_WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:184:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
-            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:184:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:218:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
+            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:218:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             {
-            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:184:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:218:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             int cnt11=0;
             loop11:
             do {
@@ -598,8 +642,8 @@ public class InternalMyDslLexer extends Lexer {
         try {
             int _type = RULE_ANY_OTHER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:186:16: ( . )
-            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:186:18: .
+            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:220:16: ( . )
+            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:220:18: .
             {
             matchAny(); 
 
@@ -614,8 +658,8 @@ public class InternalMyDslLexer extends Lexer {
     // $ANTLR end "RULE_ANY_OTHER"
 
     public void mTokens() throws RecognitionException {
-        // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:1:8: ( T__11 | T__12 | T__13 | RULE_ID | RULE_INT | RULE_STRING | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_ANY_OTHER )
-        int alt12=10;
+        // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:1:8: ( T__11 | T__12 | T__13 | T__14 | T__15 | RULE_ID | RULE_INT | RULE_STRING | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_ANY_OTHER )
+        int alt12=12;
         alt12 = dfa12.predict(input);
         switch (alt12) {
             case 1 :
@@ -640,49 +684,63 @@ public class InternalMyDslLexer extends Lexer {
                 }
                 break;
             case 4 :
-                // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:1:28: RULE_ID
+                // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:1:28: T__14
+                {
+                mT__14(); 
+
+                }
+                break;
+            case 5 :
+                // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:1:34: T__15
+                {
+                mT__15(); 
+
+                }
+                break;
+            case 6 :
+                // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:1:40: RULE_ID
                 {
                 mRULE_ID(); 
 
                 }
                 break;
-            case 5 :
-                // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:1:36: RULE_INT
+            case 7 :
+                // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:1:48: RULE_INT
                 {
                 mRULE_INT(); 
 
                 }
                 break;
-            case 6 :
-                // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:1:45: RULE_STRING
+            case 8 :
+                // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:1:57: RULE_STRING
                 {
                 mRULE_STRING(); 
 
                 }
                 break;
-            case 7 :
-                // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:1:57: RULE_ML_COMMENT
+            case 9 :
+                // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:1:69: RULE_ML_COMMENT
                 {
                 mRULE_ML_COMMENT(); 
 
                 }
                 break;
-            case 8 :
-                // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:1:73: RULE_SL_COMMENT
+            case 10 :
+                // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:1:85: RULE_SL_COMMENT
                 {
                 mRULE_SL_COMMENT(); 
 
                 }
                 break;
-            case 9 :
-                // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:1:89: RULE_WS
+            case 11 :
+                // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:1:101: RULE_WS
                 {
                 mRULE_WS(); 
 
                 }
                 break;
-            case 10 :
-                // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:1:97: RULE_ANY_OTHER
+            case 12 :
+                // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:1:109: RULE_ANY_OTHER
                 {
                 mRULE_ANY_OTHER(); 
 
@@ -696,57 +754,67 @@ public class InternalMyDslLexer extends Lexer {
 
     protected DFA12 dfa12 = new DFA12(this);
     static final String DFA12_eotS =
-        "\1\uffff\2\15\1\uffff\1\13\2\uffff\3\13\2\uffff\1\15\1\uffff\1\15"+
-        "\6\uffff\5\15\1\34\1\15\1\uffff\2\15\1\40\1\uffff";
+        "\1\uffff\3\16\1\uffff\1\14\2\uffff\3\14\2\uffff\1\16\1\uffff\2\16"+
+        "\6\uffff\1\16\1\34\2\16\1\37\1\uffff\2\16\1\uffff\1\42\1\16\1\uffff"+
+        "\2\16\1\46\1\uffff";
     static final String DFA12_eofS =
-        "\41\uffff";
+        "\47\uffff";
     static final String DFA12_minS =
-        "\1\0\1\162\1\145\1\uffff\1\101\2\uffff\2\0\1\52\2\uffff\1\145\1"+
-        "\uffff\1\154\6\uffff\1\145\1\154\1\164\1\157\1\151\1\60\1\156\1"+
-        "\uffff\1\147\1\163\1\60\1\uffff";
+        "\1\0\1\162\1\105\1\145\1\uffff\1\101\2\uffff\2\0\1\52\2\uffff\1"+
+        "\145\1\uffff\1\106\1\154\6\uffff\1\145\1\60\1\154\1\164\1\60\1\uffff"+
+        "\1\157\1\151\1\uffff\1\60\1\156\1\uffff\1\147\1\163\1\60\1\uffff";
     static final String DFA12_maxS =
-        "\1\uffff\1\162\1\145\1\uffff\1\172\2\uffff\2\uffff\1\57\2\uffff"+
-        "\1\145\1\uffff\1\154\6\uffff\1\145\1\154\1\164\1\157\1\151\1\172"+
-        "\1\156\1\uffff\1\147\1\163\1\172\1\uffff";
+        "\1\uffff\1\162\1\105\1\145\1\uffff\1\172\2\uffff\2\uffff\1\57\2"+
+        "\uffff\1\145\1\uffff\1\106\1\154\6\uffff\1\145\1\172\1\154\1\164"+
+        "\1\172\1\uffff\1\157\1\151\1\uffff\1\172\1\156\1\uffff\1\147\1\163"+
+        "\1\172\1\uffff";
     static final String DFA12_acceptS =
-        "\3\uffff\1\3\1\uffff\1\4\1\5\3\uffff\1\11\1\12\1\uffff\1\4\1\uffff"+
-        "\1\3\1\5\1\6\1\7\1\10\1\11\7\uffff\1\2\3\uffff\1\1";
+        "\4\uffff\1\5\1\uffff\1\6\1\7\3\uffff\1\13\1\14\1\uffff\1\6\2\uffff"+
+        "\1\5\1\7\1\10\1\11\1\12\1\13\5\uffff\1\2\2\uffff\1\3\2\uffff\1\4"+
+        "\3\uffff\1\1";
     static final String DFA12_specialS =
-        "\1\1\6\uffff\1\0\1\2\30\uffff}>";
+        "\1\2\7\uffff\1\0\1\1\35\uffff}>";
     static final String[] DFA12_transitionS = {
-            "\11\13\2\12\2\13\1\12\22\13\1\12\1\3\1\7\4\13\1\10\7\13\1\11"+
-            "\12\6\7\13\6\5\1\1\1\2\22\5\3\13\1\4\1\5\1\13\32\5\uff85\13",
-            "\1\14",
-            "\1\16",
+            "\11\14\2\13\2\14\1\13\22\14\1\13\1\4\1\10\4\14\1\11\7\14\1\12"+
+            "\12\7\7\14\6\6\1\1\1\3\11\6\1\2\10\6\3\14\1\5\1\6\1\14\32\6"+
+            "\uff85\14",
+            "\1\15",
+            "\1\17",
+            "\1\20",
             "",
-            "\32\15\4\uffff\1\15\1\uffff\32\15",
-            "",
-            "",
-            "\0\21",
-            "\0\21",
-            "\1\22\4\uffff\1\23",
+            "\32\16\4\uffff\1\16\1\uffff\32\16",
             "",
             "",
-            "\1\25",
-            "",
-            "\1\26",
-            "",
-            "",
-            "",
-            "",
+            "\0\23",
+            "\0\23",
+            "\1\24\4\uffff\1\25",
             "",
             "",
             "\1\27",
+            "",
             "\1\30",
             "\1\31",
-            "\1\32",
-            "\1\33",
-            "\12\15\7\uffff\32\15\4\uffff\1\15\1\uffff\32\15",
-            "\1\35",
             "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "\1\32",
+            "\12\16\7\uffff\32\16\4\uffff\1\16\1\uffff\22\16\1\33\7\16",
+            "\1\35",
             "\1\36",
-            "\1\37",
-            "\12\15\7\uffff\32\15\4\uffff\1\15\1\uffff\32\15",
+            "\12\16\7\uffff\32\16\4\uffff\1\16\1\uffff\32\16",
+            "",
+            "\1\40",
+            "\1\41",
+            "",
+            "\12\16\7\uffff\32\16\4\uffff\1\16\1\uffff\32\16",
+            "\1\43",
+            "",
+            "\1\44",
+            "\1\45",
+            "\12\16\7\uffff\32\16\4\uffff\1\16\1\uffff\32\16",
             ""
     };
 
@@ -780,57 +848,59 @@ public class InternalMyDslLexer extends Lexer {
             this.transition = DFA12_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( T__11 | T__12 | T__13 | RULE_ID | RULE_INT | RULE_STRING | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_ANY_OTHER );";
+            return "1:1: Tokens : ( T__11 | T__12 | T__13 | T__14 | T__15 | RULE_ID | RULE_INT | RULE_STRING | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_ANY_OTHER );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             IntStream input = _input;
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA12_7 = input.LA(1);
+                        int LA12_8 = input.LA(1);
 
                         s = -1;
-                        if ( ((LA12_7>='\u0000' && LA12_7<='\uFFFF')) ) {s = 17;}
+                        if ( ((LA12_8>='\u0000' && LA12_8<='\uFFFF')) ) {s = 19;}
 
-                        else s = 11;
+                        else s = 12;
 
                         if ( s>=0 ) return s;
                         break;
                     case 1 : 
+                        int LA12_9 = input.LA(1);
+
+                        s = -1;
+                        if ( ((LA12_9>='\u0000' && LA12_9<='\uFFFF')) ) {s = 19;}
+
+                        else s = 12;
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 2 : 
                         int LA12_0 = input.LA(1);
 
                         s = -1;
                         if ( (LA12_0=='G') ) {s = 1;}
 
-                        else if ( (LA12_0=='H') ) {s = 2;}
+                        else if ( (LA12_0=='R') ) {s = 2;}
 
-                        else if ( (LA12_0=='!') ) {s = 3;}
+                        else if ( (LA12_0=='H') ) {s = 3;}
 
-                        else if ( (LA12_0=='^') ) {s = 4;}
+                        else if ( (LA12_0=='!') ) {s = 4;}
 
-                        else if ( ((LA12_0>='A' && LA12_0<='F')||(LA12_0>='I' && LA12_0<='Z')||LA12_0=='_'||(LA12_0>='a' && LA12_0<='z')) ) {s = 5;}
+                        else if ( (LA12_0=='^') ) {s = 5;}
 
-                        else if ( ((LA12_0>='0' && LA12_0<='9')) ) {s = 6;}
+                        else if ( ((LA12_0>='A' && LA12_0<='F')||(LA12_0>='I' && LA12_0<='Q')||(LA12_0>='S' && LA12_0<='Z')||LA12_0=='_'||(LA12_0>='a' && LA12_0<='z')) ) {s = 6;}
 
-                        else if ( (LA12_0=='\"') ) {s = 7;}
+                        else if ( ((LA12_0>='0' && LA12_0<='9')) ) {s = 7;}
 
-                        else if ( (LA12_0=='\'') ) {s = 8;}
+                        else if ( (LA12_0=='\"') ) {s = 8;}
 
-                        else if ( (LA12_0=='/') ) {s = 9;}
+                        else if ( (LA12_0=='\'') ) {s = 9;}
 
-                        else if ( ((LA12_0>='\t' && LA12_0<='\n')||LA12_0=='\r'||LA12_0==' ') ) {s = 10;}
+                        else if ( (LA12_0=='/') ) {s = 10;}
 
-                        else if ( ((LA12_0>='\u0000' && LA12_0<='\b')||(LA12_0>='\u000B' && LA12_0<='\f')||(LA12_0>='\u000E' && LA12_0<='\u001F')||(LA12_0>='#' && LA12_0<='&')||(LA12_0>='(' && LA12_0<='.')||(LA12_0>=':' && LA12_0<='@')||(LA12_0>='[' && LA12_0<=']')||LA12_0=='`'||(LA12_0>='{' && LA12_0<='\uFFFF')) ) {s = 11;}
+                        else if ( ((LA12_0>='\t' && LA12_0<='\n')||LA12_0=='\r'||LA12_0==' ') ) {s = 11;}
 
-                        if ( s>=0 ) return s;
-                        break;
-                    case 2 : 
-                        int LA12_8 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA12_8>='\u0000' && LA12_8<='\uFFFF')) ) {s = 17;}
-
-                        else s = 11;
+                        else if ( ((LA12_0>='\u0000' && LA12_0<='\b')||(LA12_0>='\u000B' && LA12_0<='\f')||(LA12_0>='\u000E' && LA12_0<='\u001F')||(LA12_0>='#' && LA12_0<='&')||(LA12_0>='(' && LA12_0<='.')||(LA12_0>=':' && LA12_0<='@')||(LA12_0>='[' && LA12_0<=']')||LA12_0=='`'||(LA12_0>='{' && LA12_0<='\uFFFF')) ) {s = 12;}
 
                         if ( s>=0 ) return s;
                         break;

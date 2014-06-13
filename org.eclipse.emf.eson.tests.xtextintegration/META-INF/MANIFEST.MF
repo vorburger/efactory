@@ -38,4 +38,3 @@ Export-Package: org.eclipse.emf.eson.xtextintegration,
  testModelWithXtextReference,
  testModelWithXtextReference.impl,
  testModelWithXtextReference.util
-

@@ -15,6 +15,8 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.eclipse.emf.eson.xtextintegration.myDsl.Model#getName <em>Name</em>}</li>
+ *   <li>{@link org.eclipse.emf.eson.xtextintegration.myDsl.Model#getRefModel <em>Ref Model</em>}</li>
+ *   <li>{@link org.eclipse.emf.eson.xtextintegration.myDsl.Model#getRefModels <em>Ref Models</em>}</li>
  *   <li>{@link org.eclipse.emf.eson.xtextintegration.myDsl.Model#getGreetings <em>Greetings</em>}</li>
  * </ul>
  * </p>
@@ -50,6 +52,48 @@ public interface Model extends EObject
    * @generated
    */
   void setName(String value);
+
+  /**
+   * Returns the value of the '<em><b>Ref Model</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Ref Model</em>' reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Ref Model</em>' reference.
+   * @see #setRefModel(Model)
+   * @see org.eclipse.emf.eson.xtextintegration.myDsl.MyDslPackage#getModel_RefModel()
+   * @model
+   * @generated
+   */
+  Model getRefModel();
+
+  /**
+   * Sets the value of the '{@link org.eclipse.emf.eson.xtextintegration.myDsl.Model#getRefModel <em>Ref Model</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Ref Model</em>' reference.
+   * @see #getRefModel()
+   * @generated
+   */
+  void setRefModel(Model value);
+
+  /**
+   * Returns the value of the '<em><b>Ref Models</b></em>' reference list.
+   * The list contents are of type {@link org.eclipse.emf.eson.xtextintegration.myDsl.Model}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Ref Models</em>' reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Ref Models</em>' reference list.
+   * @see org.eclipse.emf.eson.xtextintegration.myDsl.MyDslPackage#getModel_RefModels()
+   * @model
+   * @generated
+   */
+  EList<Model> getRefModels();
 
   /**
    * Returns the value of the '<em><b>Greetings</b></em>' containment reference list.

@@ -23,18 +23,16 @@ public class EFactoryGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Assignment cEpackagesAssignment_0 = (Assignment)cGroup.eContents().get(0);
 		private final RuleCall cEpackagesPackageImportParserRuleCall_0_0 = (RuleCall)cEpackagesAssignment_0.eContents().get(0);
-		private final Assignment cImportsAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cImportsImportParserRuleCall_1_0 = (RuleCall)cImportsAssignment_1.eContents().get(0);
-		private final Assignment cAnnotationsAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cAnnotationsAnnotationParserRuleCall_2_0 = (RuleCall)cAnnotationsAssignment_2.eContents().get(0);
-		private final Assignment cRootAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cRootNewObjectParserRuleCall_3_0 = (RuleCall)cRootAssignment_3.eContents().get(0);
+		private final Assignment cAnnotationsAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cAnnotationsAnnotationParserRuleCall_1_0 = (RuleCall)cAnnotationsAssignment_1.eContents().get(0);
+		private final Assignment cRootAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cRootNewObjectParserRuleCall_2_0 = (RuleCall)cRootAssignment_2.eContents().get(0);
 		
 		//Factory:
-		//	epackages+=PackageImport* imports+=Import* annotations+=Annotation* root=NewObject;
+		//	epackages+=PackageImport* annotations+=Annotation* root=NewObject;
 		public ParserRule getRule() { return rule; }
 
-		//epackages+=PackageImport* imports+=Import* annotations+=Annotation* root=NewObject
+		//epackages+=PackageImport* annotations+=Annotation* root=NewObject
 		public Group getGroup() { return cGroup; }
 
 		//epackages+=PackageImport*
@@ -43,23 +41,17 @@ public class EFactoryGrammarAccess extends AbstractGrammarElementFinder {
 		//PackageImport
 		public RuleCall getEpackagesPackageImportParserRuleCall_0_0() { return cEpackagesPackageImportParserRuleCall_0_0; }
 
-		//imports+=Import*
-		public Assignment getImportsAssignment_1() { return cImportsAssignment_1; }
-
-		//Import
-		public RuleCall getImportsImportParserRuleCall_1_0() { return cImportsImportParserRuleCall_1_0; }
-
 		//annotations+=Annotation*
-		public Assignment getAnnotationsAssignment_2() { return cAnnotationsAssignment_2; }
+		public Assignment getAnnotationsAssignment_1() { return cAnnotationsAssignment_1; }
 
 		//Annotation
-		public RuleCall getAnnotationsAnnotationParserRuleCall_2_0() { return cAnnotationsAnnotationParserRuleCall_2_0; }
+		public RuleCall getAnnotationsAnnotationParserRuleCall_1_0() { return cAnnotationsAnnotationParserRuleCall_1_0; }
 
 		//root=NewObject
-		public Assignment getRootAssignment_3() { return cRootAssignment_3; }
+		public Assignment getRootAssignment_2() { return cRootAssignment_2; }
 
 		//NewObject
-		public RuleCall getRootNewObjectParserRuleCall_3_0() { return cRootNewObjectParserRuleCall_3_0; }
+		public RuleCall getRootNewObjectParserRuleCall_2_0() { return cRootNewObjectParserRuleCall_2_0; }
 	}
 
 	public class PackageImportElements extends AbstractParserRuleElementFinder {
@@ -71,13 +63,15 @@ public class EFactoryGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cEPackageEPackageQualifiedNameParserRuleCall_1_0_1 = (RuleCall)cEPackageEPackageCrossReference_1_0.eContents().get(1);
 		private final Keyword cFullStopAsteriskKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		
-		//PackageImport:
+		//PackageImport: // TODO maybe we'll rename this 'use' to 'import' later (not short term, as it's in use)
 		//	"use" ePackage=[ecore::EPackage|QualifiedName] ".*";
 		public ParserRule getRule() { return rule; }
 
+		//// TODO maybe we'll rename this 'use' to 'import' later (not short term, as it's in use)
 		//"use" ePackage=[ecore::EPackage|QualifiedName] ".*"
 		public Group getGroup() { return cGroup; }
 
+		//// TODO maybe we'll rename this 'use' to 'import' later (not short term, as it's in use)
 		//"use"
 		public Keyword getUseKeyword_0() { return cUseKeyword_0; }
 
@@ -94,40 +88,11 @@ public class EFactoryGrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getFullStopAsteriskKeyword_2() { return cFullStopAsteriskKeyword_2; }
 	}
 
-	public class ImportElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Import");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cImportKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Assignment cImportURIAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cImportURISTRINGTerminalRuleCall_1_0 = (RuleCall)cImportURIAssignment_1.eContents().get(0);
-		
-		//// TODO like the *.Xtext grammar itself does, support namespace and package name based (try the 'import' above!) + maybe support an "as" syntax
-		//// @deprecated.. once the index-based approach works & well tested, this may get removed completely..
-		//Import:
-		//	"import" importURI= // must be named 'importURI'
-		//	STRING;
-		public ParserRule getRule() { return rule; }
-
-		//"import" importURI= // must be named 'importURI'
-		//STRING
-		public Group getGroup() { return cGroup; }
-
-		//"import"
-		public Keyword getImportKeyword_0() { return cImportKeyword_0; }
-
-		//importURI= // must be named 'importURI'
-		//STRING
-		public Assignment getImportURIAssignment_1() { return cImportURIAssignment_1; }
-
-		//// must be named 'importURI'
-		//STRING
-		public RuleCall getImportURISTRINGTerminalRuleCall_1_0() { return cImportURISTRINGTerminalRuleCall_1_0; }
-	}
-
 	public class AnnotationElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Annotation");
 		private final RuleCall cCustomNameMappingParserRuleCall = (RuleCall)rule.eContents().get(1);
 		
+		//// TODO like the *.Xtext grammar itself does, support namespace and package name based (try the 'import' above!) + maybe support an "as" syntax
 		//Annotation:
 		//	CustomNameMapping;
 		public ParserRule getRule() { return rule; }
@@ -592,7 +557,6 @@ public class EFactoryGrammarAccess extends AbstractGrammarElementFinder {
 	
 	private FactoryElements pFactory;
 	private PackageImportElements pPackageImport;
-	private ImportElements pImport;
 	private AnnotationElements pAnnotation;
 	private CustomNameMappingElements pCustomNameMapping;
 	private FeatureElements pFeature;
@@ -656,7 +620,7 @@ public class EFactoryGrammarAccess extends AbstractGrammarElementFinder {
 
 	
 	//Factory:
-	//	epackages+=PackageImport* imports+=Import* annotations+=Annotation* root=NewObject;
+	//	epackages+=PackageImport* annotations+=Annotation* root=NewObject;
 	public FactoryElements getFactoryAccess() {
 		return (pFactory != null) ? pFactory : (pFactory = new FactoryElements());
 	}
@@ -665,7 +629,7 @@ public class EFactoryGrammarAccess extends AbstractGrammarElementFinder {
 		return getFactoryAccess().getRule();
 	}
 
-	//PackageImport:
+	//PackageImport: // TODO maybe we'll rename this 'use' to 'import' later (not short term, as it's in use)
 	//	"use" ePackage=[ecore::EPackage|QualifiedName] ".*";
 	public PackageImportElements getPackageImportAccess() {
 		return (pPackageImport != null) ? pPackageImport : (pPackageImport = new PackageImportElements());
@@ -676,18 +640,6 @@ public class EFactoryGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//// TODO like the *.Xtext grammar itself does, support namespace and package name based (try the 'import' above!) + maybe support an "as" syntax
-	//// @deprecated.. once the index-based approach works & well tested, this may get removed completely..
-	//Import:
-	//	"import" importURI= // must be named 'importURI'
-	//	STRING;
-	public ImportElements getImportAccess() {
-		return (pImport != null) ? pImport : (pImport = new ImportElements());
-	}
-	
-	public ParserRule getImportRule() {
-		return getImportAccess().getRule();
-	}
-
 	//Annotation:
 	//	CustomNameMapping;
 	public AnnotationElements getAnnotationAccess() {

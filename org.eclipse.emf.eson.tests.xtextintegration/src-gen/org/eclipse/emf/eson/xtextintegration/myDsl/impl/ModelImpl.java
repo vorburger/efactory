@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.eclipse.emf.eson.xtextintegration.myDsl.Greeting;
@@ -30,6 +31,8 @@ import org.eclipse.emf.eson.xtextintegration.myDsl.MyDslPackage;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.eclipse.emf.eson.xtextintegration.myDsl.impl.ModelImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.eclipse.emf.eson.xtextintegration.myDsl.impl.ModelImpl#getRefModel <em>Ref Model</em>}</li>
+ *   <li>{@link org.eclipse.emf.eson.xtextintegration.myDsl.impl.ModelImpl#getRefModels <em>Ref Models</em>}</li>
  *   <li>{@link org.eclipse.emf.eson.xtextintegration.myDsl.impl.ModelImpl#getGreetings <em>Greetings</em>}</li>
  * </ul>
  * </p>
@@ -57,6 +60,26 @@ public class ModelImpl extends MinimalEObjectImpl.Container implements Model
    * @ordered
    */
   protected String name = NAME_EDEFAULT;
+
+  /**
+   * The cached value of the '{@link #getRefModel() <em>Ref Model</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getRefModel()
+   * @generated
+   * @ordered
+   */
+  protected Model refModel;
+
+  /**
+   * The cached value of the '{@link #getRefModels() <em>Ref Models</em>}' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getRefModels()
+   * @generated
+   * @ordered
+   */
+  protected EList<Model> refModels;
 
   /**
    * The cached value of the '{@link #getGreetings() <em>Greetings</em>}' containment reference list.
@@ -117,6 +140,63 @@ public class ModelImpl extends MinimalEObjectImpl.Container implements Model
    * <!-- end-user-doc -->
    * @generated
    */
+  public Model getRefModel()
+  {
+    if (refModel != null && refModel.eIsProxy())
+    {
+      InternalEObject oldRefModel = (InternalEObject)refModel;
+      refModel = (Model)eResolveProxy(oldRefModel);
+      if (refModel != oldRefModel)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, MyDslPackage.MODEL__REF_MODEL, oldRefModel, refModel));
+      }
+    }
+    return refModel;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Model basicGetRefModel()
+  {
+    return refModel;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setRefModel(Model newRefModel)
+  {
+    Model oldRefModel = refModel;
+    refModel = newRefModel;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, MyDslPackage.MODEL__REF_MODEL, oldRefModel, refModel));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<Model> getRefModels()
+  {
+    if (refModels == null)
+    {
+      refModels = new EObjectResolvingEList<Model>(Model.class, this, MyDslPackage.MODEL__REF_MODELS);
+    }
+    return refModels;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EList<Greeting> getGreetings()
   {
     if (greetings == null)
@@ -154,6 +234,11 @@ public class ModelImpl extends MinimalEObjectImpl.Container implements Model
     {
       case MyDslPackage.MODEL__NAME:
         return getName();
+      case MyDslPackage.MODEL__REF_MODEL:
+        if (resolve) return getRefModel();
+        return basicGetRefModel();
+      case MyDslPackage.MODEL__REF_MODELS:
+        return getRefModels();
       case MyDslPackage.MODEL__GREETINGS:
         return getGreetings();
     }
@@ -173,6 +258,13 @@ public class ModelImpl extends MinimalEObjectImpl.Container implements Model
     {
       case MyDslPackage.MODEL__NAME:
         setName((String)newValue);
+        return;
+      case MyDslPackage.MODEL__REF_MODEL:
+        setRefModel((Model)newValue);
+        return;
+      case MyDslPackage.MODEL__REF_MODELS:
+        getRefModels().clear();
+        getRefModels().addAll((Collection<? extends Model>)newValue);
         return;
       case MyDslPackage.MODEL__GREETINGS:
         getGreetings().clear();
@@ -195,6 +287,12 @@ public class ModelImpl extends MinimalEObjectImpl.Container implements Model
       case MyDslPackage.MODEL__NAME:
         setName(NAME_EDEFAULT);
         return;
+      case MyDslPackage.MODEL__REF_MODEL:
+        setRefModel((Model)null);
+        return;
+      case MyDslPackage.MODEL__REF_MODELS:
+        getRefModels().clear();
+        return;
       case MyDslPackage.MODEL__GREETINGS:
         getGreetings().clear();
         return;
@@ -214,6 +312,10 @@ public class ModelImpl extends MinimalEObjectImpl.Container implements Model
     {
       case MyDslPackage.MODEL__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+      case MyDslPackage.MODEL__REF_MODEL:
+        return refModel != null;
+      case MyDslPackage.MODEL__REF_MODELS:
+        return refModels != null && !refModels.isEmpty();
       case MyDslPackage.MODEL__GREETINGS:
         return greetings != null && !greetings.isEmpty();
     }

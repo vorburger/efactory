@@ -76,13 +76,31 @@ public interface MyDslPackage extends EPackage
   int MODEL__NAME = 0;
 
   /**
+   * The feature id for the '<em><b>Ref Model</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MODEL__REF_MODEL = 1;
+
+  /**
+   * The feature id for the '<em><b>Ref Models</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MODEL__REF_MODELS = 2;
+
+  /**
    * The feature id for the '<em><b>Greetings</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int MODEL__GREETINGS = 1;
+  int MODEL__GREETINGS = 3;
 
   /**
    * The number of structural features of the '<em>Model</em>' class.
@@ -91,7 +109,7 @@ public interface MyDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int MODEL_FEATURE_COUNT = 2;
+  int MODEL_FEATURE_COUNT = 4;
 
   /**
    * The meta object id for the '{@link org.eclipse.emf.eson.xtextintegration.myDsl.impl.GreetingImpl <em>Greeting</em>}' class.
@@ -142,6 +160,28 @@ public interface MyDslPackage extends EPackage
    * @generated
    */
   EAttribute getModel_Name();
+
+  /**
+   * Returns the meta object for the reference '{@link org.eclipse.emf.eson.xtextintegration.myDsl.Model#getRefModel <em>Ref Model</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Ref Model</em>'.
+   * @see org.eclipse.emf.eson.xtextintegration.myDsl.Model#getRefModel()
+   * @see #getModel()
+   * @generated
+   */
+  EReference getModel_RefModel();
+
+  /**
+   * Returns the meta object for the reference list '{@link org.eclipse.emf.eson.xtextintegration.myDsl.Model#getRefModels <em>Ref Models</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference list '<em>Ref Models</em>'.
+   * @see org.eclipse.emf.eson.xtextintegration.myDsl.Model#getRefModels()
+   * @see #getModel()
+   * @generated
+   */
+  EReference getModel_RefModels();
 
   /**
    * Returns the meta object for the containment reference list '{@link org.eclipse.emf.eson.xtextintegration.myDsl.Model#getGreetings <em>Greetings</em>}'.
@@ -215,6 +255,22 @@ public interface MyDslPackage extends EPackage
      * @generated
      */
     EAttribute MODEL__NAME = eINSTANCE.getModel_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Ref Model</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference MODEL__REF_MODEL = eINSTANCE.getModel_RefModel();
+
+    /**
+     * The meta object literal for the '<em><b>Ref Models</b></em>' reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference MODEL__REF_MODELS = eINSTANCE.getModel_RefModels();
 
     /**
      * The meta object literal for the '<em><b>Greetings</b></em>' containment reference list feature.

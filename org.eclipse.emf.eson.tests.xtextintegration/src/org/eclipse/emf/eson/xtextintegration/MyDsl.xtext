@@ -1,6 +1,6 @@
-grammar com.googlecode.efactory.xtextintegration.MyDsl with org.eclipse.xtext.common.Terminals
+grammar org.eclipse.emf.eson.xtextintegration.MyDsl with org.eclipse.xtext.common.Terminals
 
-generate myDsl "http://www.googlecode.com/efactory/xtextintegration/MyDsl"
+generate myDsl "http://www.eclipse.org/emf/eson/xtextintegration/MyDsl"
 
 Model:
 	'Greetings' name=ID

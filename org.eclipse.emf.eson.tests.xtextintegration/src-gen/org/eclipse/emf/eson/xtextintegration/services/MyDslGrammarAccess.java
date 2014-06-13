@@ -24,14 +24,24 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cGreetingsKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
-		private final Assignment cGreetingsAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cGreetingsGreetingParserRuleCall_2_0 = (RuleCall)cGreetingsAssignment_2.eContents().get(0);
+		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
+		private final Keyword cREFKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
+		private final Assignment cRefModelAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
+		private final CrossReference cRefModelModelCrossReference_2_1_0 = (CrossReference)cRefModelAssignment_2_1.eContents().get(0);
+		private final RuleCall cRefModelModelIDTerminalRuleCall_2_1_0_1 = (RuleCall)cRefModelModelCrossReference_2_1_0.eContents().get(1);
+		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
+		private final Keyword cREFsKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
+		private final Assignment cRefModelsAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
+		private final CrossReference cRefModelsModelCrossReference_3_1_0 = (CrossReference)cRefModelsAssignment_3_1.eContents().get(0);
+		private final RuleCall cRefModelsModelIDTerminalRuleCall_3_1_0_1 = (RuleCall)cRefModelsModelCrossReference_3_1_0.eContents().get(1);
+		private final Assignment cGreetingsAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final RuleCall cGreetingsGreetingParserRuleCall_4_0 = (RuleCall)cGreetingsAssignment_4.eContents().get(0);
 		
 		//Model:
-		//	"Greetings" name=ID greetings+=Greeting*;
+		//	"Greetings" name=ID ("REF" refModel=[Model])? ("REFs" refModels+=[Model]+)? greetings+=Greeting*;
 		public ParserRule getRule() { return rule; }
 
-		//"Greetings" name=ID greetings+=Greeting*
+		//"Greetings" name=ID ("REF" refModel=[Model])? ("REFs" refModels+=[Model]+)? greetings+=Greeting*
 		public Group getGroup() { return cGroup; }
 
 		//"Greetings"
@@ -43,11 +53,41 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
 
+		//("REF" refModel=[Model])?
+		public Group getGroup_2() { return cGroup_2; }
+
+		//"REF"
+		public Keyword getREFKeyword_2_0() { return cREFKeyword_2_0; }
+
+		//refModel=[Model]
+		public Assignment getRefModelAssignment_2_1() { return cRefModelAssignment_2_1; }
+
+		//[Model]
+		public CrossReference getRefModelModelCrossReference_2_1_0() { return cRefModelModelCrossReference_2_1_0; }
+
+		//ID
+		public RuleCall getRefModelModelIDTerminalRuleCall_2_1_0_1() { return cRefModelModelIDTerminalRuleCall_2_1_0_1; }
+
+		//("REFs" refModels+=[Model]+)?
+		public Group getGroup_3() { return cGroup_3; }
+
+		//"REFs"
+		public Keyword getREFsKeyword_3_0() { return cREFsKeyword_3_0; }
+
+		//refModels+=[Model]+
+		public Assignment getRefModelsAssignment_3_1() { return cRefModelsAssignment_3_1; }
+
+		//[Model]
+		public CrossReference getRefModelsModelCrossReference_3_1_0() { return cRefModelsModelCrossReference_3_1_0; }
+
+		//ID
+		public RuleCall getRefModelsModelIDTerminalRuleCall_3_1_0_1() { return cRefModelsModelIDTerminalRuleCall_3_1_0_1; }
+
 		//greetings+=Greeting*
-		public Assignment getGreetingsAssignment_2() { return cGreetingsAssignment_2; }
+		public Assignment getGreetingsAssignment_4() { return cGreetingsAssignment_4; }
 
 		//Greeting
-		public RuleCall getGreetingsGreetingParserRuleCall_2_0() { return cGreetingsGreetingParserRuleCall_2_0; }
+		public RuleCall getGreetingsGreetingParserRuleCall_4_0() { return cGreetingsGreetingParserRuleCall_4_0; }
 	}
 
 	public class GreetingElements extends AbstractParserRuleElementFinder {
@@ -121,7 +161,7 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 
 	
 	//Model:
-	//	"Greetings" name=ID greetings+=Greeting*;
+	//	"Greetings" name=ID ("REF" refModel=[Model])? ("REFs" refModels+=[Model]+)? greetings+=Greeting*;
 	public ModelElements getModelAccess() {
 		return (pModel != null) ? pModel : (pModel = new ModelElements());
 	}

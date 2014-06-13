@@ -4,20 +4,16 @@
     editorDirectory="/org.eclipse.emf.eson.editor/src" modelPluginID="org.eclipse.emf.eson"
     forceOverwrite="true" modelName="EFactory" updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
     complianceLevel="5.0" copyrightFields="false" editPluginID="org.eclipse.emf.eson.edit"
-    editorPluginID="org.eclipse.emf.eson.editor" runtimeVersion="2.10">
+    editorPluginID="org.eclipse.emf.eson.editor" runtimeVersion="2.9">
   <genPackages prefix="EFactory" basePackage="org.eclipse.emf.eson" disposableProviderFactory="true"
       ecorePackage="EFactory.ecore#/">
     <genClasses ecoreClass="EFactory.ecore#//Factory">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EFactory.ecore#//Factory/epackages"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EFactory.ecore#//Factory/imports"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EFactory.ecore#//Factory/annotations"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EFactory.ecore#//Factory/root"/>
     </genClasses>
     <genClasses ecoreClass="EFactory.ecore#//PackageImport">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EFactory.ecore#//PackageImport/ePackage"/>
-    </genClasses>
-    <genClasses ecoreClass="EFactory.ecore#//Import">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EFactory.ecore#//Import/importURI"/>
     </genClasses>
     <genClasses ecoreClass="EFactory.ecore#//Annotation"/>
     <genClasses ecoreClass="EFactory.ecore#//CustomNameMapping">

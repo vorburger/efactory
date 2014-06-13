@@ -38,6 +38,5 @@ Export-Package: org.eclipse.emf.eson.eFactory,
  org.eclipse.emf.eson.serialization,
  org.eclipse.emf.eson.util,
  org.eclipse.emf.eson.validation
-Import-Package: org.apache.log4j,
- org.eclipse.xtend2.lib
+Import-Package: org.apache.log4j
 Bundle-Vendor: Sebastian Benz & Michael Vorburger

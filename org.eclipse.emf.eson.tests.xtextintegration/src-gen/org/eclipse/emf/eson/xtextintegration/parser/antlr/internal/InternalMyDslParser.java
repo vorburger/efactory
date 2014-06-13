@@ -21,19 +21,21 @@ import java.util.ArrayList;
 @SuppressWarnings("all")
 public class InternalMyDslParser extends AbstractInternalAntlrParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_INT", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'Greetings'", "'Hello'", "'!'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_INT", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'Greetings'", "'REF'", "'REFs'", "'Hello'", "'!'"
     };
     public static final int RULE_ID=4;
-    public static final int RULE_WS=9;
     public static final int RULE_STRING=6;
-    public static final int RULE_ANY_OTHER=10;
-    public static final int RULE_SL_COMMENT=8;
-    public static final int RULE_INT=5;
-    public static final int T__11=11;
-    public static final int RULE_ML_COMMENT=7;
+    public static final int T__15=15;
     public static final int T__12=12;
+    public static final int T__11=11;
+    public static final int T__14=14;
     public static final int T__13=13;
+    public static final int RULE_ANY_OTHER=10;
+    public static final int RULE_INT=5;
+    public static final int RULE_WS=9;
+    public static final int RULE_SL_COMMENT=8;
     public static final int EOF=-1;
+    public static final int RULE_ML_COMMENT=7;
 
     // delegates
     // delegators
@@ -110,23 +112,27 @@ public class InternalMyDslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleModel"
-    // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:76:1: ruleModel returns [EObject current=null] : (otherlv_0= 'Greetings' ( (lv_name_1_0= RULE_ID ) ) ( (lv_greetings_2_0= ruleGreeting ) )* ) ;
+    // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:76:1: ruleModel returns [EObject current=null] : (otherlv_0= 'Greetings' ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= 'REF' ( (otherlv_3= RULE_ID ) ) )? (otherlv_4= 'REFs' ( (otherlv_5= RULE_ID ) )+ )? ( (lv_greetings_6_0= ruleGreeting ) )* ) ;
     public final EObject ruleModel() throws RecognitionException {
         EObject current = null;
 
         Token otherlv_0=null;
         Token lv_name_1_0=null;
-        EObject lv_greetings_2_0 = null;
+        Token otherlv_2=null;
+        Token otherlv_3=null;
+        Token otherlv_4=null;
+        Token otherlv_5=null;
+        EObject lv_greetings_6_0 = null;
 
 
          enterRule(); 
             
         try {
-            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:79:28: ( (otherlv_0= 'Greetings' ( (lv_name_1_0= RULE_ID ) ) ( (lv_greetings_2_0= ruleGreeting ) )* ) )
-            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:80:1: (otherlv_0= 'Greetings' ( (lv_name_1_0= RULE_ID ) ) ( (lv_greetings_2_0= ruleGreeting ) )* )
+            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:79:28: ( (otherlv_0= 'Greetings' ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= 'REF' ( (otherlv_3= RULE_ID ) ) )? (otherlv_4= 'REFs' ( (otherlv_5= RULE_ID ) )+ )? ( (lv_greetings_6_0= ruleGreeting ) )* ) )
+            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:80:1: (otherlv_0= 'Greetings' ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= 'REF' ( (otherlv_3= RULE_ID ) ) )? (otherlv_4= 'REFs' ( (otherlv_5= RULE_ID ) )+ )? ( (lv_greetings_6_0= ruleGreeting ) )* )
             {
-            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:80:1: (otherlv_0= 'Greetings' ( (lv_name_1_0= RULE_ID ) ) ( (lv_greetings_2_0= ruleGreeting ) )* )
-            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:80:3: otherlv_0= 'Greetings' ( (lv_name_1_0= RULE_ID ) ) ( (lv_greetings_2_0= ruleGreeting ) )*
+            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:80:1: (otherlv_0= 'Greetings' ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= 'REF' ( (otherlv_3= RULE_ID ) ) )? (otherlv_4= 'REFs' ( (otherlv_5= RULE_ID ) )+ )? ( (lv_greetings_6_0= ruleGreeting ) )* )
+            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:80:3: otherlv_0= 'Greetings' ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= 'REF' ( (otherlv_3= RULE_ID ) ) )? (otherlv_4= 'REFs' ( (otherlv_5= RULE_ID ) )+ )? ( (lv_greetings_6_0= ruleGreeting ) )*
             {
             otherlv_0=(Token)match(input,11,FOLLOW_11_in_ruleModel122); 
 
@@ -158,29 +164,136 @@ public class InternalMyDslParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:102:2: ( (lv_greetings_2_0= ruleGreeting ) )*
-            loop1:
-            do {
-                int alt1=2;
-                int LA1_0 = input.LA(1);
+            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:102:2: (otherlv_2= 'REF' ( (otherlv_3= RULE_ID ) ) )?
+            int alt1=2;
+            int LA1_0 = input.LA(1);
 
-                if ( (LA1_0==12) ) {
-                    alt1=1;
+            if ( (LA1_0==12) ) {
+                alt1=1;
+            }
+            switch (alt1) {
+                case 1 :
+                    // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:102:4: otherlv_2= 'REF' ( (otherlv_3= RULE_ID ) )
+                    {
+                    otherlv_2=(Token)match(input,12,FOLLOW_12_in_ruleModel157); 
+
+                        	newLeafNode(otherlv_2, grammarAccess.getModelAccess().getREFKeyword_2_0());
+                        
+                    // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:106:1: ( (otherlv_3= RULE_ID ) )
+                    // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:107:1: (otherlv_3= RULE_ID )
+                    {
+                    // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:107:1: (otherlv_3= RULE_ID )
+                    // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:108:3: otherlv_3= RULE_ID
+                    {
+
+                    			if (current==null) {
+                    	            current = createModelElement(grammarAccess.getModelRule());
+                    	        }
+                            
+                    otherlv_3=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleModel177); 
+
+                    		newLeafNode(otherlv_3, grammarAccess.getModelAccess().getRefModelModelCrossReference_2_1_0()); 
+                    	
+
+                    }
+
+
+                    }
+
+
+                    }
+                    break;
+
+            }
+
+            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:119:4: (otherlv_4= 'REFs' ( (otherlv_5= RULE_ID ) )+ )?
+            int alt3=2;
+            int LA3_0 = input.LA(1);
+
+            if ( (LA3_0==13) ) {
+                alt3=1;
+            }
+            switch (alt3) {
+                case 1 :
+                    // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:119:6: otherlv_4= 'REFs' ( (otherlv_5= RULE_ID ) )+
+                    {
+                    otherlv_4=(Token)match(input,13,FOLLOW_13_in_ruleModel192); 
+
+                        	newLeafNode(otherlv_4, grammarAccess.getModelAccess().getREFsKeyword_3_0());
+                        
+                    // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:123:1: ( (otherlv_5= RULE_ID ) )+
+                    int cnt2=0;
+                    loop2:
+                    do {
+                        int alt2=2;
+                        int LA2_0 = input.LA(1);
+
+                        if ( (LA2_0==RULE_ID) ) {
+                            alt2=1;
+                        }
+
+
+                        switch (alt2) {
+                    	case 1 :
+                    	    // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:124:1: (otherlv_5= RULE_ID )
+                    	    {
+                    	    // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:124:1: (otherlv_5= RULE_ID )
+                    	    // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:125:3: otherlv_5= RULE_ID
+                    	    {
+
+                    	    			if (current==null) {
+                    	    	            current = createModelElement(grammarAccess.getModelRule());
+                    	    	        }
+                    	            
+                    	    otherlv_5=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleModel212); 
+
+                    	    		newLeafNode(otherlv_5, grammarAccess.getModelAccess().getRefModelsModelCrossReference_3_1_0()); 
+                    	    	
+
+                    	    }
+
+
+                    	    }
+                    	    break;
+
+                    	default :
+                    	    if ( cnt2 >= 1 ) break loop2;
+                                EarlyExitException eee =
+                                    new EarlyExitException(2, input);
+                                throw eee;
+                        }
+                        cnt2++;
+                    } while (true);
+
+
+                    }
+                    break;
+
+            }
+
+            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:136:5: ( (lv_greetings_6_0= ruleGreeting ) )*
+            loop4:
+            do {
+                int alt4=2;
+                int LA4_0 = input.LA(1);
+
+                if ( (LA4_0==14) ) {
+                    alt4=1;
                 }
 
 
-                switch (alt1) {
+                switch (alt4) {
             	case 1 :
-            	    // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:103:1: (lv_greetings_2_0= ruleGreeting )
+            	    // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:137:1: (lv_greetings_6_0= ruleGreeting )
             	    {
-            	    // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:103:1: (lv_greetings_2_0= ruleGreeting )
-            	    // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:104:3: lv_greetings_2_0= ruleGreeting
+            	    // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:137:1: (lv_greetings_6_0= ruleGreeting )
+            	    // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:138:3: lv_greetings_6_0= ruleGreeting
             	    {
             	     
-            	    	        newCompositeNode(grammarAccess.getModelAccess().getGreetingsGreetingParserRuleCall_2_0()); 
+            	    	        newCompositeNode(grammarAccess.getModelAccess().getGreetingsGreetingParserRuleCall_4_0()); 
             	    	    
-            	    pushFollow(FOLLOW_ruleGreeting_in_ruleModel165);
-            	    lv_greetings_2_0=ruleGreeting();
+            	    pushFollow(FOLLOW_ruleGreeting_in_ruleModel236);
+            	    lv_greetings_6_0=ruleGreeting();
 
             	    state._fsp--;
 
@@ -191,7 +304,7 @@ public class InternalMyDslParser extends AbstractInternalAntlrParser {
             	           		add(
             	           			current, 
             	           			"greetings",
-            	            		lv_greetings_2_0, 
+            	            		lv_greetings_6_0, 
             	            		"Greeting");
             	    	        afterParserOrEnumRuleCall();
             	    	    
@@ -203,7 +316,7 @@ public class InternalMyDslParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop1;
+            	    break loop4;
                 }
             } while (true);
 
@@ -228,7 +341,7 @@ public class InternalMyDslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleGreeting"
-    // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:128:1: entryRuleGreeting returns [EObject current=null] : iv_ruleGreeting= ruleGreeting EOF ;
+    // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:162:1: entryRuleGreeting returns [EObject current=null] : iv_ruleGreeting= ruleGreeting EOF ;
     public final EObject entryRuleGreeting() throws RecognitionException {
         EObject current = null;
 
@@ -236,17 +349,17 @@ public class InternalMyDslParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:129:2: (iv_ruleGreeting= ruleGreeting EOF )
-            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:130:2: iv_ruleGreeting= ruleGreeting EOF
+            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:163:2: (iv_ruleGreeting= ruleGreeting EOF )
+            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:164:2: iv_ruleGreeting= ruleGreeting EOF
             {
              newCompositeNode(grammarAccess.getGreetingRule()); 
-            pushFollow(FOLLOW_ruleGreeting_in_entryRuleGreeting202);
+            pushFollow(FOLLOW_ruleGreeting_in_entryRuleGreeting273);
             iv_ruleGreeting=ruleGreeting();
 
             state._fsp--;
 
              current =iv_ruleGreeting; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleGreeting212); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleGreeting283); 
 
             }
 
@@ -264,7 +377,7 @@ public class InternalMyDslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleGreeting"
-    // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:137:1: ruleGreeting returns [EObject current=null] : (otherlv_0= 'Hello' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '!' ) ;
+    // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:171:1: ruleGreeting returns [EObject current=null] : (otherlv_0= 'Hello' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '!' ) ;
     public final EObject ruleGreeting() throws RecognitionException {
         EObject current = null;
 
@@ -275,23 +388,23 @@ public class InternalMyDslParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:140:28: ( (otherlv_0= 'Hello' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '!' ) )
-            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:141:1: (otherlv_0= 'Hello' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '!' )
+            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:174:28: ( (otherlv_0= 'Hello' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '!' ) )
+            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:175:1: (otherlv_0= 'Hello' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '!' )
             {
-            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:141:1: (otherlv_0= 'Hello' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '!' )
-            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:141:3: otherlv_0= 'Hello' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '!'
+            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:175:1: (otherlv_0= 'Hello' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '!' )
+            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:175:3: otherlv_0= 'Hello' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '!'
             {
-            otherlv_0=(Token)match(input,12,FOLLOW_12_in_ruleGreeting249); 
+            otherlv_0=(Token)match(input,14,FOLLOW_14_in_ruleGreeting320); 
 
                 	newLeafNode(otherlv_0, grammarAccess.getGreetingAccess().getHelloKeyword_0());
                 
-            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:145:1: ( (lv_name_1_0= RULE_ID ) )
-            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:146:1: (lv_name_1_0= RULE_ID )
+            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:179:1: ( (lv_name_1_0= RULE_ID ) )
+            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:180:1: (lv_name_1_0= RULE_ID )
             {
-            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:146:1: (lv_name_1_0= RULE_ID )
-            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:147:3: lv_name_1_0= RULE_ID
+            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:180:1: (lv_name_1_0= RULE_ID )
+            // ../org.eclipse.emf.eson.tests.xtextintegration/src-gen/org/eclipse/emf/eson/xtextintegration/parser/antlr/internal/InternalMyDsl.g:181:3: lv_name_1_0= RULE_ID
             {
-            lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleGreeting266); 
+            lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleGreeting337); 
 
             			newLeafNode(lv_name_1_0, grammarAccess.getGreetingAccess().getNameIDTerminalRuleCall_1_0()); 
             		
@@ -311,7 +424,7 @@ public class InternalMyDslParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_2=(Token)match(input,13,FOLLOW_13_in_ruleGreeting283); 
+            otherlv_2=(Token)match(input,15,FOLLOW_15_in_ruleGreeting354); 
 
                 	newLeafNode(otherlv_2, grammarAccess.getGreetingAccess().getExclamationMarkKeyword_2());
                 
@@ -342,12 +455,16 @@ public class InternalMyDslParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_ruleModel_in_entryRuleModel75 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleModel85 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_11_in_ruleModel122 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleModel139 = new BitSet(new long[]{0x0000000000001002L});
-    public static final BitSet FOLLOW_ruleGreeting_in_ruleModel165 = new BitSet(new long[]{0x0000000000001002L});
-    public static final BitSet FOLLOW_ruleGreeting_in_entryRuleGreeting202 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleGreeting212 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_12_in_ruleGreeting249 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleGreeting266 = new BitSet(new long[]{0x0000000000002000L});
-    public static final BitSet FOLLOW_13_in_ruleGreeting283 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleModel139 = new BitSet(new long[]{0x0000000000007002L});
+    public static final BitSet FOLLOW_12_in_ruleModel157 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleModel177 = new BitSet(new long[]{0x0000000000006002L});
+    public static final BitSet FOLLOW_13_in_ruleModel192 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleModel212 = new BitSet(new long[]{0x0000000000004012L});
+    public static final BitSet FOLLOW_ruleGreeting_in_ruleModel236 = new BitSet(new long[]{0x0000000000004002L});
+    public static final BitSet FOLLOW_ruleGreeting_in_entryRuleGreeting273 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleGreeting283 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_14_in_ruleGreeting320 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleGreeting337 = new BitSet(new long[]{0x0000000000008000L});
+    public static final BitSet FOLLOW_15_in_ruleGreeting354 = new BitSet(new long[]{0x0000000000000002L});
 
 }

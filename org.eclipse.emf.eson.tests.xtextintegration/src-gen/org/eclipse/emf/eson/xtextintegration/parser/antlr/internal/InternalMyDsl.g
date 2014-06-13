@@ -99,19 +99,53 @@ ruleModel returns [EObject current=null]
 	    }
 
 )
-)(
+)(	otherlv_2='REF' 
+    {
+    	newLeafNode(otherlv_2, grammarAccess.getModelAccess().getREFKeyword_2_0());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getModelRule());
+	        }
+        }
+	otherlv_3=RULE_ID
+	{
+		newLeafNode(otherlv_3, grammarAccess.getModelAccess().getRefModelModelCrossReference_2_1_0()); 
+	}
+
+)
+))?(	otherlv_4='REFs' 
+    {
+    	newLeafNode(otherlv_4, grammarAccess.getModelAccess().getREFsKeyword_3_0());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getModelRule());
+	        }
+        }
+	otherlv_5=RULE_ID
+	{
+		newLeafNode(otherlv_5, grammarAccess.getModelAccess().getRefModelsModelCrossReference_3_1_0()); 
+	}
+
+)
+)+)?(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getModelAccess().getGreetingsGreetingParserRuleCall_2_0()); 
+	        newCompositeNode(grammarAccess.getModelAccess().getGreetingsGreetingParserRuleCall_4_0()); 
 	    }
-		lv_greetings_2_0=ruleGreeting		{
+		lv_greetings_6_0=ruleGreeting		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getModelRule());
 	        }
        		add(
        			$current, 
        			"greetings",
-        		lv_greetings_2_0, 
+        		lv_greetings_6_0, 
         		"Greeting");
 	        afterParserOrEnumRuleCall();
 	    }

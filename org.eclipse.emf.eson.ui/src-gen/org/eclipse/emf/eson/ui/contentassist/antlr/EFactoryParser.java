@@ -41,7 +41,6 @@ public class EFactoryParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAttributeAccess().getAlternatives(), "rule__Attribute__Alternatives");
 					put(grammarAccess.getFactoryAccess().getGroup(), "rule__Factory__Group__0");
 					put(grammarAccess.getPackageImportAccess().getGroup(), "rule__PackageImport__Group__0");
-					put(grammarAccess.getImportAccess().getGroup(), "rule__Import__Group__0");
 					put(grammarAccess.getCustomNameMappingAccess().getGroup(), "rule__CustomNameMapping__Group__0");
 					put(grammarAccess.getFeatureAccess().getGroup(), "rule__Feature__Group__0");
 					put(grammarAccess.getNewObjectAccess().getGroup(), "rule__NewObject__Group__0");
@@ -50,11 +49,9 @@ public class EFactoryParser extends AbstractContentAssistParser {
 					put(grammarAccess.getQualifiedNameAccess().getGroup(), "rule__QualifiedName__Group__0");
 					put(grammarAccess.getQualifiedNameAccess().getGroup_1(), "rule__QualifiedName__Group_1__0");
 					put(grammarAccess.getFactoryAccess().getEpackagesAssignment_0(), "rule__Factory__EpackagesAssignment_0");
-					put(grammarAccess.getFactoryAccess().getImportsAssignment_1(), "rule__Factory__ImportsAssignment_1");
-					put(grammarAccess.getFactoryAccess().getAnnotationsAssignment_2(), "rule__Factory__AnnotationsAssignment_2");
-					put(grammarAccess.getFactoryAccess().getRootAssignment_3(), "rule__Factory__RootAssignment_3");
+					put(grammarAccess.getFactoryAccess().getAnnotationsAssignment_1(), "rule__Factory__AnnotationsAssignment_1");
+					put(grammarAccess.getFactoryAccess().getRootAssignment_2(), "rule__Factory__RootAssignment_2");
 					put(grammarAccess.getPackageImportAccess().getEPackageAssignment_1(), "rule__PackageImport__EPackageAssignment_1");
-					put(grammarAccess.getImportAccess().getImportURIAssignment_1(), "rule__Import__ImportURIAssignment_1");
 					put(grammarAccess.getCustomNameMappingAccess().getEClassAssignment_2(), "rule__CustomNameMapping__EClassAssignment_2");
 					put(grammarAccess.getCustomNameMappingAccess().getNameFeatureAssignment_4(), "rule__CustomNameMapping__NameFeatureAssignment_4");
 					put(grammarAccess.getFeatureAccess().getEFeatureAssignment_0(), "rule__Feature__EFeatureAssignment_0");

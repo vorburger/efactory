@@ -76,22 +76,13 @@ public interface EFactoryPackage extends EPackage
   int FACTORY__EPACKAGES = 0;
 
   /**
-   * The feature id for the '<em><b>Imports</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int FACTORY__IMPORTS = 1;
-
-  /**
    * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int FACTORY__ANNOTATIONS = 2;
+  int FACTORY__ANNOTATIONS = 1;
 
   /**
    * The feature id for the '<em><b>Root</b></em>' containment reference.
@@ -100,7 +91,7 @@ public interface EFactoryPackage extends EPackage
    * @generated
    * @ordered
    */
-  int FACTORY__ROOT = 3;
+  int FACTORY__ROOT = 2;
 
   /**
    * The number of structural features of the '<em>Factory</em>' class.
@@ -109,7 +100,7 @@ public interface EFactoryPackage extends EPackage
    * @generated
    * @ordered
    */
-  int FACTORY_FEATURE_COUNT = 4;
+  int FACTORY_FEATURE_COUNT = 3;
 
   /**
    * The meta object id for the '{@link org.eclipse.emf.eson.eFactory.impl.PackageImportImpl <em>Package Import</em>}' class.
@@ -140,34 +131,6 @@ public interface EFactoryPackage extends EPackage
   int PACKAGE_IMPORT_FEATURE_COUNT = 1;
 
   /**
-   * The meta object id for the '{@link org.eclipse.emf.eson.eFactory.impl.ImportImpl <em>Import</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.eclipse.emf.eson.eFactory.impl.ImportImpl
-   * @see org.eclipse.emf.eson.eFactory.impl.EFactoryPackageImpl#getImport()
-   * @generated
-   */
-  int IMPORT = 2;
-
-  /**
-   * The feature id for the '<em><b>Import URI</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int IMPORT__IMPORT_URI = 0;
-
-  /**
-   * The number of structural features of the '<em>Import</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int IMPORT_FEATURE_COUNT = 1;
-
-  /**
    * The meta object id for the '{@link org.eclipse.emf.eson.eFactory.impl.AnnotationImpl <em>Annotation</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -175,7 +138,7 @@ public interface EFactoryPackage extends EPackage
    * @see org.eclipse.emf.eson.eFactory.impl.EFactoryPackageImpl#getAnnotation()
    * @generated
    */
-  int ANNOTATION = 3;
+  int ANNOTATION = 2;
 
   /**
    * The number of structural features of the '<em>Annotation</em>' class.
@@ -194,7 +157,7 @@ public interface EFactoryPackage extends EPackage
    * @see org.eclipse.emf.eson.eFactory.impl.EFactoryPackageImpl#getCustomNameMapping()
    * @generated
    */
-  int CUSTOM_NAME_MAPPING = 4;
+  int CUSTOM_NAME_MAPPING = 3;
 
   /**
    * The feature id for the '<em><b>EClass</b></em>' reference.
@@ -231,7 +194,7 @@ public interface EFactoryPackage extends EPackage
    * @see org.eclipse.emf.eson.eFactory.impl.EFactoryPackageImpl#getFeature()
    * @generated
    */
-  int FEATURE = 5;
+  int FEATURE = 4;
 
   /**
    * The feature id for the '<em><b>EFeature</b></em>' reference.
@@ -268,7 +231,7 @@ public interface EFactoryPackage extends EPackage
    * @see org.eclipse.emf.eson.eFactory.impl.EFactoryPackageImpl#getNewObject()
    * @generated
    */
-  int NEW_OBJECT = 6;
+  int NEW_OBJECT = 5;
 
   /**
    * The feature id for the '<em><b>EClass</b></em>' reference.
@@ -314,7 +277,7 @@ public interface EFactoryPackage extends EPackage
    * @see org.eclipse.emf.eson.eFactory.impl.EFactoryPackageImpl#getValue()
    * @generated
    */
-  int VALUE = 7;
+  int VALUE = 6;
 
   /**
    * The number of structural features of the '<em>Value</em>' class.
@@ -333,7 +296,7 @@ public interface EFactoryPackage extends EPackage
    * @see org.eclipse.emf.eson.eFactory.impl.EFactoryPackageImpl#getMultiValue()
    * @generated
    */
-  int MULTI_VALUE = 8;
+  int MULTI_VALUE = 7;
 
   /**
    * The feature id for the '<em><b>Values</b></em>' containment reference list.
@@ -361,7 +324,7 @@ public interface EFactoryPackage extends EPackage
    * @see org.eclipse.emf.eson.eFactory.impl.EFactoryPackageImpl#getReference()
    * @generated
    */
-  int REFERENCE = 9;
+  int REFERENCE = 8;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' reference.
@@ -389,7 +352,7 @@ public interface EFactoryPackage extends EPackage
    * @see org.eclipse.emf.eson.eFactory.impl.EFactoryPackageImpl#getContainment()
    * @generated
    */
-  int CONTAINMENT = 10;
+  int CONTAINMENT = 9;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' containment reference.
@@ -417,7 +380,7 @@ public interface EFactoryPackage extends EPackage
    * @see org.eclipse.emf.eson.eFactory.impl.EFactoryPackageImpl#getAttribute()
    * @generated
    */
-  int ATTRIBUTE = 11;
+  int ATTRIBUTE = 10;
 
   /**
    * The number of structural features of the '<em>Attribute</em>' class.
@@ -436,7 +399,7 @@ public interface EFactoryPackage extends EPackage
    * @see org.eclipse.emf.eson.eFactory.impl.EFactoryPackageImpl#getEnumAttribute()
    * @generated
    */
-  int ENUM_ATTRIBUTE = 12;
+  int ENUM_ATTRIBUTE = 11;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' reference.
@@ -464,7 +427,7 @@ public interface EFactoryPackage extends EPackage
    * @see org.eclipse.emf.eson.eFactory.impl.EFactoryPackageImpl#getStringAttribute()
    * @generated
    */
-  int STRING_ATTRIBUTE = 13;
+  int STRING_ATTRIBUTE = 12;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -492,7 +455,7 @@ public interface EFactoryPackage extends EPackage
    * @see org.eclipse.emf.eson.eFactory.impl.EFactoryPackageImpl#getIntegerAttribute()
    * @generated
    */
-  int INTEGER_ATTRIBUTE = 14;
+  int INTEGER_ATTRIBUTE = 13;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -520,7 +483,7 @@ public interface EFactoryPackage extends EPackage
    * @see org.eclipse.emf.eson.eFactory.impl.EFactoryPackageImpl#getDoubleAttribute()
    * @generated
    */
-  int DOUBLE_ATTRIBUTE = 15;
+  int DOUBLE_ATTRIBUTE = 14;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -548,7 +511,7 @@ public interface EFactoryPackage extends EPackage
    * @see org.eclipse.emf.eson.eFactory.impl.EFactoryPackageImpl#getDateAttribute()
    * @generated
    */
-  int DATE_ATTRIBUTE = 16;
+  int DATE_ATTRIBUTE = 15;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -576,7 +539,7 @@ public interface EFactoryPackage extends EPackage
    * @see org.eclipse.emf.eson.eFactory.impl.EFactoryPackageImpl#getNullAttribute()
    * @generated
    */
-  int NULL_ATTRIBUTE = 17;
+  int NULL_ATTRIBUTE = 16;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -604,7 +567,7 @@ public interface EFactoryPackage extends EPackage
    * @see org.eclipse.emf.eson.eFactory.impl.EFactoryPackageImpl#getBooleanAttribute()
    * @generated
    */
-  int BOOLEAN_ATTRIBUTE = 18;
+  int BOOLEAN_ATTRIBUTE = 17;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -645,17 +608,6 @@ public interface EFactoryPackage extends EPackage
    * @generated
    */
   EReference getFactory_Epackages();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link org.eclipse.emf.eson.eFactory.Factory#getImports <em>Imports</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Imports</em>'.
-   * @see org.eclipse.emf.eson.eFactory.Factory#getImports()
-   * @see #getFactory()
-   * @generated
-   */
-  EReference getFactory_Imports();
 
   /**
    * Returns the meta object for the containment reference list '{@link org.eclipse.emf.eson.eFactory.Factory#getAnnotations <em>Annotations</em>}'.
@@ -699,27 +651,6 @@ public interface EFactoryPackage extends EPackage
    * @generated
    */
   EReference getPackageImport_EPackage();
-
-  /**
-   * Returns the meta object for class '{@link org.eclipse.emf.eson.eFactory.Import <em>Import</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Import</em>'.
-   * @see org.eclipse.emf.eson.eFactory.Import
-   * @generated
-   */
-  EClass getImport();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.eclipse.emf.eson.eFactory.Import#getImportURI <em>Import URI</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Import URI</em>'.
-   * @see org.eclipse.emf.eson.eFactory.Import#getImportURI()
-   * @see #getImport()
-   * @generated
-   */
-  EAttribute getImport_ImportURI();
 
   /**
    * Returns the meta object for class '{@link org.eclipse.emf.eson.eFactory.Annotation <em>Annotation</em>}'.
@@ -1110,14 +1041,6 @@ public interface EFactoryPackage extends EPackage
     EReference FACTORY__EPACKAGES = eINSTANCE.getFactory_Epackages();
 
     /**
-     * The meta object literal for the '<em><b>Imports</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference FACTORY__IMPORTS = eINSTANCE.getFactory_Imports();
-
-    /**
      * The meta object literal for the '<em><b>Annotations</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1150,24 +1073,6 @@ public interface EFactoryPackage extends EPackage
      * @generated
      */
     EReference PACKAGE_IMPORT__EPACKAGE = eINSTANCE.getPackageImport_EPackage();
-
-    /**
-     * The meta object literal for the '{@link org.eclipse.emf.eson.eFactory.impl.ImportImpl <em>Import</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.eclipse.emf.eson.eFactory.impl.ImportImpl
-     * @see org.eclipse.emf.eson.eFactory.impl.EFactoryPackageImpl#getImport()
-     * @generated
-     */
-    EClass IMPORT = eINSTANCE.getImport();
-
-    /**
-     * The meta object literal for the '<em><b>Import URI</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute IMPORT__IMPORT_URI = eINSTANCE.getImport_ImportURI();
 
     /**
      * The meta object literal for the '{@link org.eclipse.emf.eson.eFactory.impl.AnnotationImpl <em>Annotation</em>}' class.

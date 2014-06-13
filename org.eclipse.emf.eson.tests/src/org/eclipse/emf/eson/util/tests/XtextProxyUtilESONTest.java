@@ -67,6 +67,7 @@ public class XtextProxyUtilESONTest {
 	public void testGetSingleProxyCrossRefAsString() throws Exception {
 		EObject esonEObject = ph.parse("use testmodel.* TestModel test { singleRequired: SingleRequired { parentReference: ItsNotLinkedYet } }");
 		TestModel model = EFactoryResource.getEFactoryEObject(esonEObject.eResource(), TestModel.class); 
+		assertNotNull(model);
 		// DO NOT validate using IResourceValidator, as it's -intentionally- broken
 		
 		SingleRequired singleRequired = model.getSingleRequired();
@@ -80,7 +81,8 @@ public class XtextProxyUtilESONTest {
 	public void testGetMultiProxyCrossRefAsString() throws Exception {
 		EObject esonEObject = ph.parse("use testmodel.* TestModel test { singleRequired: SingleRequired { } children: [ Child { referenceList: [ ItsNotLinkedYet ] } ] }");
 		// NO assertNoIssues(validator.validate(esonEObject.eResource(), CheckMode.ALL, null));
-		TestModel model = EFactoryResource.getEFactoryEObject(esonEObject.eResource(), TestModel.class); 
+		TestModel model = EFactoryResource.getEFactoryEObject(esonEObject.eResource(), TestModel.class);
+		assertNotNull(model);
 		Child child = model.getChildren().get(0);
 		EList<SingleRequired> referenceList = child.getReferenceList();
 		SingleRequired refModel = referenceList.get(0);

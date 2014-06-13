@@ -66,7 +66,6 @@ public class EFactoryFactoryImpl extends EFactoryImpl implements EFactoryFactory
     {
       case EFactoryPackage.FACTORY: return createFactory();
       case EFactoryPackage.PACKAGE_IMPORT: return createPackageImport();
-      case EFactoryPackage.IMPORT: return createImport();
       case EFactoryPackage.ANNOTATION: return createAnnotation();
       case EFactoryPackage.CUSTOM_NAME_MAPPING: return createCustomNameMapping();
       case EFactoryPackage.FEATURE: return createFeature();
@@ -108,17 +107,6 @@ public class EFactoryFactoryImpl extends EFactoryImpl implements EFactoryFactory
   {
     PackageImportImpl packageImport = new PackageImportImpl();
     return packageImport;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Import createImport()
-  {
-    ImportImpl import_ = new ImportImpl();
-    return import_;
   }
 
   /**

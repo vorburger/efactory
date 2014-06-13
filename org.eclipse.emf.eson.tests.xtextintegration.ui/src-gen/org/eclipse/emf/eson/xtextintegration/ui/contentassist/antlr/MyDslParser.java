@@ -38,9 +38,13 @@ public class MyDslParser extends AbstractContentAssistParser {
 				private static final long serialVersionUID = 1L;
 				{
 					put(grammarAccess.getModelAccess().getGroup(), "rule__Model__Group__0");
+					put(grammarAccess.getModelAccess().getGroup_2(), "rule__Model__Group_2__0");
+					put(grammarAccess.getModelAccess().getGroup_3(), "rule__Model__Group_3__0");
 					put(grammarAccess.getGreetingAccess().getGroup(), "rule__Greeting__Group__0");
 					put(grammarAccess.getModelAccess().getNameAssignment_1(), "rule__Model__NameAssignment_1");
-					put(grammarAccess.getModelAccess().getGreetingsAssignment_2(), "rule__Model__GreetingsAssignment_2");
+					put(grammarAccess.getModelAccess().getRefModelAssignment_2_1(), "rule__Model__RefModelAssignment_2_1");
+					put(grammarAccess.getModelAccess().getRefModelsAssignment_3_1(), "rule__Model__RefModelsAssignment_3_1");
+					put(grammarAccess.getModelAccess().getGreetingsAssignment_4(), "rule__Model__GreetingsAssignment_4");
 					put(grammarAccess.getGreetingAccess().getNameAssignment_1(), "rule__Greeting__NameAssignment_1");
 				}
 			};

@@ -12,7 +12,6 @@ import org.eclipse.emf.eson.eFactory.EFactoryPackage;
 import org.eclipse.emf.eson.eFactory.EnumAttribute;
 import org.eclipse.emf.eson.eFactory.Factory;
 import org.eclipse.emf.eson.eFactory.Feature;
-import org.eclipse.emf.eson.eFactory.Import;
 import org.eclipse.emf.eson.eFactory.IntegerAttribute;
 import org.eclipse.emf.eson.eFactory.MultiValue;
 import org.eclipse.emf.eson.eFactory.NewObject;
@@ -95,12 +94,6 @@ public class EFactorySemanticSequencer extends AbstractDelegatingSemanticSequenc
 			case EFactoryPackage.FEATURE:
 				if(context == grammarAccess.getFeatureRule()) {
 					sequence_Feature(context, (Feature) semanticObject); 
-					return; 
-				}
-				else break;
-			case EFactoryPackage.IMPORT:
-				if(context == grammarAccess.getImportRule()) {
-					sequence_Import(context, (Import) semanticObject); 
 					return; 
 				}
 				else break;
@@ -259,7 +252,7 @@ public class EFactorySemanticSequencer extends AbstractDelegatingSemanticSequenc
 	
 	/**
 	 * Constraint:
-	 *     (epackages+=PackageImport* imports+=Import* annotations+=Annotation* root=NewObject)
+	 *     (epackages+=PackageImport* annotations+=Annotation* root=NewObject)
 	 */
 	protected void sequence_Factory(EObject context, Factory semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -272,22 +265,6 @@ public class EFactorySemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 */
 	protected void sequence_Feature(EObject context, Feature semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     importURI=STRING
-	 */
-	protected void sequence_Import(EObject context, Import semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, EFactoryPackage.Literals.IMPORT__IMPORT_URI) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EFactoryPackage.Literals.IMPORT__IMPORT_URI));
-		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getImportAccess().getImportURISTRINGTerminalRuleCall_1_0(), semanticObject.getImportURI());
-		feeder.finish();
 	}
 	
 	

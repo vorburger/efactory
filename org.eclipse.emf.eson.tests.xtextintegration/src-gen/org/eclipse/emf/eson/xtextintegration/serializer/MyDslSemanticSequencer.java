@@ -60,7 +60,7 @@ public class MyDslSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	
 	/**
 	 * Constraint:
-	 *     (name=ID greetings+=Greeting*)
+	 *     (name=ID refModel=[Model|ID]? refModels+=[Model|ID]* greetings+=Greeting*)
 	 */
 	protected void sequence_Model(EObject context, Model semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

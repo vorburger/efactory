@@ -4,8 +4,6 @@
   <eClassifiers xsi:type="ecore:EClass" name="Factory">
     <eStructuralFeatures xsi:type="ecore:EReference" name="epackages" upperBound="-1"
         eType="#//PackageImport" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="imports" upperBound="-1"
-        eType="#//Import" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="annotations" upperBound="-1"
         eType="#//Annotation" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="root" eType="#//NewObject"
@@ -13,9 +11,6 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PackageImport">
     <eStructuralFeatures xsi:type="ecore:EReference" name="ePackage" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EPackage"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Import">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="importURI" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Annotation"/>
   <eClassifiers xsi:type="ecore:EClass" name="CustomNameMapping" eSuperTypes="#//Annotation">

@@ -21,7 +21,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.emf.eson.eFactory.Annotation;
 import org.eclipse.emf.eson.eFactory.EFactoryPackage;
 import org.eclipse.emf.eson.eFactory.Factory;
-import org.eclipse.emf.eson.eFactory.Import;
 import org.eclipse.emf.eson.eFactory.NewObject;
 import org.eclipse.emf.eson.eFactory.PackageImport;
 
@@ -33,7 +32,6 @@ import org.eclipse.emf.eson.eFactory.PackageImport;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.eclipse.emf.eson.eFactory.impl.FactoryImpl#getEpackages <em>Epackages</em>}</li>
- *   <li>{@link org.eclipse.emf.eson.eFactory.impl.FactoryImpl#getImports <em>Imports</em>}</li>
  *   <li>{@link org.eclipse.emf.eson.eFactory.impl.FactoryImpl#getAnnotations <em>Annotations</em>}</li>
  *   <li>{@link org.eclipse.emf.eson.eFactory.impl.FactoryImpl#getRoot <em>Root</em>}</li>
  * </ul>
@@ -52,16 +50,6 @@ public class FactoryImpl extends MinimalEObjectImpl.Container implements Factory
    * @ordered
    */
   protected EList<PackageImport> epackages;
-
-  /**
-   * The cached value of the '{@link #getImports() <em>Imports</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getImports()
-   * @generated
-   * @ordered
-   */
-  protected EList<Import> imports;
 
   /**
    * The cached value of the '{@link #getAnnotations() <em>Annotations</em>}' containment reference list.
@@ -116,20 +104,6 @@ public class FactoryImpl extends MinimalEObjectImpl.Container implements Factory
       epackages = new EObjectContainmentEList<PackageImport>(PackageImport.class, this, EFactoryPackage.FACTORY__EPACKAGES);
     }
     return epackages;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<Import> getImports()
-  {
-    if (imports == null)
-    {
-      imports = new EObjectContainmentEList<Import>(Import.class, this, EFactoryPackage.FACTORY__IMPORTS);
-    }
-    return imports;
   }
 
   /**
@@ -206,8 +180,6 @@ public class FactoryImpl extends MinimalEObjectImpl.Container implements Factory
     {
       case EFactoryPackage.FACTORY__EPACKAGES:
         return ((InternalEList<?>)getEpackages()).basicRemove(otherEnd, msgs);
-      case EFactoryPackage.FACTORY__IMPORTS:
-        return ((InternalEList<?>)getImports()).basicRemove(otherEnd, msgs);
       case EFactoryPackage.FACTORY__ANNOTATIONS:
         return ((InternalEList<?>)getAnnotations()).basicRemove(otherEnd, msgs);
       case EFactoryPackage.FACTORY__ROOT:
@@ -228,8 +200,6 @@ public class FactoryImpl extends MinimalEObjectImpl.Container implements Factory
     {
       case EFactoryPackage.FACTORY__EPACKAGES:
         return getEpackages();
-      case EFactoryPackage.FACTORY__IMPORTS:
-        return getImports();
       case EFactoryPackage.FACTORY__ANNOTATIONS:
         return getAnnotations();
       case EFactoryPackage.FACTORY__ROOT:
@@ -252,10 +222,6 @@ public class FactoryImpl extends MinimalEObjectImpl.Container implements Factory
       case EFactoryPackage.FACTORY__EPACKAGES:
         getEpackages().clear();
         getEpackages().addAll((Collection<? extends PackageImport>)newValue);
-        return;
-      case EFactoryPackage.FACTORY__IMPORTS:
-        getImports().clear();
-        getImports().addAll((Collection<? extends Import>)newValue);
         return;
       case EFactoryPackage.FACTORY__ANNOTATIONS:
         getAnnotations().clear();
@@ -281,9 +247,6 @@ public class FactoryImpl extends MinimalEObjectImpl.Container implements Factory
       case EFactoryPackage.FACTORY__EPACKAGES:
         getEpackages().clear();
         return;
-      case EFactoryPackage.FACTORY__IMPORTS:
-        getImports().clear();
-        return;
       case EFactoryPackage.FACTORY__ANNOTATIONS:
         getAnnotations().clear();
         return;
@@ -306,8 +269,6 @@ public class FactoryImpl extends MinimalEObjectImpl.Container implements Factory
     {
       case EFactoryPackage.FACTORY__EPACKAGES:
         return epackages != null && !epackages.isEmpty();
-      case EFactoryPackage.FACTORY__IMPORTS:
-        return imports != null && !imports.isEmpty();
       case EFactoryPackage.FACTORY__ANNOTATIONS:
         return annotations != null && !annotations.isEmpty();
       case EFactoryPackage.FACTORY__ROOT:

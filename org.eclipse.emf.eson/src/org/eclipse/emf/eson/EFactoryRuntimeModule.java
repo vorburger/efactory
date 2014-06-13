@@ -21,6 +21,7 @@ import org.eclipse.emf.eson.resource.EFactoryLocationInFileProvider;
 import org.eclipse.emf.eson.resource.EFactoryResourceServiceProvider;
 import org.eclipse.emf.eson.resource.EFactoryStandaloneResourceFactory;
 import org.eclipse.emf.eson.scoping.EFactoryImportedNamespaceAwareScopeProvider;
+import org.eclipse.emf.eson.scoping.EFactoryQualifiedNameProvider;
 import org.eclipse.emf.eson.scoping.EPackageScopeProvider;
 import org.eclipse.emf.eson.scoping.IEPackageScopeProvider;
 import org.eclipse.emf.eson.scoping.WarningErrorHandlerWithoutNoSuchMethodException;
