@@ -7,7 +7,7 @@
     <package 
        uri = "http://www.googlecode.com/efactory/xtextintegration/MyDsl" 
        class = "org.eclipse.emf.eson.xtextintegration.myDsl.MyDslPackage"
-       genModel = "com/googlecode/efactory/xtextintegration/MyDsl.genmodel" /> 
+       genModel = "model/TestModelWithXtextReference.genmodel" /> 
 	
   </extension>
 
