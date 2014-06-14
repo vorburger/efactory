@@ -20,8 +20,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.eson.building.NoNameFeatureMappingException;
-
 import org.eclipse.emf.eson.eFactory.EFactoryFactory;
 import org.eclipse.emf.eson.eFactory.Factory;
 import org.eclipse.emf.eson.eFactory.NewObject;
@@ -36,7 +34,7 @@ public class FactoryBuilder implements IFactoryBuilder {
 	private Map<EObject, NewObject> mapping = new HashMap<EObject, NewObject>();
 	private Factory factory;
 	
-	public Factory buildFactory(EObject eObject) throws NoNameFeatureMappingException {
+	public Factory buildFactory(EObject eObject) {
 		factory = EFactoryFactory.eINSTANCE.createFactory();
 		PackageImport packageImport = createPackageImport(eObject);
 		factory.getEpackages().add(packageImport);

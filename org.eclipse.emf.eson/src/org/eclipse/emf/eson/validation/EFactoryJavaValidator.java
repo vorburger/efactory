@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2009 Sebastian Benz.
+ * Copyright (c) 2009 Sebastian Benz and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,12 +7,15 @@
  * 
  * Contributors:
  *     Sebastian Benz - initial API and implementation
+ *     Michael Vorburger - extensions and bug fixes
  ******************************************************************************/
 package org.eclipse.emf.eson.validation;
 
 import java.util.HashSet;
 import java.util.NoSuchElementException;
 import java.util.Set;
+
+import javax.inject.Inject;
 
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.ecore.EAttribute;
@@ -25,12 +28,7 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.util.Diagnostician;
-import org.eclipse.emf.eson.resource.EFactoryResource;
-import org.eclipse.emf.eson.util.EcoreUtil3;
-import org.eclipse.xtext.EcoreUtil2;
-import org.eclipse.xtext.validation.Check;
-import org.eclipse.xtext.validation.CheckType;
-
+import org.eclipse.emf.eson.building.NameAccessor;
 import org.eclipse.emf.eson.eFactory.Attribute;
 import org.eclipse.emf.eson.eFactory.BooleanAttribute;
 import org.eclipse.emf.eson.eFactory.Containment;
@@ -46,10 +44,16 @@ import org.eclipse.emf.eson.eFactory.Reference;
 import org.eclipse.emf.eson.eFactory.StringAttribute;
 import org.eclipse.emf.eson.eFactory.Value;
 import org.eclipse.emf.eson.eFactory.util.EFactorySwitch;
-import org.eclipse.emf.eson.validation.AbstractEFactoryJavaValidator;
+import org.eclipse.emf.eson.resource.EFactoryResource;
+import org.eclipse.emf.eson.util.EcoreUtil3;
+import org.eclipse.xtext.EcoreUtil2;
+import org.eclipse.xtext.validation.Check;
+import org.eclipse.xtext.validation.CheckType;
 
 public class EFactoryJavaValidator extends AbstractEFactoryJavaValidator {
 	// There are a lot of possible NullPointerException in here in the scenario where some reference types are still proxies.. but the NPEs get swallowed silently by the validation infrastructure 
+	
+	@Inject NameAccessor nameAccessor;
 	
 	public final class AttributeValidator extends EFactorySwitch<Boolean> {
 		private Feature feature;
@@ -178,6 +182,7 @@ public class EFactoryJavaValidator extends AbstractEFactoryJavaValidator {
 	public void checkNewObject(NewObject newObject) {
 		checkNoDuplicateFeature(newObject);
 		checkIsInstantiatable(newObject);
+		checkObjectName(newObject);
 	}
 
 	@Check(CheckType.NORMAL)
@@ -207,6 +212,16 @@ public class EFactoryJavaValidator extends AbstractEFactoryJavaValidator {
 			}
 		}
 		return null;
+	}
+
+	private void checkObjectName(NewObject newObject) {
+		String name = newObject.getName();
+		if (name == null)
+			return;
+		assertFalse("Name cannot be blank", EFactoryPackage.Literals.NEW_OBJECT__NAME, name.trim().isEmpty()); // https://github.com/vorburger/efactory/pull/18
+		EAttribute nameAttribute = nameAccessor.getNameAttribute(newObject);
+		if (newObject.getEClass() != null)
+			assertTrue("Cannot name " + newObject.getEClass().getName(), EFactoryPackage.Literals.NEW_OBJECT__NAME, nameAttribute != null);
 	}
 
 	private void checkIsInstantiatable(NewObject newObject) {

@@ -37,15 +37,15 @@ import org.eclipse.emf.ecore.EFactory;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.eson.util.Check;
-import org.eclipse.jdt.annotation.NonNull;
-import org.eclipse.jdt.annotation.Nullable;
-
-import com.google.common.collect.BiMap;
-import com.google.common.collect.HashBiMap;
 import org.eclipse.emf.eson.eFactory.Factory;
 import org.eclipse.emf.eson.eFactory.Feature;
 import org.eclipse.emf.eson.eFactory.NewObject;
+import org.eclipse.jdt.annotation.NonNull;
+import org.eclipse.jdt.annotation.Nullable;
+
+import com.google.common.base.Preconditions;
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
 
 public class ModelBuilder {
 
@@ -57,8 +57,8 @@ public class ModelBuilder {
 
 	// intentionally package local - outside clients shouldn't need to build individual NewObject, they only build(Factory)
 	// NOTE: It is the caller's (!) responsibility to add the returned EObject into another EObject (or a Resource) eContainer. 
-	@NonNull EObject build(NewObject newObject) throws ModelBuilderException {
-		Check.notNull("Argument must not be null", newObject);
+	@NonNull EObject build(@NonNull NewObject newObject) throws ModelBuilderException {
+		Preconditions.checkNotNull(newObject);
 		EObject target = mapping.get(newObject);
 		if (target != null) {
 			return target;
@@ -114,19 +114,15 @@ public class ModelBuilder {
 		return unlinkedRoot;
 	}
 
-	public @NonNull EObject buildWithoutLinking(Factory factory) throws ModelBuilderException {
-		Check.notNull("Argument must not be null", factory);
+	public @NonNull EObject buildWithoutLinking(@NonNull Factory factory) throws ModelBuilderException {
+		Preconditions.checkNotNull(factory);
 		return build(factory.getRoot());
 	}
 	
 	private void setName(EObject target, NewObject source) {
 		String name = source.getName();
 		if (name != null) {
-			try {
-				nameSetter.setName(source, target, name);
-			} catch (NoNameFeatureMappingException e) {
-				logger.warn(e.getMessage(), e);
-			}
+			nameSetter.setName(source, target, name);
 		}
 	}
 
@@ -139,8 +135,8 @@ public class ModelBuilder {
 		}
 	}
 
-	public @NonNull EObject getBuilt(NewObject newObject) throws ModelBuilderException {
-		Check.notNull("Argument must not be null", newObject);
+	public @NonNull EObject getBuilt(@NonNull NewObject newObject) throws ModelBuilderException {
+		Preconditions.checkNotNull(newObject);
 		checkNotEmpty();
 		EObject target = mapping.get(newObject);
 		if (target == null) {
@@ -156,8 +152,8 @@ public class ModelBuilder {
 	 * @return new object, or null if the value EObject wasn't built by this ModelBuilder 
 	 * @throws ModelBuilderException if build ModelBuilder is uninitialized, build() needs to called with non-empty Factory/NewObject before this. 
 	 */
-	public @Nullable NewObject getSource(EObject value) throws ModelBuilderException {
-		Check.notNull("Argument must not be null", value);
+	public @Nullable NewObject getSource(@NonNull EObject value) throws ModelBuilderException {
+		Preconditions.checkNotNull(value);
 		checkNotEmpty();
 		return mapping.inverse().get(value);
 	}

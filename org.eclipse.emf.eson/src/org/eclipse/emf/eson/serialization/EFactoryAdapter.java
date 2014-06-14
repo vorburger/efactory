@@ -24,7 +24,12 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EContentAdapter;
 import org.eclipse.emf.eson.building.NameAccessor;
-import org.eclipse.emf.eson.building.NoNameFeatureMappingException;
+import org.eclipse.emf.eson.eFactory.EFactoryFactory;
+import org.eclipse.emf.eson.eFactory.Factory;
+import org.eclipse.emf.eson.eFactory.Feature;
+import org.eclipse.emf.eson.eFactory.MultiValue;
+import org.eclipse.emf.eson.eFactory.NewObject;
+import org.eclipse.emf.eson.eFactory.Value;
 import org.eclipse.emf.eson.resource.EFactoryResource;
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
@@ -34,12 +39,6 @@ import org.eclipse.xtext.util.concurrent.IWriteAccess;
 
 import com.google.common.primitives.Ints;
 import com.google.inject.Provider;
-import org.eclipse.emf.eson.eFactory.EFactoryFactory;
-import org.eclipse.emf.eson.eFactory.Factory;
-import org.eclipse.emf.eson.eFactory.Feature;
-import org.eclipse.emf.eson.eFactory.MultiValue;
-import org.eclipse.emf.eson.eFactory.NewObject;
-import org.eclipse.emf.eson.eFactory.Value;
 
 /**
  * EMF Adapter (Observer) which gets notified by the observed derived "real"
@@ -90,32 +89,27 @@ public class EFactoryAdapter extends EContentAdapter {
 			}
 		}
 		
-		try {
-			switch (msg.getEventType()) {
-				case Notification.SET :
-					setOrRemoveSingleValue(factoryFeature, msg);
-					break;
-				case Notification.ADD :
-					addListValue(factoryFeature, msg);
-					break;
-				case Notification.REMOVE :
-					removeListValue(factoryFeature, msg);
-					break;
-				case Notification.MOVE :
-					moveListValue(factoryFeature, msg);
-					break;
-				case Notification.ADD_MANY :
-					addManyListValues(factoryFeature, msg);
-					break;
-				case Notification.REMOVE_MANY :
-					removeManyListValues(factoryFeature, msg);
-					break;
-				default:
-					logger.error("EFactoryAdapter did not (know how to) handle notification: " + msg.toString());
-			}
-		} catch (NoNameFeatureMappingException e) {
-			// ignore (TODO rework later? shouldn't be throw exception at all, instead use is..() check method pattern)
-			// NO logger.warn("NoNameFeatureMappingException in notifyChanged() handling for: " + msg.toString(), e);
+		switch (msg.getEventType()) {
+			case Notification.SET :
+				setOrRemoveSingleValue(factoryFeature, msg);
+				break;
+			case Notification.ADD :
+				addListValue(factoryFeature, msg);
+				break;
+			case Notification.REMOVE :
+				removeListValue(factoryFeature, msg);
+				break;
+			case Notification.MOVE :
+				moveListValue(factoryFeature, msg);
+				break;
+			case Notification.ADD_MANY :
+				addManyListValues(factoryFeature, msg);
+				break;
+			case Notification.REMOVE_MANY :
+				removeManyListValues(factoryFeature, msg);
+				break;
+			default:
+				logger.error("EFactoryAdapter did not (know how to) handle notification: " + msg.toString());
 		}
 	}
 
@@ -126,23 +120,19 @@ public class EFactoryAdapter extends EContentAdapter {
 		return writeAccessProvider.get().modify(new IUnitOfWork<Boolean, XtextResource>() {
 			public Boolean exec(XtextResource resource) throws Exception {
 				NewObject localNewObject = (NewObject) resource.getEObject(uriFragment);
-				Factory contextFactory = getEFactoryResource(eNotifier).getEFactoryFactory();
-				try {
-					EAttribute nameAttribute = nameAccessor.getNameAttribute(contextFactory, eNotifier);
-					if (nameAttribute.equals(msg.getFeature())) {
-						String newName = msg.getNewStringValue();
-						localNewObject.setName(newName);
-						return true;
-					} else
-						return false;
-				} catch (NoNameFeatureMappingException e) {
+				//Factory contextFactory = getEFactoryResource(eNotifier).getEFactoryFactory();
+				EAttribute nameAttribute = nameAccessor.getNameAttribute(localNewObject);
+				if (nameAttribute != null && nameAttribute.equals(msg.getFeature())) {
+					String newName = msg.getNewStringValue();
+					localNewObject.setName(newName);
+					return true;
+				} else
 					return false;
-				}
 			}
 		});
 	}
 
-	protected void setOrRemoveSingleValue(Feature factoryFeature, final Notification msg) throws NoNameFeatureMappingException {
+	protected void setOrRemoveSingleValue(Feature factoryFeature, final Notification msg) {
 		if (factoryFeature.getEFeature().isMany())
 			// Notification.SET should never happen for lists
 			throw new IllegalArgumentException(); 
@@ -170,7 +160,7 @@ public class EFactoryAdapter extends EContentAdapter {
 		});
 	}
 	
-	protected void setSingleValue(Feature factoryFeature, final Notification msg) throws NoNameFeatureMappingException {
+	protected void setSingleValue(Feature factoryFeature, final Notification msg) {
 		// do NOT just: factoryFeature.setValue(value); // @see http://koehnlein.blogspot.ch/2010/06/semantic-model-access-in-xtext.html
 		final String uriFragment = factoryFeature.eResource().getURIFragment(factoryFeature);
 		writeAccessProvider.get().modify(new IUnitOfWork.Void<XtextResource>() {

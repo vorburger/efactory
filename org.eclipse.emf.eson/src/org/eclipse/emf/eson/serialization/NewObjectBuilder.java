@@ -24,8 +24,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.eson.building.NameAccessor;
-import org.eclipse.emf.eson.building.NoNameFeatureMappingException;
-
 import org.eclipse.emf.eson.eFactory.EFactoryFactory;
 import org.eclipse.emf.eson.eFactory.Factory;
 import org.eclipse.emf.eson.eFactory.Feature;
@@ -53,16 +51,20 @@ class NewObjectBuilder {
 	public NewObject build(EObject input) {
 		NewObject newObject = EFactoryFactory.eINSTANCE.createNewObject();
 		newObject.setEClass(input.eClass());
-		try {
-			newObject.setName(getName(input));
-		} catch (NoNameFeatureMappingException e) {
-			// OK, we cannot name the object... ignore and move on!
-		}
+		setName(newObject, input);
 		addAttributes(newObject, input);
 		addContainments(newObject, input);
 		addReferences(newObject, input);
 		addIsManyStructuralFeatures(newObject, input);
 		return newObject;
+	}
+
+	private void setName(NewObject newObject, EObject input) {
+		nameEAttribute = nameAccessor.getNameAttribute(newObject, context);
+		if (nameEAttribute != null) {
+			String name = (String) input.eGet(nameEAttribute);
+			newObject.setName(name);
+		}
 	}
 
 	private void addContainments(NewObject newObject, EObject input) {
@@ -116,11 +118,6 @@ class NewObjectBuilder {
 
 	private Feature createAttribute(EAttribute attribute, Object value) {
 		return AttributeBuilder.attribute(attribute, factoryBuilder).value(value).build();
-	}
-
-	private String getName(EObject input) throws NoNameFeatureMappingException {
-		nameEAttribute = nameAccessor.getNameAttribute(context, input);
-		return (String) input.eGet(nameEAttribute);
 	}
 
 	private void addIsManyStructuralFeatures(NewObject newObject, EObject input) {

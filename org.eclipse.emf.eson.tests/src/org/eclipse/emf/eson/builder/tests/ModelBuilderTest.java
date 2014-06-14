@@ -14,14 +14,13 @@ import static org.junit.Assert.fail;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.eson.building.ModelBuilder;
+import org.eclipse.emf.eson.eFactory.EFactoryFactory;
+import org.eclipse.emf.eson.eFactory.Factory;
+import org.eclipse.emf.eson.eFactory.NewObject;
 import org.junit.Assert;
 import org.junit.Test;
 
 import testmodel.TestmodelPackage;
-
-import org.eclipse.emf.eson.eFactory.EFactoryFactory;
-import org.eclipse.emf.eson.eFactory.Factory;
-import org.eclipse.emf.eson.eFactory.NewObject;
 
 /**
  * Unit Test (!) for ModelBuilder.
@@ -48,7 +47,7 @@ public class ModelBuilderTest {
 	public void testBuild_getNewObject_Null() throws Exception {
 		try {
 			new ModelBuilder().build((Factory) null);
-		} catch (IllegalArgumentException e) {
+		} catch (NullPointerException e) {
 			// expected
 			return;
 		}

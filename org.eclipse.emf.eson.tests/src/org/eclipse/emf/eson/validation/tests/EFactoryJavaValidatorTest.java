@@ -10,16 +10,20 @@
  ******************************************************************************/
 package org.eclipse.emf.eson.validation.tests;
 
+import java.io.InputStream;
 import java.util.List;
 
 import javax.inject.Inject;
 
+import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.emf.eson.EFactoryInjectorProvider;
 import org.eclipse.emf.eson.validation.EFactoryJavaValidator;
 import org.eclipse.xtext.junit4.AbstractXtextTests;
 import org.eclipse.xtext.junit4.InjectWith;
 import org.eclipse.xtext.junit4.XtextRunner;
+import org.eclipse.xtext.junit4.validation.AssertableDiagnostics;
 import org.eclipse.xtext.junit4.validation.ValidatorTester;
 import org.eclipse.xtext.validation.CheckMode;
 import org.eclipse.xtext.validation.IResourceValidator;
@@ -32,7 +36,6 @@ import org.junit.runner.RunWith;
 import testmodel.TestmodelPackage;
 
 import com.google.inject.Injector;
-import org.eclipse.emf.eson.EFactoryInjectorProvider;
 
 /**
  * Tests for EFactoryJavaValidator.
@@ -56,16 +59,19 @@ public class EFactoryJavaValidatorTest extends AbstractXtextTests {
 		setInjector(injector); // instead of with(EFactoryStandaloneSetup.class);
 	}
 	
-/*
 	@Test
-	public void test...() throws Exception {
+	public void testNoNameFeature() throws Exception {
+		InputStream is = getClass().getResourceAsStream("/BuilderTests/NameAttribute.efactory");
+		assertNotNull(is);
+		EObject testModel = getModel(is);
 		AssertableDiagnostics diags = tester.validate(testModel);
 		for (Diagnostic diag : diags.getAllDiagnostics()) {
 			System.out.println(diag.toString());
 		}
 		diags.assertDiagnosticsCount(1);
+		diags.assertErrorContains("Cannot name");
+		// TODO assert it's the right error, not just any
 	}
-*/	
 
 	/**
 	 * There used to be two identical error markers (one at the correct position
