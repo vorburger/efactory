@@ -16,8 +16,10 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.eson.building.ModelBuilder;
 import org.eclipse.emf.eson.building.ModelBuilderException;
+import org.eclipse.emf.eson.eFactory.Factory;
 import org.eclipse.xtext.parser.IParseResult;
 import org.eclipse.xtext.parser.antlr.IReferableElementsUnloader;
 import org.eclipse.xtext.resource.DerivedStateAwareResource;
@@ -25,7 +27,6 @@ import org.eclipse.xtext.resource.IDerivedStateComputer;
 
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
-import org.eclipse.emf.eson.eFactory.Factory;
 
 /**
  * Adds the actual EObject. Uses the FactoryBuilder.
@@ -43,8 +44,17 @@ public class EFactoryDerivedStateComputer implements IDerivedStateComputer {
 	@Inject
 	private IReferableElementsUnloader unloader;
 	
-	// implementation inspired by XcoreModelAssociator (more than JvmModelAssociator) 
 	public void installDerivedState(DerivedStateAwareResource resource, boolean preLinkingPhase) {
+		// @see https://bugs.eclipse.org/bugs/show_bug.cgi?id=437848 (AKA DS-7543)
+		try {
+			safeInstallDerivedState(resource, preLinkingPhase);
+		} catch (RuntimeException e) {
+			handleRuntimeException("installDerivedState", resource, e);
+		}
+	}
+
+	protected void safeInstallDerivedState(DerivedStateAwareResource resource, boolean preLinkingPhase) {
+		// implementation inspired by XcoreModelAssociator (more than JvmModelAssociator) 
 		Factory model = getFactory(resource);
 		if (model == null)
 			return;
@@ -108,8 +118,17 @@ public class EFactoryDerivedStateComputer implements IDerivedStateComputer {
 		return null;
 	}
 	
-	// implementation again inspired by XcoreModelAssociator and JvmModelAssociator 
 	public void discardDerivedState(DerivedStateAwareResource resource) {
+		// @see https://bugs.eclipse.org/bugs/show_bug.cgi?id=437848 (AKA DS-7543)
+		try {
+			safeDiscardDerivedState(resource);
+		} catch (RuntimeException e) {
+			handleRuntimeException("discardDerivedState", resource, e);
+		}
+	}
+	
+	protected void safeDiscardDerivedState(DerivedStateAwareResource resource) {
+		// implementation again inspired by XcoreModelAssociator and JvmModelAssociator 
 		EFactoryResource efResource = (EFactoryResource) resource;
 		ModelBuilder builder = efResource.getBuilder();
 		builder.clear();
@@ -127,5 +146,13 @@ public class EFactoryDerivedStateComputer implements IDerivedStateComputer {
 	    	contents.removeAll(derived);
 	    }
 	}
-	
+
+	protected  void handleRuntimeException(String method, Resource resource, RuntimeException e) {
+		String uri = "?";
+		if (resource != null && resource.getURI() != null) {
+			uri = resource.getURI().toString();
+		}
+		logger.error("RuntimeException occured during " + method + "() of " + uri + " :" + e.getMessage(), e);
+	}
+
 }
