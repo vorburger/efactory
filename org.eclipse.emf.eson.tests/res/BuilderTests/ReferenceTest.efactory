@@ -9,12 +9,20 @@ TestModel testModelName {
 				ReferenceTarget target2 {}
 				ReferenceTarget target3 {}
 			]
-			referenceToOne: target1
-			referenceToMany: [ target1 target2 target3 ]		
+			referenceToOne: testModelName.test1.target1
+			referenceToMany: [
+				testModelName.test1.target1
+				testModelName.test1.target2
+				testModelName.test1.target3
+			]		
 		}
 		ReferenceTestContainer test2 {
-			referenceToOne: target23
-			referenceToMany: [ target21 target22 target23 ]		
+			referenceToOne: testModelName.test2.target23
+			referenceToMany: [
+				testModelName.test2.target21
+				testModelName.test2.target22
+				testModelName.test2.target23
+			]		
 	
 			containments: [
 				ReferenceTarget target21 {}
@@ -27,5 +35,3 @@ TestModel testModelName {
 		parentReference:  testModelName     
 	} 
 } 
-
- 

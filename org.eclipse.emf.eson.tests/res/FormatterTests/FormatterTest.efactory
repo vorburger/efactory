@@ -56,7 +56,7 @@ TestModel testModelName {
 	referenceTestContainer: [
 		ReferenceTestContainer test1 {
 			oneAttribute: false
-			referenceToOne: target1
+			referenceToOne: testModelName.test1.target1
 			containments: [
 				ReferenceTarget target1 {
 				}
@@ -66,14 +66,14 @@ TestModel testModelName {
 				}
 			]
 			referenceToMany: [
-				target1
-				target2
-				target3
+				testModelName.test1.target1
+				testModelName.test1.target2
+				testModelName.test1.target3
 			]
 		}
 		ReferenceTestContainer test2 {
 			oneAttribute: false
-			referenceToOne: target23
+			referenceToOne: testModelName.test2.target23
 			containments: [
 				ReferenceTarget target21 {
 				}
@@ -83,9 +83,9 @@ TestModel testModelName {
 				}
 			]
 			referenceToMany: [
-				target21
-				target22
-				target23
+				testModelName.test2.target21
+				testModelName.test2.target22
+				testModelName.test2.target23
 			]
 		}
 	]
