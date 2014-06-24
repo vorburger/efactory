@@ -12,7 +12,23 @@
 		<tycho-version>0.20.0</tycho-version>
 		<!-- <xtext-version>2.5.3</xtext-version> -->
 		<!-- <fornax-version>3.4.0</fornax-version> -->
+		<!-- There is test which doesn't work on Windows, and this serves to exclude it -->
+		<tycho.surefire.excludes>NADA</tycho.surefire.excludes>
 	</properties>
+
+	<profiles>
+		<profile>
+			<id>win</id>
+			<properties>
+				<tycho.surefire.excludes>**/FormatterTest.java</tycho.surefire.excludes>
+			</properties>
+			<activation>
+				<os>
+					<family>Windows</family>
+				</os>
+			</activation>
+		</profile>
+	</profiles>
  
 	<repositories>
 		<repository>
@@ -178,6 +194,8 @@
 						<useUIHarness>true</useUIHarness> <!-- https://bugs.eclipse.org/bugs/show_bug.cgi?id=437425 -->
 						<useUIThread>true</useUIThread>   <!-- org.eclipse.swt.SWTException: Invalid thread access -->
 						<argLine>-Xms40m -Xmx512m</argLine>
+						<!-- see documentation in <properties> re. what this is all about -->
+						<excludes><exclude>${tycho.surefire.excludes}</exclude></excludes>
 					</configuration>
 				</plugin>
 	
@@ -276,5 +294,4 @@
 			</plugins>
 		</pluginManagement>
 	</build>
-
 </project>
