@@ -24,7 +24,19 @@ import javax.inject.Inject;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.eson.EFactoryInjectorProvider;
+import org.eclipse.emf.eson.eFactory.Containment;
+import org.eclipse.emf.eson.eFactory.EnumAttribute;
+import org.eclipse.emf.eson.eFactory.Factory;
+import org.eclipse.emf.eson.eFactory.Feature;
+import org.eclipse.emf.eson.eFactory.IntegerAttribute;
+import org.eclipse.emf.eson.eFactory.MultiValue;
+import org.eclipse.emf.eson.eFactory.NewObject;
+import org.eclipse.emf.eson.eFactory.StringAttribute;
+import org.eclipse.emf.eson.eFactory.Value;
 import org.eclipse.emf.eson.resource.EFactoryResource;
+import org.eclipse.emf.eson.tests.util.ResourceProvider;
+import org.eclipse.emf.eson.tests.util.TestSetup;
 import org.eclipse.xtext.junit4.InjectWith;
 import org.eclipse.xtext.junit4.XtextRunner;
 import org.eclipse.xtext.resource.SaveOptions;
@@ -44,18 +56,6 @@ import testmodel.TestmodelFactory;
 import testmodel.TestmodelPackage;
 
 import com.google.inject.Provider;
-import org.eclipse.emf.eson.EFactoryInjectorProvider;
-import org.eclipse.emf.eson.eFactory.Containment;
-import org.eclipse.emf.eson.eFactory.EnumAttribute;
-import org.eclipse.emf.eson.eFactory.Factory;
-import org.eclipse.emf.eson.eFactory.Feature;
-import org.eclipse.emf.eson.eFactory.IntegerAttribute;
-import org.eclipse.emf.eson.eFactory.MultiValue;
-import org.eclipse.emf.eson.eFactory.NewObject;
-import org.eclipse.emf.eson.eFactory.StringAttribute;
-import org.eclipse.emf.eson.eFactory.Value;
-import org.eclipse.emf.eson.tests.util.ResourceProvider;
-import org.eclipse.emf.eson.tests.util.TestSetup;
 
 /**
  * Tests EFactoryAdapter's "re-sychronization" of changes to the derived "real"
@@ -187,7 +187,7 @@ public class BuilderResyncTest {
 		// This was the original problem during the development of the new split DSL/Tree Editor.. 
 		EObject modification = multiValue;
 		ReplaceRegion replaceRegion = serializer.serializeReplacement(modification, SaveOptions.defaultOptions());
-		assertEquals("[\n\tNameAttributeContainer {\n\t}\n]", replaceRegion.getText());
+		assertEquals("[" + System.getProperty("line.separator") + "\tNameAttributeContainer {" + System.getProperty("line.separator") + "\t}" + System.getProperty("line.separator") + "]", replaceRegion.getText());
 	}
 	
 	/**
