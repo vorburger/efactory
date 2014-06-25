@@ -52,6 +52,17 @@ import org.eclipse.emf.edit.ui.provider.PropertyDescriptor;
 import org.eclipse.emf.edit.ui.provider.PropertySource;
 import org.eclipse.emf.edit.ui.provider.UnwrappingSelectionProvider;
 import org.eclipse.emf.eson.building.ModelBuilderException;
+import org.eclipse.emf.eson.eFactory.Attribute;
+import org.eclipse.emf.eson.eFactory.BooleanAttribute;
+import org.eclipse.emf.eson.eFactory.DoubleAttribute;
+import org.eclipse.emf.eson.eFactory.EFactoryPackage;
+import org.eclipse.emf.eson.eFactory.Factory;
+import org.eclipse.emf.eson.eFactory.Feature;
+import org.eclipse.emf.eson.eFactory.IntegerAttribute;
+import org.eclipse.emf.eson.eFactory.NewObject;
+import org.eclipse.emf.eson.eFactory.Reference;
+import org.eclipse.emf.eson.eFactory.StringAttribute;
+import org.eclipse.emf.eson.eFactory.impl.FactoryImpl;
 import org.eclipse.emf.eson.resource.EFactoryResource;
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
@@ -105,18 +116,6 @@ import org.eclipse.xtext.ui.editor.model.IXtextDocument;
 import org.eclipse.xtext.ui.label.GlobalDescriptionLabelProvider;
 import org.eclipse.xtext.ui.search.IXtextEObjectSearch;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
-
-import org.eclipse.emf.eson.eFactory.Attribute;
-import org.eclipse.emf.eson.eFactory.BooleanAttribute;
-import org.eclipse.emf.eson.eFactory.DoubleAttribute;
-import org.eclipse.emf.eson.eFactory.EFactoryPackage;
-import org.eclipse.emf.eson.eFactory.Factory;
-import org.eclipse.emf.eson.eFactory.Feature;
-import org.eclipse.emf.eson.eFactory.IntegerAttribute;
-import org.eclipse.emf.eson.eFactory.NewObject;
-import org.eclipse.emf.eson.eFactory.Reference;
-import org.eclipse.emf.eson.eFactory.StringAttribute;
-import org.eclipse.emf.eson.eFactory.impl.FactoryImpl;
 
 public class EFactoryWithTreeEditor extends XtextEditor implements IEditingDomainProvider,IMenuListener,ISelectionProvider{
 	private final static Logger LOGGER = Logger.getLogger(EFactoryWithTreeEditor.class);
@@ -706,7 +705,7 @@ public class EFactoryWithTreeEditor extends XtextEditor implements IEditingDomai
 			super.init(site, input);
 			IContextService contextService = (IContextService) getSite().getService(IContextService.class);
 			if (contextService != null) {
-				contextService.activateContext("com.googlecode.efactory.ui.context");
+				contextService.activateContext("org.eclipse.emf.eson.ui.context");
 			}
 		}
 }
