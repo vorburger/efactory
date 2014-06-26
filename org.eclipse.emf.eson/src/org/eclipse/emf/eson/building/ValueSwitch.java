@@ -57,6 +57,8 @@ public class ValueSwitch extends AbstractValueSwitch<Object> {
 
 	@Override
 	protected Object caseEnum(EEnumLiteral value) {
+		if (value.eIsProxy()) // @see AttributeBuilder & BrokenEnumTest
+			throw new IllegalArgumentException("EEnumLiteral.eIsProxy()"); // + URI?
 		return value.getInstance();
 	}
 

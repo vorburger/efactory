@@ -128,8 +128,7 @@ public class AttributeTest extends AbstractModelBuilderTest {
 		performManyTest(expectedValues, actualValues);
 	}
 
-	private void performManyTest(Object[] expectedValues,
-			EList<? extends Object> actualValues) {
+	static void performManyTest(Object[] expectedValues, EList<? extends Object> actualValues) {
 		assertEquals(expectedValues.length, actualValues.size());
 		for (int i = 0; i < expectedValues.length; i++) {
 			Object expectedValue = expectedValues[i];
