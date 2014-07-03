@@ -12,6 +12,9 @@ package org.eclipse.emf.eson.builder.tests;
 
 import javax.inject.Inject;
 
+import org.eclipse.emf.eson.EFactoryInjectorProvider;
+import org.eclipse.emf.eson.tests.util.ResourceProvider;
+import org.eclipse.emf.eson.tests.util.TestSetup;
 import org.eclipse.xtext.junit4.InjectWith;
 import org.eclipse.xtext.junit4.XtextRunner;
 import org.junit.Assert;
@@ -19,10 +22,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import testmodel.TestModel;
-
-import org.eclipse.emf.eson.EFactoryInjectorProvider;
-import org.eclipse.emf.eson.tests.util.ResourceProvider;
-import org.eclipse.emf.eson.tests.util.TestSetup;
 
 @RunWith(XtextRunner.class)
 @InjectWith(EFactoryInjectorProvider.class)
@@ -34,6 +33,6 @@ public class ReferenceCrossResourceTest {
 		TestSetup.INSTANCE.doSetup();
 		/*TestModel aModel =*/ provider.loadModel("res/BuilderTests/ReferenceCrossResourceTestA.efactory", TestModel.class);
 		TestModel bModel = provider.loadModel("res/BuilderTests/ReferenceCrossResourceTestB.efactory", TestModel.class);
-		Assert.assertEquals("target,1", bModel.getReferenceTestContainer().get(0).getReferenceToOne().getName());
+		Assert.assertEquals("1target,1", bModel.getReferenceTestContainer().get(0).getReferenceToOne().getName());
 	}
 }

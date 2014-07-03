@@ -856,11 +856,12 @@ public class EFactoryGrammarAccess extends AbstractGrammarElementFinder {
 		return (tDATE != null) ? tDATE : (tDATE = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "DATE"));
 	} 
 
-	//// Due to historic reasons in a closed source an in-house product which uses ESON we need to add ',' allowed in IDs:
+	//// Due to historic reasons in a closed source an in-house product which uses ESON
+	//// we need to add ',' allowed in IDs, as well as permit ID starting with digits:
 	//// (NOTE: This terminal must be named 'ID' as well, not some new ID2 - unless you write a new ValueConverter for it.)
 	//// PS: Order of terminals appears to matter - ID needs to come after BOOLEAN
 	//terminal ID:
-	//	"^"? ("a".."z" | "A".."Z" | "_" | ",") ("a".."z" | "A".."Z" | "_" | "," | "0".."9")*;
+	//	"^"? ("a".."z" | "A".."Z" | "_" | "," | "0".."9")+;
 	public TerminalRule getIDRule() {
 		return (tID != null) ? tID : (tID = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "ID"));
 	} 
