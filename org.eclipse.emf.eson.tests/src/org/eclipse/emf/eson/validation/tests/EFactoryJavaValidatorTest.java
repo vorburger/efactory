@@ -26,6 +26,7 @@ import org.eclipse.xtext.junit4.XtextRunner;
 import org.eclipse.xtext.junit4.util.ParseHelper;
 import org.eclipse.xtext.junit4.validation.ValidatorTester;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -72,5 +73,18 @@ public class EFactoryJavaValidatorTest {
 	public void testOnlyOneErrorForMissingRequiredProperty() throws Exception {
 		EObject testModel = parseHelper.parse("use testmodel.* TestModel { }");
 		tester.validate(testModel).assertErrorContains("The required feature");
+	}
+	
+	/**
+	 * There used to be 3 or 4 highly technical error markers in case of broken
+	 * references, which made non sense to end-users. This non-regression test
+	 * ensure that there is only one, and that it is clear (it must include the
+	 * text of the broken reference).
+	 */
+	@Test
+	@Ignore
+	public void testOnlyOneErrorForBrokenReference() throws Exception {
+		EObject testModel = parseHelper.parse("use testmodel.* TestModel test { singleRequired: SingleRequired { parentReference: ItsNotLinkedYet } }");
+		tester.validate(testModel).assertErrorContains("ItsNotLinkedYet");
 	}
 }
