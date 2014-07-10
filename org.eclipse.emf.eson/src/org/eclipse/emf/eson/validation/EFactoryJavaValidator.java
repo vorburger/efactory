@@ -51,7 +51,12 @@ import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.CheckType;
 
 public class EFactoryJavaValidator extends AbstractEFactoryJavaValidator {
-	// There are a lot of possible NullPointerException in here in the scenario where some reference types are still proxies.. but the NPEs get swallowed silently by the validation infrastructure 
+
+	public static final String CANNOT_NAME = "cannotname";
+
+	// NOTE: There are a lot of possible NullPointerException in here in the
+	// scenario where some reference types are still proxies.. but the NPEs get
+	// swallowed silently by the validation infrastructure
 	
 	@Inject NameAccessor nameAccessor;
 	
@@ -163,6 +168,7 @@ public class EFactoryJavaValidator extends AbstractEFactoryJavaValidator {
 				return equals(expected.getEPackage(), validDataType.getEPackage())
 						&& expected.getName().equals(validDataType.getName());
 		}
+		
 		private boolean equals(EPackage package1, EPackage package2) {
 			if (package1 == null)
 				return package2 == null; 
@@ -221,7 +227,8 @@ public class EFactoryJavaValidator extends AbstractEFactoryJavaValidator {
 		assertFalse("Name cannot be blank", EFactoryPackage.Literals.NEW_OBJECT__NAME, name.trim().isEmpty()); // https://github.com/vorburger/efactory/pull/18
 		EAttribute nameAttribute = nameAccessor.getNameAttribute(newObject);
 		if (newObject.getEClass() != null)
-			assertTrue("Cannot name " + newObject.getEClass().getName(), EFactoryPackage.Literals.NEW_OBJECT__NAME, nameAttribute != null);
+			if (nameAttribute == null)
+				error("Cannot name " + newObject.getEClass().getName(), EFactoryPackage.Literals.NEW_OBJECT__NAME, CANNOT_NAME);
 	}
 
 	private void checkIsInstantiatable(NewObject newObject) {

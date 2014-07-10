@@ -58,7 +58,7 @@ public class EFactoryJavaValidatorTest {
 		InputStream is = getClass().getResourceAsStream("/BuilderTests/NameAttribute.efactory");
 		assertNotNull(is);
 		EObject testModel = parseHelper.parse(is, URI.createURI("BuilderTests/NameAttribute.efactory"), null, rs);
-		tester.validate(testModel).assertErrorContains("Cannot name");
+		tester.validate(testModel).assertError(EFactoryJavaValidator.CANNOT_NAME);
 	}
 
 	/**
