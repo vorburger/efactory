@@ -16,6 +16,7 @@ import java.io.InputStream;
 
 import javax.inject.Inject;
 
+import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -24,9 +25,9 @@ import org.eclipse.emf.eson.validation.EFactoryJavaValidator;
 import org.eclipse.xtext.junit4.InjectWith;
 import org.eclipse.xtext.junit4.XtextRunner;
 import org.eclipse.xtext.junit4.util.ParseHelper;
+import org.eclipse.xtext.junit4.validation.AssertableDiagnostics;
 import org.eclipse.xtext.junit4.validation.ValidatorTester;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -59,7 +60,7 @@ public class EFactoryJavaValidatorTest {
 		InputStream is = getClass().getResourceAsStream("/BuilderTests/NameAttribute.efactory");
 		assertNotNull(is);
 		EObject testModel = parseHelper.parse(is, URI.createURI("BuilderTests/NameAttribute.efactory"), null, rs);
-		tester.validate(testModel).assertError(EFactoryJavaValidator.CANNOT_NAME);
+		tester.validate(testModel).assertError(EFactoryJavaValidator.ERR_CANNOT_NAME);
 	}
 
 	/**
@@ -82,9 +83,19 @@ public class EFactoryJavaValidatorTest {
 	 * text of the broken reference).
 	 */
 	@Test
-	@Ignore
 	public void testOnlyOneErrorForBrokenReference() throws Exception {
 		EObject testModel = parseHelper.parse("use testmodel.* TestModel test { singleRequired: SingleRequired { parentReference: ItsNotLinkedYet } }");
-		tester.validate(testModel).assertErrorContains("ItsNotLinkedYet");
+		AssertableDiagnostics diag = tester.validate(testModel);
+		// dumpDiagnostics(diag);
+		diag.assertError(EFactoryJavaValidator.ERR_BROKEN_REFERENCE, "ItsNotLinkedYet");
+	}
+	
+	protected void dumpDiagnostics(AssertableDiagnostics diag) {
+		Iterable<Diagnostic> all = diag.getAllDiagnostics();
+		for (Diagnostic diagnostic : all) {
+			System.out.println(diagnostic.getMessage());
+			if (diagnostic.getException() != null)
+				diagnostic.getException().printStackTrace();
+		}
 	}
 }

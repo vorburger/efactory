@@ -28,6 +28,7 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.util.Diagnostician;
+import org.eclipse.emf.ecore.util.EObjectValidator;
 import org.eclipse.emf.eson.building.NameAccessor;
 import org.eclipse.emf.eson.eFactory.Attribute;
 import org.eclipse.emf.eson.eFactory.BooleanAttribute;
@@ -46,19 +47,24 @@ import org.eclipse.emf.eson.eFactory.Value;
 import org.eclipse.emf.eson.eFactory.util.EFactorySwitch;
 import org.eclipse.emf.eson.resource.EFactoryResource;
 import org.eclipse.emf.eson.util.EcoreUtil3;
+import org.eclipse.emf.eson.util.XtextProxyUtil;
 import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.CheckType;
 
 public class EFactoryJavaValidator extends AbstractEFactoryJavaValidator {
 
-	public static final String CANNOT_NAME = "cannotname";
+	// TODO There is A LOT of unnecessary String concatenation happening here, due to assertTrue.. Measure perf. impact of rewrite as if; suggest to @Deprecated assertTrue? 
+	
+	public static final String ERR_CANNOT_NAME = "cannotname";
+	public static final String ERR_BROKEN_REFERENCE = "brokenref";
 
 	// NOTE: There are a lot of possible NullPointerException in here in the
 	// scenario where some reference types are still proxies.. but the NPEs get
 	// swallowed silently by the validation infrastructure
 	
-	@Inject NameAccessor nameAccessor;
+	protected @Inject NameAccessor nameAccessor;
+	protected @Inject XtextProxyUtil xtextProxyUtil;
 	
 	public final class AttributeValidator extends EFactorySwitch<Boolean> {
 		private Feature feature;
@@ -202,8 +208,13 @@ public class EFactoryJavaValidator extends AbstractEFactoryJavaValidator {
 		Diagnostic diagnostic = Diagnostician.INSTANCE.validate(eObject);
 		for (Diagnostic childDiagnostic : diagnostic.getChildren()) {
 			if (childDiagnostic.getSeverity() == Diagnostic.ERROR) {
-				error(childDiagnostic.getMessage(),
-						getSource(eFResource, diagnostic), null, null);
+				// "The feature .. of .. contains an unresolved proxy ..#.."
+				// is skipped, for more about why see checkIsBrokenReference(),
+				// EFactoryJavaValidatorTest.testOnlyOneErrorForBrokenReference()
+				if (childDiagnostic.getCode() != EObjectValidator.EOBJECT__EVERY_PROXY_RESOLVES) {
+					error(childDiagnostic.getMessage(),
+							getSource(eFResource, diagnostic), null, null);
+				}
 			} else if (childDiagnostic.getSeverity() == Diagnostic.WARNING) {
 				warning(childDiagnostic.getMessage(),
 						getSource(eFResource, diagnostic), null, null);
@@ -228,7 +239,7 @@ public class EFactoryJavaValidator extends AbstractEFactoryJavaValidator {
 		EAttribute nameAttribute = nameAccessor.getNameAttribute(newObject);
 		if (newObject.getEClass() != null)
 			if (nameAttribute == null)
-				error("Cannot name " + newObject.getEClass().getName(), EFactoryPackage.Literals.NEW_OBJECT__NAME, CANNOT_NAME);
+				error("Cannot name " + newObject.getEClass().getName(), EFactoryPackage.Literals.NEW_OBJECT__NAME, ERR_CANNOT_NAME);
 	}
 
 	private void checkIsInstantiatable(NewObject newObject) {
@@ -304,17 +315,40 @@ public class EFactoryJavaValidator extends AbstractEFactoryJavaValidator {
 		}
 		checkIsEReference(eFeature);
 		checkIsNotContainment(eFeature);
-		checkIsAssignable(eFeature, EFactoryPackage.Literals.REFERENCE__VALUE,
-				getReferencedType(reference));
+		if (!checkIsBrokenReference(eFeature, reference)) {
+			// Only check assign-ability if it's not a broken reference
+			// (otherwise the extra error is only confusing, and doesn't help)
+			checkIsAssignable(eFeature,
+					EFactoryPackage.Literals.REFERENCE__VALUE,
+					getReferencedType(reference));
+		}
 	}
 
 	private EClass getReferencedType(Reference reference) {
+		// The getValue() here will resolve the proxy, and load the referenced
+		// resource.. technically this could be optimized by only looking into
+		// the index to get its EClass.
 		EObject referenceObject = reference.getValue();
 		if (referenceObject instanceof NewObject) {
 			NewObject newObject = (NewObject) referenceObject;
 			return newObject.getEClass();
 		} else {
 			return referenceObject.eClass();
+		}
+	}
+
+	private boolean checkIsBrokenReference(EStructuralFeature eFeature, Reference reference) {
+		// See comment in getReferencedType() above.. technically this could be
+		// optimized by just looking into the index to see if ref. name is
+		// known, instead of actually calling getValue() causing proxy
+		// resolution.
+		EObject refObj = reference.getValue();
+		if (!refObj.eIsProxy()) {
+			return false;
+		} else {
+			String crossRefText = xtextProxyUtil.getProxyCrossRefAsString(reference, refObj);
+			error("Unknown reference: " + crossRefText, reference, EFactoryPackage.Literals.REFERENCE__VALUE, ERR_BROKEN_REFERENCE);
+			return true;
 		}
 	}
 
