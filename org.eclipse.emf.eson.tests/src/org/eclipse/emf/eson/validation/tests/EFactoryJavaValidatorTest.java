@@ -49,6 +49,10 @@ public class EFactoryJavaValidatorTest {
 		TestmodelPackage.eINSTANCE.toString();
 	}
 	
+	/**
+	 * Test validation of invalid attempt to name an object (which isn't
+	 * possible if it doesn't have a name mapping; i.e. no setName()).
+	 */
 	@Test
 	public void testNoNameFeature() throws Exception {
 		InputStream is = getClass().getResourceAsStream("/BuilderTests/NameAttribute.efactory");
