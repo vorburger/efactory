@@ -354,16 +354,16 @@ public class EFactoryJavaValidator extends AbstractEFactoryJavaValidator {
 
 	private void checkIsAssignable(EStructuralFeature eFeature,
 			EReference containmentValue, EClass candidate) {
-		boolean isAssignable = true;
 		EClassifier eType = eFeature.getEType();
 		if (eType == null)
 			return;
 		if (eType instanceof EClass) {
-			isAssignable = false;
 			EClass eClass = (EClass) eType;
-			isAssignable = EcoreUtil2.isAssignableFrom(eClass, candidate);
+			if (!EcoreUtil2.isAssignableFrom(eClass, candidate)) {
+				error("Wrong type. Expected instance of '" + eType.getName()
+						+ "'", containmentValue);
+			}
 		}
-		assertTrue("Wrong type. Expected instance of '" + eType.getName() + "'", containmentValue, isAssignable);
 	}
 
 	private void checkIsNotContainment(EStructuralFeature eStructuralFeature) {
