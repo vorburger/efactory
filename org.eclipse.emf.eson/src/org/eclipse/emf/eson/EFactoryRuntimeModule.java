@@ -24,7 +24,9 @@ import org.eclipse.emf.eson.scoping.EFactoryQualifiedNameProvider;
 import org.eclipse.emf.eson.scoping.EPackageScopeProvider;
 import org.eclipse.emf.eson.scoping.IEPackageScopeProvider;
 import org.eclipse.emf.eson.scoping.WarningErrorHandlerWithoutNoSuchMethodException;
+import org.eclipse.emf.eson.validation.ESONLinkingDiagnosticMessageProvider;
 import org.eclipse.xtext.generator.IGenerator;
+import org.eclipse.xtext.linking.ILinkingDiagnosticMessageProvider;
 import org.eclipse.xtext.naming.IQualifiedNameProvider;
 import org.eclipse.xtext.parser.antlr.IReferableElementsUnloader;
 import org.eclipse.xtext.parser.antlr.IReferableElementsUnloader.GenericUnloader;
@@ -98,7 +100,6 @@ public class EFactoryRuntimeModule extends AbstractEFactoryRuntimeModule {
 		return org.eclipse.xtext.xbase.annotations.validation.DerivedStateAwareResourceValidator.class;
 	}
 	
-	// NO @Override
 	public Class<? extends IGenerator> bindIGenerator() {
 		return EFactoryJSONGenerator.class;
 	}
@@ -110,5 +111,9 @@ public class EFactoryRuntimeModule extends AbstractEFactoryRuntimeModule {
 	@Override
 	public Class<? extends IQualifiedNameProvider> bindIQualifiedNameProvider() {
 		return EFactoryQualifiedNameProvider.class;
+	}
+
+	public Class<? extends ILinkingDiagnosticMessageProvider> bindILinkingDiagnosticMessageProvider() {
+		return ESONLinkingDiagnosticMessageProvider.class;
 	}
 }

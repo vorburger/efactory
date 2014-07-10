@@ -10,9 +10,11 @@
  ******************************************************************************/
 package org.eclipse.emf.eson.validation.tests;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.io.InputStream;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -27,6 +29,10 @@ import org.eclipse.xtext.junit4.XtextRunner;
 import org.eclipse.xtext.junit4.util.ParseHelper;
 import org.eclipse.xtext.junit4.validation.AssertableDiagnostics;
 import org.eclipse.xtext.junit4.validation.ValidatorTester;
+import org.eclipse.xtext.util.CancelIndicator;
+import org.eclipse.xtext.validation.CheckMode;
+import org.eclipse.xtext.validation.IResourceValidator;
+import org.eclipse.xtext.validation.Issue;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -45,6 +51,7 @@ public class EFactoryJavaValidatorTest {
 	@Inject ResourceSet rs;
 	@Inject ParseHelper<EObject> parseHelper;
 	@Inject ValidatorTester<EFactoryJavaValidator> tester;
+	@Inject IResourceValidator resourceValidator;
 	
 	@BeforeClass // This *HAS* to be @BeforeClass, a @Before doesn't work 
 	public static void setUp() throws Exception {
@@ -88,6 +95,14 @@ public class EFactoryJavaValidatorTest {
 		AssertableDiagnostics diag = tester.validate(testModel);
 		// dumpDiagnostics(diag);
 		diag.assertError(EFactoryJavaValidator.ERR_BROKEN_REFERENCE, "ItsNotLinkedYet");
+		
+		// It's important to additionally test using an IResourceValidator that
+		// we really do only have 1 error, because the ValidatorTester doesn't
+		// catch errors added from LazyLinkingResource's getEObject() &
+		// createAndAddDiagnostic(). Implementation wise this tests that the
+		// suppression in ESONLinkingDiagnosticMessageProvider works.
+		List<Issue> issues = resourceValidator.validate(testModel.eResource(), CheckMode.ALL, CancelIndicator.NullImpl);
+		assertEquals(1, issues.size());
 	}
 	
 	protected void dumpDiagnostics(AssertableDiagnostics diag) {
