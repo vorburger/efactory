@@ -37,6 +37,11 @@
 			<layout>p2</layout>
 		</repository>
 		<repository>
+			<id>p2.eclipse.emf</id>
+			<url>http://download.eclipse.org/modeling/emf/emf/updates/releases/</url>
+			<layout>p2</layout>
+		</repository>
+		<repository>
 			<id>p2.eclipse.xtext</id>
 			<url>http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/</url>
 			<layout>p2</layout>
