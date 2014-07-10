@@ -21,7 +21,6 @@ import javax.inject.Inject;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.eson.EFactoryInjectorProvider;
 import org.eclipse.emf.eson.validation.EFactoryJavaValidator;
@@ -33,8 +32,7 @@ import org.eclipse.xtext.junit4.validation.ValidatorTester;
 import org.eclipse.xtext.validation.CheckMode;
 import org.eclipse.xtext.validation.IResourceValidator;
 import org.eclipse.xtext.validation.Issue;
-import org.junit.Before;
-import org.junit.Ignore;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -54,9 +52,8 @@ public class EFactoryJavaValidatorTest {
 	@Inject ValidatorTester<EFactoryJavaValidator> tester;
 	@Inject IResourceValidator resourceValidator;
 	
-	@Before
-	public void setUp() throws Exception {
-		EcorePackage.eINSTANCE.toString();
+	@BeforeClass // This *HAS* to be @BeforeClass, a @Before doesn't work 
+	public static void setUp() throws Exception {
 		TestmodelPackage.eINSTANCE.toString();
 	}
 	
@@ -80,13 +77,8 @@ public class EFactoryJavaValidatorTest {
 	 * that there is only one (non-regression).
 	 * 
 	 * The solution to fix the problem above was to bind the DerivedStateAwareResourceValidator as IResourceValidator.
-	 * 
-	 * Unfortunately the test doesn't currently work.. before the DerivedStateAwareResourceValidator
-	 * it used to always return 1 issue (instead of 2), and now 0 (instead of 1). 
-	 * ACTUALLY CURRENTLY IT RETURNS 5 ERRORS???
 	 */
 	@Test
-	@Ignore // TODO I don't know how to get this test to work.. can anyone help?
 	public void testOnlyOneErrorForMissingRequiredProperty() throws Exception {
 		EObject testModel = parseHelper.parse("use testmodel.* TestModel { }");
 		List<Issue> issues = resourceValidator.validate(testModel.eResource(), CheckMode.ALL, null);
