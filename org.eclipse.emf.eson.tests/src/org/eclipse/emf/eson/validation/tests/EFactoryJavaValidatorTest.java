@@ -95,6 +95,12 @@ public class EFactoryJavaValidatorTest {
 		AssertableDiagnostics diag = tester.validate(testModel);
 		// dumpDiagnostics(diag);
 		diag.assertError(org.eclipse.xtext.diagnostics.Diagnostic.LINKING_DIAGNOSTIC, "ItsNotLinkedYet");
+		// Message must include correct type of broken link. This is less
+		// obvious than it may seem at first.. because a Reference value is
+		// just an [EObject] in the grammar, LinkingDiagnosticMessageProvider
+		// cannot get this right - but we do in our custom
+		// EFactoryJavaValidator.checkIsBrokenReference().
+		// TODO diag.assertErrorContains("TestModel");
 		
 		// It's important to additionally test using an IResourceValidator that
 		// we really do only have 1 error, because the ValidatorTester doesn't

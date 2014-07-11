@@ -345,9 +345,10 @@ public class EFactoryJavaValidator extends AbstractEFactoryJavaValidator {
 		if (!refObj.eIsProxy()) {
 			return false;
 		} else {
+			String referenceTypeName = "reference"; // TODO FIXME
 			String crossRefText = xtextProxyUtil.getProxyCrossRefAsString(reference, refObj);
-			error("Unknown reference: " + crossRefText, reference,
-					EFactoryPackage.Literals.REFERENCE__VALUE,
+			error("Unknown " + referenceTypeName + ": " + crossRefText,
+					reference, EFactoryPackage.Literals.REFERENCE__VALUE,
 					// It's super important that we use this std. Xtext error
 					// code, so that the Quick Fix for broken references still
 					// works as it would had the standard 
