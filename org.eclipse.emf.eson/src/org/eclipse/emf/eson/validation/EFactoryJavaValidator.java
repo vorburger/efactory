@@ -57,7 +57,6 @@ public class EFactoryJavaValidator extends AbstractEFactoryJavaValidator {
 	// TODO There is A LOT of unnecessary String concatenation happening here, due to assertTrue.. Measure perf. impact of rewrite as if; suggest to @Deprecated assertTrue? 
 	
 	public static final String ERR_CANNOT_NAME = "cannotname";
-	public static final String ERR_BROKEN_REFERENCE = "brokenref";
 
 	// NOTE: There are a lot of possible NullPointerException in here in the
 	// scenario where some reference types are still proxies.. but the NPEs get
@@ -347,7 +346,14 @@ public class EFactoryJavaValidator extends AbstractEFactoryJavaValidator {
 			return false;
 		} else {
 			String crossRefText = xtextProxyUtil.getProxyCrossRefAsString(reference, refObj);
-			error("Unknown reference: " + crossRefText, reference, EFactoryPackage.Literals.REFERENCE__VALUE, ERR_BROKEN_REFERENCE);
+			error("Unknown reference: " + crossRefText, reference,
+					EFactoryPackage.Literals.REFERENCE__VALUE,
+					// It's super important that we use this std. Xtext error
+					// code, so that the Quick Fix for broken references still
+					// works as it would had the standard 
+					// LinkingDiagnosticMessageProvider
+					// instead of us here added this error
+					org.eclipse.xtext.diagnostics.Diagnostic.LINKING_DIAGNOSTIC);
 			return true;
 		}
 	}

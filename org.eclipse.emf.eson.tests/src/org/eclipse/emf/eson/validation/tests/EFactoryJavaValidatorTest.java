@@ -94,7 +94,7 @@ public class EFactoryJavaValidatorTest {
 		EObject testModel = parseHelper.parse("use testmodel.* TestModel test { singleRequired: SingleRequired { parentReference: ItsNotLinkedYet } }");
 		AssertableDiagnostics diag = tester.validate(testModel);
 		// dumpDiagnostics(diag);
-		diag.assertError(EFactoryJavaValidator.ERR_BROKEN_REFERENCE, "ItsNotLinkedYet");
+		diag.assertError(org.eclipse.xtext.diagnostics.Diagnostic.LINKING_DIAGNOSTIC, "ItsNotLinkedYet");
 		
 		// It's important to additionally test using an IResourceValidator that
 		// we really do only have 1 error, because the ValidatorTester doesn't
