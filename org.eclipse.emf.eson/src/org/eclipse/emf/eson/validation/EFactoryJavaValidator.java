@@ -324,16 +324,23 @@ public class EFactoryJavaValidator extends AbstractEFactoryJavaValidator {
 	}
 
 	private EClass getReferencedType(Reference reference) {
-		// The getValue() here will resolve the proxy, and load the referenced
-		// resource.. technically this could be optimized by only looking into
-		// the index to get its EClass.
-		EObject referenceObject = reference.getValue();
-		if (referenceObject instanceof NewObject) {
-			NewObject newObject = (NewObject) referenceObject;
-			return newObject.getEClass();
-		} else {
-			return referenceObject.eClass();
+		EObject referenceContainer = reference.eContainer();
+		while (referenceContainer instanceof MultiValue) {
+			referenceContainer = referenceContainer.eContainer();
 		}
+		if (!(referenceContainer instanceof Feature)) {
+			// Technically this should never happen,
+			// according to current EFactory.xtext grammar
+			return EcorePackage.Literals.EOBJECT;
+		}
+		Feature referenceFeature = (Feature) referenceContainer;
+		EStructuralFeature referenceEFeature = referenceFeature.getEFeature();
+		if (!(referenceEFeature instanceof EReference)) {
+			// Technically this should never happen..
+			return EcorePackage.Literals.EOBJECT;
+		}
+		EReference referenceEReference = (EReference) referenceEFeature;
+		return referenceEReference.getEReferenceType();
 	}
 
 	private boolean checkIsBrokenReference(EStructuralFeature eFeature, Reference reference) {
@@ -345,7 +352,7 @@ public class EFactoryJavaValidator extends AbstractEFactoryJavaValidator {
 		if (!refObj.eIsProxy()) {
 			return false;
 		} else {
-			String referenceTypeName = "reference"; // TODO FIXME
+			String referenceTypeName = getReferencedType(reference).getName();
 			String crossRefText = xtextProxyUtil.getProxyCrossRefAsString(reference, refObj);
 			error("Unknown " + referenceTypeName + ": " + crossRefText,
 					reference, EFactoryPackage.Literals.REFERENCE__VALUE,

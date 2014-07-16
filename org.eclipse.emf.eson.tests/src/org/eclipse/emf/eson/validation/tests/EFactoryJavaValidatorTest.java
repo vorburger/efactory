@@ -92,7 +92,7 @@ public class EFactoryJavaValidatorTest {
 		// just an [EObject] in the grammar, LinkingDiagnosticMessageProvider
 		// cannot get this right - but we do in our custom
 		// EFactoryJavaValidator.checkIsBrokenReference().
-		// TODO diag.assertErrorContains("TestModel");
+		diag.assertErrorContains("TestModel");
 		
 		// It's important to additionally test using an IResourceValidator that
 		// we really do only have 1 error, because the ValidatorTester doesn't
