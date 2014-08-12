@@ -169,6 +169,15 @@ public interface TestmodelFactory extends EFactory {
 	NoName createNoName();
 
 	/**
+	 * Returns a new object of class '<em>Enum List Test Container</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Enum List Test Container</em>'.
+	 * @generated
+	 */
+	EnumListTestContainer createEnumListTestContainer();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

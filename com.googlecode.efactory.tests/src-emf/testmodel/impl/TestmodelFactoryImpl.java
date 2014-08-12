@@ -101,6 +101,7 @@ public class TestmodelFactoryImpl extends EFactoryImpl implements
 			case TestmodelPackage.DEFAULT_NAME: return createDefaultName();
 			case TestmodelPackage.CUSTOM_NAME: return createCustomName();
 			case TestmodelPackage.NO_NAME: return createNoName();
+			case TestmodelPackage.ENUM_LIST_TEST_CONTAINER: return createEnumListTestContainer();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -267,6 +268,16 @@ public class TestmodelFactoryImpl extends EFactoryImpl implements
 	public NoName createNoName() {
 		NoNameImpl noName = new NoNameImpl();
 		return noName;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EnumListTestContainer createEnumListTestContainer() {
+		EnumListTestContainerImpl enumListTestContainer = new EnumListTestContainerImpl();
+		return enumListTestContainer;
 	}
 
 	/**

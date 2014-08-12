@@ -88,4 +88,4 @@ terminal DATE returns ecore::EDate : ('0'..'9')+ '.' ('0'..'9')+ '.' ('0'..'9')+
 // (NOTE: This terminal must be named 'ID' as well, not some new ID2 - unless you write a new ValueConverter for it.)
 terminal ID : '^'?('a'..'z'|'A'..'Z'|'_'|',') ('a'..'z'|'A'..'Z'|'_'|','|'0'..'9')*;
 
-// PS: Order of terminals appears to matter - ID needs to come after BOOLEAN
+// PS: Order of terminals appears to matter - ID needs to come after BOOLEAN 

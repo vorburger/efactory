@@ -151,12 +151,21 @@ public interface TestmodelPackage extends EPackage {
 	int TEST_MODEL__NAME_ATTRIBUTE_TEST = 8;
 
 	/**
+	 * The feature id for the '<em><b>Enum List Test Container</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TEST_MODEL__ENUM_LIST_TEST_CONTAINER = 9;
+
+	/**
 	 * The number of structural features of the '<em>Test Model</em>' class.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TEST_MODEL_FEATURE_COUNT = 9;
+	int TEST_MODEL_FEATURE_COUNT = 10;
 
 	/**
 	 * The meta object id for the '{@link testmodel.impl.ChildImpl <em>Child</em>}' class.
@@ -896,6 +905,34 @@ public interface TestmodelPackage extends EPackage {
 	int NO_NAME_FEATURE_COUNT = 0;
 
 	/**
+	 * The meta object id for the '{@link testmodel.impl.EnumListTestContainerImpl <em>Enum List Test Container</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see testmodel.impl.EnumListTestContainerImpl
+	 * @see testmodel.impl.TestmodelPackageImpl#getEnumListTestContainer()
+	 * @generated
+	 */
+	int ENUM_LIST_TEST_CONTAINER = 17;
+
+	/**
+	 * The feature id for the '<em><b>Sample Literals</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENUM_LIST_TEST_CONTAINER__SAMPLE_LITERALS = 0;
+
+	/**
+	 * The number of structural features of the '<em>Enum List Test Container</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENUM_LIST_TEST_CONTAINER_FEATURE_COUNT = 1;
+
+	/**
 	 * The meta object id for the '{@link testmodel.SampleEnum
 	 * <em>Sample Enum</em>}' enum. <!-- begin-user-doc --> <!-- end-user-doc
 	 * -->
@@ -904,7 +941,7 @@ public interface TestmodelPackage extends EPackage {
 	 * @see testmodel.impl.TestmodelPackageImpl#getSampleEnum()
 	 * @generated
 	 */
-	int SAMPLE_ENUM = 17;
+	int SAMPLE_ENUM = 18;
 
 	/**
 	 * Returns the meta object for class '{@link testmodel.TestModel <em>Test Model</em>}'.
@@ -1014,6 +1051,17 @@ public interface TestmodelPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getTestModel_NameAttributeTest();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link testmodel.TestModel#getEnumListTestContainer <em>Enum List Test Container</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Enum List Test Container</em>'.
+	 * @see testmodel.TestModel#getEnumListTestContainer()
+	 * @see #getTestModel()
+	 * @generated
+	 */
+	EReference getTestModel_EnumListTestContainer();
 
 	/**
 	 * Returns the meta object for class '{@link testmodel.Child <em>Child</em>}'.
@@ -1689,6 +1737,27 @@ public interface TestmodelPackage extends EPackage {
 	EClass getNoName();
 
 	/**
+	 * Returns the meta object for class '{@link testmodel.EnumListTestContainer <em>Enum List Test Container</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Enum List Test Container</em>'.
+	 * @see testmodel.EnumListTestContainer
+	 * @generated
+	 */
+	EClass getEnumListTestContainer();
+
+	/**
+	 * Returns the meta object for the attribute list '{@link testmodel.EnumListTestContainer#getSampleLiterals <em>Sample Literals</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Sample Literals</em>'.
+	 * @see testmodel.EnumListTestContainer#getSampleLiterals()
+	 * @see #getEnumListTestContainer()
+	 * @generated
+	 */
+	EAttribute getEnumListTestContainer_SampleLiterals();
+
+	/**
 	 * Returns the meta object for enum '{@link testmodel.SampleEnum <em>Sample Enum</em>}'.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @return the meta object for enum '<em>Sample Enum</em>'.
@@ -1799,6 +1868,14 @@ public interface TestmodelPackage extends EPackage {
 		 * @generated
 		 */
 		EReference TEST_MODEL__NAME_ATTRIBUTE_TEST = eINSTANCE.getTestModel_NameAttributeTest();
+
+		/**
+		 * The meta object literal for the '<em><b>Enum List Test Container</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference TEST_MODEL__ENUM_LIST_TEST_CONTAINER = eINSTANCE.getTestModel_EnumListTestContainer();
 
 		/**
 		 * The meta object literal for the '{@link testmodel.impl.ChildImpl <em>Child</em>}' class.
@@ -2290,6 +2367,24 @@ public interface TestmodelPackage extends EPackage {
 		 * @generated
 		 */
 		EClass NO_NAME = eINSTANCE.getNoName();
+
+		/**
+		 * The meta object literal for the '{@link testmodel.impl.EnumListTestContainerImpl <em>Enum List Test Container</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see testmodel.impl.EnumListTestContainerImpl
+		 * @see testmodel.impl.TestmodelPackageImpl#getEnumListTestContainer()
+		 * @generated
+		 */
+		EClass ENUM_LIST_TEST_CONTAINER = eINSTANCE.getEnumListTestContainer();
+
+		/**
+		 * The meta object literal for the '<em><b>Sample Literals</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ENUM_LIST_TEST_CONTAINER__SAMPLE_LITERALS = eINSTANCE.getEnumListTestContainer_SampleLiterals();
 
 		/**
 		 * The meta object literal for the '{@link testmodel.SampleEnum <em>Sample Enum</em>}' enum.

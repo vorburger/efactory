@@ -31,6 +31,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import testmodel.AttributeSample;
 import testmodel.AttributeTestContainer;
 import testmodel.Child;
+import testmodel.EnumListTestContainer;
 import testmodel.NameAttributeContainer;
 import testmodel.ReferenceTestContainer;
 import testmodel.SingleOptional;
@@ -53,6 +54,7 @@ import testmodel.TestmodelPackage;
  *   <li>{@link testmodel.impl.TestModelImpl#getReferenceTestContainer <em>Reference Test Container</em>}</li>
  *   <li>{@link testmodel.impl.TestModelImpl#getAttributeTest <em>Attribute Test</em>}</li>
  *   <li>{@link testmodel.impl.TestModelImpl#getNameAttributeTest <em>Name Attribute Test</em>}</li>
+ *   <li>{@link testmodel.impl.TestModelImpl#getEnumListTestContainer <em>Enum List Test Container</em>}</li>
  * </ul>
  * </p>
  *
@@ -157,6 +159,16 @@ public class TestModelImpl extends EObjectImpl implements TestModel {
 	 * @ordered
 	 */
 	protected EList<NameAttributeContainer> nameAttributeTest;
+
+	/**
+	 * The cached value of the '{@link #getEnumListTestContainer() <em>Enum List Test Container</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getEnumListTestContainer()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<EnumListTestContainer> enumListTestContainer;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -397,6 +409,18 @@ public class TestModelImpl extends EObjectImpl implements TestModel {
 	}
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<EnumListTestContainer> getEnumListTestContainer() {
+		if (enumListTestContainer == null) {
+			enumListTestContainer = new EObjectContainmentEList<EnumListTestContainer>(EnumListTestContainer.class, this, TestmodelPackage.TEST_MODEL__ENUM_LIST_TEST_CONTAINER);
+		}
+		return enumListTestContainer;
+	}
+
+	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -418,6 +442,8 @@ public class TestModelImpl extends EObjectImpl implements TestModel {
 				return ((InternalEList<?>)getAttributeTest()).basicRemove(otherEnd, msgs);
 			case TestmodelPackage.TEST_MODEL__NAME_ATTRIBUTE_TEST:
 				return ((InternalEList<?>)getNameAttributeTest()).basicRemove(otherEnd, msgs);
+			case TestmodelPackage.TEST_MODEL__ENUM_LIST_TEST_CONTAINER:
+				return ((InternalEList<?>)getEnumListTestContainer()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -448,6 +474,8 @@ public class TestModelImpl extends EObjectImpl implements TestModel {
 				return getAttributeTest();
 			case TestmodelPackage.TEST_MODEL__NAME_ATTRIBUTE_TEST:
 				return getNameAttributeTest();
+			case TestmodelPackage.TEST_MODEL__ENUM_LIST_TEST_CONTAINER:
+				return getEnumListTestContainer();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -491,6 +519,10 @@ public class TestModelImpl extends EObjectImpl implements TestModel {
 				getNameAttributeTest().clear();
 				getNameAttributeTest().addAll((Collection<? extends NameAttributeContainer>)newValue);
 				return;
+			case TestmodelPackage.TEST_MODEL__ENUM_LIST_TEST_CONTAINER:
+				getEnumListTestContainer().clear();
+				getEnumListTestContainer().addAll((Collection<? extends EnumListTestContainer>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -529,6 +561,9 @@ public class TestModelImpl extends EObjectImpl implements TestModel {
 			case TestmodelPackage.TEST_MODEL__NAME_ATTRIBUTE_TEST:
 				getNameAttributeTest().clear();
 				return;
+			case TestmodelPackage.TEST_MODEL__ENUM_LIST_TEST_CONTAINER:
+				getEnumListTestContainer().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -558,6 +593,8 @@ public class TestModelImpl extends EObjectImpl implements TestModel {
 				return attributeTest != null && !attributeTest.isEmpty();
 			case TestmodelPackage.TEST_MODEL__NAME_ATTRIBUTE_TEST:
 				return nameAttributeTest != null && !nameAttributeTest.isEmpty();
+			case TestmodelPackage.TEST_MODEL__ENUM_LIST_TEST_CONTAINER:
+				return enumListTestContainer != null && !enumListTestContainer.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
