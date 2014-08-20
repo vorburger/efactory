@@ -32,8 +32,8 @@
  
 	<repositories>
 		<repository>
-			<id>p2.eclipse.juno</id>
-			<url>http://download.eclipse.org/releases/juno</url>
+			<id>p2.eclipse.luna</id>
+			<url>http://download.eclipse.org/eclipse/updates/4.4/</url>
 			<layout>p2</layout>
 		</repository>
 		<repository>
@@ -49,6 +49,11 @@
 		<repository>
 			<id>p2.eclipse.emf.compare</id>
 			<url>http://download.eclipse.org/modeling/emf/compare/updates/releases/</url>
+			<layout>p2</layout>
+		</repository>
+		<repository>
+			<id>p2.eclipse.orbit-R20140525021250</id>
+			<url>http://download.eclipse.org/tools/orbit/downloads/drops/R20140525021250/repository/</url>
 			<layout>p2</layout>
 		</repository>
 	</repositories>
