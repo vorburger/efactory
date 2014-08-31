@@ -1,4 +1,19 @@
-package org.eclipse.emf.eson.ui.editor.tree;
+/*
+ * #%L
+ * org.eclipse.emf.eson.ui
+ * %%
+ * Copyright (C) 2010 ProxiAD
+ * %%
+ * This program and the accompanying materials are made available under the terms of the Eclipse Public License v1.0
+ * and Eclipse Distribution License v. 1.0 which accompanies this distribution.
+ * The Eclipse Public License is available at http://www.eclipse.org/legal/epl-v10.html
+ * and the Eclipse Distribution License is available at
+ * http://www.eclipse.org/org/documents/edl-v10.php.
+ * #L%
+ *
+ * Contributors:
+ *    Obeo - initial API and implementation
+ */
 /**
  * Copyright (c) 2010 ProxiAD
  * 
@@ -10,6 +25,7 @@ package org.eclipse.emf.eson.ui.editor.tree;
  * Contributors:
  *    Obeo - initial API and implementation
  */
+package org.eclipse.emf.eson.ui.editor.tree;
 
 import java.util.ArrayList;
 import java.util.Collection;

@@ -1,14 +1,16 @@
-/*******************************************************************************
- * Copyright (c) 2009 Sebastian Benz and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- * 
- * Contributors:
- *     Sebastian Benz - initial API and implementation
- *     Michael Vorburger - extensions and bug fixes
- ******************************************************************************/
+/*
+ * #%L
+ * org.eclipse.emf.eson
+ * %%
+ * Copyright (C) 2009 - 2014 Sebastian Benz, Michael Vorburger and others.
+ * %%
+ * This program and the accompanying materials are made available under the terms of the Eclipse Public License v1.0
+ * and Eclipse Distribution License v. 1.0 which accompanies this distribution.
+ * The Eclipse Public License is available at http://www.eclipse.org/legal/epl-v10.html
+ * and the Eclipse Distribution License is available at
+ * http://www.eclipse.org/org/documents/edl-v10.php.
+ * #L%
+ */
 package org.eclipse.emf.eson.validation;
 
 import java.util.HashSet;
@@ -52,6 +54,12 @@ import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.CheckType;
 
+/**
+ * Validator.
+ *  
+ * @author Sebastian Benz - initial API and implementation
+ * @author Michael Vorburger - extensions and bug fixes
+ */
 public class EFactoryJavaValidator extends AbstractEFactoryJavaValidator {
 
 	// TODO There is A LOT of unnecessary String concatenation happening here, due to assertTrue.. Measure perf. impact of rewrite as if; suggest to @Deprecated assertTrue? 
