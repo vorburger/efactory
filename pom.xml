@@ -7,13 +7,24 @@
 	<artifactId>eson</artifactId>
 	<version>0.10.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
+
+	<name>ESON</name>
+	<description>ESON is the EMF (Eclipse Modeling Framework) Simple Object Notation</description>
+	<url>https://github.com/vorburger/efactory</url>
+	<inceptionYear>2009</inceptionYear>
 	
+	<organization>
+	    <name>Michael Vorburger</name>
+	    <url>http://www.vorburger.ch</url>
+    </organization>
+
 	<properties>
 		<tycho-version>0.20.0</tycho-version>
 		<!-- <xtext-version>2.5.3</xtext-version> -->
 		<!-- <fornax-version>3.4.0</fornax-version> -->
 		<!-- There is test which doesn't work on Windows, and this serves to exclude it -->
 		<tycho.surefire.excludes>NADA</tycho.surefire.excludes>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
 	<profiles>
@@ -255,6 +266,28 @@
 								<source>xtend-gen</source>
 							</sources>
 						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>license-maven-plugin</artifactId>
+				<version>1.7</version>
+				<configuration>
+					<licenseName>epl_v1</licenseName>
+					<addJavaLicenseAfterPackage>false</addJavaLicenseAfterPackage>
+					<failOnMissingHeader>true</failOnMissingHeader>
+					<failOnNotUptodateHeader>true</failOnNotUptodateHeader>
+					<roots>
+						<root>src</root>
+					</roots>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>validate</phase>
+						<goals>
+							<goal>check-file-header</goal>
+						</goals>
 					</execution>
 				</executions>
 			</plugin>
