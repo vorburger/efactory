@@ -22,7 +22,7 @@ import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.eson.EFactoryInjectorProvider;
+import org.eclipse.emf.eson.tests.util.ESONWithTestmodelInjectorProvider;
 import org.eclipse.emf.eson.validation.EFactoryJavaValidator;
 import org.eclipse.xtext.junit4.InjectWith;
 import org.eclipse.xtext.junit4.XtextRunner;
@@ -33,11 +33,8 @@ import org.eclipse.xtext.util.CancelIndicator;
 import org.eclipse.xtext.validation.CheckMode;
 import org.eclipse.xtext.validation.IResourceValidator;
 import org.eclipse.xtext.validation.Issue;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import testmodel.TestmodelPackage;
 
 /**
  * Tests for EFactoryJavaValidator.
@@ -45,18 +42,13 @@ import testmodel.TestmodelPackage;
  * @author Michael Vorburger
  */
 @RunWith(XtextRunner.class)
-@InjectWith(EFactoryInjectorProvider.class)
+@InjectWith(ESONWithTestmodelInjectorProvider.class)
 public class EFactoryJavaValidatorTest {
 
 	@Inject ResourceSet rs;
 	@Inject ParseHelper<EObject> parseHelper;
 	@Inject ValidatorTester<EFactoryJavaValidator> tester;
 	@Inject IResourceValidator resourceValidator;
-	
-	@BeforeClass // This *HAS* to be @BeforeClass, a @Before doesn't work 
-	public static void setUp() throws Exception {
-		TestmodelPackage.eINSTANCE.toString();
-	}
 	
 	/**
 	 * Test validation of invalid attempt to name an object (which isn't
@@ -100,7 +92,7 @@ public class EFactoryJavaValidatorTest {
 		// just an [EObject] in the grammar, LinkingDiagnosticMessageProvider
 		// cannot get this right - but we do in our custom
 		// EFactoryJavaValidator.checkIsBrokenReference().
-		// TODO diag.assertErrorContains("TestModel");
+		diag.assertErrorContains("TestModel");
 		
 		// It's important to additionally test using an IResourceValidator that
 		// we really do only have 1 error, because the ValidatorTester doesn't
