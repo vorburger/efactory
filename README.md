@@ -18,6 +18,8 @@ How to Develop?
 
 Get on the [eclipse-emf-eson-dev Google Group](https://groups.google.com/forum/#!forum/eclipse-emf-eson-dev) and start yapping...
 
+The recommended way to get a ready-to-rock development workspace is to the [Eclipse Oomph Installer](https://wiki.eclipse.org/Eclipse_Oomph_Installer), which includes a Setup Model for ESON.  Alternatively you could also just do it old-style and manually:
+
 * get an Eclipse Dev IDE with PDE & modeling (Xtext) 
 * import all projects in this repository into Eclipse
 * you should now have no red 'exclamation mark' "The project cannot be built" errors, but will still have normal red 'cross' icons about missing things.  This will get resolve once you run the org.eclipse.emf.eson/src/org/eclipse/emf/eson/GenerateEFactory.mwe2 and then the /org.eclipse.emf.eson.tests.xtextintegration/src/org/eclipse/emf/eson/xtextintegration/GenerateMyDsl.mwe2.  Ignore the "errors existing in require project(s)" - just run the *.mwe2.  If you hit a FileNotFoundOnClasspathException ...  Couldn't find resource on classpath. URI was 'classpath:*.xtext' then you might need a Clean all project.
