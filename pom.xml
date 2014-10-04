@@ -157,7 +157,6 @@
 		<module>org.eclipse.emf.eson.tests.xtextintegration.ui</module>
 
 		<module>org.eclipse.emf.eson.tests.feature</module>
-		<module>org.eclipse.emf.eson.help</module>
 		<module>org.eclipse.emf.eson.repository</module>
 	</modules>
 	
