@@ -53,6 +53,12 @@ public class EFactoryJavaValidatorTest {
 	@Inject ValidatorTester<EFactoryJavaValidator> tester;
 	@Inject IResourceValidator resourceValidator;
 	
+	@Test
+	public void testNoValidationError() throws Exception {
+		EObject testModel = parseHelper.parse("use testmodel.* TestModel { singleRequired: SingleRequired { } }");
+		dump(tester.validate(testModel)).assertDiagnosticsCount(0);
+	}
+
 	/**
 	 * Test validation of invalid attempt to name an object (which isn't
 	 * possible if it doesn't have a name mapping; i.e. no setName()).
@@ -62,7 +68,7 @@ public class EFactoryJavaValidatorTest {
 		InputStream is = getClass().getResourceAsStream("/BuilderTests/NameAttribute.efactory");
 		assertNotNull(is);
 		EObject testModel = parseHelper.parse(is, URI.createURI("BuilderTests/NameAttribute.efactory"), null, rs);
-		tester.validate(testModel).assertError(EFactoryJavaValidator.ERR_CANNOT_NAME);
+		tester.validate(testModel).assertDiagnosticsCount(1).assertError(EFactoryJavaValidator.ERR_CANNOT_NAME);
 	}
 
 	/**
@@ -75,7 +81,7 @@ public class EFactoryJavaValidatorTest {
 	@Test
 	public void testOnlyOneErrorForMissingRequiredProperty() throws Exception {
 		EObject testModel = parseHelper.parse("use testmodel.* TestModel { }");
-		tester.validate(testModel).assertErrorContains("The required feature");
+		tester.validate(testModel).assertDiagnosticsCount(1).assertErrorContains("The required feature");
 	}
 	
 	/**
@@ -88,7 +94,7 @@ public class EFactoryJavaValidatorTest {
 	public void testOnlyOneErrorForBrokenReference() throws Exception {
 		EObject testModel = parseHelper.parse("use testmodel.* TestModel test { singleRequired: SingleRequired { parentReference: ItsNotLinkedYet } }");
 		AssertableDiagnostics diag = tester.validate(testModel);
-		// dumpDiagnostics(diag);
+		// dump(diag);
 		diag.assertError(org.eclipse.xtext.diagnostics.Diagnostic.LINKING_DIAGNOSTIC, "ItsNotLinkedYet");
 		// Message must include correct type of broken link. This is less
 		// obvious than it may seem at first.. because a Reference value is
@@ -106,12 +112,21 @@ public class EFactoryJavaValidatorTest {
 		assertEquals(1, issues.size());
 	}
 	
-	protected void dumpDiagnostics(AssertableDiagnostics diag) {
+	@Test
+	public void testTypeBoolean() throws Exception {
+		EObject testModel = parseHelper.parse("use testmodel.* TestModel { attributeTest: [ AttributeTestContainer { oneBool: 123 } ] singleRequired: SingleRequired { } }");
+		dump(tester.validate(testModel)).assertDiagnosticsCount(1).assertError(EFactoryJavaValidator.ERR_BAD_TYPE 
+				// TODO , "EF Attribute 'oneBool' must be one of type(s) EBoolean but was EInt"
+			);
+	}
+	
+	protected AssertableDiagnostics dump(AssertableDiagnostics diag) {
 		Iterable<Diagnostic> all = diag.getAllDiagnostics();
 		for (Diagnostic diagnostic : all) {
 			System.out.println(diagnostic.getMessage());
 			if (diagnostic.getException() != null)
 				diagnostic.getException().printStackTrace();
 		}
+		return diag;
 	}
 }
