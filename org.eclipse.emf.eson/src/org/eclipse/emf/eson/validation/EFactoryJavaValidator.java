@@ -74,25 +74,24 @@ public class EFactoryJavaValidator extends AbstractEFactoryJavaValidator {
 	protected @Inject NameAccessor nameAccessor;
 	protected @Inject XtextProxyUtil xtextProxyUtil;
 	
-	protected final class AttributeValidator extends EFactorySwitch<Boolean> {
-		private Feature feature;
+	protected class AttributeValidator extends EFactorySwitch<Boolean> {
 
 		@Override
 		public Boolean caseBooleanAttribute(BooleanAttribute object) {
 			EAttribute featureId = EFactoryPackage.Literals.BOOLEAN_ATTRIBUTE__VALUE;
-			return performAssert(featureId, EcorePackage.Literals.EBOOLEAN, EcorePackage.Literals.EBOOLEAN_OBJECT);
+			return performAssert(object, featureId, EcorePackage.Literals.EBOOLEAN, EcorePackage.Literals.EBOOLEAN_OBJECT);
 		}
 
 		@Override
 		public Boolean caseStringAttribute(StringAttribute object) {
 			EAttribute featureId = EFactoryPackage.Literals.STRING_ATTRIBUTE__VALUE;
-			return performAssert(featureId, EcorePackage.Literals.ESTRING);
+			return performAssert(object, featureId, EcorePackage.Literals.ESTRING);
 		}
 
 		@Override
 		public Boolean caseIntegerAttribute(IntegerAttribute object) {
 			EAttribute featureId = EFactoryPackage.Literals.INTEGER_ATTRIBUTE__VALUE;
-			return performAssert(featureId, EcorePackage.Literals.EINT,
+			return performAssert(object, featureId, EcorePackage.Literals.EINT,
 					EcorePackage.Literals.EINTEGER_OBJECT,
 					EcorePackage.Literals.ELONG,
 					EcorePackage.Literals.ELONG_OBJECT,
@@ -107,22 +106,13 @@ public class EFactoryJavaValidator extends AbstractEFactoryJavaValidator {
 		@Override
 		public Boolean caseEnumAttribute(EnumAttribute object) {
 			EReference featureId = EFactoryPackage.Literals.ENUM_ATTRIBUTE__VALUE;
+			Feature feature = getFeature(object);
 			boolean success = EcoreUtil3.isEnum(feature.getEFeature()
 					.getEType());
 			assertTrue("Attribute must be of type "
 					+ feature.getEFeature().getEType().getName()
 					+ " but was an Enumeration", featureId, success);
 			return success;
-		}
-
-		public Boolean validate(Feature feature, Attribute attribute) {
-			this.feature = feature;
-			try {
-				return doSwitch(attribute);
-			} finally {
-				// Memory leak without this!
-				this.feature = null;
-			}
 		}
 
 		@Override
@@ -140,15 +130,16 @@ public class EFactoryJavaValidator extends AbstractEFactoryJavaValidator {
 		@Override
 		public Boolean caseDoubleAttribute(DoubleAttribute object) {
 			EAttribute featureId = EFactoryPackage.Literals.DOUBLE_ATTRIBUTE__VALUE;
-			return performAssert(featureId, EcorePackage.Literals.EDOUBLE,
+			return performAssert(object, featureId, EcorePackage.Literals.EDOUBLE,
 					EcorePackage.Literals.EDOUBLE_OBJECT,
 					EcorePackage.Literals.EFLOAT,
 					EcorePackage.Literals.EFLOAT_OBJECT,
 					EcorePackage.Literals.EBIG_DECIMAL);
 		}
 
-		private boolean performAssert(EStructuralFeature featureId,
+		private boolean performAssert(Value value, EStructuralFeature featureId,
 				EDataType... validDatatypes) {
+			Feature feature = getFeature(value);
 			EClassifier expected = feature.getEFeature().getEType();
 
 			boolean success = false;
@@ -201,7 +192,8 @@ public class EFactoryJavaValidator extends AbstractEFactoryJavaValidator {
 		}
 	}
 
-	private AttributeValidator attributeValidator = new AttributeValidator();
+	// TODO Better make this Guice injected configurable..
+	private final AttributeValidator attributeValidator = new AttributeValidator();
 
 	@Check
 	public void checkNewObject(NewObject newObject) {
@@ -443,7 +435,7 @@ public class EFactoryJavaValidator extends AbstractEFactoryJavaValidator {
 		Feature feature = getFeature(attribute);
 		assertFalse("Value must be an attribute but is a reference", null, isEReference(feature.getEFeature()));
 
-		checkAttributeType(feature, attribute);
+		attributeValidator.doSwitch(attribute);
 	}
 
 	private void assertFalse(String message, EStructuralFeature feature, boolean value) {
@@ -452,10 +444,6 @@ public class EFactoryJavaValidator extends AbstractEFactoryJavaValidator {
 		}
 	}
 
-	private void checkAttributeType(Feature feature, Attribute attribute) {
-		attributeValidator.validate(feature, attribute);
-	}
-	
 	private Feature getFeature(Value value) {
 		Feature feature = EcoreUtil2.getContainerOfType(value, Feature.class);
 		if (feature == null)
