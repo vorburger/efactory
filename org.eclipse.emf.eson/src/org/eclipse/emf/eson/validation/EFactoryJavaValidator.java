@@ -65,6 +65,7 @@ public class EFactoryJavaValidator extends AbstractEFactoryJavaValidator {
 	// TODO There is A LOT of unnecessary String concatenation happening here, due to assertTrue.. Measure perf. impact of rewrite as if; suggest to @Deprecated assertTrue? 
 	
 	public static final String ERR_CANNOT_NAME = "cannotname";
+	public static final String ERR_BAD_TYPE = "badtype";
 
 	// NOTE: There are a lot of possible NullPointerException in here in the
 	// scenario where some reference types are still proxies.. but the NPEs get
@@ -73,7 +74,7 @@ public class EFactoryJavaValidator extends AbstractEFactoryJavaValidator {
 	protected @Inject NameAccessor nameAccessor;
 	protected @Inject XtextProxyUtil xtextProxyUtil;
 	
-	public final class AttributeValidator extends EFactorySwitch<Boolean> {
+	protected final class AttributeValidator extends EFactorySwitch<Boolean> {
 		private Feature feature;
 
 		@Override
@@ -116,7 +117,12 @@ public class EFactoryJavaValidator extends AbstractEFactoryJavaValidator {
 
 		public Boolean validate(Feature feature, Attribute attribute) {
 			this.feature = feature;
-			return doSwitch(attribute);
+			try {
+				return doSwitch(attribute);
+			} finally {
+				// Memory leak without this!
+				this.feature = null;
+			}
 		}
 
 		@Override
@@ -160,7 +166,7 @@ public class EFactoryJavaValidator extends AbstractEFactoryJavaValidator {
 				}
 				msg.append(" but was ");
 				msg.append(feature.getEFeature().getEType().getName());
-				error(msg.toString(), featureId);
+				error(msg.toString(), featureId, ERR_BAD_TYPE);
 			}
 			return success;
 		}
