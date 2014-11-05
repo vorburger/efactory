@@ -17,7 +17,6 @@ import java.text.SimpleDateFormat;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.eson.conversion.DATEValueConverter;
 import org.eclipse.emf.eson.conversion.TerminalConverters;
-import org.eclipse.emf.eson.generator.EFactoryJSONGenerator;
 import org.eclipse.emf.eson.resource.EFactoryDerivedStateComputer;
 import org.eclipse.emf.eson.resource.EFactoryLocationInFileProvider;
 import org.eclipse.emf.eson.resource.EFactoryResourceServiceProvider;
@@ -28,6 +27,7 @@ import org.eclipse.emf.eson.scoping.IEPackageScopeProvider;
 import org.eclipse.emf.eson.scoping.WarningErrorHandlerWithoutNoSuchMethodException;
 import org.eclipse.emf.eson.validation.ESONLinkingDiagnosticMessageProvider;
 import org.eclipse.xtext.generator.IGenerator;
+import org.eclipse.xtext.generator.IGenerator.NullGenerator;
 import org.eclipse.xtext.linking.ILinkingDiagnosticMessageProvider;
 import org.eclipse.xtext.naming.IQualifiedNameProvider;
 import org.eclipse.xtext.parser.antlr.IReferableElementsUnloader;
@@ -103,7 +103,7 @@ public class EFactoryRuntimeModule extends AbstractEFactoryRuntimeModule {
 	}
 	
 	public Class<? extends IGenerator> bindIGenerator() {
-		return EFactoryJSONGenerator.class;
+		return NullGenerator.class;
 	}
 
 	public Class<? extends IResourceServiceProvider> bindIResourceServiceProvider() {
