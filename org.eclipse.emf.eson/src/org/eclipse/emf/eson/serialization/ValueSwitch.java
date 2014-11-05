@@ -4,11 +4,10 @@
  * %%
  * Copyright (C) 2002- 2014 Sebastian Benz, Michael Vorburger and others
  * %%
- * This program and the accompanying materials are made available under the terms of the Eclipse Public License v1.0
- * and Eclipse Distribution License v. 1.0 which accompanies this distribution.
- * The Eclipse Public License is available at http://www.eclipse.org/legal/epl-v10.html
- * and the Eclipse Distribution License is available at
- * http://www.eclipse.org/org/documents/edl-v10.php.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
  * #L%
  */
 package org.eclipse.emf.eson.serialization;
@@ -22,8 +21,6 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EEnumLiteral;
 import org.eclipse.emf.eson.building.AbstractValueSwitch;
-import org.eclipse.emf.eson.util.EcoreUtil3;
-
 import org.eclipse.emf.eson.eFactory.BooleanAttribute;
 import org.eclipse.emf.eson.eFactory.DateAttribute;
 import org.eclipse.emf.eson.eFactory.DoubleAttribute;
@@ -32,6 +29,7 @@ import org.eclipse.emf.eson.eFactory.EnumAttribute;
 import org.eclipse.emf.eson.eFactory.IntegerAttribute;
 import org.eclipse.emf.eson.eFactory.StringAttribute;
 import org.eclipse.emf.eson.eFactory.Value;
+import org.eclipse.emf.eson.util.EcoreUtil3;
 
 // intentionally a package local class, the entry point to this package is FactoryBuilder, only
 class ValueSwitch extends AbstractValueSwitch<Value> {
