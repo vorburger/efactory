@@ -1,5 +1,0 @@
-use testModelWithXtextReference.*
-
-TestModelWithXtextReference {
-	model: gr1	
-}
