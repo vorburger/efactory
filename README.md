@@ -11,7 +11,7 @@ ESON was formerly known as EFactory, which originally started out on https://cod
 As of 2014-12, this project has been formally accept and integrated as a sub-project of the official 
 Eclipse Modeling Framework (EMF) on eclipse.org.  Sources here are for source code history forensics, only.
 
-So now SEE http://git.eclipse.org/c/emf/org.eclipse.emf.eson.git/ ...
+So now SEE https://wiki.eclipse.org/ESON (sources on http://git.eclipse.org/c/emf/org.eclipse.emf.eson.git/) ...
 
 Live long, and prosper.
 
